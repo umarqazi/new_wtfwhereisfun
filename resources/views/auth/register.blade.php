@@ -63,7 +63,6 @@
                         <div class="form-group">
                             <label for="role" class="col-md-4 control-label">User Type</label>
                             <div class="col-md-6">
-                                <label class="radio-inline"><input type="radio" name="role" value="Admin">Admin</label>
                                 <label class="radio-inline"><input type="radio" name="role" value="User">User</label>
                                 <label class="radio-inline"><input type="radio" name="role" value="Contributor">Contributor</label>
                             </div>
