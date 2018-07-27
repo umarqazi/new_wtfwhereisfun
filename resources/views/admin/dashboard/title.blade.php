@@ -26,10 +26,10 @@
 </style>
 
 <div class="title">
-    Laravel-admin
+    Contextionary
 </div>
 <div class="links">
-    <a href="https://github.com/z-song/laravel-admin" target="_blank">Github</a>
-    <a href="http://laravel-admin.org/docs"  target="_blank">Documentation</a>
-    <a href="http://laravel-admin.org/demo"  target="_blank">Demo</a>
+    <a href="https://github.com/techverx/contextionary" target="_blank">Github</a>
+    <a href="https://docs.google.com/spreadsheets/d/1pMSS7l_NH5X30j0ozjWlPRULekDLyjPVbrTVovMf50g/edit#gid=739850666"  target="_blank">Documentation</a>
+    <a href="https://techverx.atlassian.net/secure/RapidBoard.jspa?rapidView=12&projectKey=CON&view=planning.nodetail"  target="_blank">Jira</a>
 </div>
