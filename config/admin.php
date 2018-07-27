@@ -5,17 +5,17 @@ return [
     /*
      * Laravel-admin name.
      */
-    'name' => 'Laravel-admin',
+    'name' => 'Contextionary',
 
     /*
      * Logo in admin panel header.
      */
-    'logo' => '<b>Laravel</b> admin',
+    'logo' => '<b>Contextionary</b>',
 
     /*
      * Mini-logo in admin panel header.
      */
-    'logo-mini' => '<b>La</b>',
+    'logo-mini' => '<b>Cntx</b>',
 
     /*
      * Route configuration.
@@ -71,7 +71,7 @@ return [
         'disk' => 'admin',
 
         'directory' => [
-            'image' => 'images',
+            'image' => 'public/images',
             'file'  => 'files',
         ],
     ],
