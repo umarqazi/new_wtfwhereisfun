@@ -14,6 +14,8 @@
   <link rel="stylesheet" href="{{ admin_asset("/vendor/laravel-admin/AdminLTE/dist/css/AdminLTE.min.css") }}">
   <!-- iCheck -->
   <link rel="stylesheet" href="{{ admin_asset("/vendor/laravel-admin/AdminLTE/plugins/iCheck/square/blue.css") }}">
+  <!-- Admin Custom css -->
+  <link href="{{ asset('css/custom-admin.css') }}" rel="stylesheet">
 
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -25,11 +27,13 @@
 <body class="hold-transition login-page" @if(config('admin.login_background_image'))style="background: url({{config('admin.login_background_image')}}) no-repeat;background-size: cover;"@endif>
 <div class="login-box">
   <div class="login-logo">
-    <a href="{{ admin_base_path('/') }}"><b>{{config('admin.name')}}</b></a>
+    <a href="{{ admin_base_path('/') }}">
+      <img src="/storage/images/logo2.png" alt="logo">
+    </a>
   </div>
   <!-- /.login-logo -->
   <div class="login-box-body">
-    <p class="login-box-msg">{{ trans('admin.login') }}</p>
+    <h3 class="login-box-msg">{{ trans('admin.login') }}</h3>
 
     <form action="{{ admin_base_path('auth/login') }}" method="post">
       <div class="form-group has-feedback {!! !$errors->has('username') ?: 'has-error' !!}">
@@ -59,7 +63,7 @@
         <!-- /.col -->
         <div class="col-xs-4 col-md-offset-4">
           <input type="hidden" name="_token" value="{{ csrf_token() }}">
-          <button type="submit" class="btn btn-primary btn-block btn-flat">{{ trans('admin.login') }}</button>
+          <button type="submit" class="btn btn-primary btn-block">{{ trans('admin.login') }}</button>
         </div>
         <!-- /.col -->
       </div>
