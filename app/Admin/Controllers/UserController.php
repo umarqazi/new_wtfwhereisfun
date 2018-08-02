@@ -162,49 +162,6 @@ class UserController extends Controller
     }
 
     /**
-     * Make a edit form builder.
-     *
-     * @param $id
-     *
-     * @return Form
-     */
-//    public function editForm()
-//    {
-//        return Admin::form(User::class, function (Form $edit_form) {
-//            $edit_form->display('id', 'ID');
-//            $edit_form->text('name', trans('Name'))->rules('required')->placeholder('Enter Name...');
-//            $edit_form->email('email', trans('Email'))->rules('required')->placeholder('Enter Email...');
-//            $edit_form->password('password', trans('Password'))->rules('required|confirmed')
-//                ->default(function ($edit_form) {
-//                return $edit_form->model()->password;
-//                })->placeholder('Enter Password...');
-//            $edit_form->password('password_confirmation', trans('Password Confirmation'))->rules('required')
-//                ->default(function ($edit_form) {
-//                    return $edit_form->model()->password;
-//                })->placeholder('Confirm Password...');
-//            $edit_form->multipleSelect('roles', trans('Roles'))->options(function () {
-//                return Role::all()->pluck('name', 'id');
-//            })->rules('required')->placeholder('Select Role...');
-//            $edit_form->html('<b>Note*:</b> Please do not enter more than one Role.');
-////            $edit_form->image('avatar', trans('admin.avatar'));
-////            $edit_form->radio('roles', trans('Roles'))->options($roles)->rules('required')->default($current_role);
-////            $edit_form->select('roles', trans('Roles'))->options($roles)->rules('required')->default($current_role);
-////            $edit_form->radio('role', trans('Roles'))->options($roles)->default($current_role);
-//            $edit_form->ignore(['password_confirmation', 'role']);
-//            $edit_form->saving(function (Form $edit_form){
-//                if ($edit_form->password && $edit_form->model()->password != $edit_form->password) {
-//                    $edit_form->password = bcrypt($edit_form->password);
-//                }
-//
-//            });
-//            $edit_form->saved(function (){
-//                admin_toastr(trans('Updated successfully!'));
-//                return redirect(admin_base_path('auth/simple-users'));
-//            });
-//        });
-//    }
-
-    /**
      * Make a display form builder.
      *
      * @param $id
