@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Services;
+namespace App\Services;
 
 use App\User;
 use Illuminate\Http\Request;
@@ -10,5 +10,9 @@ class UserServices
 {
     public function countUsers(){
         return User::all()->count();
+    }
+
+    public function roles(User $user){
+        return $user->roles->pluck('name');
     }
 }
