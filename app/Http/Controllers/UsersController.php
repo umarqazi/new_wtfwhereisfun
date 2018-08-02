@@ -1,18 +1,21 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Admin\Controllers;
 
+use Encore\Admin\Controllers\ModelForm;
 use Illuminate\Http\Request;
 use App\User;
-use App\Http\Services\UserServices;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
+use App\Services\UserServices;
 
 class UsersController extends Controller
 {
+
+    use ModelForm;
     protected  $userServices;
 
     public function __construct(UserServices $userServices)
@@ -33,7 +36,7 @@ class UsersController extends Controller
         );
     }
 
-    public function edit()
+    public function profileEdit()
     {
         $user = Auth::user();
         return view('user.edit', compact('user'));
@@ -45,7 +48,7 @@ class UsersController extends Controller
         return view('user.profile', compact('user'));
     }
 
-    public function update()
+    public function profileUpdate()
     {
         // validate
         $rules = array(
@@ -74,5 +77,94 @@ class UsersController extends Controller
             Session::flash('message', 'Successfully updated your Profile!');
             return Redirect::to('profile');
         }
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
+    {
+        //
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        //
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
+        //
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id)
+    {
+        //
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, $id)
+    {
+        //
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
+    {
+        // delete
+        $user = User::find($id);
+        $user->delete();
+
+        // redirect
+        Session::flash('message', 'Successfully deleted the user!');
+        return back();
+    }
+
+    public function destroyAJAX($id)
+    {
+        // delete
+        $user = User::find($id);
+        $user->delete();
     }
 }
