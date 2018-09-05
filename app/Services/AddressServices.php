@@ -1,0 +1,44 @@
+<?php
+
+namespace App\Services;
+
+use App\Repositories\AddressRepo;
+use Illuminate\Http\Response;
+class AddressServices
+{
+    protected $addressRepo;
+
+    public function __construct(AddressRepo $addressRepo){
+        $this->addressRepo = $addressRepo;
+    }
+
+    public function getAllCountries(){
+        return $this->addressRepo->allCountries();
+    }
+
+    public function getStatesByCountry($country, $requestType = ''){
+        $states = $this->addressRepo->statesByCountry($country);
+        if($requestType == 'ajax'){
+            $options = '';
+            foreach($states as $state){
+                $options .= "<option value='{$state->id}'>{$state->name}</option>";
+            }
+            return response()->json($options);
+        }else{
+            return $states;
+        }
+    }
+
+    public function getCitiesByState($state, $requestType = ''){
+        $cities = $this->addressRepo->citiesByState($state);
+        if($requestType == 'ajax'){
+            $options = '';
+            foreach($cities as $city){
+                $options .= "<option value='{$city->id}'>{$city->name}</option>";
+            }
+            return response()->json($options);
+        }else{
+            return $cities;
+        }
+    }
+}

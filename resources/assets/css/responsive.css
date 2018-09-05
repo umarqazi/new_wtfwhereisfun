@@ -1,0 +1,220 @@
+/* Media screen info
+=================================
+1. Media width 1024px To 1199px.
+2. Media width 992px To 1023px.
+3. Media width 768px To 991px.
+4. Media width 500px To 767px.
+5. Media max-width 767px.
+6. Media max-width 499px.
+=================================*/
+@media only screen and (min-width: 1024px) and (max-width: 1199px)  {
+	
+}
+@media only screen and (min-width: 992px) and (max-width: 1023px)  {
+	
+}
+@media only screen and (min-width: 768px) and (max-width: 991px)  {
+	
+}
+@media all and (min-width: 768px){
+	.modified-login-logout .modal-dialog {
+		width: 400px;
+	}
+}
+@media only screen and (min-width: 500px) and (max-width: 767px)  {
+
+	
+}
+@media(max-width:1024px){
+	.ex-cities-img-box img {
+		width: 170px;
+    height: auto;
+    padding: 5px;
+	}
+	/*krishna start*/
+	button.hamburger.animated.fadeInLeft.is-closed{
+		left: 181px;
+   		 top: 94px;
+	}
+	.fd-pro-tgl{
+		position: absolute;
+    top: 11px;
+    left: 181px;
+	}
+	/*krishna end*/
+	.modal-custom .modal-body .col-lg-2{
+		height:auto;
+	}
+	.modal-custom .modal-body .col-lg-5{
+		height:200px;
+	}
+	.modal-custom .modal-body {
+		overflow-y: auto;
+		max-height: 32vh;
+	}
+	
+.upload-photo-box .img_container img.user-img {
+    border-radius: 50%;
+    width: 100%;
+    height: auto;
+    padding: 5px;
+        max-width: 175px;
+}
+.acnt-adrs-innertitle h3{
+	display: inline-block;
+}
+	.upload-photo-innerbox{
+		display: block;
+	}
+}
+@media(max-width:980px){
+	.explore-search-wrap{
+		padding-top: 11px;
+		padding-bottom: 22px;
+		position: relative;
+	}
+	.es-head-title{
+	    font-size: 37px;
+	}
+	.explore-search-form label{
+		font-size:14px;
+	}
+	.ex-cities-img-box img {
+		width: 100%;
+		height: 132px;
+	}
+	.main-navbar ul.main-menu li a, .header-social li a .fa {
+		color: #000;
+	}
+	.header-social ul li a{
+		border-color:#000;
+	}
+	.main-menu-wrap.clearfi {
+		margin-top: -7px;
+	}
+	.collapse{
+   	display: block;
+   }
+}
+@media only screen and (max-width: 767px)  {
+	.es-head-title{
+	    font-size: 20px;
+	}
+	.explore-search-form label{
+		font-size:12px;
+	}
+	.explore-search-form-wrap .es-field {
+		width: 100%;
+	}
+	.circle-logo-wrap .circle-logo-col {
+		float: left;
+		width: 50%;
+		margin-bottom: 28px;
+	}
+	.heading-title-left {
+		width: 100%;
+		display: block;
+		float: none;
+	}
+	section.section.landmarks-listings-section{
+		padding-top:20px;
+	}
+	.testimonial-dis p{
+		max-width: 195px;
+		margin: 0 auto;
+	}
+	section.explore-cities-section .ex-cities-img-box img {
+		width: 100%;
+	}
+	.ex-cities-img-box img {
+		width: 100%;
+		height: auto;
+	}
+	.main-navbar ul.main-menu li a, .header-social li a .fa {
+		color: #000;
+	}
+	.header-social ul li a{
+		border-color:#000;
+	}
+	.signup-signin-wrap .btn-default {
+		font-size: 12px;
+	}
+
+   .detail_page h3
+   {
+      font-size: 21px;
+      line-height: 2;
+   }
+   /*krishna css*/
+
+   .header-logo img{
+   	max-width: 288px;
+   }
+   .main-navbar {
+
+   	bottom: 24px;
+   	left: 0;
+   }
+   .header-social ul li a{
+   	border-color:#fff;
+
+   }
+   .main-navbar ul.main-menu li a, .header-social li a .fa{
+   	color: #fff;
+   }
+   button.hamburger.animated.fadeInLeft.is-closed{
+   position: absolute;
+    left: 88%;
+    top: 92px;
+	
+   }
+
+   .hamburger{
+   	width: 21px;
+   	height: 21px;
+   }
+   .collapse{
+   	display: block;
+   }
+	/*.main-menu-wrap.clearfi {
+    position: absolute;
+    top: 35px;
+    left: 109px;
+    }*/
+    /*krishna css end*/
+	.toggled .account-setting-section{
+		padding-left: 10px;
+		transition: all 0.4s ease-in-out 0.01s;
+		padding-right: 10px;
+	}
+	.account-setting-section {
+		padding-left:0px;
+	}
+	.form-dashboard-wrap{
+		width:100%;
+	}
+	.modal-custom .modal-body{
+		overflow: scroll !important;
+	}
+	.modal-custom .col-lg-2 h1, .modal-custom .col-lg-5 h1 {
+		font-size: 12px;
+	}
+	.upload-photo-box .img_container img.user-img {
+    border-radius: 50%;
+    width: 100%;
+    height: auto;
+    padding: 5px;
+}
+}
+@media only screen and (max-width: 375px)  {
+	.circle-logo-wrap .circle-logo-col {
+		float: left;
+		width: 100%;
+		margin-bottom: 28px;
+	}
+
+	.form-border-effect .form-control, .form-border-effect textarea{
+		font-size: 14px;
+	}
+
+}

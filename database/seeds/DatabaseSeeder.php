@@ -11,6 +11,49 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // $this->call(UsersTableSeeder::class);
+        // Seed the Countries
+        $this->call(CountriesTableSeeder::class);
+
+        // Seed the States
+        $this->call(StatesTableSeeder::class);
+
+        // Seed the Cites
+        $this->call(CitiesTableSeeder::class);
+
+        // Seed the Time Zones
+        $this->call(TimeZonesTableSeeder::class);
+
+        // Seed the Languages
+        $this->call(LanguagesTableSeeder::class);
+
+        // Seed the Categories
+        $this->call(CategoriesTableSeeder::class);
+
+        // Seed the Currencies
+        $this->call(CurrenciesTableSeeder::class);
+
+        // Seed the Content
+        $this->call(ContentTableSeeder::class);
+
+        // Seed the Testimonials
+        $this->call(TestimonialsTableSeeder::class);
+
+        // Seed the Blogs
+        $this->call(BlogsTableSeeder::class);
+
+        // Seed the Roles
+        $this->call(RolesTableSeeder::class);
+
+        // Seed the Users
+        $this->call(UsersTableSeeder::class);
+
+        // Seed the Event Topics
+        $this->call(EventTopicsTableSeeder::class);
+
+        //Seed the Event Types
+        $this->call(EventTypesTableSeeder::class);
+
+        // Seed the Refund Policies
+        $this->call(RefundPolicyTableSeeder::class);
     }
 }

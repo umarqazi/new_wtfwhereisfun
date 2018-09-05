@@ -1,0 +1,125 @@
+@charset "UTF-8";
+/* ============== Browser Support ============== */
+/* ================== Colors ================== */
+/* ================ Typography ================= */
+/* ============ Heights and Widths ============= */
+/* ========== Responsive breakpoints =========== */
+/* ================= Elevations ================ */
+/* ================= Animations ================ */
+/* =================== Icons =================== */
+/* ============== Module specific ============== */
+/* ============== Accordion ============== */
+/* ============== Avatar ============== */
+/* ============== Button ============== */
+/* ============== Card ============== */
+/* ============== Event Cards ============== */
+/* ============== Form ============== */
+/* ============== Overlay ============== */
+/* ============== Reports ============== */
+/* ============== Responsive Form ============== */
+/* ============== Segmented Control ============== */
+/* ============== Ticket Types ============== */
+/* ============== Toggle / Switch ============== */
+/* ============== Browser Support ============== */
+/* ================== Colors ================== */
+/* ================ Typography ================= */
+/* ============ Heights and Widths ============= */
+/* ========== Responsive breakpoints =========== */
+/* ================= Elevations ================ */
+/* ================= Animations ================ */
+/* =================== Icons =================== */
+/* ============== Module specific ============== */
+/* ============== Accordion ============== */
+/* ============== Avatar ============== */
+/* ============== Button ============== */
+/* ============== Card ============== */
+/* ============== Event Cards ============== */
+/* ============== Form ============== */
+/* ============== Overlay ============== */
+/* ============== Reports ============== */
+/* ============== Responsive Form ============== */
+/* ============== Segmented Control ============== */
+/* ============== Ticket Types ============== */
+/* ============== Toggle / Switch ============== */
+/* ---------------------------------------------------------- */
+/*                                                            */
+/* A media query that captures:                               */
+/*                                                            */
+/* - Retina iOS devices                                       */
+/* - Retina Macs running Safari                               */
+/* - High DPI Windows PCs running IE 8 and above              */
+/* - Low DPI Windows PCs running IE, zoomed in                */
+/* - Low DPI Windows PCs and Macs running Firefox, zoomed in  */
+/* - Android hdpi devices and above                           */
+/* - Android tvdpi devices, including Google Nexus 7          */
+/* - Chrome running on high DPI Macs and PCs                  */
+/* - Opera running on high DPI Macs, PCs and mobile devices   */
+/*                                                            */
+/* Please note that that this code assumes you'll swap a      */
+/* 2× version of your images. If you'd like to supply         */
+/* finer increments, other thresholds might be appropriate.   */
+/*                                                            */
+/* A test for CSS pixel densites can be found here:           */
+/* http://bjango.com/articles/min-device-pixel-ratio/         */
+/*                                                            */
+/*                                  @marcedwards from @bjango */
+/*                                                            */
+/* ---------------------------------------------------------- */
+/* This is hacky and awesome. it should be part of mixins or something.
+   I found it once on stack overflow and couldn't find it later when I looked */
+/* XXX: test in browsers */
+/* ratio is the height divided by width in percentage form */
+/* This function is used to get the max height for multi-line ellipses
+ * We use px values for line-height in styleguide, and unitless values for line-height in core
+ * so we need to handle the possibility for both here
+ */
+.ads-box {
+  padding-top: 30px;
+  overflow: hidden;
+  background-color: #fff;
+  margin-bottom: 30px;
+  border: 1px #D2D6DF;
+  font-size: 15px; }
+  @media only screen and (max-width: 799px) {
+    .ads-box {
+      display: none; } }
+
+.ads-box__featured-apps {
+  padding-bottom: 20px;
+  padding-left: 20px;
+  padding-right: 20px; }
+
+.ads-box__see-all {
+  float: right; }
+
+.ads-box__grid {
+  width: 760px; }
+
+.ads-box__divider {
+  width: auto;
+  margin-left: 20px;
+  margin-right: 20px;
+  display: block; }
+
+.single-ad {
+  padding: 20px;
+  width: 330px;
+  height: 60px; }
+
+.single-ad__text {
+  width: 255px;
+  height: 63px; }
+
+.single-ad__description {
+  font-size: 12px; }
+
+.single-ad__img {
+  width: 60px;
+  height: 60px;
+  padding-right: 15px; }
+
+.single-ad__left {
+  float: left; }
+
+.single-ad__right {
+  float: right; }

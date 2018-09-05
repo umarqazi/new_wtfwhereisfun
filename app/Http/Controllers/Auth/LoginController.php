@@ -1,9 +1,14 @@
 <?php
 
 namespace App\Http\Controllers\Auth;
-
+use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use App\User;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Config;
 
 class LoginController extends Controller
 {

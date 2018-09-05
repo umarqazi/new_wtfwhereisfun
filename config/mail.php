@@ -20,7 +20,7 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | SMTP Host Address
+    | SMTP Host ShippingAddress
     |--------------------------------------------------------------------------
     |
     | Here you may provide the host address of the SMTP server used by your
@@ -46,7 +46,7 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Global "From" Address
+    | Global "From" ShippingAddress
     |--------------------------------------------------------------------------
     |
     | You may wish for all e-mails sent by your application to be sent from

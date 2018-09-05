@@ -1,27 +1,177 @@
 <?php
 
-namespace App\Admin\Controllers;
+namespace App\Http\Controllers;
 
+use App\UserVerification;
 use Encore\Admin\Controllers\ModelForm;
 use Illuminate\Http\Request;
-use App\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Http\Response;
+use App\Http\Requests\AccountSetting;
+use Illuminate\Support\Facades\Mail;
+use Alert;
+use App\Role;
+use Illuminate\Support\Facades\Hash;
+use App\Mail\VerifyMail;
+use App\Services\UserProfileService;
 use App\Services\UserServices;
+use App\Services\UserContactService;
+use App\Services\UserAddressService;
+use App\Services\UserEmailPreferenceService;
+use App\Services\UserPasswordService;
+use App\Http\Requests\RegisterUser;
+use App\Http\Requests\UserProfile;
+use App\Http\Requests\UserContact;
+use App\Http\Requests\UserAddress;
+use App\Http\Requests\UserOtherInformation;
+use App\Http\Requests\ChangePassword;
 
 class UsersController extends Controller
 {
 
     use ModelForm;
-    protected  $userServices;
+    protected $userServices;
+    protected $userProfileService;
+    protected $userAddressService;
+    protected $userContactService;
+    protected $userPasswordService;
+    protected $userEmailPreferenceService;
 
-    public function __construct(UserServices $userServices)
+    public function __construct(UserServices $userServices, UserProfileService $userProfileService,
+                                UserContactService $userContactService, UserAddressService $userAddressService,
+                                UserEmailPreferenceService $userEmailPreferenceService, UserPasswordService $userPasswordService)
     {
-        $this->userServices = $userServices;
-        $this->middleware('auth');
+        $this->userServices               = $userServices;
+        $this->userProfileService         = $userProfileService;
+        $this->userContactService         = $userContactService;
+        $this->userAddressService         = $userAddressService;
+        $this->userEmailPreferenceService = $userEmailPreferenceService;
+        $this->userPasswordService        = $userPasswordService;
+    }
+
+    /**
+     * Show the application's vendor dashboard.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function vendorDashboard()
+    {
+        $user = Auth::user();
+        return view('users.vendors.dashboard')->with('user', $user);
+    }
+
+    /**
+     * Show the application's vendor dashboard.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function accountSettings()
+    {
+        $response = $this->userServices->accountSettings();
+        return view('users.edit')->with($response);
+    }
+
+    /**
+     * Show the application's vendor dashboard.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function profileUpdate(UserProfile $request)
+    {
+        $response = $this->userProfileService->updateProfile($request);
+        return response()->json([
+            'type'      =>      'success',
+            'msg'       =>      Config::get('constants.USERUPDATE_SUCCESS'),
+            'data'      =>      $response
+        ]);
+    }
+
+    /**
+     * Show the application's vendor dashboard.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function contactUpdate(UserContact $request)
+    {
+        $response = $this->userContactService->updateContact($request);
+        return response()->json([
+            'type'      =>      'success',
+            'msg'       =>      Config::get('constants.CONTACTINFO_SUCCESS'),
+            'data'      =>      $response
+        ]);
+    }
+
+    /**
+     * Show the application's vendor dashboard.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function addressUpdate(UserAddress $request)
+    {
+        $response = $this->userAddressService->updateAddress($request);
+        return response()->json([
+            'type'      =>      'success',
+            'msg'       =>      Config::get('constants.CONTACTINFO_SUCCESS'),
+            'data'      =>      $response
+        ]);
+    }
+
+    /**
+     * Show the application's vendor dashboard.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function emailPreferenceUpdate(Request $request)
+    {
+        $response = $this->userEmailPreferenceService->updateEmailPreference($request);
+        return response()->json([
+            'type'      =>      'success',
+            'msg'       =>      Config::get('constants.CONTACTINFO_SUCCESS'),
+            'data'      =>      $response
+        ]);
+    }
+
+    /**
+     * Show the application's vendor dashboard.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function passwordUpdate(ChangePassword $request)
+    {
+        $response = $this->userPasswordService->updatePassword($request);
+        if($response == 'error'){
+            return response()->json([
+                'type'      =>      'error',
+                'msg'       =>      Config::get('constants.PASSWORD_FAIL'),
+                'data'      =>      $response
+            ]);
+        }else{
+            return response()->json([
+                'type'      =>      'success',
+                'msg'       =>      Config::get('constants.PASSWORD_SUCCESS'),
+                'data'      =>      $response
+            ]);
+        }
+    }
+
+    /**
+     * Show the application's vendor dashboard.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function otherInformationUpdate(UserOtherInformation $request)
+    {
+        $response = $this->userProfileService->updateOtherInformation($request);
+        return response()->json([
+            'type'      =>      'success',
+            'msg'       =>      Config::get('constants.PROFILEINFO_SUCCESS'),
+            'data'      =>      $request->all()
+        ]);
     }
 
     public function userCount(){
@@ -46,37 +196,6 @@ class UsersController extends Controller
     {
         $user = Auth::user();
         return view('user.profile', compact('user'));
-    }
-
-    public function profileUpdate()
-    {
-        // validate
-        $rules = array(
-            'name'       => 'required',
-            'email'      => 'required|email',
-            'password'   => 'nullable|min:6|confirmed'
-        );
-        $validator = Validator::make(Input::all(), $rules);
-
-        // process the login
-        if ($validator->fails()) {
-            return Redirect::to('/edit-profile')
-                ->withErrors($validator)
-                ->withInput(Input::except('password'));
-        } else {
-            // update
-            $user = Auth::user();
-            $user->name       = Input::get('name');
-            $user->email      = Input::get('email');
-            if(Input::get('password') != ''){
-                $user->password = bcrypt(Input::get('password'));
-            }
-            $user->save();
-
-            // redirect
-            Session::flash('message', 'Successfully updated your Profile!');
-            return Redirect::to('profile');
-        }
     }
 
     /**
@@ -168,3 +287,4 @@ class UsersController extends Controller
         $user->delete();
     }
 }
+

@@ -1,0 +1,181 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : May 23, 2018, 4:08:34 PM
+    Author     : xceltec13
+*/
+body{
+        background-color: #f4f6f8;
+}
+.p-b-0{
+    padding-bottom: 0px !important;
+}
+#listgo-half-map{
+    position:fixed!important
+}
+.main-color{
+    color:#f5af02
+}
+.listing-single__sidebar .listgo-single-listing-sidebar{
+    max-width:none!important
+}
+.user__menu{
+    z-index:9999!important
+}
+.fluid-width-video-wrapper{
+    padding-top:0!important
+}
+.old-style .acf-fields>.acf-field{
+    padding-left:0!important;
+    padding-right:0!important
+}
+.old-style .acf-basic-uploader{
+    display:block!important;
+    padding:10px!important;
+    border:1px solid #b4b4b4!important
+}
+.old-style .acf-basic-uploader input[type=file]{
+    height:auto!important;
+    border:0!important;
+    line-height:1em!important
+}
+.add-listing-group .postbox>.hndle{
+    padding-left:15px!important;
+    margin-top:-10px!important
+}
+.widget_author__social .fa-medium{
+    background-color:#02b875
+}
+.input-icon.fa-medium{
+    color:#02b875
+}
+.widget_author__social .fa-tripadvisor{
+    background-color:#44213d
+}
+.input-icon.fa-tripadvisor{
+    color:#44213d
+}
+.widget_author__social .fa-wikipedia-w{
+    background-color:red
+}
+.input-icon.fa-tripadvisor{
+    color:red
+}
+.utility__media{
+    display:block!important
+}
+.listing-single__tab{
+    border-bottom:0
+}
+.listgo-map__singlebox input#s_search.ui-autocomplete-input{
+    max-width:286px!important
+}
+.listing-single__media img{
+    width:100%
+}
+.is-desktop .listing-single__tab{
+    overflow:hidden
+}
+.is-desktop .tab--2 .tab__nav{
+    white-space:nowrap;
+    overflow:visible
+}
+.is-desktop .tab--2 .tab__nav:before{
+    width:1e4px;
+    right:auto
+}
+.is-desktop .tab--2 .tab__nav .sub-menu{
+    position:absolute;
+    background-color:#f4f4f4;
+    width:200px;
+    right:0;
+    top:100%;
+    padding-left:0;
+    display:none;
+    z-index:999
+}
+.is-desktop .tab--2 .tab__nav .sub-menu li{
+    display:block!important
+}
+.is-desktop .tab--2 .tab__nav .sub-menu a{
+    padding:15px;
+    border-bottom:1px solid rgba(#fff,0.1)
+}
+.is-desktop .tab--2 .tab__nav .sub-menu .sub-menu{
+    top:0;
+    right:100%
+}
+.is-desktop .tab--2 .tab__nav li:hover>.sub-menu{
+    display:block
+}
+.listing-single-wrap7 .listing-single__tab .tab__nav li.item-menu-more .sub-menu{
+    padding-top:4px
+}
+.listing-single-wrap7 .listing-single__tab .tab__nav li.item-menu-more .sub-menu li{
+    margin-bottom:4px
+}
+.is-desktop .tab__content{
+    clear:both
+}
+.listing-single-bar.active .wil-sos{
+    top:16px
+}
+.listing-single__media img{
+    width:100%
+}
+.footer__widget .widget_services__line{
+    color:#fff
+}
+#wiloke-event-settings .addlisting-popup{
+    background-color:transparent
+}
+.listing-single__tab .tab__nav li.tab-nav-event a{
+    color:#fd4a00
+}
+.single-post .action__share,.single-post .action__share:hover{
+    background:0 0
+}
+.single-post .action__share .social_share{
+    font-size:15px
+}
+@media(min-width:768px){
+    .circle-thumbnail .listing--list2 .onfeatued{
+        top:-8px;
+        right:50px;
+        z-index:999
+    }
+}
+.listgo-bsh__btn:before{
+    display:none
+}
+.listgo-bsh__btn{
+    display:inline-block;
+    width:30px;
+    height:30px;
+    line-height:30px;
+    text-align:center;
+    background-color:#e4e3e3;
+    cursor:pointer;
+    color:#333;
+    font-size:23px;
+    margin-left:-30px;
+    border-radius:3px;
+    transform:translate(40px,0);
+    transition:all .3s ease
+}
+.listgo-bsh__btn:hover{
+    background-color:#333;
+    color:#f1f1f1
+}
+.visible-hidden{
+    visibility:hidden
+}
+.listgo-bsh__itemWrapper+.listgo-bsh__itemWrapper{
+    margin-top:10px
+}
+.leaflet-bar{
+    cursor:pointer
+}
