@@ -26,4 +26,20 @@ class EventTimeLocation extends Model
     {
         return $this->belongsTo('App\Timezone');
     }
+
+    /**
+     * Get Display Currency
+     */
+    public function display_currency()
+    {
+        return $this->belongsTo('App\Currency', 'display_currency_id');
+    }
+
+    /**
+     * Get Transacted Currency
+     */
+    public function transacted_currency()
+    {
+        return $this->belongsTo('App\Currency', 'transacted_currency_id');
+    }
 }

@@ -3,15 +3,16 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use App\Services\BlogServices;
 class BlogController extends Controller
 {
+    protected $blogService;
     /**
      * Instantiate a new BlogController instance.
      */
-    public function __construct()
+    public function __construct(BlogServices $blogServices)
     {
-        //
+        $this->blogService = $blogServices;
     }
     /**
      * Display a listing of the resource.
@@ -20,7 +21,8 @@ class BlogController extends Controller
      */
     public function index()
     {
-        //
+        $response = $this->blogService->getAll();
+        return view('front-end.blogs.index')->with('blogs', $response);
     }
 
     /**
@@ -52,7 +54,9 @@ class BlogController extends Controller
      */
     public function show($id)
     {
-        dd('Hellow');
+        $blogId = decrypt_id($id);
+        $response = $this->blogService->getByID($blogId);
+        return view('front-end.blogs.show')->with('blog', $response);
     }
 
     /**

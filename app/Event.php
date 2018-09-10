@@ -35,11 +35,19 @@ class Event extends Model
     }
 
     /**
-     * Get EventTimeLocation
+     * Get EventTimeLocations
      */
-    public function time_location()
+    public function time_locations()
     {
         return $this->hasMany('App\EventTimeLocation');
+    }
+
+    /**
+     * Get EventTickets
+     */
+    public function tickets()
+    {
+        return $this->hasMany('App\EventTicket');
     }
 
     /**

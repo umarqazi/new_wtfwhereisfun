@@ -2,9 +2,7 @@
 
 namespace App\Services;
 
-use App\Testimonial;
 use App\Repositories\TestimonialRepo;
-
 class TestimonialService extends BaseService implements IDBService
 {
     protected $testimonial;

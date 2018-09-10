@@ -41,7 +41,7 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('reset-password/{token}', 'MainController@resetPassword');
     Route::post('do-reset-password', 'MainController@doResetPassword');
 
-    Route::resource('blogs', 'BlogController')->only('show');
+    Route::resource('blogs', 'BlogController');
 
     Route::group(['middleware' => ['auth']], function () {
 
@@ -69,6 +69,11 @@ Route::group(['middleware' => ['web']], function () {
             Route::post('get-event-sub-topics', 'EventController@getTopicSubTopics');
             Route::post('events/update-details', 'EventController@detailsUpdate');
             Route::post('events/update-topics', 'EventController@topicsUpdate');
+            Route::post('events/update-time-location', 'EventController@timeLocationUpdate');
+            Route::post('events/maps-search', 'EventController@searchLocation');
+            Route::post('events/add-new-location-row', 'EventController@addNewLocationRow');
+            Route::post('events/update-ticket', 'EventController@ticketUpdate');
+
 
         });
     });

@@ -20,8 +20,13 @@ use App\Services\Events\EventTopicService;
 use App\Services\Events\EventTypeService;
 use App\Services\Events\EventSubTopicService;
 use App\Services\Events\EventDetailService;
+use App\Services\Events\EventTimeLocationService;
+use App\Services\Events\EventTicketService;
+use App\Services\CurrencyService;
+use App\Services\TimeZoneService;
 use App\Services\CategoryServices;
 use App\Http\Requests\Event;
+use App\Http\Requests\EventTimeLocation;
 class EventController extends Controller
 {
     protected $eventService;
@@ -31,11 +36,17 @@ class EventController extends Controller
     protected $categoryServices;
     protected $eventSubTopicService;
     protected $eventDetailService;
+    protected $eventLocationService;
+    protected $currencyService;
+    protected $timeZoneService;
+    protected $eventTicketService;
 
     public function __construct(EventService $eventService, RefundPolicyService $refundPolicyService,
                                 EventTopicService $eventTopicService, EventTypeService $eventTypeService,
                                 CategoryServices $categoryServices, EventSubTopicService $eventSubTopicService,
-                                EventDetailService $eventDetailService)
+                                EventDetailService $eventDetailService, EventTimeLocationService
+                                $eventLocationService, CurrencyService $currencyService, TimeZoneService
+                                $timeZoneService, EventTicketService $eventTicketService)
     {
         $this->eventService             = $eventService;
         $this->refundPolicyService      = $refundPolicyService;
@@ -44,6 +55,10 @@ class EventController extends Controller
         $this->categoryServices         = $categoryServices;
         $this->eventSubTopicService     = $eventSubTopicService;
         $this->eventDetailService       = $eventDetailService;
+        $this->eventLocationService     = $eventLocationService;
+        $this->currencyService          = $currencyService;
+        $this->timeZoneService          = $timeZoneService;
+        $this->eventTicketService       = $eventTicketService;
     }
 
     /**
@@ -109,14 +124,19 @@ class EventController extends Controller
         $eventTopics = $this->eventTopicService->getAll();
         $categories = $this->categoryServices->getAll();
         $eventTypes = $this->eventTypeService->getAll();
+        $currencies = $this->currencyService->getAll();
+        $timeZones = $this->timeZoneService->getAll();
         if(!is_null($event->topic)){
             $eventSubTopics = $this->eventSubTopicService->getTopicSubTopics($event->topic->id);
         }else{
             $eventSubTopics = [];
         }
+        $locations = $this->eventLocationService->getEventLocations($event_id);
+        $tickets = $this->eventTicketService->getEventTickets($event_id);
         return view('events.edit')->with(['event' => $event, 'refundPolicies' => $refundPolicies, 'eventTopics' =>
             $eventTopics, 'categories' => $categories, 'eventTypes' => $eventTypes, 'eventSubTopics' =>
-            $eventSubTopics, 'eventId' => $id]);
+            $eventSubTopics, 'eventId' => $id, 'locations' => $locations, 'currencies' => $currencies, 'timeZones' =>
+        $timeZones, 'tickets' => $tickets]);
     }
 
     /**
@@ -168,15 +188,44 @@ class EventController extends Controller
         ]);
     }
 
-//    public function topicsUpdate(Request $request){
-//        $eventId = decrypt_id($request->event_id);
-//        $response = $this->eventTopicService->updateTopics($request, $eventId);
-//        return response()->json([
-//            'type'      =>  'success',
-//            'msg'       =>  'Event Topic Details has been Updated Successfully',
-//            'data'      =>  $response
-//        ]);
-//    }
+    public function timeLocationUpdate(EventTimeLocation $request){
+        $eventId = decrypt_id($request->event_id);
+        $response = $this->eventLocationService->updateTimeLocation($request, $eventId);
+        return response()->json([
+            'type'      =>  'success',
+            'msg'       =>  'Event Locations has been updated Successfully',
+            'data'      =>  $response
+        ]);
+    }
 
+    public function searchLocation(Request $request){
+        $response = $this->eventLocationService->searchLocation($request);
+        return response()->json([
+            'status'    => 'success',
+            'latitude'  => $response->getLatitude(),
+            'longitude' => $response->getLongitude()
+        ]);
+    }
+
+    public function addNewLocationRow(Request $request){
+        $currencies = $this->currencyService->getAll();
+        $timeZones = $this->timeZoneService->getAll();
+        $response = $this->eventLocationService->addNewLocation($currencies, $timeZones, $request->event_id);
+        return response()->json([
+            'type'      => 'success',
+            'msg'       => 'Haha',
+            'data'      => $response
+        ]);
+    }
+
+    public function ticketUpdate(Request $request){
+        $eventId = decrypt_id($request->event_id);
+        $response = $this->eventTicketService->updateEventTicket($request, $eventId);
+        return response()->json([
+            'type'      =>  'success',
+            'msg'       =>  'Event Ticket has been updated Successfully',
+            'data'      =>  $response
+        ]);
+    }
 
 }

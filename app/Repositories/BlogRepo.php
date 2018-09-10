@@ -14,7 +14,11 @@ class BlogRepo
         $this->blog = $blog;
     }
 
-    public function index(){
+    public function getAll(){
         return Blog::all();
+    }
+
+    public function getById($id){
+        return Blog::find($id);
     }
 }

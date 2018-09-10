@@ -13,7 +13,7 @@
                         <div class="tab-content">
                             <div role="tabpanel" class="tab-pane active" id="sign-in">
                                 <p class="text-center"><img src="{{asset('/images/logo/wtf-logo.png')}}"></p>
-                                <ul class="nav nav-tabs text-center" role="tablist">
+                                <ul class="nav nav-tabs text-center custom-tabs" role="tablist">
                                     <li role="presentation" class="active"><a href="#sign-in" aria-controls="sign-in" role="tab" data-toggle="tab">Sign In</a></li>
                                 </ul>
                                 <div class="checkbox dont-accont text-center clearfix">
@@ -76,7 +76,7 @@
                         <label role="presentation" class="ragister" ><a class="login-main-btn"  data-toggle="modal" data-target="#login">Sign In</a></label>
                     </div>
                     <div class="sign-up-wrap">
-                        <ul class="nav nav-tabs" role="tablist">
+                        <ul class="nav nav-tabs custom-tabs" role="tablist">
                             <li role="presentation" class="active personal-tab">
                                 <a class="show-personal" aria-controls="sign-in" role="tab" data-toggle="tab">Personal</a>
                             </li>

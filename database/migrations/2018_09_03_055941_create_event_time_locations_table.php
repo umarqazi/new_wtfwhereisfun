@@ -19,8 +19,10 @@ class CreateEventTimeLocationsTable extends Migration
             $table->foreign('event_id')->references('id')->on('events')->onDelete('cascade')->onUpdate('cascade');
             $table->string('location')->nullable();
             $table->string('address')->nullable();
-            $table->string('display_currency')->nullable();
-            $table->string('transacted_currency')->nullable();
+            $table->integer('display_currency_id')->unsigned()->nullable();
+            $table->foreign('display_currency_id')->references('id')->on('currencies')->onDelete('cascade')->onUpdate('cascade');
+            $table->integer('transacted_currency_id')->unsigned()->nullable();
+            $table->foreign('transacted_currency_id')->references('id')->on('currencies')->onDelete('cascade')->onUpdate('cascade');
             $table->string('longitude')->nullable();
             $table->string('latitude')->nullable();
             $table->dateTime('starting')->nullable();
@@ -41,6 +43,8 @@ class CreateEventTimeLocationsTable extends Migration
         Schema::table('event_time_locations', function (Blueprint $table) {
             $table->dropForeign(['timezone_id']);
             $table->dropForeign(['event_id']);
+            $table->dropForeign(['display_currency_id']);
+            $table->dropForeign(['transacted_currency_id']);
         });
         Schema::dropIfExists('event_time_locations');
     }

@@ -186,7 +186,7 @@ img.portimg {
 }
 .public_unlisted a{
     float: left;
-    width: 50%;
+    width: 100%;
     border: 1px solid #ddd;
     padding: 6px 10px;
     height: 34px;
@@ -299,9 +299,7 @@ input:checked + .slider:before {
     padding: 15px;
     text-align: center;
     margin-bottom: 20px;
-        width: 100%;
-    float: left;
-
+    width: 100%;
 }
 .offer_tiicket_btn a{
     display: inline-block;
@@ -336,7 +334,7 @@ ul.table_row > li:first-child, ul.table_row > li:last-child{
   padding: 20px 30px;
   background: #f7f7f7;
   border-top: 1px solid #ddd;
-  margin: 0px -24px;
+  margin: 0px 0px;
 }
 .listTable_row{
   padding-bottom: 15px;
@@ -521,3 +519,6 @@ i, cite, em, var, address, dfn {
 }
 /*krishna end*/
 
+.form-editable input{
+    background-color:#fff!important;
+}

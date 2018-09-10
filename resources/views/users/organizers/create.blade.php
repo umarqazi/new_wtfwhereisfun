@@ -13,14 +13,14 @@
                         </div>
 
                         <div class="col-sm-5 col-sm-offset-2">
-                            <ul>
-                                <li><a href="{{url('organizers/create')}}">Create a new organizer</a></li>
-                                @if(count($userOrganizers))
-                                    @foreach($userOrganizers as $organizer)
-                                    <li><a href="{{url('organizers/'.encrypt_id($organizer->id).'/edit')}}">{{$organizer->name}}</a></li>
-                                    @endforeach
-                                @endif
-                            </ul>
+                            {{--<ul>--}}
+                                {{--<li><a href="{{url('organizers/create')}}">Create a new organizer</a></li>--}}
+                                {{--@if(count($userOrganizers))--}}
+                                    {{--@foreach($userOrganizers as $organizer)--}}
+                                    {{--<li><a href="{{url('organizers/'.encrypt_id($organizer->id).'/edit')}}">{{$organizer->name}}</a></li>--}}
+                                    {{--@endforeach--}}
+                                {{--@endif--}}
+                            {{--</ul>--}}
                             {{--<select class="form-control">--}}
                                 {{--<option><a href="{{url('organizers/create')}}">Create a new organizer</a></option>--}}
                                 {{--@if(count($userOrganizers))--}}
@@ -29,7 +29,18 @@
                                     {{--@endforeach--}}
                                 {{--@endif--}}
                             {{--</select>--}}
-                            <span class="field-beffect"></span>
+                            {{--<span class="field-beffect"></span>--}}
+
+                            <div class="organizer-dropdown">
+                                <span class="active"> English<i class="fa fa-chevron-down"></i></span>
+                                <ul class="list" style="display: none;">
+                                    <li><a href="#">English</a></li>
+                                    <li><a href="#">Frech</a></li>
+                                    <li><a href="#">Spanish</a></li>
+                                    <li><a href="#">Hindi</a></li>
+                                </ul>
+                            </div>
+
                         </div>
                     </div>
                     <div class="organizer-profile-title-dis">

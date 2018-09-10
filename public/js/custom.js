@@ -5,6 +5,7 @@ jQuery(document).ready(function(){
 	jQuery('.menu-toggle').on('click', function(){
 		jQuery(this).toggleClass('menu-toggle-active');
 	});
+
 });
 
 $('.blog-thumbnail-slider').owlCarousel({
@@ -53,6 +54,25 @@ $(document).ready(function(){
         $("#organizer-edit-url-input").hide();
         $("#edit-url-link").show();
     });
+
+     $(".custom-tabs li").click(function(){
+        $(".custom-tabs li").siblings().removeClass("active");
+        $(this).addClass("active");
+     });
+
+    $(".organizer-dropdown").click(function () {
+        $(this).find(".list").slideToggle();
+        $(".list li").click(function () {
+            var get_value = $(this).html();
+            var get_parent = $(this).parent().parent().get(0);
+            $(get_parent).find('.active').html('').append(get_value + "<i class='fa fa-chevron-down'></i>");
+        });
+    });
+
+    $(".menu-toggle").click(function(){
+       $(".main-menu-wrap").toggleClass("menu-active");
+    });
+
 });
 
       // Add social account btn

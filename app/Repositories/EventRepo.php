@@ -3,6 +3,8 @@
 namespace App\Repositories;
 
 use App\Event;
+use App\EventTicket;
+use App\EventTimeLocation;
 use Illuminate\Support\Facades\Auth;
 class EventRepo
 {
@@ -73,5 +75,56 @@ class EventRepo
 
         $event->save();
         return $event;
+    }
+
+    public function getEventLocations($id){
+        return Event::find($id)->time_locations;
+    }
+
+    public function updateTimeLocation($request, $eventId){
+        if($request->request_type == 'store'){
+            $eventTimeLocation = new EventTimeLocation;
+            $eventTimeLocation->event_id            =       $eventId;
+        }else{
+            $eventTimeLocation = EventTimeLocation::find($request->time_location_id);
+        }
+        $eventTimeLocation->location                =       $request->event_location;
+        $eventTimeLocation->address                 =       $request->event_address;
+        $eventTimeLocation->display_currency_id     =       $request->display_currency;
+        $eventTimeLocation->transacted_currency_id	=       $request->transacted_currency;
+        $eventTimeLocation->longitude               =       $request->longitude;
+        $eventTimeLocation->latitude                =       $request->latitude;
+        $eventTimeLocation->starting                =       $request->event_start_date;
+        $eventTimeLocation->ending                  =       $request->event_end_date;
+        $eventTimeLocation->timezone_id             =       $request->timezone;
+
+        $eventTimeLocation->save();
+        return $eventTimeLocation;
+    }
+
+    public function getEventTickets($id){
+        return Event::find($id)->tickets;
+    }
+
+    public function updateEventTicket($request, $eventId){
+        if($request->request_type == 'store'){
+            $eventEventTicket = new EventTicket;
+            $eventEventTicket->event_id            =       $eventId;
+        }else{
+            $eventEventTicket = EventTicket::find($request->ticket_id);
+        }
+        $eventEventTicket->name                    =       $request->name;
+        $eventEventTicket->quantity                =       $request->quantity;
+        $eventEventTicket->price                   =       $request->price;
+        $eventEventTicket->description             =       $request->description;
+        $eventEventTicket->selling_start           =       $request->selling_start;
+        $eventEventTicket->selling_end             =       $request->selling_end;
+        $eventEventTicket->status                  =       $request->status;
+        $eventEventTicket->min_order               =       $request->min_order;
+        $eventEventTicket->max_order               =       $request->max_order;
+        $eventEventTicket->type                    =       $request->type;
+
+        $eventEventTicket->save();
+        return $eventEventTicket;
     }
 }

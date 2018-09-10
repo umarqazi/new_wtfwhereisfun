@@ -2,22 +2,45 @@
 
 namespace App\Services;
 
-use App\Blog;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Role;
 use App\Repositories\BlogRepo;
 
-class BlogServices extends Service implements IService
+class BlogServices extends Service implements IDBService
 {
-    protected $blog;
+    protected $blogRepo;
 
-    public function __construct(BlogRepo $blog)
+    public function __construct(BlogRepo $blogRepo)
     {
-        $this->blog = $blog;
+        $this->blogRepo = $blogRepo;
     }
 
     public function getAll(){
-        return $this->blog->index();
+        return $this->blogRepo->getAll();
+    }
+
+    public function getById($id){
+        return $this->blogRepo->getById($id);
+    }
+
+    public function create($request)
+    {
+        // TODO: Implement create() method.
+    }
+
+    public function update($request)
+    {
+        // TODO: Implement update() method.
+    }
+
+    public function remove($id)
+    {
+        // TODO: Implement remove() method.
+    }
+
+    public function search($request)
+    {
+        // TODO: Implement search() method.
     }
 }

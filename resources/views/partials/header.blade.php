@@ -16,6 +16,7 @@
                          </span>
                     </div>
                     <div class="main-menu-wrap clearfi">
+                        <i class="fa fa-times closeMenu"></i>
                         <ul class="main-menu landing-page-menu">
                             <li><a href="#"> Features</a></li>
                             <li><a href="#">Customers</a></li>

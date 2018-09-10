@@ -4,6 +4,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <title>@yield('title')</title>
     <!-- font include -->
+    <script src="{{asset('js/jquery.min.js')}}"></script>
+    <!-- Bootstrap Script -->
+    <script src="{{asset('js/bootstrap.min.js')}}"></script>
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700,800,900" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" type="text/css">
@@ -32,9 +35,5 @@
     <link href="{{asset('css/my-custom-style.css')}}" rel="stylesheet" type="text/css">
     <!-- Responsive Style -->
     <link href="{{asset('css/responsive.css')}}" rel="stylesheet" type="text/css">
-
-    <script src="{{asset('js/jquery.min.js')}}"></script>
-    <!-- Bootstrap Script -->
-    <script src="{{asset('js/bootstrap.min.js')}}"></script>
 
 </head>
