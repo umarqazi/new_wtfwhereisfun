@@ -16,7 +16,7 @@ class TimeZonesTableSeeder extends Seeder
     {
         // Empty the table
 //        TimeZones::truncate();
-        DB::table('event_types')->delete();
+        DB::table('timezones')->delete();
         // Get all from the JSON file
         $JSON_timezones = TimeZones::allJSON();
 
