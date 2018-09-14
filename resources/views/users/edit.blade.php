@@ -10,7 +10,7 @@
                     <h4 class="m-t-10">{{$user->first_name.' '.$user->last_name}}</h4>
                 </div>
                 <div class="member-img">
-                    <a href="profile.html" class="">
+                    <a href="" class="">
                         <img src="{{$user->profile_thumbnail}}" class="rounded-circle" alt="profile-image">
                     </a>
                 </div>

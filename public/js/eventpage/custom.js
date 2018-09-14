@@ -43,13 +43,6 @@ $(document).ready(function() {
           $('.referral_append').css('display','block');
         });
         //
-        $('.public_unlisted a').click(function(e){
-        e.preventDefault();
-       $(this).addClass('active');
-        $(this).siblings().each(function(){
-            $(this).removeClass('active') ;
-        });
-    });
 
          $('.unlisted_toogle').click(function(){
           $(".social-buttons-toggle").css('display','block');
@@ -96,15 +89,15 @@ $(document).ready(function() {
               $('.New_pass_appendedbox').addClass('hidden');
           });
 
-    $(document).on('click',".datepicker1", function(e){ 
-        //bind to all instances of class "date". 
-        $(this).datetimepicker();
-    });
-
-    $(document).on('click',".datepicker2", function(e){ 
-    //bind to all instances of class "date". 
-         $(this).datetimepicker();
-    });
+    // $(document).on('click',".datepicker1", function(e){
+    //     //bind to all instances of class "date".
+    //     $(this).datetimepicker();
+    // });
+    //
+    // $(document).on('click',".datepicker2", function(e){
+    // //bind to all instances of class "date".
+    //      $(this).datetimepicker();
+    // });
     //
     $('.addAnother_btn').click(function(){
         $('#datetime_area').clone().addClass('remove_datearea_div').appendTo($('#more_date'));
@@ -248,50 +241,50 @@ $(document).ready(function() {
         FreeTicket = FreeTicket+'<li><ol class="action_list"><li class=""><input type="hidden" name="aaa" class="aaa" value="0" ><a href="javascript:void(0)" class="setting-click"><i class="fa fa-cog"></i></a></li><li><a href="javascript:void()" class="copy-click"><i class="fa fa-folder-open"></i></a></li><li><a href="javascript:void()" class="ticket_removerow"><i class="fa fa-trash"></i></a></li></ol></li></ul>';
 
         
-        $('.paid_ticket_btn1').click(function(e) {
-          $('.passmain_content').addClass('hidden');
-          $('.hide-free').addClass('hidden');
-          $('.hide-donation').addClass('hidden');
-          $('.hide-paid').addClass('hidden');
-          $('.hide-on').removeClass('hidden');
-          //$('#addTicketList').append(Pass);
-           $('#ticketvalue').val('pass');
-          });
+        // $('.paid_ticket_btn1').click(function(e) {
+        //   $('.passmain_content').addClass('hidden');
+        //   $('.hide-free').addClass('hidden');
+        //   $('.hide-donation').addClass('hidden');
+        //   $('.hide-paid').addClass('hidden');
+        //   $('.hide-on').removeClass('hidden');
+        //   //$('#addTicketList').append(Pass);
+        //    $('#ticketvalue').val('pass');
+        //   });
      //   
      $('.New_pass_appendedbox').removeClass('hidden');
      //$('#addTicketList').append(FreeTicket);
      //
-     $('.ticketvalue').click(function(e) {
-         // body...
-           var ticketvalue =  $(this).data('ticketvalue')
-           $('#ticketvalue').val(ticketvalue);
-           $('.New_pass_appendedbox').removeClass('hidden');
-           $('.passmain_content').addClass('hidden');
-           //passmain_content
-           //
-           if(ticketvalue  == "paid"){
-
-          $('.hide-paid').removeClass('hidden');
-            $('.hide-on').addClass('hidden');
-            $('#addTicketList').append(PaidTicket);
-            $('.setting-paid-ticket').removeClass('hidden');
-            $('#ticketvalue').val('paid');
-           }
-            if(ticketvalue  == "free"){
-               $('.hide-free').removeClass('hidden');
-          
-              $('.hide-on').addClass('hidden');
-                $('#addTicketList').append(FreeTicket);
-                $('#ticketvalue').val('free');
-           }
-           if(ticketvalue  == "donation"){
-            $('.hide-donation').removeClass('hidden');
-            $('.hide-on').addClass('hidden');
-                 $('#addTicketList').append(DonationTicket);
-                 $('#ticketvalue').val('donation');
-           }
-         //inputs
-     });
+     // $('.ticketvalue').click(function(e) {
+     //     // body...
+     //       var ticketvalue =  $(this).data('ticketvalue')
+     //       $('#ticketvalue').val(ticketvalue);
+     //       $('.New_pass_appendedbox').removeClass('hidden');
+     //       $('.passmain_content').addClass('hidden');
+     //       //passmain_content
+     //       //
+     //       if(ticketvalue  == "paid"){
+     //
+     //      $('.hide-paid').removeClass('hidden');
+     //        $('.hide-on').addClass('hidden');
+     //        $('#addTicketList').append(PaidTicket);
+     //        $('.setting-paid-ticket').removeClass('hidden');
+     //        $('#ticketvalue').val('paid');
+     //       }
+     //        if(ticketvalue  == "free"){
+     //           $('.hide-free').removeClass('hidden');
+     //
+     //          $('.hide-on').addClass('hidden');
+     //            $('#addTicketList').append(FreeTicket);
+     //            $('#ticketvalue').val('free');
+     //       }
+     //       if(ticketvalue  == "donation"){
+     //        $('.hide-donation').removeClass('hidden');
+     //        $('.hide-on').addClass('hidden');
+     //             $('#addTicketList').append(DonationTicket);
+     //             $('#ticketvalue').val('donation');
+     //       }
+     //     //inputs
+     // });
      
      $('.paid_ticket_btn').click(function(e){
       /*$('.New_pass_appendedbox').removeClass('hidden');
@@ -327,19 +320,19 @@ $(document).ready(function() {
           $('.listing-capacity-value').text('Unlimited');
         }
     });
-  $(document).on('click','.setting-click',function() {
-      //$(this).parent().remove();
-      var hiden = $('.aaa').val();
-      if(hiden == "0"){
-        $('.passmain_content').removeClass('hidden');
-        $('.setting-paid-ticket').removeClass('hidden');
-        $('.aaa').val("1");
-      }
-      if(hiden == "1"){
-        $('.passmain_content').addClass('hidden');
-        $('.aaa').val("0");
-      }
-    });
+  // $(document).on('click','.setting-click',function() {
+  //     //$(this).parent().remove();
+  //     var hiden = $('.aaa').val();
+  //     if(hiden == "0"){
+  //       $('.passmain_content').removeClass('hidden');
+  //       $('.setting-paid-ticket').removeClass('hidden');
+  //       $('.aaa').val("1");
+  //     }
+  //     if(hiden == "1"){
+  //       $('.passmain_content').addClass('hidden');
+  //       $('.aaa').val("0");
+  //     }
+  //   });
   $(document).on('click','.ticket-connect-pass',function() {
         $('#myModal').modal('show');
     });
@@ -371,37 +364,37 @@ $(document).ready(function() {
     });
   
 
-    $(document).on('click','.setting-clicks',function() {
-      //$(this).parent().remove();
-      var hiden = $('.aaaa').val();
-      if(hiden == "0"){
-        $('.passmain_content1').removeClass('hidden');
-        
-        $('.setting-paid-ticket1').removeClass('hidden');
-        $('.aa').val("1");
-      }
-      if(hiden == "1"){
-        $('.passmain_content1').addClass('hidden');
+    // $(document).on('click','.setting-clicks',function() {
+    //   //$(this).parent().remove();
+    //   var hiden = $('.aaaa').val();
+    //   if(hiden == "0"){
+    //     $('.passmain_content1').removeClass('hidden');
+    //
+    //     $('.setting-paid-ticket1').removeClass('hidden');
+    //     $('.aa').val("1");
+    //   }
+    //   if(hiden == "1"){
+    //     $('.passmain_content1').addClass('hidden');
+    //
+    //     $('.aa').val("0");
+    //   }
+    // });
 
-        $('.aa').val("0");
-      }
-    });
-
-    $(document).on('click','.apply',function() {
-      //$(this).parent().remove();
-      var hiden = $('.aa').val();
-      if(hiden == "0"){
-        $('.passmain_content1').removeClass('hidden');
-        
-        $('.setting-paid-ticket1').removeClass('hidden');
-        $('.aa').val("1");
-      }
-      if(hiden == "1"){
-        $('.passmain_content1').addClass('hidden');
-
-        $('.aa').val("0");
-      }
-    });
+    // $(document).on('click','.apply',function() {
+    //   //$(this).parent().remove();
+    //   var hiden = $('.aa').val();
+    //   if(hiden == "0"){
+    //     $('.passmain_content1').removeClass('hidden');
+    //
+    //     $('.setting-paid-ticket1').removeClass('hidden');
+    //     $('.aa').val("1");
+    //   }
+    //   if(hiden == "1"){
+    //     $('.passmain_content1').addClass('hidden');
+    //
+    //     $('.aa').val("0");
+    //   }
+    // });
 
      $(document).on('keyup','.qty-a',function() {
        var sum = 0;     

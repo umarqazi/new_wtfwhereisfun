@@ -40,10 +40,6 @@ header#header {
     border-bottom: none !important;
 }
 
-.contact-wrap > .signup-signin-wrap {
-    max-width: 770px !important;
-    margin-left: -135px;
-}
 textarea {
   resize: vertical;
 }
@@ -658,4 +654,37 @@ img.img.img-circle {
 
 .closeMenu{
     display: none;
+}
+
+
+.basicInformationWrapper{
+    padding-left: 0;
+    padding-top: 10px;
+}
+
+.public_unlisted a{
+    width: 50%;
+}
+
+input:checked + .slider{
+    background-color: #86c543;
+}
+
+a > img{
+    outline: none;
+}
+
+.bootstrap-datetimepicker-widget table th, .bootstrap-datetimepicker-widget table td{
+    font-size: 13px;
+}
+
+.contactUs_title{
+    padding: 30px 0px 0px 18px;
+    color: #999 !important;
+    font-size: 26px;
+    font-weight: 600;
+}
+
+.signup-signin-section{
+    background: none;
 }

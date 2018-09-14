@@ -26,6 +26,7 @@ use App\Services\CurrencyService;
 use App\Services\TimeZoneService;
 use App\Services\CategoryServices;
 use App\Http\Requests\Event;
+use App\Http\Requests\EventTicket;
 use App\Http\Requests\EventTimeLocation;
 class EventController extends Controller
 {
@@ -218,7 +219,7 @@ class EventController extends Controller
         ]);
     }
 
-    public function ticketUpdate(Request $request){
+    public function ticketUpdate(EventTicket $request){
         $eventId = decrypt_id($request->event_id);
         $response = $this->eventTicketService->updateEventTicket($request, $eventId);
         return response()->json([
@@ -226,6 +227,52 @@ class EventController extends Controller
             'msg'       =>  'Event Ticket has been updated Successfully',
             'data'      =>  $response
         ]);
+    }
+
+    public function addNewTicket(Request $request){
+        $response = $this->eventTicketService->addNewTicket($request);
+        return response()->json([
+            'type'      =>  'success',
+            'msg'       =>  'New Ticket Added',
+            'data'      =>  $response
+        ]);
+    }
+
+    public function ticketDelete(Request $request){
+        $this->eventTicketService->deleteTicket($request);
+        return response()->json([
+            'type'      =>  'success',
+            'msg'       =>  'Ticket Deleted',
+            'data'      =>  ''
+        ]);
+    }
+
+    public function addNewTicketPass(Request $request){
+        $response = $this->eventTicketService->addNewTicketPass($request);
+        return response()->json([
+            'type'      =>  'success',
+            'msg'       =>  'New Ticket Pass Added',
+            'data'      =>  $response
+        ]);
+    }
+
+    public function ticketPassUpdate(Request $request){
+        $response = $this->eventTicketService->updateEventTicketPass($request);
+        return response()->json([
+            'type'      =>  'success',
+            'msg'       =>  'Event Ticket has been updated Successfully',
+            'data'      =>  $response
+        ]);
+    }
+
+    public function ticketPassDelete(Request $request){
+        $this->eventTicketService->deleteTicketPass($request);
+        return response()->json([
+            'type'      =>  'success',
+            'msg'       =>  'Pass Deleted',
+            'data'      =>  ''
+        ]);
+
     }
 
 }

@@ -201,8 +201,7 @@ $(document).ready(function($) {
 
     function eventTicketForm(event, obj){
         event.preventDefault();
-        var form_data = new FormData($(obj)[0]);
-        var id = '#'+$(obj).attr('id');
+        var formData = new FormData($(obj)[0]);
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -211,15 +210,16 @@ $(document).ready(function($) {
         $.ajax({
             url  : base_url() + "/events/update-ticket",
             type : "POST",
-            data : form_data,
+            data : formData,
             dataType : "JSON",
             cache: false,
             contentType: false,
             processData: false,
             beforeSend:function(){
-                $(id+' .form-error').html('');
-                $(id+' .btn-save').attr('disabled',true).text('Loading....');
-                $(id+' :input').prop('disabled', true);
+                $(obj).find('.form-error').html('');
+                $(obj).find('.btn-save').attr('disabled',true).text('Loading....');
+                $(obj).find(':input').prop('disabled', true);
+                $(obj).removeClass('form-editable');
             },
             success: function(response){
                 if(response.type == "success"){
@@ -228,11 +228,15 @@ $(document).ready(function($) {
                 else{
                     showToaster('error',response.msg);
                 }
-                $(id+' .btn-save').css('display', 'none');
-                $(id+' .btn-edit').css('display', 'block').prop('disabled', false);
-                $(id+' .time-location-id').attr('value', response.data.id);
-                $(id+' .request-type').attr('value', 'update');
-                $('.add-another-location').css('display', 'block');
+                $(obj).find('.btn-edit').css('display', 'inline-block').prop('disabled', false);
+                $(obj).find('.ticket-id').attr('value', response.data.id);
+                $(obj).find('.request-type').attr('value', 'edit');
+                $(obj).find('.btn-save').text('Save').css('display','none');
+                var eventId = $('#new-ticket-buttons paid_ticket_btn').attr('data-event-id');
+                $('#new-ticket-buttons .paid_ticket_btn').attr('onclick', 'addNewTicket(this,"Paid",'+ eventId+')');
+                $('#new-ticket-buttons .donation_btn').attr('onclick', 'addNewTicket(this,"Donation",'+ eventId+')');
+                $('#new-ticket-buttons .free_ticket_btn').attr('onclick', 'addNewTicket(this,"Free",'+ eventId+')');
+                $(obj).find('.action_list .add-pass').css('display','block');
             },
             error:function(response)
             {
@@ -243,11 +247,202 @@ $(document).ready(function($) {
                 var count  = keys.length;
                 for (var i = 0; i < count; i++)
                 {
-                    $(id +' .'+keys[i]).html(errors[keys[i]]).focus();
+                    $(obj).find('.'+keys[i]).html(errors[keys[i]]).focus();
                 }
-                $(id+' .btn-save').attr('disabled',false).text('Save');
+                $(obj).find(':input').prop('disabled', false).css('background-color', '#fff!important');
+                $(obj).find('.btn-save').attr('disabled',false).text('Save');
+                $(obj).addClass('form-editable');
             }
         });
+    }
+
+
+    function addNewTicket(obj, type, eventId){
+        var formData = { event_id : eventId, type : type};
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        $.ajax({
+            url  : base_url() + "/events/add-new-ticket",
+            type : "POST",
+            data : formData,
+            dataType : "JSON",
+            beforeSend:function(){
+                $('#new-ticket-buttons a').removeAttr('onclick');
+            },
+            success: function(response)
+            {
+                $('.new-tickets').prepend(response.data);
+            }
+        });
+    }
+
+    function editEventTicketForm(obj){
+        var formElement = $(obj).closest("form");
+        formElement.addClass('form-editable').find(':input').removeAttr('disabled');
+        $('#new-ticket-buttons a').removeAttr('onclick');
+        formElement.find('.btn-save').css('display','inline-block');
+        formElement.find('.btn-edit').css('display','none');
+    }
+
+    function changeTicketStatus(event, obj, type){
+        event.preventDefault();
+        $(obj).parent().find('a').removeAttr('class');
+        $(obj).attr('class', 'active');
+        $(obj).parent().find('input').val(type);
+    }
+
+    function changeTicketAvailability(event, obj, type){
+        event.preventDefault();
+        $(obj).parent().find('a').removeClass('active');
+        $(obj).addClass('active');
+        $(obj).parent().find('input').val(type);
+    }
+
+    function deleteTicket(event, obj){
+        event.preventDefault();
+        var formElement = $(obj).closest("form");
+        var ticketId = formElement.find('.ticket-id').attr('value');
+        formElement.parent('div').remove();
+        var attr = $('#new-ticket-buttons .paid_ticket_btn').attr('onclick');
+        // For some browsers, `attr` is undefined; for others, `attr` is false. Check for both.
+        if (typeof attr !== typeof undefined && attr !== false) {
+            // Element has this attribute
+        }else{
+            var eventId = $('#new-ticket-buttons paid_ticket_btn').attr('data-event-id');
+            $('#new-ticket-buttons .paid_ticket_btn').attr('onclick', 'addNewTicket(this,"Paid",'+ eventId+')');
+            $('#new-ticket-buttons .donation_btn').attr('onclick', 'addNewTicket(this,"Donation",'+ eventId+')');
+            $('#new-ticket-buttons .free_ticket_btn').attr('onclick', 'addNewTicket(this,"Free",'+ eventId+')');
+        }
+
+        if(ticketId != ''){
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            $.ajax({
+                url  : base_url() + "/events/delete-ticket",
+                type : "POST",
+                data : {ticket_id : ticketId},
+                dataType : "JSON",
+                success: function(response)
+                {
+                    if(response.type == "success"){
+                        showToaster('success', 'Ticket Deleted Successfully');
+                    }
+                }
+            });
+        }
+    }
+
+    function addNewTicketPass(event, obj, ticketId){
+        if($(obj).closest('.ticket-passes-wrapper').has('.event-passes-heading')){
+            formData = {ticket_id : ticketId, first : false}
+        }else{
+            formData = {ticket_id : ticketId, first : true}
+        }
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        $.ajax({
+            url  : base_url() + "/events/add-new-ticket-pass",
+            type : "POST",
+            data : formData,
+            dataType : "JSON",
+            success: function(response)
+            {
+                $('.ticket-passes-wrapper').append(response.data);
+            }
+        });
+    }
+
+    function editEventTicketPassForm(obj){
+        var formElement = $(obj).closest("form");
+        formElement.addClass('form-editable').find(':input').removeAttr('disabled');
+        formElement.find('.btn-save').css('display','block');
+        formElement.find('.btn-edit').css('display','none');
+    }
+
+    function updateTicketPass(event, obj){
+        event.preventDefault();
+        var formData = new FormData($(obj)[0]);
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        $.ajax({
+            url  : base_url() + "/events/update-pass",
+            type : "POST",
+            data : formData,
+            dataType : "JSON",
+            cache: false,
+            contentType: false,
+            processData: false,
+            beforeSend:function(){
+                $(obj).find('.form-error').html('');
+                $(obj).find(':input').prop('disabled', true);
+                $(obj).removeClass('form-editable');
+            },
+            success: function(response){
+                if(response.type == "success"){
+                    showToaster('success',response.msg);
+                }
+                else{
+                    showToaster('error',response.msg);
+                }
+                $(obj).find('.btn-save').css('display', 'none').text('Save');
+                $(obj).find('.btn-edit').css('display', 'block').prop('disabled', false);
+                $(obj).find('.pass-id').attr('value', response.data.id);
+                $(obj).find('.request-type').attr('value', 'edit');
+            },
+            error:function(response)
+            {
+                var respObj = response.responseJSON;
+                showToaster('error', respObj.message);
+                errors = respObj.errors;
+                var keys   = Object.keys(errors);
+                var count  = keys.length;
+                for (var i = 0; i < count; i++)
+                {
+                    $(obj).find('.'+keys[i]).html(errors[keys[i]]).focus();
+                }
+                $(obj).find(':input').prop('disabled', false).css('background-color', '#fff!important');
+                $(obj).find('.btn-save').attr('disabled',false).text('Save');
+                $(obj).addClass('form-editable');
+            }
+        });
+    }
+
+    function deleteTicketPass(event, obj){
+        event.preventDefault();
+        var formElement = $(obj).closest("form");
+        var passId = formElement.find('.pass-id').attr('value');
+        formElement.parent('div').remove();
+        if(passId != ''){
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            $.ajax({
+                url  : base_url() + "/events/delete-pass",
+                type : "POST",
+                data : {pass_id : passId},
+                dataType : "JSON",
+                success: function(response)
+                {
+                    if(response.type == "success"){
+                        showToaster('success', 'Pass Deleted Successfully');
+                    }
+                }
+            });
+        }
     }
 
 /*****************************************************************************
@@ -290,12 +485,22 @@ $(document).ready(function(){
         minDate: moment()
     });
 
-    $('#enddate').datetimepicker().on('dp.change', function (e) {
-        var decrementDay = moment(new Date(e.date));
-        decrementDay.subtract(1, 'days');
-        $('#datetimepicker1').data('DateTimePicker').maxDate(decrementDay);
-        $(this).data("DateTimePicker").hide();
+    $(document).on('click',".datepicker1, .datepicker2", function(e){
+        //bind to all instances of class "date".
+        $(this).datetimepicker({
+            useCurrent: false,
+            format:'YYYY-MM-DD HH:mm:ss',
+            allowInputToggle: true,
+            minDate: moment()
+        });
     });
+
+    // $('#enddate').datetimepicker().on('dp.change', function (e) {
+    //     var decrementDay = moment(new Date(e.date));
+    //     decrementDay.subtract(1, 'days');
+    //     $('#datetimepicker1').data('DateTimePicker').maxDate(decrementDay);
+    //     $(this).data("DateTimePicker").hide();
+    // });
 });
 
 $(document).on('change','#hide_date_from_ticket',function() {
@@ -402,3 +607,4 @@ $(document).on('change','select#event_topic',function() {
             }
         });
     }
+

@@ -66,13 +66,24 @@ Route::group(['middleware' => ['web']], function () {
         Route::group(['middleware' => ['role:vendor','auth']], function () {
             Route::get('dashboard',  'UsersController@vendorDashboard');
             Route::resource('events', 'EventController');
+
             Route::post('get-event-sub-topics', 'EventController@getTopicSubTopics');
             Route::post('events/update-details', 'EventController@detailsUpdate');
             Route::post('events/update-topics', 'EventController@topicsUpdate');
-            Route::post('events/update-time-location', 'EventController@timeLocationUpdate');
+
             Route::post('events/maps-search', 'EventController@searchLocation');
             Route::post('events/add-new-location-row', 'EventController@addNewLocationRow');
+            Route::post('events/update-time-location', 'EventController@timeLocationUpdate');
+
             Route::post('events/update-ticket', 'EventController@ticketUpdate');
+            Route::post('events/add-new-ticket', 'EventController@addNewTicket');
+            Route::post('events/delete-ticket', 'EventController@ticketDelete');
+
+            Route::post('events/add-new-ticket-pass', 'EventController@addNewTicketPass');
+            Route::post('events/update-pass', 'EventController@ticketPassUpdate');
+            Route::post('events/delete-pass', 'EventController@ticketPassDelete');
+
+
 
 
         });

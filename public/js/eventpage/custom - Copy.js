@@ -68,14 +68,14 @@ $(document).ready(function() {
         Pass = Pass+'<input type="text" class="form-control" placeholder="e.g General Admission" name="ticket_name[]" required=""></li>';
         Pass = Pass+'<li><input type="number" class="form-control qty-a" placeholder="Unlimited" name="quantity[]" required=""></li>';
         Pass = Pass+'<li><input type="number" class="form-control " placeholder="Cost" name="ticket_price[]" required=""></li>';
-        Pass = Pass+'<li><ol class="action_list"><li><a href="javascript:void()" class="ticket-connect-pass"><i class="fa fa-ticket"></i></a></li><li class=""><input type="hidden" name="aa" class="aaaa" value="0" ><a href="javascript:void(0)" class="setting-clicks"><i class="fa fa-cog"></i></a></li><li><a href="javascript:void()" class="copy-click"><i class="fa fa-folder-open"></i></a></li><li><a href="javascript:void()" class="ticket_removerow"><i class="fa fa-trash"></i></a></li></ol></li></ul>';        
+        Pass = Pass+'<li><ol class="action_list"><li><a href="javascript:void()" class="ticket-connect-pass"><i class="fa fa-ticket"></i></a></li><li class=""><input type="hidden" name="aa" class="aaaa" value="0" ><a href="javascript:void(0)" class="setting-clicks"><i class="fa fa-cog"></i></a></li><li><a href="javascript:void()" class="copy-click"><i class="fa fa-folder-open"></i></a></li><li><a href="javascript:void()" class="ticket_removerow"><i class="fa fa-trash"></i></a></li></ol></li></ul>';
           $('body').on('click','.passes-link',function(){
               //$('.passes-link').addClass('hidden');
               $('.hide-free').addClass('hidden');
           $('.hide-donation').addClass('hidden');
           $('.hide-paid').addClass('hidden');
               $('.three-offer').addClass('hidden');
-              $('.three-offers').removeClass('hidden'); 
+              $('.three-offers').removeClass('hidden');
               $('.ticket-link').removeClass('hidden');
               $('.new-passes').removeClass('hidden');
               $('.New_pass_appendedbox').removeClass('hidden');
@@ -204,7 +204,7 @@ $(document).ready(function() {
         DonationTicket = DonationTicket+'<li><input type="number" class="form-control" placeholder="Cost" name="ticket_price[]" required=""></li>';
         DonationTicket = DonationTicket+'<li><ol class="action_list"></li><li class=""><input type="hidden" name="aaa" class="aaa" value="0" ><a href="javascript:void(0)" class="setting-click"><i class="fa fa-cog"></i></a></li><li><a href="javascript:void()" class="copy-click"><i class="fa fa-folder-open"></i></a></li><li><a href="javascript:void()" class="ticket_removerow"><i class="fa fa-trash"></i></a></li></ol></li></ul>';
 
-/* ==== Free Tickets =====*/ 
+/* ==== Free Tickets =====*/
     var FreeTicket = '<ul class="listTable_row table_row clearfix hide-free">';
         FreeTicket = FreeTicket+'<li>';
         FreeTicket = FreeTicket+'<input type="text" class="form-control" placeholder="e.g General Admission" name="ticket_name[]" required=""></li>';
@@ -244,7 +244,7 @@ $(document).ready(function() {
            }
             if(ticketvalue  == "free"){
                $('.hide-free').removeClass('hidden');
-          
+
               $('.hide-on').addClass('hidden');
                 $('#addTicketList').append(FreeTicket);
                 $('#ticketvalue').val('free');
@@ -268,7 +268,7 @@ $(document).ready(function() {
   $(document).on('click','.ticket_removerow',function() {
       //$(this).parent().remove();
       $(this).closest(".listTable_row").remove();
-      var sum = 0;     
+      var sum = 0;
         $('.qty-a').each(function() {
             sum += Number($(this).val());
         });
@@ -277,7 +277,7 @@ $(document).ready(function() {
           $('.listing-capacity-value').text(sum)
         }
         else{
-          $('.listing-capacity-value').text('Unlimited') 
+          $('.listing-capacity-value').text('Unlimited')
         }
     });
   $(document).on('click','.setting-click',function() {
@@ -303,7 +303,7 @@ $(document).ready(function() {
       var hiden = $('.aaaa').val();
       if(hiden == "0"){
         $('.passmain_content1').removeClass('hidden');
-        
+
         $('.setting-paid-ticket1').removeClass('hidden');
         $('.aa').val("1");
       }
@@ -319,7 +319,7 @@ $(document).ready(function() {
       var hiden = $('.aa').val();
       if(hiden == "0"){
         $('.passmain_content1').removeClass('hidden');
-        
+
         $('.setting-paid-ticket1').removeClass('hidden');
         $('.aa').val("1");
       }

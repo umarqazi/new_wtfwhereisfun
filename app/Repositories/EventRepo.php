@@ -5,6 +5,7 @@ namespace App\Repositories;
 use App\Event;
 use App\EventTicket;
 use App\EventTimeLocation;
+use App\TicketPass;
 use Illuminate\Support\Facades\Auth;
 class EventRepo
 {
@@ -108,23 +109,45 @@ class EventRepo
 
     public function updateEventTicket($request, $eventId){
         if($request->request_type == 'store'){
-            $eventEventTicket = new EventTicket;
-            $eventEventTicket->event_id            =       $eventId;
+            $eventTicket = new EventTicket;
+            $eventTicket->event_id            =       $eventId;
         }else{
-            $eventEventTicket = EventTicket::find($request->ticket_id);
+            $eventTicket = EventTicket::find($request->ticket_id);
         }
-        $eventEventTicket->name                    =       $request->name;
-        $eventEventTicket->quantity                =       $request->quantity;
-        $eventEventTicket->price                   =       $request->price;
-        $eventEventTicket->description             =       $request->description;
-        $eventEventTicket->selling_start           =       $request->selling_start;
-        $eventEventTicket->selling_end             =       $request->selling_end;
-        $eventEventTicket->status                  =       $request->status;
-        $eventEventTicket->min_order               =       $request->min_order;
-        $eventEventTicket->max_order               =       $request->max_order;
-        $eventEventTicket->type                    =       $request->type;
+        $eventTicket->name                    =       $request->name;
+        $eventTicket->quantity                =       $request->quantity;
+        $eventTicket->price                   =       $request->price;
+        $eventTicket->description             =       $request->description;
+        $eventTicket->selling_start           =       $request->selling_start;
+        $eventTicket->selling_end             =       $request->selling_end;
+        $eventTicket->status                  =       $request->status;
+        $eventTicket->min_order               =       $request->min_order;
+        $eventTicket->max_order               =       $request->max_order;
+        $eventTicket->type                    =       $request->type;
+        $eventTicket->availability            =       $request->availability;
 
-        $eventEventTicket->save();
-        return $eventEventTicket;
+        $eventTicket->save();
+        return $eventTicket;
+    }
+
+    public function deleteTicket($request){
+        $eventTicket = EventTicket::destroy($request->ticket_id);
+    }
+
+    public function updateEventTicketPass($request){
+        if($request->request_type == 'store'){
+            $eventTicketPass = new TicketPass;
+            $eventTicketPass->ticket_id      =       $request->ticket_id;
+        }else{
+            $eventTicketPass = TicketPass::find($request->pass_id);
+        }
+        $eventTicketPass->name               =       $request->pass_name;
+
+        $eventTicketPass->save();
+        return $eventTicketPass;
+    }
+
+    public function deleteTicketPass($request){
+        $eventTicketPass = TicketPass::destroy($request->pass_id);
     }
 }

@@ -6,9 +6,7 @@
         <div class="container contact-wrap">
             <div class="signup-signin-wrap">
                 <div class="tablist-wrap">
-                    <ul class="nav nav-tabs" role="tablist">
-                        <li role="presentation" class="active"><a href="#sign-in" aria-controls="sign-in" role="tab" data-toggle="tab">Contact US</a></li>
-                    </ul>
+                    <h2 class="contactUs_title">Contact Us</h2>
                     <!-- Tab panes -->
                     <div class="tab-content">
                         <div role="tabpanel" class="tab-pane active" id="sign-in">

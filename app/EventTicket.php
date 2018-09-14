@@ -19,4 +19,12 @@ class EventTicket extends Model
         return $this->belongsTo('App\Event');
     }
 
+    /**
+     * Get Ticket Passes
+     */
+    public function passes()
+    {
+        return $this->hasMany('App\TicketPass', 'ticket_id');
+    }
+
 }
