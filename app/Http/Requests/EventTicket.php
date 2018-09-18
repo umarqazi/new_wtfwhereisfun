@@ -29,9 +29,8 @@ class EventTicket extends FormRequest
             'name'                      =>          'required|string',
             'price'                     =>          'required|integer',
             'quantity'                  =>          'required|integer',
-            'description'               =>          'required|string',
-            'selling_start'             =>          'date_format:Y-m-d H:i:s',
-            'selling_end'               =>          'date_format:Y-m-d H:i:s',
+//            'selling_start'             =>          'date_format:Y-m-d H:i:s',
+//            'selling_end'               =>          'date_format:Y-m-d H:i:s',
             'request_type'              =>          'required|in:store,edit'
         ];
     }

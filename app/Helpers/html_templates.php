@@ -127,96 +127,112 @@ if (! function_exists('addNewTimeLocationRow')) {
                                         <input type=\"number\" class=\"form-control\" placeholder=\"Cost\" name=\"price\">
                                         <div class=\"form-error price\"></div>
                                     </li>                                    
-                                    <li>
+                                    <li>                                      
                                         <ol class=\"action_list\">
-                                            <li class=\"\">
-                                                <input type=\"hidden\" name=\"aaa\" class=\"aaa\" value=\"0\" >
-                                                <a href=\"javascript:void(0)\" class=\"add-pass\" onclick=\"addNewTicketPass(event,this)\" style=\"display:none;\" title=\"Connect Pass\"><i class=\"fa fa-plus\"></i></a>
+                                            <li>
+                                                <a href=\"javascript:void(0);\" class=\"setting-click\" onclick=\"eventTicketSettings(event, this)\" title=\"Ticket Settings\"><i class=\"fa fa-cog\"></i></a>
                                             </li>
                                             <li>
-                                                <a href=\"javascript:void();\" class=\"ticket_removerow\" title=\"Delete Ticket\" onclick=\"deleteTicket(event,this)\"><i class=\"fa fa-trash\"></i></a>
+                                                <a href=\"javascript:void(0);\" class=\"copy-click\" onclick=\"copyEventTicket(event, this)\" title=\"Copy Ticket Details\"><i class=\"fa fa-folder-open\"></i></a>
+                                            </li>
+                                            <li>
+                                                <a href=\"javascript:void(0);\" class=\"\" onclick=\"eventTicketPasses(event,this)\" title=\"Ticket Passes\"><i class=\"fa fa-ticket\"></i></a>
+                                            </li>
+
+                                            <li>
+                                                <button type=\"submit\" class=\"no-background-border\" title=\"Save Ticket\"><i class=\"fa fa-save\"></i></button>
+                                            </li>
+                                            <li>
+                                                <a href=\"javascript:void(0);\" class=\"ticket_removerow\" title=\"Delete Ticket\" onclick=\"deleteTicket(event,this)\"><i class=\"fa fa-trash\"></i></a>
                                             </li>
                                         </ol>
                                     </li>
                                 </ul>
-                                <div class=\"form-group\">
-                                    <label>Description</label>
-                                    <textarea class=\"form-control\" placeholder=\"Additional ticket info\" name=\"description\"></textarea>
-                                    <div class=\"form-error description\"></div>
-                                </div>
-                                <div class=\"row datepicker_row\">
-                                    <div class=\"col-sm-6\">
-                                        <div class=\"form-group\">
-                                            <span>Ticket sale starts</span>
-                                            <div class=\"input-group date datepicker1\" id=\"datetimepicker1\">
-                                                    <span class=\"input-group-addon\">
-                                                      <span class=\"glyphicon glyphicon-calendar\"></span>
-                                                    </span>
-                                                <input type=\"text\" class=\"form-control\" name=\"selling_start\" />
-                                            </div>
-                                            <div class=\"form-error selling_start\"></div>
-                                        </div>
+                                <div class=\"ticket-settings hidden\">
+                                    <div class=\"form-group\">
+                                        <label>Description</label>
+                                        <textarea class=\"form-control\" placeholder=\"Additional ticket info\" name=\"description\"></textarea>
+                                        <div class=\"form-error description\"></div>
                                     </div>
-                                    <div class=\"col-sm-6\">
-                                        <div class=\"form-group\">
-                                            <span>Ticket sale ends</span>
-                                            <div class=\"input-group date datepicker2\" id=\"datetimepicker2\">
-                                                    <span class=\"input-group-addon\">
-                                                      <span class=\"glyphicon glyphicon-calendar\"></span>
-                                                    </span>
-                                                <input type=\"text\" class=\"form-control\" name=\"selling_end\" />
-                                            </div>
-                                            <div class=\"form-error selling_end\"></div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class=\"row newpass_buttons form-group\">
-                                    <div class=\"col-sm-6\">
-                                        <span>Ticket status</span>
-                                        <div class=\"public_unlisted clearfix\">
-                                            <a href=\"JavaScript:void(0);\" id=\"grp\" class=\"active \" onclick=\"changeTicketStatus(event,this,'active' )\">Active</a>
-                                            <a href=\"JavaScript:void(0);\" id=\"grp-hidden\" class=\"\" onclick=\"changeTicketStatus(event,this,'hidden')\">Hidden</a>
-                                            <a href=\"JavaScript:void(0);\" id=\"grp-locked\" class=\"\" onclick=\"changeTicketStatus(event,this,'locked')\">Locked</a>
-                                            <input type=\"hidden\" value=\"active \" name=\"status\">
-                                        </div>                                      
-                                    </div>
-                                    <div class=\"col-sm-6 active-grp-available\">
-                                        <span> Available</span>
-                                        <div class=\"public_unlisted clearfix\">
-                                            <a href=\"JavaScript:void(0);\" id=\"grp-anywhere\" class=\" active \" onclick=\"changeTicketAvailability(event,this,'anywhere' )\">Anywhere</a>
-                                            <a href=\"JavaScript:void(0);\" id=\"grp-online\" class=\"\" onclick=\"changeTicketAvailability(event,this,'online' )\">Online Only</a>
-                                            <a href=\"JavaScript:void(0);\" id=\"grp-door\" class=\"\" onclick=\"changeTicketAvailability(event,this,'atdoor' )\">At the door</a>
-                                            <input type=\"hidden\" value=\"anywhere \" name=\"availability\">
-                                        </div>
-                                    </div>
-                                    <div class=\"field-group field-group-available hidden\">
-                                        <label>Access key</label>
-                                        <div class=\"field-input status-access-key\">
-                                            <input id=\"ember2435\" class=\"ember-view ember-text-field form-control rate-access-key-input\" placeholder=\"Enter access key\" name=\"default_access_key\" type=\"text\">
-                                        </div>
-                                    </div>
-                                </div>
-        
-                                <div class=\"row release_ticket_row form-group\">
-                                    <div class=\"col-sm-6\">
-                                        <label>Passes per order</label>
-                                        <div class=\"per_order_minmax\">
-                                            <div class=\"ordermin\">
-                                                <input type=\"number\" class=\"form-control\" placeholder=\"Min\" name=\"min_order\">
-                                            </div>
-                                            <div class=\"ordermax\">
-                                                <input type=\"number\" class=\"form-control\" placeholder=\"Max\" name=\"max_order\">
+                                    <div class=\"row datepicker_row\">
+                                        <div class=\"col-sm-6\">
+                                            <div class=\"form-group\">
+                                                <span>Ticket sale starts</span>
+                                                <div class=\"input-group date datepicker1\" id=\"datetimepicker1\">
+                                                        <span class=\"input-group-addon\">
+                                                          <span class=\"glyphicon glyphicon-calendar\"></span>
+                                                        </span>
+                                                    <input type=\"text\" class=\"form-control\" name=\"selling_start\" />
+                                                </div>
+                                                <div class=\"form-error selling_start\"></div>
                                             </div>
                                         </div>
-        
+                                        <div class=\"col-sm-6\">
+                                            <div class=\"form-group\">
+                                                <span>Ticket sale ends</span>
+                                                <div class=\"input-group date datepicker2\" id=\"datetimepicker2\">
+                                                        <span class=\"input-group-addon\">
+                                                          <span class=\"glyphicon glyphicon-calendar\"></span>
+                                                        </span>
+                                                    <input type=\"text\" class=\"form-control\" name=\"selling_end\" />
+                                                </div>
+                                                <div class=\"form-error selling_end\"></div>
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class=\"form-group\">
-                                    <div class=\"applybutton_right\">
-                                        <button type=\"button\" class=\"btn btn-default btn-edit\" style=\"display:none;\" onclick=\"editEventTicketForm(this)\">Edit</button>
-                                        <button type=\"submit\" class=\"btn btn-default btn-save\">Save</button>
+                                    <div class=\"row newpass_buttons form-group\">
+                                        <div class=\"col-sm-6\">
+                                            <span>Ticket status</span>
+                                            <div class=\"public_unlisted clearfix\">
+                                                <a href=\"JavaScript:void(0);\" id=\"grp\" class=\"active \" onclick=\"changeTicketStatus(event,this,'active' )\">Active</a>
+                                                <a href=\"JavaScript:void(0);\" id=\"grp-hidden\" class=\"\" onclick=\"changeTicketStatus(event,this,'hidden')\">Hidden</a>
+                                                <a href=\"JavaScript:void(0);\" id=\"grp-locked\" class=\"\" onclick=\"changeTicketStatus(event,this,'locked')\">Locked</a>
+                                                <input type=\"hidden\" value=\"active \" name=\"status\">
+                                            </div>                                      
+                                        </div>
+                                        <div class=\"col-sm-6 active-grp-available\">
+                                            <span> Available</span>
+                                            <div class=\"public_unlisted clearfix\">
+                                                <a href=\"JavaScript:void(0);\" id=\"grp-anywhere\" class=\" active \" onclick=\"changeTicketAvailability(event,this,'anywhere' )\">Anywhere</a>
+                                                <a href=\"JavaScript:void(0);\" id=\"grp-online\" class=\"\" onclick=\"changeTicketAvailability(event,this,'online' )\">Online Only</a>
+                                                <a href=\"JavaScript:void(0);\" id=\"grp-door\" class=\"\" onclick=\"changeTicketAvailability(event,this,'atdoor' )\">At the door</a>
+                                                <input type=\"hidden\" value=\"anywhere \" name=\"availability\">
+                                            </div>
+                                        </div>
+                                        <div class=\"field-group field-group-available hidden\">
+                                            <label>Access key</label>
+                                            <div class=\"field-input status-access-key\">
+                                                <input id=\"ember2435\" class=\"ember-view ember-text-field form-control rate-access-key-input\" placeholder=\"Enter access key\" name=\"default_access_key\" type=\"text\">
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
+            
+                                    <div class=\"row release_ticket_row form-group\">
+                                        <div class=\"col-sm-6\">
+                                            <label>Passes per order</label>
+                                            <div class=\"per_order_minmax\">
+                                                <div class=\"ordermin\">
+                                                    <input type=\"number\" class=\"form-control\" placeholder=\"Min\" name=\"min_order\">
+                                                </div>
+                                                <div class=\"ordermax\">
+                                                    <input type=\"number\" class=\"form-control\" placeholder=\"Max\" name=\"max_order\">
+                                                </div>
+                                            </div>
+            
+                                        </div>
+                                    </div>
+                                </div> 
+                                
+                                <div class=\"ticket-passes-wrapper hidden\">
+                                    <div class=\"event-passes-heading\">
+                                        <h4>Ticket Passes</h4>
+                                    </div>
+                                    <div class=\"row ticket-pass\">
+                                        <div class=\"col-md-12 no-passes\">
+                                            <p>Currenty there are no passes for this ticket</p>
+                                        </div>
+                                    </div>                                                                       
+                                </div>                               
                             </div>
                             <input type=\"hidden\" value=\"{{$request->event_id}}\" name=\"event_id\">
                             <input type=\"hidden\" value=\"\" name=\"ticket_id\" class=\"ticket-id\">
@@ -230,50 +246,24 @@ if (! function_exists('addNewTimeLocationRow')) {
     if (! function_exists('addNewTicketPass')) {
         function addNewTicketPass($request)
         {
-            if($request->first == "true"){
-                $html = "<div class=\"event-passes-heading\">
-                            <h4>Ticket Passes</h4>
-                        </div>
-                        <div class=\"row ticket-pass form-group\">                    
-                            <div class=\"col-sm-6\">
-                                <form onsubmit=\"updateTicketPass(event,this)\" method=\"post\" class=\"form-editable\">
-                                    <div class=\"per_order_minmax\">
-                                        <div class=\"col-sm-10\">
-                                            <label>Pass Name</label>
-                                            <input type=\"text\" class=\"form-control\" placeholder=\"Pass Name\" name=\"pass_name\">
-                                        </div>
-                                        <div class=\"col-sm-2\">
-                                            <button type=\"submit\" class=\"btn btn-default btn-save\">Save</button>
-                                            <button type=\"button\" class=\"btn btn-default btn-edit\" onclick=\"editEventTicketPassForm(this)\" style=\"display:none;\">Edit</button>
-                                            <button type=\"button\" class=\"ticket_removerow\" title=\"Delete Pass\" onclick=\"deleteTicketPass(event,this)\"><i class=\"fa fa-trash\"></i></button>                                            
-                                        </div>
-                                        <input type=\"hidden\" name=\"pass_id\" value=\"\" class=\"pass-id\">
-                                        <input type=\"hidden\" name=\"ticket_id\" value=\"{$request->ticket_id}\">
-                                        <input type=\"hidden\" name=\"request_type\" class=\"request-type\" value=\"store\">
-                                    </div>
-                                </form>
-                            </div>                    
-                        </div>";
-            }else{
-                $html = "<div class=\"col-sm-6\">
-                            <form onsubmit=\"updateTicketPass(event,this)\" method=\"post\" class=\"form-editable\">
-                                <div class=\"per_order_minmax\">
-                                    <div class=\"\">
-                                        <label>Pass Name</label>
-                                        <input type=\"text\" class=\"form-control\" placeholder=\"Pass Name\" name=\"pass_name\" >
-                                    </div>
-                                    <div class=\"\">
-                                        <button type=\"submit\" class=\"btn btn-default btn-save\">Save</button>
-                                        <button type=\"button\" class=\"btn btn-default btn-edit\" onclick=\"editEventTicketPassForm(this)\" style=\"display:none;\">Edit</button>
-                                        <button type=\"button\" class=\"ticket_removerow\" title=\"Delete Pass\" onclick=\"deleteTicketPass(event,this)\"><i class=\"fa fa-trash\"></i></button>
-                                    </div>
-                                    <input type=\"hidden\" name=\"pass_id\" value=\"\" class=\"pass-id\">
-                                    <input type=\"hidden\" name=\"ticket_id\" value=\"{$request->ticket_id}\">
-                                    <input type=\"hidden\" name=\"request_type\" class=\"request-type\" value=\"store\">
+            $html = "<div class=\"col-sm-4\">
+                        <form onsubmit=\"updateTicketPass(event,this)\" method=\"post\" class=\"form-editable\">
+                            <div class=\"pass-details\">
+                                <div class=\"pass-name\">
+                                    <label>Pass Name</label>
+                                    <input type=\"text\" class=\"form-control\" placeholder=\"Pass Name\" name=\"pass_name\">
                                 </div>
-                            </form>
-                        </div>";
-            }
+                                <div class=\"action_list\">
+                                    <button type=\"submit\" class=\"no-background-border\"><i class=\"fa fa-save\"></i></button>                                            
+                                    <button type=\"button\" class=\"no-background-border\" title=\"Delete Pass\" 
+                                    onclick=\"deleteTicketPass(event,this)\"><i class=\"fa fa-trash\"></i></button>                                            
+                                </div>
+                                <input type=\"hidden\" name=\"pass_id\" value=\"\" class=\"pass-id\">
+                                <input type=\"hidden\" name=\"ticket_id\" value=\"{$request->ticket_id}\" class=\"ticket-id\">
+                                <input type=\"hidden\" name=\"request_type\" class=\"request-type\" value=\"store\">
+                            </div>
+                        </form>
+                    </div>";
             return $html;
         }
     }

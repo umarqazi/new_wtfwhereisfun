@@ -319,20 +319,9 @@ $(document).ready(function() {
         else{
           $('.listing-capacity-value').text('Unlimited');
         }
-    });
-  // $(document).on('click','.setting-click',function() {
-  //     //$(this).parent().remove();
-  //     var hiden = $('.aaa').val();
-  //     if(hiden == "0"){
-  //       $('.passmain_content').removeClass('hidden');
-  //       $('.setting-paid-ticket').removeClass('hidden');
-  //       $('.aaa').val("1");
-  //     }
-  //     if(hiden == "1"){
-  //       $('.passmain_content').addClass('hidden');
-  //       $('.aaa').val("0");
-  //     }
-  //   });
+  });
+
+
   $(document).on('click','.ticket-connect-pass',function() {
         $('#myModal').modal('show');
     });
@@ -412,23 +401,23 @@ $(document).ready(function() {
        
     });
 
-  $(document).on('click','.copy-click',function() {
-      //$(this).parent().remove();
-      //$(this).closest(".listTable_row").remove();
-      var ele = $(this).closest('.listTable_row').clone(true);
-    $(this).closest('.listTable_row').after(ele);
-    var sum = 0;     
-        $('.qty-a').each(function() {
-            sum += Number($(this).val());
-        });
-        if(sum != 0)
-        {
-          $('.listing-capacity-value').text(sum)
-        }
-        else{
-          $('.listing-capacity-value').text('Unlimited') 
-        }
-    });
+  // $(document).on('click','.copy-click',function() {
+  //     //$(this).parent().remove();
+  //     //$(this).closest(".listTable_row").remove();
+  //     var ele = $(this).closest('.listTable_row').clone(true);
+  //   $(this).closest('.listTable_row').after(ele);
+  //   var sum = 0;
+  //       $('.qty-a').each(function() {
+  //           sum += Number($(this).val());
+  //       });
+  //       if(sum != 0)
+  //       {
+  //         $('.listing-capacity-value').text(sum)
+  //       }
+  //       else{
+  //         $('.listing-capacity-value').text('Unlimited')
+  //       }
+  //   });
 
     $(document).on('click','.mw-link',function() {        
         var text = $(this).text();

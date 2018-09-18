@@ -325,10 +325,22 @@ ul.table_row > li:first-child, ul.table_row > li:last-child{
   display: inline-block;
   font-size: 22px;
   color: #444;
-  padding:0 10px;
+  padding:0 3px;
 }
 .action_list li a{
   color: #666;
+}
+.pass-details .pass-name{
+    width : 70%!important;
+    display: inline-block;
+}
+.pass-details .action_list{
+    width : 25%!important;
+    display: inline-block;
+}
+.no-background-border{
+    background : none;
+    border     : none;
 }
 .passmain_content{
   padding: 20px 30px;
@@ -522,3 +534,6 @@ i, cite, em, var, address, dfn {
 .form-editable input{
     background-color:#fff!important;
 }
+
+.ticket-main-wrapper .form-control{background-color: #fff;}
+

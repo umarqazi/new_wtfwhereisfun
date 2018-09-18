@@ -666,6 +666,10 @@ img.img.img-circle {
     width: 50%;
 }
 
+.ticket-link{
+    width: 100%!important;
+}
+
 input:checked + .slider{
     background-color: #86c543;
 }
