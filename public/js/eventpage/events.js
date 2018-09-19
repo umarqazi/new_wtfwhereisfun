@@ -226,9 +226,8 @@ function eventTicketForm(event, obj){
                 showToaster('error',response.msg);
             }
             $(obj).find('.ticket-id').attr('value', response.data.id);
-            var addNewPass = '<a href="javascript:void(0);" class="add-pass" onclick="addNewTicketPass(event,this,'+ response.data.id+')" title="Connect Pass"><i class="fa fa-plus"></i></a>'
-            //
-            //$(obj).find('.event-passes-heading').find('h4').append('');
+            var addNewPass = '<a href="javascript:void(0);" class="add-pass" onclick="addNewTicketPass(event,this,'+ response.data.id+')" title="Connect Pass"><i class="fa fa-plus"></i></a>';
+            $(obj).find('.event-passes-heading h4').append(addNewPass);
             $(obj).find('.request-type').attr('value', 'edit');
             var eventId = $('#new-ticket-buttons paid_ticket_btn').attr('data-event-id');
             $('#new-ticket-buttons .paid_ticket_btn').attr('onclick', 'addNewTicket(this,"Paid",'+ eventId+')');
@@ -342,7 +341,7 @@ function deleteTicket(event, obj){
             success: function(response)
             {
                 if(response.type == "success"){
-                    formElement.parent('div.ticket-main-wrapper').remove();
+                    formElement.closest('.ticket-main-wrapper').remove();
                     showToaster('success', 'Ticket Deleted Successfully');
                 }
             }
