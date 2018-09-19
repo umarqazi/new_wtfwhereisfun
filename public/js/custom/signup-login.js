@@ -119,15 +119,10 @@ $(document).ready(function($) {
             success: function(resp){
                 if(resp.type == "success"){
                     $('#login-form')[0].reset();
-                    showToaster('success',resp.msg);
-                    if(resp.user_type == 'VENDOR'){
-                        setTimeout(function(){
-                            window.location.href = base_url() + '/dashboard';
-                        },1000);
+                    if(resp.data.role == 'vendor'){
+                        window.location.href = base_url() + '/dashboard';
                     }else{
-                        setTimeout(function(){
-                            window.location.href = base_url();
-                        },1000);
+                        window.location.href = base_url();
                     }
                 }
                 else{

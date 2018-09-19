@@ -90,7 +90,7 @@ class UserServices
             }
 
             Auth::attempt($credentials, $request->remember_me);
-            return $user;
+            return ['user' => $user, 'role' => $user->roles->first()->name];
         }else{
             return 'invalid-user';
         }

@@ -19,8 +19,8 @@
                 <div class="body">
                     <hr>
                     <ul class="nav nav-pills">
-                        <li><a data-toggle="pill" href="#details">Event Details</a></li>
-                        <li class="active"><a data-toggle="pill" href="#topics">Event Topics</a></li>
+                        <li class="active"><a data-toggle="pill" href="#details">Event Details</a></li>
+                        <li><a data-toggle="pill" href="#topics">Event Topics</a></li>
                         <li><a data-toggle="pill" href="#locations">Event Time and Locations</a></li>
                         <li><a data-toggle="pill" href="#tickets">Event Tickets</a></li>
                     </ul>
@@ -30,7 +30,7 @@
 
         <div class="col-md-9 col-sm-8">
             <div class="tab-content">
-                <div id="details" class="tab-pane fade in">
+                <div id="details" class="tab-pane fade in active">
                     <div class="contc-detail-wrap">
                         <div class="acnt-adrs-innertitle">
                             <h4>Event Details</h4>
@@ -86,7 +86,7 @@
                                                         <a href="JavaScript:void(0);" class="unlisted_toogle @if($event->access == 'unlisted'){{'active'}}@endif">Unlisted</a>
                                                         <input type="hidden" name="access" id="event_show" value="{{$event->access}}">
                                                     </div>
-                                                    <div class="social-buttons-toggle">
+                                                    <div class="social-buttons-toggle" @if($event->access == 'unlisted')style="display:inline-block"@endif>
                                                         <label class="switch">
                                                             <input type="checkbox" @if($event->is_shareable == 1){{'checked'}}@endif name="is_shareable" value="1">
                                                             <span class="slider round"></span>
@@ -103,11 +103,10 @@
                                             <div class="col-sm-12">
                                                 <div class="col-sm-6 chk-on-off">
                                                     <label class="switch ">
-                                                        <input type="checkbox" name="event_on_off" id="event_on_off">
+                                                        <input type="checkbox" name="is_online" id="event_on_off" @if($event->is_online){{"checked"}}@endif value="1">
                                                         <span class="slider round"></span>
                                                     </label>
                                                     <span> Online Event</span>
-                                                    <input type="hidden" name="is_online" id="on_off_event" value="0">
                                                 </div>
                                             </div>
                                         </div>
@@ -141,7 +140,7 @@
 
                                     <div class="form-group">
                                         <div class="applybutton_right">
-                                            <button type="submit" class="btn btn-default profile-btn">Save</button>
+                                            <button type="submit" class="btn btn-default profile-btn rounded-border">Save & Continue</button>
                                         </div>
                                     </div>
                                     <input type="hidden" value="{{$eventId}}" name="event_id">
@@ -151,7 +150,7 @@
                     </div>
                 </div>
 
-                <div id="topics" class="tab-pane fade in active">
+                <div id="topics" class="tab-pane fade in">
                     <div class="contc-detail-wrap">
                         <div class="acnt-adrs-innertitle">
                             <h4>Event Topics And Category</h4>
@@ -206,7 +205,7 @@
                                     </div>
                                     <div class="form-group">
                                         <div class="applybutton_right">
-                                            <button type="submit" class="btn btn-default profile-btn">Save</button>
+                                            <button type="submit" class="btn btn-default profile-btn rounded-border">Save</button>
                                         </div>
                                     </div>
                                     <input type="hidden" value="{{$eventId}}" name="event_id">
@@ -627,14 +626,18 @@
 <script src="{{asset('js/ckeditor/config.js')}}"></script>
 <script src="{{asset('js/ckeditor/styles.js')}}"></script>
 <link rel="stylesheet" href="{{asset('js/ckeditor/contents.css')}}">
-{{--@php $previousUrl = end(explode('/', URL::previous()))@endphp--}}
 
+@php
+    $previousUrl = explode('/', URL::previous());
+    $previousUrl = end($previousUrl);
+@endphp
 <script>
-    {{--var url = "{{$previousUrl}}";--}}
-//    console.log(url);
-//    if(url == 'events/create'){
-//
-//    }
+    var url = "{{$previousUrl}}";
+    if(url == 'create'){
+        setTimeout(function(){
+            nextTab();
+        },2000);
+    }
     var config = {
         language : 'en',
         height : '250',

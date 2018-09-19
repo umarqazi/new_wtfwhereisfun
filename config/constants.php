@@ -45,5 +45,6 @@
         'ORGANIZERCOLORS_SUCCESS'         =>      'Organizer Profile colors has been updated Successfully',
 
         /* Event Constants */
-        'EVENTCREATED_SUCCESS'         =>       'Event created Successfully. You are being redirected to event page to complete Event Details'
+        'EVENTCREATED_SUCCESS'         =>       'Event created Successfully. You are being redirected to event page to complete Event Details',
+        'COMPLETE_DETAILS'             =>       'Complete event details first to move forward'
     ];

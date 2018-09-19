@@ -11,7 +11,7 @@
 |
 */
 
-Auth::routes();
+//Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
@@ -33,6 +33,7 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('contact-us', 'MainController@contactUs');
 
     Route::post('do-login',  'MainController@authenticate');
+    Route::get('logout',  'MainController@logout');
     Route::post('do-register', 'MainController@register');
     Route::get('user/verify/{token}', 'MainController@verifyUser');
 
@@ -57,12 +58,6 @@ Route::group(['middleware' => ['web']], function () {
         Route::post('get-country-states', 'AddressController@getCountryStates');
         Route::post('get-state-cities', 'AddressController@getStateCities');
 
-        /*Organzier Routes*/
-        Route::resource('organizers', 'OrganizerController');
-        Route::post('organizers/update-profile', 'OrganizerController@profileUpdate');
-        Route::post('organizers/update-social-links', 'OrganizerController@socialLinksUpdate');
-        Route::post('organizers/update-profile-colors', 'OrganizerController@profileColorsUpdate');
-
         Route::group(['middleware' => ['role:vendor','auth']], function () {
             Route::get('dashboard',  'UsersController@vendorDashboard');
             Route::resource('events', 'EventController');
@@ -83,7 +78,11 @@ Route::group(['middleware' => ['web']], function () {
             Route::post('events/update-pass', 'EventController@ticketPassUpdate');
             Route::post('events/delete-pass', 'EventController@ticketPassDelete');
 
-
+            /*Organzier Routes*/
+            Route::resource('organizers', 'OrganizerController');
+            Route::post('organizers/update-profile', 'OrganizerController@profileUpdate');
+            Route::post('organizers/update-social-links', 'OrganizerController@socialLinksUpdate');
+            Route::post('organizers/update-profile-colors', 'OrganizerController@profileColorsUpdate');
 
 
         });

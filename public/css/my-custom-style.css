@@ -692,3 +692,11 @@ a > img{
 .signup-signin-section{
     background: none;
 }
+
+#cke_description{
+    width:auto!important;
+}
+
+.rounded-border{
+    border-radius : 5px!important;
+}

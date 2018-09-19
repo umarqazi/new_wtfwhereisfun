@@ -145,6 +145,17 @@ class MainController extends Controller
     }
 
     /**
+     * Logout Method
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function logout(Request $request)
+    {
+        Auth::logout();
+        return redirect('/');
+    }
+
+    /**
      * Show forget password form.
      *
      * @return \Illuminate\Http\Response

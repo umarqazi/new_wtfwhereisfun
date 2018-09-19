@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Http\Middleware;
-
 use Closure;
 
 class CheckRole
@@ -16,7 +15,7 @@ class CheckRole
     public function handle($request, Closure $next, $role)
     {
         if (! $request->user()->hasRole($role)) {
-            redirect('/');
+            return redirect('/');
         }
         return $next($request);
     }
