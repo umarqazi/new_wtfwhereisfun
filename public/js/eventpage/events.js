@@ -22,10 +22,7 @@ $(document).ready(function($) {
             success: function(response){
                 if(response.type == "success"){
                     $('#event-create')[0].reset();
-                    showToaster('success',response.msg);
-                    setTimeout(function(){
-                        window.location.href = base_url()+'/events/'+response.data.encoded_id+'/edit';
-                    }, 3000);
+                    window.location.href = base_url()+'/events/'+response.data.encoded_id+'/edit';
                 }
                 else{
                     showToaster('error',response.msg);
@@ -254,12 +251,21 @@ function eventTicketForm(event, obj){
 /*****************************************************************************
  *************************Move towards next tab **************************
  ******************************************************************************/
+function promptForDetails(event, obj){
+    event.preventDefault();
+    showToaster('error', 'Complete event details first to move forward');
+    // setTimeout(function(){
+    //     $(obj).parent('li').removeClass('active');
+    //     $(obj).parent('ul').first('li').addClass('active');
+    // }, 1000);
+}
+
 function nextTab(){
     var currentId = $('.member-card ul.nav-pills .active').find('a').attr('href');
     var nextId = $('.member-card ul.nav-pills .active').next('li').find('a').attr('href');
     $('.member-card ul.nav-pills .active').removeClass('active').next('li').addClass('active');
-    $(currentId).removeClass('active');
-    $(nextId).addClass('active');
+    $(currentId).removeClass('active in');
+    $(nextId).addClass('active in');
 }
 
 /*****************************************************************************

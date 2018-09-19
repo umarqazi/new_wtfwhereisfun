@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Mail;
 use Alert;
 use App\Role;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\URL;
 use App\Services\Events\EventService;
 use App\Services\RefundPolicyService;
 use App\Services\Events\EventTopicService;

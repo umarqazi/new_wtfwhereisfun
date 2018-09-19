@@ -33,7 +33,9 @@
                                                    name="password" id="login-pwd" placeholder="Password" required="">
                                         </div>
                                         <div class="checkbox-feild-wrap">
-                                            <input type="checkbox" id="announcements" name="remember_me" value="true" />
+                                            <input type="checkbox" id="basic_checkbox_20" class="form-control"
+                                                   name="remember_me"
+                                                   value="true" />
                                             <label for="announcements">Remember me</label>
                                             <label class="lost-pwd"><a href="{{url('forgot-password')}}">Lost your
                                             password</a></label>
