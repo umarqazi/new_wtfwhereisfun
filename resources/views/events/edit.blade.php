@@ -627,14 +627,14 @@
 <script src="{{asset('js/ckeditor/config.js')}}"></script>
 <script src="{{asset('js/ckeditor/styles.js')}}"></script>
 <link rel="stylesheet" href="{{asset('js/ckeditor/contents.css')}}">
-@php $previousUrl = end(explode('/', URL::previous()))@endphp
+{{--@php $previousUrl = end(explode('/', URL::previous()))@endphp--}}
 
 <script>
-    var url = "{{$previousUrl}}";
-    console.log(url);
-    if(url == 'events/create'){
-
-    }
+    {{--var url = "{{$previousUrl}}";--}}
+//    console.log(url);
+//    if(url == 'events/create'){
+//
+//    }
     var config = {
         language : 'en',
         height : '250',
