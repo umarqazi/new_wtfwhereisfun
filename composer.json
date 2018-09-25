@@ -33,7 +33,8 @@
         "files": [
             "app/Helpers/date_format.php",
             "app/Helpers/hash_urls.php",
-            "app/Helpers/html_templates.php"
+            "app/Helpers/html_templates.php",
+            "app/Helpers/get_directory.php"
         ]
     },
     "autoload-dev": {

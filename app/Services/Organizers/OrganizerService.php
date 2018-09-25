@@ -6,18 +6,24 @@ use App\Repositories\OrganizerRepo;
 use App\Services\BaseService;
 use App\Services\IDBService;
 use Illuminate\Http\Response;
-
+use App\Services\ImageService;
 class OrganizerService extends BaseService implements IDBService
 {
     protected $organizerRepo;
+    protected $imageService;
 
-    public function __construct(OrganizerRepo $organizerRepo){
-        $this->organizerRepo = $organizerRepo;
+    public function __construct(OrganizerRepo $organizerRepo, ImageService $imageService){
+        $this->organizerRepo    = $organizerRepo;
+        $this->imageService     = $imageService;
     }
 
     public function create($request)
     {
-        return $this->organizerRepo->store($request);
+        $organizer = $this->organizerRepo->store($request);
+        if($request->hasFile('thumbnail')){
+            $this->imageService->uploadImage($request, 'organizers', $organizer->id);
+        }
+        return $organizer;
     }
 
     public function update($request)

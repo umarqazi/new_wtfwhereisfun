@@ -17,17 +17,19 @@ use App\Role;
 use Illuminate\Support\Facades\Hash;
 use App\Services\Organizers\OrganizerService;
 use App\Services\Organizers\OrganizerSocialLinksService;
-
+use App\Services\ImageService;
 class OrganizerController extends Controller
 {
     protected $organizerService;
     protected $organizerSocialLinksService;
+    protected $imageService;
 
     public function __construct(OrganizerService $organizerService, OrganizerSocialLinksService
-    $organizerSocialLinksService){
+    $organizerSocialLinksService, ImageService $imageService){
 
         $this->organizerService             = $organizerService;
         $this->organizerSocialLinksService  = $organizerSocialLinksService;
+        $this->imageService                 = $imageService;
     }
     /**
      * Display a listing of the resource.
@@ -88,7 +90,7 @@ class OrganizerController extends Controller
         $decryptId = decrypt_id($id);
         $organizer = $this->organizerService->getOrganizer($decryptId);
         $userOrganizers = $this->organizerService->getUserOrganizers();
-        return view('users.organizers.edit')->with(['organizer' => $organizer, 'userOrganizers' => $userOrganizers, 'organizerId' => $id]);
+        return view('users.organizers.edit')->with(['organizer' => $organizer, 'userOrganizers' => $userOrganizers, 'organizerId' => $id, 'directory' => getDirectory('organizers', $organizer->id)]);
     }
 
     /**
@@ -144,4 +146,25 @@ class OrganizerController extends Controller
         ]);
     }
 
+    /**
+     * Upload Organizer Profile Image
+     */
+    public function uploadImage(Request $request){
+
+        $response = $this->imageService->uploadImage($request,'organizers', $request->id);
+        return response()->json([
+            'type'      =>      'success',
+            'msg'       =>      Config::get('constants.PROFILEINFO_SUCCESS'),
+            'data'      =>      $response
+        ]);
+    }
+
+    /**
+     * Remove Organizers Profile Image
+     */
+    public function removeImage(Request $request)
+    {
+        $this->imageService->deleteImage('organizers', $request->organizer_id);
+        return back();
+    }
 }

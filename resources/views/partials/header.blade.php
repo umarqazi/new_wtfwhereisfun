@@ -25,14 +25,24 @@
                             <li><a href="#">Host Events</a></li>
                             @if (Auth::check())
                                 @php $user = Auth::user() @endphp
+                                @if(!empty($user->profile_thumbnail))
+                                    @php
+                                        $directory = getDirectory('vendors', $user->id);
+                                        $image = $directory['web_path'].$user->profile_thumbnail;
+                                    @endphp
+                                @else
+                                    @php
+                                        $image = asset('img/default-148.png');
+                                    @endphp
+                                @endif
                                 <li>
-                                    <img src="{{$user->profile_thumbnail}}">
+                                    <img src="{{$image}}">
                                     <span>{{$user->first_name}}</span>
                                     <div class="custom-dropdown-menu">
                                         <ul>
                                             @if($user->hasRole('vendor') || $user->hasRole('organizer'))
                                                 <li><a href="{{url('dashboard')}}">Dashboard</a></li>
-                                                <li><a href="{{url('account-settings')}}">Profile</a></li>
+                                                <li><a href="{{url('profile')}}">Profile</a></li>
                                                 <li><a href="{{url('events/create')}}">Create Events</a></li>
                                                 <li><a href="{{url('my-events')}}">My Events</a></li>
                                                 <li><a href="{{url('my-tickets')}}">My Tickets</a></li>
@@ -41,7 +51,7 @@
                                                 <li><a href="{{url('')}}">Help</a></li>
                                                 <li><a href="{{url('logout')}}">Logout</a></li>
                                             @else
-                                                <li><a href="{{url('account-settings')}}">Profile</a></li>
+                                                <li><a href="{{url('profile')}}">Profile</a></li>
                                                 <li><a href="{{url('my-tickets')}}">My Tickets</a></li>
                                                 <li><a href="{{url('disputes')}}">Disputes</a></li>
                                                 <li><a href="{{url('')}}">Help</a></li>
@@ -83,14 +93,24 @@
                             <li><a href="#">Host Events</a></li>
                             @if (Auth::check())
                                 @php $user = Auth::user() @endphp
+                                @if(!empty($user->profile_thumbnail))
+                                    @php
+                                        $directory = getDirectory('vendors', $user->id);
+                                        $image = $directory['web_path'].$user->profile_thumbnail;
+                                    @endphp
+                                @else
+                                    @php
+                                        $image = asset('img/default-148.png');
+                                    @endphp
+                                @endif
                                 <li>
-                                    <img src="{{$user->profile_thumbnail}}">
+                                    <img src="{{$image}}">
                                     <span>{{$user->first_name}}</span>
                                     <div class="custom-dropdown-menu">
                                         <ul>
                                             @if( $user->hasRole('vendor') || $user->hasRole('organizer'))
                                                 <li><a href="{{url('dashboard')}}">Dashboard</a></li>
-                                                <li><a href="{{url('account-settings')}}">Profile</a></li>
+                                                <li><a href="{{url('profile')}}">Profile</a></li>
                                                 <li><a href="{{url('events/create')}}">Create Event</a></li>
                                                 <li><a href="{{url('my-events')}}">My Events</a></li>
                                                 <li><a href="{{url('my-tickets')}}">My Tickets</a></li>
@@ -99,7 +119,7 @@
                                                 <li><a href="{{url('')}}">Help</a></li>
                                                 <li><a href="{{url('logout')}}">Logout</a></li>
                                             @else
-                                                <li><a href="{{url('account-settings')}}">Profile</a></li>
+                                                <li><a href="{{url('profile')}}">Profile</a></li>
                                                 <li><a href="{{url('my-tickets')}}">My Tickets</a></li>
                                                 <li><a href="{{url('disputes')}}">Disputes</a></li>
                                                 <li><a href="{{url('')}}">Help</a></li>

@@ -23,6 +23,7 @@ use App\Services\Events\EventSubTopicService;
 use App\Services\Events\EventDetailService;
 use App\Services\Events\EventTimeLocationService;
 use App\Services\Events\EventTicketService;
+use App\Services\Events\EventListingService;
 use App\Services\CurrencyService;
 use App\Services\TimeZoneService;
 use App\Services\CategoryServices;
@@ -42,13 +43,14 @@ class EventController extends Controller
     protected $currencyService;
     protected $timeZoneService;
     protected $eventTicketService;
+    protected $eventListingService;
 
     public function __construct(EventService $eventService, RefundPolicyService $refundPolicyService,
                                 EventTopicService $eventTopicService, EventTypeService $eventTypeService,
                                 CategoryServices $categoryServices, EventSubTopicService $eventSubTopicService,
                                 EventDetailService $eventDetailService, EventTimeLocationService
                                 $eventLocationService, CurrencyService $currencyService, TimeZoneService
-                                $timeZoneService, EventTicketService $eventTicketService)
+                                $timeZoneService, EventTicketService $eventTicketService, EventListingService $eventListingService)
     {
         $this->eventService             = $eventService;
         $this->refundPolicyService      = $refundPolicyService;
@@ -61,6 +63,7 @@ class EventController extends Controller
         $this->currencyService          = $currencyService;
         $this->timeZoneService          = $timeZoneService;
         $this->eventTicketService       = $eventTicketService;
+        $this->eventListingService       = $eventListingService;
     }
 
     /**
@@ -274,6 +277,13 @@ class EventController extends Controller
             'data'      =>  ''
         ]);
 
+    }
+
+    public function getMyEvents(){
+        $draftEvents = $this->eventListingService->getDraftEvents();
+        $liveEvents = $this->eventListingService->getLiveEvents();
+        $pastEvents = $this->eventListingService->getPastEvents();
+        return view('events.my-events')->with(['draftEvents' => $draftEvents, 'liveEvents' => $liveEvents, 'pastEvents' => $pastEvents]);
     }
 
 }

@@ -71,14 +71,12 @@
                                         <div class="col-xs-12 col-sm-12 col-md-6">
                                             <div class="form-group organizer-pages-url">
                                                 <label for="">Organizer page URL
-                                                    {{--<span id="edit-url-link"><i class="fa fa-pencil" aria-hidden="true"></i>Edit</span><br>--}}
                                                 </label>
                                                 <div id="organizer-edit-url-input">
                                                     <input class="form-control" placeholder="http://"
                                                            name="organizer_url" required="" type="text" value="">
                                                     <span class="field-beffect"></span>
                                                     <div class="form-error organizer_url"></div>
-                                                    {{--&nbsp;&nbsp;<span  id="cancel-btn">cancel</span>--}}
                                                 </div>
                                             </div>
                                         </div>
@@ -154,8 +152,7 @@
                             <div class="col-xs-12 col-sm-5 col-md-4">
                                 <div class="upload-profile-wrap">
                                     <div class="upload-profile-img">
-                                        <img style="width:100%" alt="organizer-img">
-                                        <i class="fa fa-user-o" aria-hidden="true"></i>
+                                        <img style="width:100%" alt="organizer-img" src="{{asset('img/default-148.png')}}">
                                     </div>
                                     <p class="upload-profile-dis">
                                         JPG, GIF or PNG no larger than 1MB. Square images look the best!
@@ -163,10 +160,9 @@
                                     <div class="upload-profile-box">
                                         <div class="upload-profile-btn-wrap btn btn-default">
                                             <span>choose file</span>
-                                            <input type="file" name="image" class="upload-profile-btn"/>
+                                            <input type="file" name="thumbnail" class="upload-profile-btn rounded-border"/>
                                         </div>
                                         <div class="upload-profile-remove-btn">
-                                            <button type="button" class="btn btn-default remove-photo-btn">Remove</button>
                                             <button type="button" class="btn btn-default hidden remove-photo-btn">Remove</button>
                                         </div>
                                     </div>
@@ -174,7 +170,7 @@
                             </div>
                         </div>
                         <div class="organizer-profile-btn">
-                            <button type="submit" class="btn btn-default organizer-btn">Save</button>
+                            <button type="submit" class="btn btn-default rounded-border organizer-btn">Save</button>
                         </div>
                     </form>
                 </div>

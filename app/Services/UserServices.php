@@ -155,7 +155,7 @@ class UserServices
                 $billingStates = [];
                 $billingCities = [];
             }
-        }else{
+        }else {
             $billingStates = [];
             $billingCities = [];
         }
@@ -163,7 +163,7 @@ class UserServices
         return ['user' => $user, 'shippingAddress' => $shippingAddress, 'billingAddress' => $billingAddress,
             'countries' => $countries, 'shippingStates' => $shippingStates, 'shippingCities' => $shippingCities,
             'billingStates' => $billingStates, 'billingCities' => $billingCities, 'shippingAsBilling' =>
-                $shippingAsBilling, 'emailPreference' => $user->email_preference];
+                $shippingAsBilling, 'emailPreference' => $user->email_preference, 'directory' => getDirectory('vendors', $user->id)];
     }
 
     public function doAccountSettings($request){
