@@ -24,27 +24,29 @@ use App\Services\UserContactService;
 use App\Services\UserAddressService;
 use App\Services\UserEmailPreferenceService;
 use App\Services\UserPasswordService;
+use App\Services\ImageService;
 use App\Http\Requests\RegisterUser;
 use App\Http\Requests\UserProfile;
 use App\Http\Requests\UserContact;
 use App\Http\Requests\UserAddress;
 use App\Http\Requests\UserOtherInformation;
 use App\Http\Requests\ChangePassword;
+use Illuminate\Http\File;
 
 class UsersController extends Controller
 {
-
-    use ModelForm;
     protected $userServices;
     protected $userProfileService;
     protected $userAddressService;
     protected $userContactService;
     protected $userPasswordService;
     protected $userEmailPreferenceService;
+    protected $imageService;
 
     public function __construct(UserServices $userServices, UserProfileService $userProfileService,
                                 UserContactService $userContactService, UserAddressService $userAddressService,
-                                UserEmailPreferenceService $userEmailPreferenceService, UserPasswordService $userPasswordService)
+                                UserEmailPreferenceService $userEmailPreferenceService, UserPasswordService
+                                $userPasswordService, ImageService $imageService)
     {
         $this->userServices               = $userServices;
         $this->userProfileService         = $userProfileService;
@@ -52,6 +54,7 @@ class UsersController extends Controller
         $this->userAddressService         = $userAddressService;
         $this->userEmailPreferenceService = $userEmailPreferenceService;
         $this->userPasswordService        = $userPasswordService;
+        $this->imageService               = $imageService;
     }
 
     /**
@@ -63,17 +66,6 @@ class UsersController extends Controller
     {
         $user = Auth::user();
         return view('users.vendors.dashboard')->with('user', $user);
-    }
-
-    /**
-     * Show the application's vendor dashboard.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function accountSettings()
-    {
-        $response = $this->userServices->accountSettings();
-        return view('users.edit')->with($response);
     }
 
     /**
@@ -186,16 +178,30 @@ class UsersController extends Controller
         );
     }
 
-    public function profileEdit()
+    /**
+     * Upload an Image.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function uploadImage(Request $request)
     {
-        $user = Auth::user();
-        return view('user.edit', compact('user'));
+        $response = $this->imageService->uploadImage($request, 'vendors', Auth::user()->id);
+        return response()->json([
+            'type'      =>      'success',
+            'msg'       =>      Config::get('constants.PROFILEINFO_SUCCESS'),
+            'data'      =>      $response
+        ]);
     }
 
-    public function profile()
+    /**
+     * Remove an Image.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function removeImage(Request $request)
     {
-        $user = Auth::user();
-        return view('user.profile', compact('user'));
+        $this->imageService->deleteImage('vendors', $request->user_id);
+        return back();
     }
 
     /**
@@ -246,9 +252,10 @@ class UsersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit()
     {
-        //
+        $response = $this->userServices->accountSettings();
+        return view('users.edit')->with($response);
     }
 
     /**
@@ -278,13 +285,6 @@ class UsersController extends Controller
         // redirect
         Session::flash('message', 'Successfully deleted the user!');
         return back();
-    }
-
-    public function destroyAJAX($id)
-    {
-        // delete
-        $user = User::find($id);
-        $user->delete();
     }
 }
 

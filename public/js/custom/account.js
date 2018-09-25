@@ -384,7 +384,6 @@ $(document).ready(function($) {
                 $('#other-information .form-error').html('');
             },
             success: function(resp){
-                console.log(resp);
                 if(resp.type == "success"){
                     showToaster('success',resp.msg);
                 }
@@ -539,7 +538,6 @@ $(document).ready(function($) {
 /*****************************************************************************
  ***************************Change Photo Script Start**************************
  ******************************************************************************/
-
 function uploadFile(fieldObj)
 {
     let file_name = fieldObj.value;
@@ -557,9 +555,14 @@ function uploadFile(fieldObj)
         return false;
     }
     if ($.inArray(split_extension[1].toLowerCase(), ext) != -1 && calculatedSize < 1) {
-        var form_data = new FormData($('#change-photo-form')[0]);
+        var form_data = new FormData($('#profile-image')[0]);
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
         $.ajax({
-            url  : base_url() + "account/upload_photo",
+            url  : base_url() + "/upload-image",
             type : "POST",
             data : form_data,
             dataType : "JSON",
@@ -568,17 +571,14 @@ function uploadFile(fieldObj)
             processData: false,
             success: function(resp){
                 if(resp.type == "success"){
-                    showToaster('success',resp.msg);
-                    setTimeout(function(){
-                        window.location.reload();
-                    },1000);
+                    $('#remove-form').find('button').removeClass('hidden');
                 }else{
                     showToaster('error',resp.msg);
                 }
             },
             error:function(error)
             {
-                console.log('photo error',error);
+
             }
         });
     }
@@ -592,9 +592,9 @@ function showImage(src,target) {
     });
 }
 
-var image4 = document.getElementById("image4");
-var target4 = document.getElementById("target4");
-showImage(image4,target4);
+var image = document.getElementById("image");
+var target = document.getElementById("target");
+showImage(image,target);
 
 
 /*****************************************************************************

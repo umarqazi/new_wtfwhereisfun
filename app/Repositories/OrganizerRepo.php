@@ -12,6 +12,19 @@ use App\Organizer;
 use Illuminate\Support\Facades\Auth;
 class OrganizerRepo
 {
+    /**
+     * @var Organzier
+     */
+    private $organizerModel;
+
+    /**
+     * organizerRepo constructor.
+     */
+    public function __construct()
+    {
+        $organizerModel = new Organizer();
+        $this->organizerModel = $organizerModel;
+    }
     public function getAll(){
         return Organizer::all();
     }
@@ -82,6 +95,16 @@ class OrganizerRepo
 
         $organizer->save();
         return $organizer;
+    }
+
+    public function deleteImage($id){
+        $organizer = $this->organizerModel->where('id', $id)->first();
+        $this->organizerModel->where('id', $id)->update(['thumbnail' => '']);
+        return $organizer->thumbnail;
+    }
+
+    public function updateProfileImage($file, $id){
+        $this->organizerModel->where('id', $id)->update(['thumbnail' => $file]);
     }
 
 }

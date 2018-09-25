@@ -10,9 +10,32 @@
                     <h4 class="m-t-10">{{$user->first_name.' '.$user->last_name}}</h4>
                 </div>
                 <div class="member-img">
-                    <a href="" class="">
-                        <img src="{{$user->profile_thumbnail}}" class="rounded-circle" alt="profile-image">
-                    </a>
+                    <form id="profile-image" method="post" enctype="multipart/form-data">
+                        <label>
+                            <input id="image" style="display: none" type="file" name="thumbnail" accept="image/*"
+                                   onchange="uploadFile(this)"/>
+                            <div class="rounded-circle vendor-profile-image">
+                                @if(!empty($user->profile_thumbnail))
+                                    @php
+                                        $image = $directory['web_path'].$user->profile_thumbnail;
+                                        $removeClass = '';
+                                    @endphp
+                                @else
+                                    @php
+                                        $image = asset('img/default-148.png');
+                                        $removeClass = 'hidden';
+                                    @endphp
+                                @endif
+                                <img src="{{$image}}" alt="profile-image" id="target">
+                            </div>
+                        </label>
+                    </form>
+                    <form method="post" action="{{url('remove-image')}}" id="remove-form">
+                        {!! csrf_field() !!}
+                        <input type="hidden" name="_method" value="delete" />
+                        <input type="hidden" name="user_id" value="{{$user->id}}">
+                        <button type="submit" onclick="return confirm('Are you sure Want to Remove Image ?')" title="Click Here To Remove Image" class="btn btn-raised btn-sm rounded-border {{$removeClass}}">Remove</button>
+                    </form>
                 </div>
 
                 <div class="body">
@@ -85,7 +108,7 @@
                                         <div class="form-error company"></div>
                                     </div>
                                 </div>
-                                <button type="submit" class="btn btn-default profile-btn">Save</button>
+                                <button type="submit" class="btn btn-default profile-btn rounded-border">Save</button>
                             </form>
                         </div>
                     </div>
@@ -121,7 +144,7 @@
                                         <div class="form-error blog"></div>
                                     </div>
                                 </div>
-                                <button type="submit" class="btn btn-default profile-btn">Save</button>
+                                <button type="submit" class="btn btn-default profile-btn rounded-border">Save</button>
                             </form>
                         </div>
                     </div>
@@ -254,7 +277,7 @@
                         </div>
                         <input type="hidden" class="show_billing" name="show_billing" value="@if(!empty($shippingAddress) &&
                         ($shippingAddress->is_billing_shipping)){{$shippingAddress->is_billing_shipping}}@else{{0}}@endif">
-                        <button type="submit" class="btn btn-default profile-btn">Save</button>
+                        <button type="submit" class="btn btn-default profile-btn rounded-border">Save</button>
                     </form>
                 </div>
 
@@ -343,7 +366,7 @@
                                 </div>
                             </div>
                             <div class="acnt-erefernce-btn">
-                                <button type="submit" class="btn btn-default email-preferences-btn">Save</button>
+                                <button type="submit" class="btn btn-default email-preferences-btn rounded-border">Save</button>
                             </div>
                         </form>
                     </div>
@@ -409,7 +432,7 @@
                                     <input class="form-control" placeholder="Age" id="age" name="age" min="1" type="number"  required value="{{$user->age}}">
                                     <div class="form-error age"></div>
                                 </div>
-                                <button type="submit" class="btn btn-default profile-btn">Save</button>
+                                <button type="submit" class="btn btn-default profile-btn rounded-border">Save</button>
                             </form>
                         </div>
                     </div>
@@ -437,7 +460,7 @@
                                     <input type="password" placeholder="Confirm Password" required name="password_confirmation" class="form-control prevent-copy-paste">
                                     <div class="form-error password_confirmation"></div>
                                 </div>
-                                <button type="submit" class="btn btn-default profile-btn">Save</button>
+                                <button type="submit" class="btn btn-default profile-btn rounded-border">Save</button>
                             </form>
                         </div>
                     </div>

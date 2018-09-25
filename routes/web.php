@@ -20,12 +20,11 @@ Route::get('/home', 'HomeController@index')->name('home');
 //Route::get('/admin/dashboard', 'AdminController@index')->name('Admin Dashboard');
 
 
-Route::get('profile',  'UsersController@profile')->name('profile');
-Route::get('edit-profile',  'UsersController@edit')->name('edit profile');
+//Route::get('profile',  'UsersController@profile')->name('profile');
+//Route::get('edit-profile',  'UsersController@edit')->name('edit profile');
 //Route::patch('update-profile', 'UsersController@update');
 //->name('update profile');
 Route::group(['middleware' => ['web']], function () {
-
     Route::get('/', 'MainController@index');
     Route::get('about-us', 'MainController@aboutUs');
     Route::get('terms-conditions', 'MainController@termsCondition');
@@ -47,20 +46,25 @@ Route::group(['middleware' => ['web']], function () {
     Route::group(['middleware' => ['auth']], function () {
 
         /*User Routes*/
-        Route::get('account-settings', 'UsersController@accountSettings');
+        Route::get('profile', 'UsersController@edit');
         Route::post('update-profile', 'UsersController@profileUpdate');
         Route::post('update-contact', 'UsersController@contactUpdate');
         Route::post('update-address', 'UsersController@addressUpdate');
         Route::post('update-email-preference', 'UsersController@emailPreferenceUpdate');
         Route::post('update-password', 'UsersController@passwordUpdate');
         Route::post('update-other-info', 'UsersController@otherInformationUpdate');
+        Route::post('upload-image',  'UsersController@uploadImage');
+        Route::delete('remove-image', 'UsersController@removeImage');
 
         Route::post('get-country-states', 'AddressController@getCountryStates');
         Route::post('get-state-cities', 'AddressController@getStateCities');
 
         Route::group(['middleware' => ['role:vendor','auth']], function () {
             Route::get('dashboard',  'UsersController@vendorDashboard');
+
+
             Route::resource('events', 'EventController');
+            Route::get('my-events', 'EventController@getMyEvents');
 
             Route::post('get-event-sub-topics', 'EventController@getTopicSubTopics');
             Route::post('events/update-details', 'EventController@detailsUpdate');
@@ -83,6 +87,10 @@ Route::group(['middleware' => ['web']], function () {
             Route::post('organizers/update-profile', 'OrganizerController@profileUpdate');
             Route::post('organizers/update-social-links', 'OrganizerController@socialLinksUpdate');
             Route::post('organizers/update-profile-colors', 'OrganizerController@profileColorsUpdate');
+            Route::post('organizers/upload-image', 'OrganizerController@uploadImage');
+            Route::post('organizers/remove-image', 'OrganizerController@removeImage');
+
+
 
 
         });

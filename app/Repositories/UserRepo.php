@@ -7,6 +7,20 @@ use App\UserEmailPreference;
 use Illuminate\Support\Facades\Auth;
 class UserRepo
 {
+    /**
+     * @var User
+     */
+    private $userModel;
+
+    /**
+     * UserRepo constructor.
+     */
+    public function __construct()
+    {
+        $userModel = new User();
+        $this->userModel = $userModel;
+    }
+
     public function updateProfile($request){
         $user = Auth::user();
 
@@ -78,6 +92,16 @@ class UserRepo
         $user->password     =   bcrypt($request->password);
         $user->save();
         return $user;
+    }
+
+    public function deleteImage($id){
+        $user = $this->userModel->where('id', $id)->first();
+        $this->userModel->where('id', $id)->update(['profile_thumbnail' => '']);
+        return $user->profile_thumbnail;
+    }
+
+    public function updateProfileImage($file, $id){
+        $this->userModel->where('id', $id)->update(['profile_thumbnail' => $file]);
     }
 }
 

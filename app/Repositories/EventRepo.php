@@ -150,4 +150,15 @@ class EventRepo
     public function deleteTicketPass($request){
         $eventTicketPass = TicketPass::destroy($request->pass_id);
     }
+
+    public function liveEvents(){
+        $eventTicketPass = TicketPass::destroy($request->pass_id);
+    }
+
+    public function draftEvents(){
+        $eventTicketPass = TicketPass::destroy($request->pass_id);
+    }
+    public function pastEvents(){
+        $eventTicketPass = TicketPass::destroy($request->pass_id);
+    }
 }
