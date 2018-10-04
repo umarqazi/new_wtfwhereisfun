@@ -55,5 +55,8 @@ class DatabaseSeeder extends Seeder
 
         // Seed the Refund Policies
         $this->call(RefundPolicyTableSeeder::class);
+
+        // Seed the Event Layouts
+        $this->call(EventLayoutsTableSeeder::class);
     }
 }

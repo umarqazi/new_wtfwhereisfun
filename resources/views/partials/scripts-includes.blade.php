@@ -34,6 +34,9 @@
 <script type="text/javascript" src="{{asset('js/custom/signup-login.js')}}"></script>
 <script type="text/javascript" src="{{asset('js/custom/organizer.js')}}"></script>
 <script type="text/javascript" src="{{asset('js/eventpage/events.js')}}"></script>
+<script src="{{asset('listgo/js/scripts.js')}}" type="text/javascript"></script>
+<script src="{{asset('js/fancybox/jquery.fancybox.min.js')}}"></script>
+
 {{--Event Page JS--}}
 <script src="{{asset('js/eventpage/jquery.richtext.js')}}"></script>
 <script src="{{asset('js/eventpage/custom.js')}}"></script>

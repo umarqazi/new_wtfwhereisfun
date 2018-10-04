@@ -1092,7 +1092,7 @@ ul.main-menu > li:hover .custom-dropdown-menu{
       Footer section
 ======================================*/
  .footer{
-   background-color: #1D1D1E; margin-top: 0px;
+   background-color: #1D1D1E!important; margin-top: 0px;
  }
 
 .footer-wrap{

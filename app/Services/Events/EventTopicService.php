@@ -11,10 +11,10 @@ class EventTopicService extends BaseService implements IDBService{
     protected $eventTopicRepo;
     protected $eventRepo;
 
-    public function __construct(EventTopicRepo $eventTopicRepo, EventRepo $eventRepo)
+    public function __construct()
     {
-        $this->eventTopicRepo   = $eventTopicRepo;
-        $this->eventRepo   = $eventRepo;
+        $this->eventTopicRepo   = new EventTopicRepo();
+        $this->eventRepo   = new EventRepo();
     }
 
     public function create($request)

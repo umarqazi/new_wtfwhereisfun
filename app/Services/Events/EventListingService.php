@@ -1,13 +1,5 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: jazib
- * Date: 9/25/18
- * Time: 6:07 PM
- */
-
 namespace App\Services\Events;
-
 
 use App\Services\BaseService;
 use App\Services\IService;
@@ -16,9 +8,9 @@ class EventListingService extends BaseService implements IService
 {
     protected $eventRepo;
 
-    public function __construct(EventRepo $eventRepo)
+    public function __construct()
     {
-        $this->eventRepo = $eventRepo;
+        $this->eventRepo = new EventRepo();
     }
 
     public function getLiveEvents($id){

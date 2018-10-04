@@ -7,9 +7,9 @@ class CurrencyService extends BaseService implements IDBService
 {
     protected $currencyRepo;
 
-    public function __construct(CurrencyRepo $currencyRepo)
+    public function __construct()
     {
-        $this->currencyRepo = $currencyRepo;
+        $this->currencyRepo = new CurrencyRepo();
     }
 
     public function create($request)

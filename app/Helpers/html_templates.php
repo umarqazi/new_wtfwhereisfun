@@ -234,7 +234,7 @@ if (! function_exists('addNewTimeLocationRow')) {
                                     </div>                                                                       
                                 </div>                               
                             </div>
-                            <input type=\"hidden\" value=\"{{$request->event_id}}\" name=\"event_id\">
+                            <input type=\"hidden\" value=\"{$request->event_id}\" name=\"event_id\">
                             <input type=\"hidden\" value=\"\" name=\"ticket_id\" class=\"ticket-id\">
                             <input type=\"hidden\" value=\"store\" name=\"request_type\" class=\"request-type\">
                         </form>

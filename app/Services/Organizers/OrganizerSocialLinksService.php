@@ -9,9 +9,9 @@ class OrganizerSocialLinksService extends BaseService
 {
     protected $organizerRepo;
 
-    public function __construct(OrganizerRepo $organizerRepo)
+    public function __construct()
     {
-        $this->organizerRepo = $organizerRepo;
+        $this->organizerRepo = new OrganizerRepo();
     }
 
     public function socialLinksUpdate($request, $id){

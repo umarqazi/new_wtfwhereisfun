@@ -24,6 +24,7 @@ use App\Services\UserContactService;
 use App\Services\UserAddressService;
 use App\Services\UserEmailPreferenceService;
 use App\Services\UserPasswordService;
+use App\Services\UserImageService;
 use App\Services\ImageService;
 use App\Http\Requests\RegisterUser;
 use App\Http\Requests\UserProfile;
@@ -41,20 +42,19 @@ class UsersController extends Controller
     protected $userContactService;
     protected $userPasswordService;
     protected $userEmailPreferenceService;
+    protected $userImageService;
     protected $imageService;
 
-    public function __construct(UserServices $userServices, UserProfileService $userProfileService,
-                                UserContactService $userContactService, UserAddressService $userAddressService,
-                                UserEmailPreferenceService $userEmailPreferenceService, UserPasswordService
-                                $userPasswordService, ImageService $imageService)
+    public function __construct()
     {
-        $this->userServices               = $userServices;
-        $this->userProfileService         = $userProfileService;
-        $this->userContactService         = $userContactService;
-        $this->userAddressService         = $userAddressService;
-        $this->userEmailPreferenceService = $userEmailPreferenceService;
-        $this->userPasswordService        = $userPasswordService;
-        $this->imageService               = $imageService;
+        $this->userServices               = new UserServices();
+        $this->userProfileService         = new UserProfileService();
+        $this->userContactService         = new UserContactService();
+        $this->userAddressService         = new UserAddressService();
+        $this->userEmailPreferenceService = new UserEmailPreferenceService();
+        $this->userPasswordService        = new UserPasswordService();
+        $this->userImageService           = new UserImageService();
+        $this->imageService               = new ImageService();
     }
 
     /**
@@ -185,7 +185,7 @@ class UsersController extends Controller
      */
     public function uploadImage(Request $request)
     {
-        $response = $this->imageService->uploadImage($request, 'vendors', Auth::user()->id);
+        $response = $this->userImageService->uploadImage($request, 'vendors', Auth::user()->id);
         return response()->json([
             'type'      =>      'success',
             'msg'       =>      Config::get('constants.PROFILEINFO_SUCCESS'),

@@ -13,9 +13,9 @@ class TimeZoneService
 {
     protected $timeZoneRepo;
 
-    public function __construct(TimeZoneRepo $timeZoneRepo)
+    public function __construct()
     {
-        $this->timeZoneRepo = $timeZoneRepo;
+        $this->timeZoneRepo = new TimeZoneRepo();
     }
 
     public function getAll(){

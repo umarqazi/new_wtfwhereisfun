@@ -21,6 +21,7 @@ class CreateEventsTable extends Migration
             $table->string('referral_code')->nullable();
             $table->integer('discount')->nullable()->unsigned();
             $table->string('access')->nullable();
+            $table->string('header_image')->nullable();
             $table->string('slug')->nullable();
             $table->text('additional_message')->nullable();
             $table->tinyInteger('total_capacity')->nullable();
@@ -44,7 +45,6 @@ class CreateEventsTable extends Migration
             $table->foreign('event_sub_topic_id')->references('id')->on('event_sub_topics')->onDelete('cascade')->onUpdate('cascade');
             $table->integer('category_id')->unsigned()->nullable();
             $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade')->onUpdate('cascade');
-            $table->integer('template_id')->nullable()->unsigned();
             $table->softDeletes();
             $table->timestamps();
         });

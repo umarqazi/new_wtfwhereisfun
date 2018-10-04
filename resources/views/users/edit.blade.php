@@ -12,8 +12,7 @@
                 <div class="member-img">
                     <form id="profile-image" method="post" enctype="multipart/form-data">
                         <label>
-                            <input id="image" style="display: none" type="file" name="thumbnail" accept="image/*"
-                                   onchange="uploadFile(this)"/>
+                            <input id="image" style="display: none" type="file" name="thumbnail" accept="image/*" onchange="uploadFile(this)"/>
                             <div class="rounded-circle vendor-profile-image">
                                 @if(!empty($user->profile_thumbnail))
                                     @php

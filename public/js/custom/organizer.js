@@ -36,6 +36,9 @@ $(document).ready(function($) {
                     $('#organizer-form')[0].reset();
                     $('#organizer-form .form-error').html('');
                     showToaster('success', resp.msg);
+                    setTimeout(function(){
+                        window.location.reload();
+                    }, 2000);
                 } else {
                     showToaster('error', resp.msg);
                 }

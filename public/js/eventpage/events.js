@@ -17,7 +17,7 @@ $(document).ready(function($) {
             processData: false,
             beforeSend:function(){
                 $('#event-create .form-error').html('');
-                $('#event-create .btn-save').attr('disabled',true).text('Loading....');
+                // $('#event-create .btn-save').attr('disabled',true).text('Loading....');
             },
             success: function(response){
                 if(response.type == "success"){
@@ -226,10 +226,10 @@ function eventTicketForm(event, obj){
             var addNewPass = '<a href="javascript:void(0);" class="add-pass" onclick="addNewTicketPass(event,this,'+ response.data.id+')" title="Connect Pass"><i class="fa fa-plus"></i></a>';
             $(obj).find('.event-passes-heading h4').append(addNewPass);
             $(obj).find('.request-type').attr('value', 'edit');
-            var eventId = $('#new-ticket-buttons paid_ticket_btn').attr('data-event-id');
-            $('#new-ticket-buttons .paid_ticket_btn').attr('onclick', 'addNewTicket(this,"Paid",'+ eventId+')');
-            $('#new-ticket-buttons .donation_btn').attr('onclick', 'addNewTicket(this,"Donation",'+ eventId+')');
-            $('#new-ticket-buttons .free_ticket_btn').attr('onclick', 'addNewTicket(this,"Free",'+ eventId+')');
+            var eventId = $('#new-ticket-buttons .paid_ticket_btn').attr('data-event-id');
+            $('#new-ticket-buttons .paid_ticket_btn').attr('onclick', 'addNewTicket(this,"Paid","'+ eventId+'")');
+            $('#new-ticket-buttons .donation_btn').attr('onclick', 'addNewTicket(this,"Donation","'+ eventId+'")');
+            $('#new-ticket-buttons .free_ticket_btn').attr('onclick', 'addNewTicket(this,"Free","'+ eventId+'")');
         },
         error:function(response)
         {
@@ -254,10 +254,6 @@ function eventTicketForm(event, obj){
 function promptForDetails(event, obj){
     event.preventDefault();
     showToaster('error', 'Complete event details first to move forward');
-    // setTimeout(function(){
-    //     $(obj).parent('li').removeClass('active');
-    //     $(obj).parent('ul').first('li').addClass('active');
-    // }, 1000);
 }
 
 function nextTab(){
@@ -327,10 +323,10 @@ function deleteTicket(event, obj){
     if (typeof attr !== typeof undefined && attr !== false) {
         // Element has this attribute
     }else{
-        var eventId = $('#new-ticket-buttons paid_ticket_btn').attr('data-event-id');
-        $('#new-ticket-buttons .paid_ticket_btn').attr('onclick', 'addNewTicket(this,"Paid",'+ eventId+')');
-        $('#new-ticket-buttons .donation_btn').attr('onclick', 'addNewTicket(this,"Donation",'+ eventId+')');
-        $('#new-ticket-buttons .free_ticket_btn').attr('onclick', 'addNewTicket(this,"Free",'+ eventId+')');
+        var eventId = $('#new-ticket-buttons .paid_ticket_btn').attr('data-event-id');
+        $('#new-ticket-buttons .paid_ticket_btn').attr('onclick', 'addNewTicket(this,"Paid","'+ eventId+'")');
+        $('#new-ticket-buttons .donation_btn').attr('onclick', 'addNewTicket(this,"Donation","'+ eventId+'")');
+        $('#new-ticket-buttons .free_ticket_btn').attr('onclick', 'addNewTicket(this,"Free","'+ eventId+'")');
     }
 
     if(ticketId != ''){
@@ -494,6 +490,61 @@ function deleteTicketPass(event, obj){
 }
 
 /*****************************************************************************
+ *************************Select Event Layout**************************
+ ******************************************************************************/
+function selectLayout(obj){
+    $(obj).closest('.layout-listing').find('.active').removeClass('active');
+    $(obj).addClass('active');
+    $(obj).closest('.layout-listing').find('input#event_layout_id').attr('value', $(obj).attr('id'));
+}
+
+/*****************************************************************************
+ *************************Update Event Layout**************************
+ ******************************************************************************/
+function updateEventLayout(obj){
+    event.preventDefault();
+    var formData = new FormData($(obj)[0]);
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+    $.ajax({
+        url  : base_url() + "/events/update-layout",
+        type : "POST",
+        data : formData,
+        dataType : "JSON",
+        cache: false,
+        contentType: false,
+        processData: false,
+        beforeSend:function(){
+            $(obj).find('.form-error').html('');
+        },
+        success: function(response){
+            if(response.type == "success"){
+                showToaster('success',response.msg);
+            }
+            else{
+                showToaster('error',response.msg);
+            }
+        },
+        error:function(response)
+        {
+            var respObj = response.responseJSON;
+            showToaster('error', respObj.message);
+            errors = respObj.errors;
+            var keys   = Object.keys(errors);
+            var count  = keys.length;
+            for (var i = 0; i < count; i++)
+            {
+                $(obj).find('.'+keys[i]).html(errors[keys[i]]).focus();
+            }
+
+        }
+    });
+}
+
+/*****************************************************************************
  *************************Change Password Script End **************************
  ******************************************************************************/
 
@@ -644,8 +695,55 @@ function addNewLocationRow(obj){
         success: function(response)
         {
             $('.time-location-rows').append(response.data);
-            // console.log(response.data)
         }
     });
 }
+
+/*****************************************************************************
+ ***************************Change Photo Script Start**************************
+ ******************************************************************************/
+function eventImageUpdate(fieldObj, type)
+{
+    let file_name = fieldObj.value;
+    let split_extension = file_name.split(".");
+    let calculatedSize = fieldObj.files[0].size / (1024 * 1024);
+    let ext = ["png","jpg","jpeg","gif"];
+    if ($.inArray(split_extension[1].toLowerCase(), ext) == -1) {
+        $(this).val(fieldObj.value = null);
+        showToaster('error','You Can Upload Only .jpg, png, jpeg, gif Images !');
+        return false;
+    }
+    if (calculatedSize > 1) {
+        $(this).val(fieldObj.value = null);
+        showToaster('error','File size should be less then 1 MB !');
+        return false;
+    }
+    if ($.inArray(split_extension[1].toLowerCase(), ext) != -1 && calculatedSize < 1) {
+        var file = fieldObj.files[0];
+        img = new Image();
+        img.src = URL.createObjectURL(file);
+        img.onload = function() {
+            if(type == 'header' && this.width <= 1600 && this.height <= 700){
+                showToaster('error', 'Image Width must be 1600px & Height must be 900px');
+                return false;
+            }else if(type == 'gallery' && this.width <= 600 && this.height <= 600){
+                showToaster('error', 'Image Width must be 600px & Height must be 600px atleast');
+                return false;
+            }
+            var targetId = $(fieldObj).next('img').css('display', 'block').attr('id');
+            var target = document.getElementById(targetId);
+            var fr = new FileReader();
+            fr.onload = function(e) {
+                target.src = this.result;
+            };
+            fr.readAsDataURL(fieldObj.files[0]);
+            $(fieldObj).parent('.header-img').find('.label-content').hide();
+        }
+    }
+}
+
+/*****************************************************************************
+ *************************Change Photo Script End *****************************
+ ******************************************************************************/
+
 

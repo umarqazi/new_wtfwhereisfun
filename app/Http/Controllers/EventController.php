@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\EventLayout;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Config;
@@ -24,9 +25,11 @@ use App\Services\Events\EventDetailService;
 use App\Services\Events\EventTimeLocationService;
 use App\Services\Events\EventTicketService;
 use App\Services\Events\EventListingService;
+use App\Services\Events\EventLayoutService;
 use App\Services\CurrencyService;
 use App\Services\TimeZoneService;
 use App\Services\CategoryServices;
+use App\Services\Organizers\OrganizerService;
 use App\Http\Requests\Event;
 use App\Http\Requests\EventTicket;
 use App\Http\Requests\EventTimeLocation;
@@ -44,26 +47,25 @@ class EventController extends Controller
     protected $timeZoneService;
     protected $eventTicketService;
     protected $eventListingService;
+    protected $eventLayoutService;
+    protected $organizerService;
 
-    public function __construct(EventService $eventService, RefundPolicyService $refundPolicyService,
-                                EventTopicService $eventTopicService, EventTypeService $eventTypeService,
-                                CategoryServices $categoryServices, EventSubTopicService $eventSubTopicService,
-                                EventDetailService $eventDetailService, EventTimeLocationService
-                                $eventLocationService, CurrencyService $currencyService, TimeZoneService
-                                $timeZoneService, EventTicketService $eventTicketService, EventListingService $eventListingService)
+    public function __construct()
     {
-        $this->eventService             = $eventService;
-        $this->refundPolicyService      = $refundPolicyService;
-        $this->eventTopicService        = $eventTopicService;
-        $this->eventTypeService         = $eventTypeService;
-        $this->categoryServices         = $categoryServices;
-        $this->eventSubTopicService     = $eventSubTopicService;
-        $this->eventDetailService       = $eventDetailService;
-        $this->eventLocationService     = $eventLocationService;
-        $this->currencyService          = $currencyService;
-        $this->timeZoneService          = $timeZoneService;
-        $this->eventTicketService       = $eventTicketService;
-        $this->eventListingService       = $eventListingService;
+        $this->eventService             = new EventService();
+        $this->refundPolicyService      = new RefundPolicyService();
+        $this->eventTopicService        = new EventTopicService();
+        $this->eventTypeService         = new EventTypeService();
+        $this->categoryServices         = new CategoryServices();
+        $this->eventSubTopicService     = new EventSubTopicService();
+        $this->eventDetailService       = new EventDetailService();
+        $this->eventLocationService     = new EventTimeLocationService();
+        $this->currencyService          = new CurrencyService();
+        $this->timeZoneService          = new TimeZoneService();
+        $this->eventTicketService       = new EventTicketService();
+        $this->eventListingService      = new EventListingService();
+        $this->eventLayoutService       = new EventLayoutService();
+        $this->organizerService         = new OrganizerService();
     }
 
     /**
@@ -83,8 +85,9 @@ class EventController extends Controller
      */
     public function create()
     {
-        $response = $this->refundPolicyService->getAll();
-        return view('events.create')->with('refundPolicies', $response);
+        $refundPolicies = $this->refundPolicyService->getAll();
+        $organizers     = $this->organizerService->getUserOrganizers();
+        return view('events.create')->with(['refundPolicies' => $refundPolicies, 'organizers' => $organizers]);
     }
 
     /**
@@ -112,7 +115,8 @@ class EventController extends Controller
      */
     public function show($id)
     {
-        //
+        $response = $this->eventService->show($id);
+        return view('events.layouts.'.$response['layout'])->with($response);
     }
 
     /**
@@ -123,25 +127,8 @@ class EventController extends Controller
      */
     public function edit($id)
     {
-        $event_id = decrypt_id($id);
-        $event = $this->eventService->getByID($event_id);
-        $refundPolicies = $this->refundPolicyService->getAll();
-        $eventTopics = $this->eventTopicService->getAll();
-        $categories = $this->categoryServices->getAll();
-        $eventTypes = $this->eventTypeService->getAll();
-        $currencies = $this->currencyService->getAll();
-        $timeZones = $this->timeZoneService->getAll();
-        if(!is_null($event->topic)){
-            $eventSubTopics = $this->eventSubTopicService->getTopicSubTopics($event->topic->id);
-        }else{
-            $eventSubTopics = [];
-        }
-        $locations = $this->eventLocationService->getEventLocations($event_id);
-        $tickets = $this->eventTicketService->getEventTickets($event_id);
-        return view('events.edit')->with(['event' => $event, 'refundPolicies' => $refundPolicies, 'eventTopics' =>
-            $eventTopics, 'categories' => $categories, 'eventTypes' => $eventTypes, 'eventSubTopics' =>
-            $eventSubTopics, 'eventId' => $id, 'locations' => $locations, 'currencies' => $currencies, 'timeZones' =>
-        $timeZones, 'tickets' => $tickets]);
+        $response = $this->eventService->edit($id);
+        return view('events.edit')->with($response);
     }
 
     /**
@@ -218,7 +205,7 @@ class EventController extends Controller
         $response = $this->eventLocationService->addNewLocation($currencies, $timeZones, $request->event_id);
         return response()->json([
             'type'      => 'success',
-            'msg'       => 'Haha',
+            'msg'       => '',
             'data'      => $response
         ]);
     }
@@ -276,7 +263,20 @@ class EventController extends Controller
             'msg'       =>  'Pass Deleted',
             'data'      =>  ''
         ]);
+    }
 
+    public function eventLayoutUpdate(Request $request){
+        $eventId    = decrypt_id($request->event_id);
+        $response   = $this->eventLayoutService->updateEventLayout($request, $eventId);
+        return response()->json([
+            'type'      =>  'success',
+            'msg'       =>  'Event Layout Updated',
+            'data'      =>  $request->all()
+        ]);
+    }
+
+    public function layout(){
+        return view('events/layouts/layout-3');
     }
 
     public function getMyEvents(){

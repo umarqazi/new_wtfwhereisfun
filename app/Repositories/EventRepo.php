@@ -31,6 +31,7 @@ class EventRepo
         $event->refund_policy_id            =       $request->refund_policy;
         $event->user_id                     =       Auth::user()->id;
         $event->status                      =       0;
+        $event->organizer_id                =       $request->organizer_id;
 
         $event->save();
         return $event;
@@ -61,6 +62,7 @@ class EventRepo
         $event->is_shareable                =       $isShareable;
         $event->additional_message          =       $request->additional_message;
         $event->refund_policy_id            =       $request->refund_policy;
+        $event->organizer_id                =       $request->organizer_id;
 
         $event->save();
         return $event;

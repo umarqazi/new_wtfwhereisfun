@@ -26,6 +26,7 @@ class Event extends FormRequest
         return [
             'title'             => 'required|string|max:75',
             'description'       => 'required',
+            'organizer_id'      => 'required',
         ];
     }
 }

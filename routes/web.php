@@ -62,7 +62,6 @@ Route::group(['middleware' => ['web']], function () {
         Route::group(['middleware' => ['role:vendor','auth']], function () {
             Route::get('dashboard',  'UsersController@vendorDashboard');
 
-
             Route::resource('events', 'EventController');
             Route::get('my-events', 'EventController@getMyEvents');
 
@@ -81,6 +80,10 @@ Route::group(['middleware' => ['web']], function () {
             Route::post('events/add-new-ticket-pass', 'EventController@addNewTicketPass');
             Route::post('events/update-pass', 'EventController@ticketPassUpdate');
             Route::post('events/delete-pass', 'EventController@ticketPassDelete');
+
+
+            Route::post('events/update-layout', 'EventController@eventLayoutUpdate');
+            Route::get('event/layout', 'EventController@layout');
 
             /*Organzier Routes*/
             Route::resource('organizers', 'OrganizerController');

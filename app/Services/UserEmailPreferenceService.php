@@ -17,8 +17,8 @@ class UserEmailPreferenceService
 {
     protected $userRepo;
 
-    public function __construct(UserRepo $userRepo){
-        $this->userRepo = $userRepo;
+    public function __construct(){
+        $this->userRepo = new UserRepo();
     }
 
     public function updateEmailPreference($request){

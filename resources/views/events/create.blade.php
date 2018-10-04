@@ -119,6 +119,16 @@
                                             <span class="label_cap">If your refund policy is changed after tickets have been sold, the new policy will apply to future orders only. <br> Any free order can be cancelled by the buyer at any time.<a href="#"> Learn more.</a></span>
                                         </div>
 
+                                        <div class="form-group Refund_Policy">
+                                            <label> Select an Organizer</label>
+                                            <select class="form-control" name="organizer_id" required>
+                                                <option disabled selected>Select Organizers</option>
+                                                @foreach($organizers as $organizer)
+                                                    <option value="{{$organizer->id}}">{{$organizer->name}}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+
                                         <div class="form-group">
                                             <h4>Payment preferences</h4>
                                             <p>Currently, your payments are powered by PayPal Payments. Payments will securely transfer into your account via direct deposit or receiving a check in the mail (US & Canada only). Don't worry, you can switch to Stripe Payments if you'd like in Manage, but you'll be required to setup a Stripe account first.</p>

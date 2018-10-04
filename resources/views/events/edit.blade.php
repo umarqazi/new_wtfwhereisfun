@@ -4,12 +4,12 @@
 <link rel="stylesheet" href="{{asset('css/eventpage/richtext.min.css')}}">
 <link rel='stylesheet' href="{{asset('css/eventpage/custom.css')}}">
 <link rel="stylesheet" href="{{asset('css/eventpage/bootstrap-datetimepicker.min.css')}}">
-{{--<link href="{{asset('admin/css/dataTables.bootstrap.min.css')}}" rel="stylesheet">--}}
-<script src="{{asset('js/moment.min.js')}}></script>
-<script src="{{asset('js/eventpage/jquery.bxslider.js')}}></script>
+<script src="{{asset('js/moment.min.js')}}"></script>
+<script src="{{asset('js/eventpage/jquery.bxslider.js')}}"></script>
+<link rel="stylesheet" href="{{asset('css/fancybox/jquery.fancybox.min.css')}}">
 <link rel="stylesheet" href="{{asset('css/eventpage/jquery.bxslider.css')}}">
-{{--<script src="{{asset('admin/js/jquery.dataTables.min.js')}}"></script>--}}
-{{--<script src="{{asset('admin/js/dataTables.bootstrap.min.js')}}"></script>--}}
+<link rel="stylesheet" type="text/css" href="{{asset('listgo/css/style.css')}}">
+<link rel="stylesheet" type="text/css" href="{{asset('listgo/css/listgo-custom.css')}}">
 
 {{--<script type="text/javascript" src="//maps.googleapis.com/maps/api/js?v=3.31&amp;region=GB&amp;language=en-gb&amp;key=AIzaSyBJTHy8pvEzQsmBKZ_KQMT2qkx-6xajRA4&amp;libraries=places"></script>--}}
 <div class="container-fluid profileSideBar">
@@ -23,6 +23,7 @@
                         <li><a data-toggle="pill" href="#topics">Event Topics</a></li>
                         <li><a data-toggle="pill" href="#locations">Event Time and Locations</a></li>
                         <li><a data-toggle="pill" href="#tickets">Event Tickets</a></li>
+                        <li><a data-toggle="pill" href="#layouts">Event Layouts and Images</a></li>
                     </ul>
                 </div>
             </div>
@@ -127,6 +128,17 @@
                                             @endforeach
                                         </select>
                                         <span class="label_cap">If your refund policy is changed after tickets have been sold, the new policy will apply to future orders only. <br> Any free order can be cancelled by the buyer at any time.<a href="#"> Learn more.</a></span>
+                                    </div>
+
+                                    <div class="form-group Refund_Policy">
+                                        <label> Select an Organizer</label>
+                                        <select class="form-control" name="organizer_id" required>
+                                            <option value="" disabled="" @if(is_null($event->organizer)){{'selected'}}@endif>Select Organizer</option>
+                                            @foreach($organizers as $organizer)
+                                                <option @if(!is_null($event->organizer) && $event->organizer_id == $organizer->id){{'selected'}}@endif
+                                                        value="{{$organizer->id}}">{{$organizer->name}}</option>
+                                            @endforeach
+                                        </select>
                                     </div>
 
                                     <div class="form-group">
@@ -614,6 +626,201 @@
                         </div>
                     </div>
                 </div>
+
+                <div id="layouts" class="tab-pane fade">
+                    <div class="contc-detail-wrap">
+                        <div class="acnt-adrs-innertitle">
+                            <h4>Event Layouts and Image Uploading</h4>
+                        </div>
+                        <div class="shipping-address-inner">
+                            <div class="event-layout-listing">
+                                <div class="section p-top-10">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="listings">
+                                                <form method="post" id="event-layout" onsubmit="updateEventLayout(this)" enctype="multipart/form-data">
+                                                    <div class="row layout-listing">
+                                                        <input type="hidden" id="event_layout_id" name="event_layout" value="{{$event->event_layout_id}}">
+                                                        <input type="hidden" id="" name="event_id" value="{{$eventId}}">
+                                                        @php $asset = asset('img'); @endphp
+                                                        @foreach($layouts as $layout)
+                                                            <div class="col-sm-6 col-lg-3">
+                                                                <div class="listing listing--grid1 @if($layout->id == $event->event_layout_id){{"active"}} @endif" onclick="selectLayout(this)" id="{{$layout->id}}">
+                                                                    <div class="listing__media">
+                                                                        <div class="mask"></div>
+                                                                        <a class="zoomIcon fancybox" data-fancybox="gallery" data-caption="Event Template" href="{{$asset.'/'.$layout->image}}">
+                                                                            <i class="fa fa-search"></i>
+                                                                            <i class="fa fa-check"></i>
+                                                                        </a>
+                                                                        <img src="{{$asset.'/'.$layout->image}}" alt="">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        @endforeach
+                                                    </div>
+                                                    <div class="row upload-imges-row">
+                                                        <div class="col-md-12">
+                                                            <div class="tooltipContainer">
+                                                                <div class="customToolTip">
+                                                                    <h1>Photos</h1>
+                                                                    <p>Files must be in JPEG, JPG, PNG.
+                                                                        <br>
+                                                                        Image size must be 1600 X 700
+                                                                    </p>
+                                                                </div>
+                                                                <label class="header-img">
+                                                                    <input type="file" style="display: none" name="header_image" onchange="eventImageUpdate(this, 'header')">
+                                                                    <img src="" id="header-image" class="main-img">
+                                                                    <div class="label-content">
+                                                                        <div class="browse-icon"></div>
+                                                                        Browse<br>
+                                                                    </div>
+                                                                </label>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-md-4">
+                                                            <div class="tooltipContainer">
+                                                                <div class="customToolTip">
+                                                                    <h1>Photos</h1>
+                                                                    <p>Files must be in JPEG, JPG, PNG.
+                                                                        <br>
+                                                                        Image size must be 600 X 600
+                                                                    </p>
+                                                                </div>
+                                                                <label class="header-img">
+                                                                    <input type="file" style="display: none" name="gallery_image[]" onchange="eventImageUpdate(this,'gallery')">
+                                                                    <img src="" id="gallery-image-1" class="main-img">
+                                                                    <div class="label-content">
+                                                                        <div class="browse-icon"></div>
+                                                                        Browse<br>
+                                                                    </div>
+                                                                </label>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-md-4">
+                                                            <div class="tooltipContainer">
+                                                                <div class="customToolTip">
+                                                                    <h1>Photos</h1>
+                                                                    <p>Files must be in JPEG, JPG, PNG.
+                                                                        <br>
+                                                                        Image size must be 600 X 600
+                                                                    </p>
+                                                                </div>
+                                                                <label class="header-img">
+                                                                    <input type="file" style="display: none" name="gallery_image[]" onchange="eventImageUpdate(this,'gallery')">
+                                                                    <img src="" id="gallery-image-2" class="main-img">
+                                                                    <div class="label-content">
+                                                                        <div class="browse-icon"></div>
+                                                                        Browse<br>
+                                                                    </div>
+                                                                </label>
+                                                            </div>
+                                                        </div>
+
+
+                                                        <div class="col-md-4">
+                                                            <div class="tooltipContainer">
+                                                                <div class="customToolTip">
+                                                                    <h1>Photos</h1>
+                                                                    <p>Files must be in JPEG, JPG, PNG.
+                                                                        <br>
+                                                                        Image size must be 600 X 600
+                                                                    </p>
+                                                                </div>
+                                                                <label class="header-img">
+                                                                    <input type="file" style="display: none" name="gallery_image[]" onchange="eventImageUpdate(this,'gallery')">
+                                                                    <img src="" id="gallery-image-3" class="main-img">
+                                                                    <div class="label-content">
+                                                                        <div class="browse-icon"></div>
+                                                                        Browse<br>
+                                                                    </div>
+                                                                </label>
+                                                            </div>
+                                                        </div>
+
+
+                                                        <div class="col-md-4">
+                                                            <div class="tooltipContainer">
+                                                                <div class="customToolTip">
+                                                                    <h1>Photos</h1>
+                                                                    <p>Files must be in JPEG, JPG, PNG.
+                                                                        <br>
+                                                                        Image size must be 600 X 600
+                                                                    </p>
+                                                                </div>
+                                                                <label class="header-img">
+                                                                    <input type="file" style="display: none" name="gallery_image[]" onchange="eventImageUpdate(this,'gallery')">
+                                                                    <img src="" id="gallery-image-4" class="main-img">
+                                                                    <div class="label-content">
+                                                                        <div class="browse-icon"></div>
+                                                                        Browse<br>
+                                                                    </div>
+                                                                </label>
+                                                            </div>
+                                                        </div>
+
+
+                                                        <div class="col-md-4">
+                                                            <div class="tooltipContainer">
+                                                                <div class="customToolTip">
+                                                                    <h1>Photos</h1>
+                                                                    <p>Files must be in JPEG, JPG, PNG.
+                                                                        <br>
+                                                                        Image size must be 600 X 600
+                                                                    </p>
+                                                                </div>
+                                                                <label class="header-img">
+                                                                    <input type="file" style="display: none" name="gallery_image[]" onchange="eventImageUpdate(this,'gallery')">
+                                                                    <img src="" id="gallery-image-5" class="main-img">
+                                                                    <div class="label-content">
+                                                                        <div class="browse-icon"></div>
+                                                                        Browse<br>
+                                                                    </div>
+                                                                </label>
+                                                            </div>
+                                                        </div>
+
+
+                                                        <div class="col-md-4">
+                                                            <div class="tooltipContainer">
+                                                                <div class="customToolTip">
+                                                                    <h1>Photos</h1>
+                                                                    <p>Files must be in JPEG, JPG, PNG.
+                                                                        <br>
+                                                                        Image size must be 600 X 600
+                                                                    </p>
+                                                                </div>
+                                                                <label class="header-img">
+                                                                    <input type="file" style="display: none" name="gallery_image[]" onchange="eventImageUpdate(this,'gallery')">
+                                                                    <img src="" id="gallery-image-6" class="main-img">
+                                                                    <div class="label-content">
+                                                                        <div class="browse-icon"></div>
+                                                                        Browse<br>
+                                                                    </div>
+                                                                </label>
+                                                            </div>
+                                                        </div>
+
+
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <div class="applybutton_right">
+                                                            <button type="submit" class="btn btn-default btn-save rounded-border">Save</button>
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
             </div>
         </div>
 

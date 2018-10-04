@@ -13,9 +13,9 @@ class EventDetailService
 {
     protected $eventRepo;
 
-    public function __construct(EventRepo $eventRepo)
+    public function __construct()
     {
-        $this->eventRepo = $eventRepo;
+        $this->eventRepo = new EventRepo();
     }
 
     public function updateDetails($request, $id){
