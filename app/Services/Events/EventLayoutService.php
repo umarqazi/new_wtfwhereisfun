@@ -22,15 +22,14 @@ class EventLayoutService  extends BaseService implements IService
         return $this->eventLayoutRepo->getAll();
     }
 
-    public function updateEventLayout($request, $id){
-        $headerImageName = $this->eventImageService->uploadImage($request, 'events', $id, 'header');
-        if(empty($headerImageName)){
-            $updateData = ['event_layout_id' => $request->event_layout ];
-        }else{
+    public function updateEventLayout($request){
+        $id = decrypt_id($request->event_id);
+        if($request->hasFile('header_image')){
+            $headerImageName = $this->eventImageService->uploadImage($request, 'events', $id, 'header');
             $updateData = ['event_layout_id' => $request->event_layout, 'header_image' => $headerImageName];
+        }else{
+            $updateData = ['event_layout_id' => $request->event_layout ];
         }
         $this->eventLayoutRepo->updateEventLayout($updateData, $id);
-        $galleryImages = $this->eventImageService->uploadImage($request, 'events', $id, 'gallery');
-        $this->eventImageRepo->insert($galleryImages, $id);
     }
 }

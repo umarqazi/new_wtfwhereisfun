@@ -707,7 +707,7 @@ function eventImageUpdate(fieldObj, type)
     let file_name = fieldObj.value;
     let split_extension = file_name.split(".");
     let calculatedSize = fieldObj.files[0].size / (1024 * 1024);
-    let ext = ["png","jpg","jpeg","gif"];
+    let ext = ["png","jpg","gif"];
     if ($.inArray(split_extension[1].toLowerCase(), ext) == -1) {
         $(this).val(fieldObj.value = null);
         showToaster('error','You Can Upload Only .jpg, png, jpeg, gif Images !');
@@ -730,20 +730,75 @@ function eventImageUpdate(fieldObj, type)
                 showToaster('error', 'Image Width must be 600px & Height must be 600px atleast');
                 return false;
             }
-            var targetId = $(fieldObj).next('img').css('display', 'block').attr('id');
+
+            if(type == 'gallery'){
+                var eventId = $('#event_id').val();
+                var image = $(fieldObj)[0].files[0];
+                var form = new FormData();
+                form.append('event_id', eventId);
+                form.append('gallery_image', image);
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+                $.ajax({
+                    url  : base_url() + "/events/upload-image",
+                    type : "POST",
+                    data : form,
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    dataType : "JSON",
+                    success: function(response)
+                    {
+                        if(response){
+                            $(fieldObj).closest('.tooltipContainer').find('.customToolTip').addClass('hidden');
+                            $(fieldObj).closest('.tooltipContainer').find('.remove-button').addClass('show-block').removeClass('hidden').attr('onclick', 'removeEventImage(this, "'+ response.data+'")');
+                            $(fieldObj).closest('.tooltipContainer').find('.header-img').addClass('disable-events');
+                        }
+                    }
+                });
+            }
+
+
+            var targetId = $(fieldObj).next('img').removeClass('hidden').addClass('show-block').attr('id');
             var target = document.getElementById(targetId);
             var fr = new FileReader();
             fr.onload = function(e) {
                 target.src = this.result;
             };
             fr.readAsDataURL(fieldObj.files[0]);
-            $(fieldObj).parent('.header-img').find('.label-content').hide();
+            $(fieldObj).parent('.header-img').find('.label-content').removeClass('show-block').addClass('hidden');
         }
     }
 }
-
 /*****************************************************************************
  *************************Change Photo Script End *****************************
  ******************************************************************************/
+
+function removeEventImage(obj, id){
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+    $.ajax({
+        url  : base_url() + "/events/remove-image",
+        type : "POST",
+        data : {id : id},
+        dataType : "JSON",
+        success: function(response)
+        {
+            if(response){
+                $(obj).parent('.tooltipContainer').find('.customToolTip').removeClass('hidden');
+                $(obj).parent('.tooltipContainer').find('img').attr('src', '').removeClass('show-block').addClass('hidden');
+                $(obj).parent('.tooltipContainer').find('.label-content').removeClass('hidden');
+                $(obj).parent('.tooltipContainer').find('.remove-button').removeClass('show-block').addClass('hidden').removeAttr('onclick');
+                $(obj).parent('.tooltipContainer').find('.header-img').removeClass('disable-events');
+            }
+        }
+    });
+}
 
 

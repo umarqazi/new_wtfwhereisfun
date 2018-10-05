@@ -31,7 +31,11 @@ class OrganizerRepo
 
     public function userOrganizers(){
         $user = Auth::user();
-        return $user->organizers;
+        if(count($user->organizers)){
+            return $user->organizers;
+        }else{
+            return [];
+        }
     }
 
     public function store($request){

@@ -44,7 +44,6 @@ Route::group(['middleware' => ['web']], function () {
     Route::resource('blogs', 'BlogController');
 
     Route::group(['middleware' => ['auth']], function () {
-
         /*User Routes*/
         Route::get('profile', 'UsersController@edit');
         Route::post('update-profile', 'UsersController@profileUpdate');
@@ -84,6 +83,8 @@ Route::group(['middleware' => ['web']], function () {
 
             Route::post('events/update-layout', 'EventController@eventLayoutUpdate');
             Route::get('event/layout', 'EventController@layout');
+            Route::post('events/upload-image', 'EventController@uploadEventImage');
+            Route::post('events/remove-image', 'EventController@removeEventImage');
 
             /*Organzier Routes*/
             Route::resource('organizers', 'OrganizerController');

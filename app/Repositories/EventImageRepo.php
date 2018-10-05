@@ -12,12 +12,16 @@ class EventImageRepo
         $this->eventImage   = new EventImage();
     }
 
-    public function insert($images, $id){
-        if(count($images)){
-            foreach($images as $key => $img){
-                $this->eventImage->create(['name' => $img, 'event_id' => $id]);
-            }
-        }
+    public function insert($image, $id){
+        return $this->eventImage->create(['name' => $image, 'event_id' => $id]);
+    }
+
+    public function get($id){
+        return $this->eventImage->find($id);
+    }
+
+    public function delete($id){
+        $this->eventImage->destroy($id);
     }
 
 }

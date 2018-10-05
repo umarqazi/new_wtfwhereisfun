@@ -106,30 +106,42 @@
                                                 <div class="gallery-row" style="width: 750px; height: 591px;" data-original-width="1200" data-original-height="946">
                                                     <div class="gallery-group images-2" style="width: 355px; height: 591px;" data-original-width="568" data-original-height="946">
                                                         <div class="tiled-gallery-item tiled-gallery-item-large">
+                                                            @if(count($event->images) >= 1)
                                                             <img src="{{$directory['web_path'].$event->images[0]->name}}" width="564" height="564" data-original-width="564" data-original-height="564" style="width: 351px; height: 351px;">
+                                                            @endif
                                                         </div>
                                                         <div class="tiled-gallery-item tiled-gallery-item-large">
+                                                            @if(count($event->images) >= 2)
                                                             <img src="{{$directory['web_path'].$event->images[1]->name}}" width="564" height="374" data-original-width="564" data-original-height="374" style="width: 351px; height: 232px;">
+                                                            @endif
                                                         </div>
                                                     </div>
                                                     <div class="gallery-group images-1" style="width: 395px; height: 591px;" data-original-width="632" data-original-height="946">
                                                         <div class="tiled-gallery-item tiled-gallery-item-large" >
+                                                            @if(count($event->images) >= 3)
                                                             <img src="{{$directory['web_path'].$event->images[2]->name}}" width="628" height="942" data-original-width="628" data-original-height="942" style="width: 391px; height: 587px;">
+                                                            @endif
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div class="gallery-row" style="width: 750px; height: 334px;" data-original-width="1200" data-original-height="535">
                                                     <div class="gallery-group images-1" style="width: 500px; height: 334px;" data-original-width="801" data-original-height="535">
                                                         <div class="tiled-gallery-item tiled-gallery-item-large">
+                                                            @if(count($event->images) >= 4)
                                                             <img src="{{$directory['web_path'].$event->images[3]->name}}" width="797" height="531" data-original-width="797" data-original-height="531" style="width: 496px; height: 330px;">
+                                                            @endif
                                                         </div>
                                                     </div>
                                                     <div class="gallery-group images-2" style="width: 249px; height: 334px;" data-original-width="399" data-original-height="535">
                                                         <div class="tiled-gallery-item tiled-gallery-item-large" >
+                                                            @if(count($event->images) >= 5)
                                                             <img src="{{$directory['web_path'].$event->images[4]->name}}" width="395" height="264" data-original-width="395" data-original-height="264" style="width: 245px; height: 163px;">
+                                                            @endif
                                                         </div>
                                                         <div class="tiled-gallery-item tiled-gallery-item-large">
+                                                            @if(count($event->images) >= 6)
                                                             <img src="{{$directory['web_path'].$event->images[5]->name}}" width="395" height="263" data-original-width="395" data-original-height="263" style="width: 245px; height: 162px;">
+                                                            @endif
                                                         </div>
                                                     </div>
                                                 </div>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\EventLayout;
+use App\Repositories\EventImageRepo;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Config;
@@ -26,6 +27,7 @@ use App\Services\Events\EventTimeLocationService;
 use App\Services\Events\EventTicketService;
 use App\Services\Events\EventListingService;
 use App\Services\Events\EventLayoutService;
+use App\Services\Events\EventImageService;
 use App\Services\CurrencyService;
 use App\Services\TimeZoneService;
 use App\Services\CategoryServices;
@@ -49,6 +51,7 @@ class EventController extends Controller
     protected $eventListingService;
     protected $eventLayoutService;
     protected $organizerService;
+    protected $eventImageService;
 
     public function __construct()
     {
@@ -66,6 +69,7 @@ class EventController extends Controller
         $this->eventListingService      = new EventListingService();
         $this->eventLayoutService       = new EventLayoutService();
         $this->organizerService         = new OrganizerService();
+        $this->eventImageService        = new EventImageService();
     }
 
     /**
@@ -85,9 +89,13 @@ class EventController extends Controller
      */
     public function create()
     {
-        $refundPolicies = $this->refundPolicyService->getAll();
-        $organizers     = $this->organizerService->getUserOrganizers();
-        return view('events.create')->with(['refundPolicies' => $refundPolicies, 'organizers' => $organizers]);
+        $response = $this->eventService->create();
+        if(count($response['organizers'])){
+            return view('events.create')->with($response);
+        }else{
+            Alert::error('Please create an Organizer first!', 'Error');
+            return redirect('organizers/create');
+        }
     }
 
     /**
@@ -96,9 +104,9 @@ class EventController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Event $request)
     {
-        $response = $this->eventService->create($request);
+        $response = $this->eventService->store($request);
         $response['encoded_id'] = encrypt_id($response['id']);
         return response()->json([
             'type'  =>  'success',
@@ -266,12 +274,20 @@ class EventController extends Controller
     }
 
     public function eventLayoutUpdate(Request $request){
-        $eventId    = decrypt_id($request->event_id);
-        $response   = $this->eventLayoutService->updateEventLayout($request, $eventId);
+        $response   = $this->eventLayoutService->updateEventLayout($request);
         return response()->json([
             'type'      =>  'success',
             'msg'       =>  'Event Layout Updated',
-            'data'      =>  $request->all()
+            'data'      =>  $response
+        ]);
+    }
+
+    public function uploadEventImage(Request $request){
+        $response   = $this->eventImageService->uploadImage($request, 'events', decrypt_id($request->event_id), 'gallery');
+        return response()->json([
+            'type'      =>  'success',
+            'msg'       =>  'Event Layout Updated',
+            'data'      =>  $response
         ]);
     }
 
@@ -284,6 +300,15 @@ class EventController extends Controller
         $liveEvents = $this->eventListingService->getLiveEvents();
         $pastEvents = $this->eventListingService->getPastEvents();
         return view('events.my-events')->with(['draftEvents' => $draftEvents, 'liveEvents' => $liveEvents, 'pastEvents' => $pastEvents]);
+    }
+
+    public function removeEventImage(Request $request){
+        $response = $this->eventImageService->removeImage($request->id);
+        return response()->json([
+            'type'      =>  'success',
+            'msg'       =>  'Image Deleted Successfully',
+            'data'      =>  $response
+        ]);
     }
 
 }

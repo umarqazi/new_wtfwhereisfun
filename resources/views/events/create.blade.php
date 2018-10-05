@@ -18,6 +18,7 @@
                             <li><a data-toggle="pill" href="JavaScript:void(0);" onclick="promptForDetails(event,this)">Event Topics</a></li>
                             <li><a data-toggle="pill" href="JavaScript:void(0);" onclick="promptForDetails(event,this)">Event Time and Locations</a></li>
                             <li><a data-toggle="pill" href="JavaScript:void(0);" onclick="promptForDetails(event,this)">Event Tickets</a></li>
+                            <li><a data-toggle="pill" href="JavaScript:void(0);" onclick="promptForDetails(event,this)">Event Layouts and Images</a></li>
                         </ul>
                     </div>
                 </div>
@@ -38,11 +39,13 @@
                                             <label>What is your event called? </label>
                                             <span class="label_cap text-right char_limit">0/75</span>
                                             <input type="text" class="form-control" placeholder="Make it a short and catchy title" name="title" id="event_title" required="" maxlength="75">
+                                            <div class="form-error title"></div>
                                         </div>
                                         <div class="form-group">
                                             <label for="description"> Description </label>
                                             <span class="label_cap">This description will appear on the event listing page.</span>
                                             <textarea class="" id="description" name="description"></textarea>
+                                            <div class="form-error description"></div>
                                         </div>
                                         <div class="add_contact_referal">
                                             <div class="add_contact_detail">
@@ -127,6 +130,7 @@
                                                     <option value="{{$organizer->id}}">{{$organizer->name}}</option>
                                                 @endforeach
                                             </select>
+                                            <div class="form-error organizer_id"></div>
                                         </div>
 
                                         <div class="form-group">

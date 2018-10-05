@@ -18,6 +18,8 @@ use App\Services\CurrencyService;
 use App\Services\TimeZoneService;
 use App\Services\CategoryServices;
 use App\Services\Organizers\OrganizerService;
+use Alert;
+use Illuminate\Support\Facades\Redirect;
 class EventService extends BaseService implements IDBService
 {
     protected $eventRepo;
@@ -50,9 +52,11 @@ class EventService extends BaseService implements IDBService
         $this->organizerService         = new OrganizerService();
     }
 
-    public function create($request)
+    public function create($request = null)
     {
-        return $this->eventRepo->create($request);
+        $refundPolicies = $this->refundPolicyService->getAll();
+        $organizers     = $this->organizerService->getUserOrganizers();
+        return ['refundPolicies' => $refundPolicies, 'organizers' => $organizers];
     }
 
     public function update($request)
@@ -78,6 +82,10 @@ class EventService extends BaseService implements IDBService
     public function getByID($id)
     {
         return $this->eventRepo->getByID($id);
+    }
+
+    public function store($request){
+        return $this->eventRepo->create($request);
     }
 
     public function edit($id){

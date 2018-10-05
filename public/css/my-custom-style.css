@@ -816,3 +816,31 @@ form#profile-image,form#organizers-profile-image{
 .listing__media .fa-check{
     font-size : 40px;
 }
+
+.show-block{
+    display:block!important;
+}
+
+.tooltipContainer .remove-button{
+    position : absolute;
+    background: none;
+    top : 10px;
+    right : 10px;
+    z-index: 99;
+    display: none;
+}
+
+.tooltipContainer:hover .remove-button{
+    display: block;
+}
+
+.upload-imges-row .remove-button{
+    background: rgba(0,0,0,0.5);
+    color: #fff;
+    padding: 4px 6px;
+    border-radius: 2px;
+}
+
+.disable-events{
+    pointer-events:none;
+}

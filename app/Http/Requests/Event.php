@@ -29,4 +29,16 @@ class Event extends FormRequest
             'organizer_id'      => 'required',
         ];
     }
+
+    /**
+     * Get the error messages for the defined validation rules.
+     *
+     * @return array
+     */
+    public function messages()
+    {
+        return [
+            'organizer_id.required'  => 'Please select an Organizer',
+        ];
+    }
 }

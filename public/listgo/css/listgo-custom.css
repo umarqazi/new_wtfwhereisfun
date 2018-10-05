@@ -69,7 +69,6 @@
     position: relative;
     left:50%;
     top: 50%;
-    display: none;
     margin: 0 auto;
     transform: translate(-50%, -50%);
     width: 100%;
@@ -151,4 +150,7 @@
 .second-section{
     width: 459px;
     height: 306px;
+}
+.hidden{
+    display:none!important;
 }
