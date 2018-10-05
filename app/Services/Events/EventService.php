@@ -121,7 +121,11 @@ class EventService extends BaseService implements IDBService
         $locations      = $this->eventLocationService->getEventLocations($event_id);
         $tickets        = $this->eventTicketService->getEventTickets($event_id);
         $directory      = getDirectory('events', $event_id);
-        $layout         = $event->layout->name;
+        if(empty($event->event_layout_id)){
+            $layout     = 'layout-1';
+        }else{
+            $layout         = $event->layout->name;
+        }
         return (['event' => $event, 'layout' => $layout, 'eventId' => $id, 'locations' => $locations, 'tickets' => $tickets, 'directory' => $directory, '']);
     }
 }

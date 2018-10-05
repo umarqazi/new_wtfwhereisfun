@@ -747,6 +747,7 @@
                                                     <div class="form-group">
                                                         <div class="applybutton_right">
                                                             <button type="submit" class="btn btn-default btn-save rounded-border">Save</button>
+                                                            <a href="{{url('events/'.$eventId)}}" target="_blank" class="btn btn-default btn-save rounded-border">Preview</a>
                                                         </div>
                                                     </div>
                                                 </form>

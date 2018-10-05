@@ -120,7 +120,10 @@ Organizer </span>
                     @endfor
                 </ul>
             </div>
-        </div><div id="wiloke_mailchimp-9" class="widget widget_newsletter"><h4 class="widget_title">Subscribe</h4> <div class="mailchimp__content">
+        </div>
+        <div id="wiloke_mailchimp-9" class="widget widget_newsletter">
+            <h4 class="widget_title">Subscribe</h4>
+            <div class="mailchimp__content">
                 <p>Subscribe us and never miss our new articles</p>
                 <form class="pi_subscribe">
                     <input type="email" class="pi-subscribe-email wiloke-subscribe-email form-remove" placeholder="Enter your email..." value="">
@@ -128,5 +131,6 @@ Organizer </span>
                     <p class="message"></p>
                 </form>
             </div>
-        </div> </div>
+        </div>
+    </div>
 </div>
