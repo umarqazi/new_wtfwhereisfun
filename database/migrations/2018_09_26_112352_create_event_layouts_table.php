@@ -18,6 +18,8 @@ class CreateEventLayoutsTable extends Migration
             $table->string('name');
             $table->string('path');
             $table->string('image');
+            $table->string('sidebar_position');
+            $table->string('sidebar_color');
             $table->timestamps();
         });
 

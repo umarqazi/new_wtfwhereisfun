@@ -91,4 +91,12 @@ class User extends Authenticatable
     {
         return $this->hasMany('App\Dispute');
     }
+
+    /**
+     * Get Vendor Events
+     */
+    public function events()
+    {
+        return $this->hasMany('App\Event');
+    }
 }

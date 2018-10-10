@@ -35,6 +35,7 @@ use App\Services\Organizers\OrganizerService;
 use App\Http\Requests\Event;
 use App\Http\Requests\EventTicket;
 use App\Http\Requests\EventTimeLocation;
+use Carbon\Carbon;
 class EventController extends Controller
 {
     protected $eventService;
@@ -296,10 +297,8 @@ class EventController extends Controller
     }
 
     public function getMyEvents(){
-        $draftEvents = $this->eventListingService->getDraftEvents();
-        $liveEvents = $this->eventListingService->getLiveEvents();
-        $pastEvents = $this->eventListingService->getPastEvents();
-        return view('events.my-events')->with(['draftEvents' => $draftEvents, 'liveEvents' => $liveEvents, 'pastEvents' => $pastEvents]);
+        $response = $this->eventListingService->getVendorEvents();
+        return view('events.vendor-listing')->with($response);
     }
 
     public function removeEventImage(Request $request){

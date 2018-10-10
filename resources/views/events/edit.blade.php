@@ -45,11 +45,13 @@
                                         <span class="label_cap text-right char_limit">0/75</span>
                                         <input type="text" class="form-control" placeholder="Make it a short and
                                         catchy title" name="title" value="{{$event->title}}" id="event_title" required="" maxlength="75">
+                                        <div class="form-error title"></div>
                                     </div>
                                     <div class="form-group">
                                         <label for="description"> Description </label>
                                         <span class="label_cap">This description will appear on the event listing page.</span>
                                         <textarea class="" id="description" name="description">{{$event->description}}</textarea>
+                                        <div class="form-error description"></div>
                                     </div>
                                     <div class="add_contact_referal">
                                         <div class="add_contact_detail">
@@ -67,12 +69,13 @@
                                             @if(empty($event->referral_code))
                                                 <a href="JavaScript:void(0);" class="refferal_toogle"> <i class="fa fa-plus"></i> Enter a referral code</a>
                                             @endif
-                                            <div class="referral_append">
+                                            <div class="referral_append" @if(!empty($event->referral_code)) style="display: block;" @endif>
                                                 <label>Referral code</label>
                                                 <span class="label_cap">Do you have a referral code or did someone refer you to WTF Where’s The Fun?</span>
                                                 <input type="text" class="form-control" placeholder="" name="referral_code" value="{{$event->referral_code}}">
                                                 <label>Discount</label>
                                                 <input type="number" class="form-control"  min="1" placeholder="Enter Discount in %" name="discount" value="{{$event->discount}}">
+                                                <div class="form-error discount"></div>
                                             </div>
                                         </div>
                                     </div>

@@ -13,15 +13,22 @@ class EventListingService extends BaseService implements IService
         $this->eventRepo = new EventRepo();
     }
 
-    public function getLiveEvents($id){
-        return $this->eventRepo->liveEvents($id);
+    public function getLiveEvents(){
+        return $this->eventRepo->liveEvents();
     }
 
-    public function getDraftEvents($id){
-        return $this->eventRepo->draftEvents($id);
+    public function getDraftEvents(){
+        return $this->eventRepo->draftEvents();
     }
 
-    public function getPastEvents($id){
-        return $this->eventRepo->pastEvents($id);
+    public function getPastEvents(){
+        return $this->eventRepo->pastEvents();
+    }
+
+    public function getVendorEvents(){
+        $draftEvents = $this->getDraftEvents();
+        $liveEvents = $this->getLiveEvents();
+        $pastEvents = $this->getPastEvents();
+        return ['draftEvents' => $draftEvents, 'liveEvents' => $liveEvents, 'pastEvents' => $pastEvents];
     }
 }

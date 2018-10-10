@@ -26,14 +26,14 @@ class CreateEventsTable extends Migration
             $table->text('additional_message')->nullable();
             $table->tinyInteger('total_capacity')->nullable();
             $table->integer('refund_policy_id')->nullable();
-            $table->tinyInteger('is_draft')->nullable();
+            $table->tinyInteger('is_draft')->nullable()->default(0);
             $table->tinyInteger('is_online')->nullable();
             $table->tinyInteger('ticket_flag')->nullable();
             $table->tinyInteger('is_sold_out')->nullable();
             $table->tinyInteger('is_shareable')->nullable();
-            $table->tinyInteger('is_published')->nullable();
-            $table->tinyInteger('is_cancelled')->nullable();
-            $table->tinyInteger('is_approved')->nullable();
+            $table->tinyInteger('is_published')->nullable()->default(0);
+            $table->tinyInteger('is_cancelled')->nullable()->default(0);
+            $table->tinyInteger('is_approved')->nullable()->default(0);
             $table->tinyInteger('status')->nullable();
             $table->integer('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');

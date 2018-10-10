@@ -19,6 +19,14 @@ class Event extends Model
     ];
 
     /**
+     * Get Events Vendor
+     */
+    public function vendor()
+    {
+        return $this->belongsTo('App\User', 'user_id');
+    }
+
+    /**
      * Get EvenTopic.
      */
     public function topic()

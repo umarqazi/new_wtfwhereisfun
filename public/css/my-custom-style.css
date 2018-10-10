@@ -296,7 +296,7 @@ section.main-content-padding{
     margin-left: 5px;
 }
 
-.eventListing .info .actions-btns .action-list button{
+.eventListing .info .actions-btns .action-list a{
     padding : 7px 15px;
     border-radius : 5px;
     margin: 3px 0;

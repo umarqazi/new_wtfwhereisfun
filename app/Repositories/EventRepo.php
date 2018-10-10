@@ -7,8 +7,14 @@ use App\EventTicket;
 use App\EventTimeLocation;
 use App\TicketPass;
 use Illuminate\Support\Facades\Auth;
+use Carbon\Carbon;
 class EventRepo
 {
+    public function __construct()
+    {
+        $this->eventModel   =   new Event;
+    }
+
     public function create($request){
         if($request->access == 'public'){
             $isShareable = 0;
@@ -154,13 +160,26 @@ class EventRepo
     }
 
     public function liveEvents(){
-        $eventTicketPass = TicketPass::destroy($request->pass_id);
+        return $this->eventModel->where(['user_id' => Auth::user()->id, 'is_published' => 1, 'deleted_at' => null, 'is_approved' => 1])->where('is_cancelled', '!=', 1)->where('is_draft', '!=', 1)->whereHas('time_locations', function($query){
+            return $query->where('starting', '<=', now())->where('ending', '>=', now());
+        })->get();
     }
 
     public function draftEvents(){
-        $eventTicketPass = TicketPass::destroy($request->pass_id);
+        return $this->eventModel->where(['user_id' => Auth::user()->id, 'deleted_at' => null, 'is_draft' => 1])->get();
     }
+
     public function pastEvents(){
-        $eventTicketPass = TicketPass::destroy($request->pass_id);
+        return $this->eventModel->where(['user_id' => Auth::user()->id, 'is_published' => 1, 'deleted_at' => null, 'is_approved' => 1])->where('is_cancelled', '!=', 1)->where('is_draft', '!=', 1)->whereHas('time_locations', function($query){
+            return $query->where('starting', '<=', now())->where('ending', '<=', now());
+        })->whereDoesntHave('time_locations', function($query){
+            return $query->where('starting', '<=', now())->where('ending', '>=', now());
+        })->whereDoesntHave('time_locations', function($query){
+            return $query->where('starting', '>', now())->where('ending', '>', now());
+        })->get();
+    }
+
+    public function getMoreEvents($vendor, $event){
+        return $this->eventModel->where('user_id', $vendor)->where('id','!=', $event)->orderBy('created_at', 'desc')->limit(2)->get();
     }
 }

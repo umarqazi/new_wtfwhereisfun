@@ -3,7 +3,7 @@
     @include('partials.head-css-incluldes')
 <body>
     <div class="page-wrapper">
-        <div class="main-page main-top-padding">
+        <div class="main-page @if(!url()->current() == url('/')) main-top-padding @endif">
             @include('partials.header')
             @yield('content')
             @include('partials.footer')

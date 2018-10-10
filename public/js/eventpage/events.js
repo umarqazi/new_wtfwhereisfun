@@ -1,4 +1,11 @@
 $(document).ready(function($) {
+
+    // toggle tickets details
+
+    $('.event-tickets-listing .tickets_details button').click(function (){
+        $(this).parent('.tickets_details').find('.ticket_description_wrapper').slideToggle();
+    });
+
     $("#event-create").submit(function(event) {
         event.preventDefault();
         var form_data = new FormData($('#event-create')[0]);

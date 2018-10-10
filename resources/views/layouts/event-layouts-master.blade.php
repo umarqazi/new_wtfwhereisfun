@@ -37,5 +37,7 @@
 <script src="{{asset('js/fancybox/jquery.fancybox.min.js')}}"></script>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCwTDuEZdy-ST4qjk4mtBYlTjJ10xRHQLc" type="text/javascript"></script>
 <script type="text/javascript" src="{{asset('listgo/js/scripts.js')}}"></script>
+<script type="text/javascript" src="{{asset('js/eventpage/events.js')}}"></script>
+
 </body>
 </html>
