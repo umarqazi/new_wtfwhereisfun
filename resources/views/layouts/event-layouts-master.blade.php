@@ -18,9 +18,10 @@
     <link rel="stylesheet" type="text/css" href="{{asset('listgo/css/lib/owl.carousel.min.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('listgo/css/lib/perfect-scrollbar.min.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('listgo/css/lib/magnific-popup.min.css')}}">
+    <link rel="stylesheet" href="{{asset('css/fancybox/jquery.fancybox.min.css')}}">
 
     <link rel="stylesheet" type="text/css" href="{{asset('listgo/css/wiloke_minify_js_listgo_1.7.0.3ef6d.css')}}">
-{{--    <link rel="stylesheet" type="text/css" href="{{asset('listgo/css/style.css')}}">--}}
+    <link rel="stylesheet" type="text/css" href="{{asset('css/my-custom-style.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('listgo/css/jetpack.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('listgo/css/layout-3-style.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('listgo/css/listgo-custom.css')}}">
@@ -32,6 +33,9 @@
 <script type="text/javascript" src="{{asset('listgo/js/lib/jquery-1.11.2.min.js')}}"></script>
 <script type="text/javascript" src="{{asset('listgo/js/lib/jquery-ui.min.js')}}"></script>
 <script type="text/javascript" src="{{asset('listgo/js/lib/jquery.owl.carousel.js')}}"></script>
+<script src="{{asset('js/fancybox/jquery.fancybox.min.js')}}"></script>
+<script src="{{asset('js/bootstrap.min.js')}}"></script>
+<script src="{{asset('js/custom.js')}}"></script>
 <script type="text/javascript" src="{{asset('listgo/js/lib/perfect-scrollbar.min.js')}}"></script>
 <script type="text/javascript" src="{{asset('listgo/js/lib/jquery.magnific-popup.min.js')}}"></script>
 <script src="{{asset('js/fancybox/jquery.fancybox.min.js')}}"></script>

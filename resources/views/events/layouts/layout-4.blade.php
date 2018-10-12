@@ -40,38 +40,8 @@
                                     <div id="tab-description" class="tab__panel active">
                                         <div class="listing-single__content">
                                             <p>{!! $event->description !!}</p>
-                                            <div class="tiled-gallery type-rectangular" data-original-width="1200" >
-                                                <div class="gallery-row" style="width: 750px; height: 108px;" data-original-width="1200" data-original-height="174">
-                                                    <div class="gallery-group images-1" style="width: 166px; height: 108px;" data-original-width="266" data-original-height="174">
-                                                        <div class="tiled-gallery-item tiled-gallery-item-large" >
-                                                            @if(count($event->images) >= 1)
-                                                            <img src="{{$directory['web_path'].$event->images[0]->name}}" width="262" height="170" data-original-width="262" data-original-height="170" style="width: 162px; height: 104px;">
-                                                            @endif
-                                                        </div>
-                                                    </div>
-                                                    <div class="gallery-group images-1" style="width: 196px; height: 108px;" data-original-width="315" data-original-height="174">
-                                                        <div class="tiled-gallery-item tiled-gallery-item-large">
-                                                            @if(count($event->images) >= 2)
-                                                            <img src="{{$directory['web_path'].$event->images[1]->name}}" width="311" height="170" data-original-width="311" data-original-height="170" style="width: 192px; height: 104px;">
-                                                            @endif
-                                                        </div>
-                                                    </div>
-                                                    <div class="gallery-group images-1" style="width: 228px; height: 108px;" data-original-width="365" data-original-height="174">
-                                                        <div class="tiled-gallery-item tiled-gallery-item-large">
-                                                            @if(count($event->images) >= 3)
-                                                            <img src="{{$directory['web_path'].$event->images[2]->name}}" width="361" height="170" data-original-width="361" data-original-height="170" style="width: 224px; height: 104px;">
-                                                            @endif
-                                                        </div>
-                                                    </div>
-                                                    <div class="gallery-group images-1" style="width: 158px; height: 108px;" data-original-width="254" data-original-height="174">
-                                                        <div class="tiled-gallery-item tiled-gallery-item-large">
-                                                            @if(count($event->images) >= 4)
-                                                            <img src="{{$directory['web_path'].$event->images[3]->name}}" width="250" height="170" data-original-width="250" data-original-height="170" style="width: 154px; height: 104px;">
-                                                            @endif
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
+
+                                            @include('events.partials.event-gallery')
 
                                             @include('events.partials.event-description')
                                         </div>

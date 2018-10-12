@@ -18,6 +18,11 @@ class EventImageService extends BaseService implements IService
         $this->imageService           = new ImageService();
     }
 
+
+    public function addNewImage($request){
+        return addNewImage($request);
+    }
+
     public function uploadImage($request, $type, $id, $imageType){
         if($imageType == 'header'){
             if($request->hasFile('header_image')){

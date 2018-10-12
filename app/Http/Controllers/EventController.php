@@ -283,6 +283,15 @@ class EventController extends Controller
         ]);
     }
 
+    public function addNewImage(Request $request){
+        $response   = $this->eventImageService->addNewImage($request);
+        return response()->json([
+            'type'      =>  'success',
+            'msg'       =>  '',
+            'data'      =>  $response
+        ]);
+    }
+
     public function uploadEventImage(Request $request){
         $response   = $this->eventImageService->uploadImage($request, 'events', decrypt_id($request->event_id), 'gallery');
         return response()->json([

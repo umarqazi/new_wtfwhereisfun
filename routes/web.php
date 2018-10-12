@@ -83,6 +83,7 @@ Route::group(['middleware' => ['web']], function () {
 
             Route::post('events/update-layout', 'EventController@eventLayoutUpdate');
             Route::get('event/layout', 'EventController@layout');
+            Route::post('events/add-new-image', 'EventController@addNewImage');
             Route::post('events/upload-image', 'EventController@uploadEventImage');
             Route::post('events/remove-image', 'EventController@removeEventImage');
 

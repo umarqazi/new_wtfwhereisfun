@@ -2,8 +2,8 @@ $(document).ready(function($) {
 
     // toggle tickets details
 
-    $('.event-tickets-listing .tickets_details button').click(function (){
-        $(this).parent('.tickets_details').find('.ticket_description_wrapper').slideToggle();
+    $('.tickets-table .ticket-details button').click(function (){
+        $(this).parent().parent().next('.ticket_description_wrapper').slideToggle();
     });
 
     $("#event-create").submit(function(event) {
@@ -784,6 +784,9 @@ function eventImageUpdate(fieldObj, type)
  *************************Change Photo Script End *****************************
  ******************************************************************************/
 
+/*****************************************************************************
+ *************************Remove Photo From Event Edit Page*****************************
+ ******************************************************************************/
 function removeEventImage(obj, id){
     $.ajaxSetup({
         headers: {
@@ -798,14 +801,36 @@ function removeEventImage(obj, id){
         success: function(response)
         {
             if(response){
-                $(obj).parent('.tooltipContainer').find('.customToolTip').removeClass('hidden');
-                $(obj).parent('.tooltipContainer').find('img').attr('src', '').removeClass('show-block').addClass('hidden');
-                $(obj).parent('.tooltipContainer').find('.label-content').removeClass('hidden');
-                $(obj).parent('.tooltipContainer').find('.remove-button').removeClass('show-block').addClass('hidden').removeAttr('onclick');
-                $(obj).parent('.tooltipContainer').find('.header-img').removeClass('disable-events');
+                $(obj).parent().parent().remove();
             }
         }
     });
 }
+/*****************************************************************************
+ *************************End Remove Photo From Event Edit Page*****************************
+ ******************************************************************************/
 
+/*****************************************************************************
+ *************************Add New Block For Photo Upload*****************************
+ ******************************************************************************/
+function addNewImage(eventId){
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+    $.ajax({
+        url  : base_url() + "/events/add-new-image",
+        type : "POST",
+        data : {event_id : eventId},
+        dataType : "JSON",
+        success: function(response)
+        {
+            $('.upload-imges-row').append(response.data);
+        }
+    });
+}
+/*****************************************************************************
+ *************************End Add New Block For Photo Upload*****************************
+ ******************************************************************************/
 

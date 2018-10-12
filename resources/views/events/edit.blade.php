@@ -697,30 +697,41 @@
                                                             </div>
                                                         </div>
 
-                                                        @php $images = $event->images @endphp
+                                                        @if(count($event->images))
+                                                            @php
+                                                                $browseClass = 'hidden';
+                                                                $imgClass    = 'show-block';
+                                                                $removeBtn   = 'show-block';
+                                                                $toolClass   =  'hidden';
+                                                                $disableEvent= 'disable-events';
+                                                            @endphp
+                                                            @foreach($event->images as $img)
+                                                                @php
+                                                                    $imgSrc      =  $directory['web_path'].$img->name;
+                                                                    $imgId       =  encrypt_id($img->id);
+                                                                @endphp
+                                                                <div class="col-md-4">
+                                                                    <div class="tooltipContainer">
+                                                                        <button type="button" class="remove-button {{$removeBtn}}" id="" onclick="removeEventImage(this, '{{$imgId}}')">
+                                                                            <i class="fa fa-trash"></i>
+                                                                        </button>
+                                                                        <label class="header-img {{$disableEvent}}">
+                                                                            <img src="{{$imgSrc}}" id="gallery-image-{{$imgId}}" class="main-img {{$imgClass}}">
+                                                                        </label>
+                                                                    </div>
+                                                                </div>
+                                                            @endforeach
+                                                        @else
+                                                            @php
+                                                                $browseClass = 'show-block';
+                                                                $imgClass    = 'hidden';
+                                                                $imgSrc      =  '';
+                                                                $removeBtn   = 'hidden';
+                                                                $imgId       = null;
+                                                                $toolClass   =  '';
+                                                                $disableEvent= '';
+                                                            @endphp
 
-                                                        @for($i=0; $i<6; $i++)
-                                                            @if(count($images) >= $i && !empty($images[$i]->name))
-                                                                @php
-                                                                    $browseClass = 'hidden';
-                                                                    $imgClass    = 'show-block';
-                                                                    $imgSrc      =  $directory['web_path'].$event->images[$i]->name;
-                                                                    $removeBtn   = 'show-block';
-                                                                    $imgId       =  encrypt_id($event->images[$i]->id);
-                                                                    $toolClass   =  'hidden';
-                                                                    $disableEvent= 'disable-events';
-                                                                @endphp
-                                                            @else
-                                                                @php
-                                                                    $browseClass = 'show-block';
-                                                                    $imgClass    = 'hidden';
-                                                                    $imgSrc      =  '';
-                                                                    $removeBtn   = 'hidden';
-                                                                    $imgId       = null;
-                                                                    $toolClass   =  '';
-                                                                    $disableEvent= '';
-                                                                @endphp
-                                                            @endif
                                                             <div class="col-md-4">
                                                                 <div class="tooltipContainer">
                                                                     <div class="customToolTip {{$toolClass}}">
@@ -730,13 +741,13 @@
                                                                             Image size must be 600 X 600
                                                                         </p>
                                                                     </div>
-                                                                    <button type="button" class="remove-button {{$removeBtn}}" id="" onclick="removeEventImage(this, '{{$imgId}}')">
+                                                                    <button type="button" class="remove-button {{$removeBtn}}" id="" onclick="removeEventImage(this, '{{'imgid'}}')">
                                                                         <i class="fa fa-trash"></i>
                                                                     </button>
                                                                     <label class="header-img {{$disableEvent}}">
                                                                         <input type="hidden" name="event_id" id="event_id" value="{{$eventId}}">
                                                                         <input type="file" style="display: none" name="gallery_image" onchange="eventImageUpdate(this,'gallery')">
-                                                                        <img src="{{$imgSrc}}" id="gallery-image-{{$i + 1}}" class="main-img {{$imgClass}}">
+                                                                        <img src="" id="gallery-image-{{mt_rand()}}" class="main-img {{$imgClass}}">
                                                                         <div class="label-content {{$browseClass}}">
                                                                             <div class="browse-icon"></div>
                                                                             Browse<br>
@@ -744,11 +755,13 @@
                                                                     </label>
                                                                 </div>
                                                             </div>
-                                                        @endfor
+                                                        @endif
+
 
                                                     </div>
                                                     <div class="form-group">
                                                         <div class="applybutton_right">
+                                                            <button type="button" onclick="addNewImage('{{$eventId}}')" class="btn btn-default rounded-border"><i class="fa fa-plus"></i> Add More Images</button>
                                                             <button type="submit" class="btn btn-default btn-save rounded-border">Save</button>
                                                             <a href="{{url('events/'.$eventId)}}" target="_blank" class="btn btn-default btn-save rounded-border">Preview</a>
                                                         </div>

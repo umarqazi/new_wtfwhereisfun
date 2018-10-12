@@ -268,6 +268,37 @@ if (! function_exists('addNewTimeLocationRow')) {
         }
     }
 
+    if (! function_exists('addNewImage')) {
+        function addNewImage($request)
+        {
+            $number = mt_rand();
+            $html = "<div class=\"col-md-4\">
+                        <div class=\"tooltipContainer\">
+                            <div class=\"customToolTip\">
+                                <h1>Photos</h1>
+                                <p>Files must be in JPEG, JPG, PNG.
+                                    <br>
+                                    Image size must be 600 X 600
+                                </p>
+                            </div>
+                            <button type=\"button\" class=\"remove-button hidden\" id=\"\" onclick=\"removeEventImage(this, null)\">
+                                <i class=\"fa fa-trash\"></i>
+                            </button>
+                            <label class=\"header-img\">
+                                <input type=\"hidden\" name=\"event_id\" id=\"event_id\" value=\"{$request->event_id}\">
+                                <input type=\"file\" style=\"display: none\" name=\"gallery_image\" onchange=\"eventImageUpdate(this,'gallery')\">
+                                <img src=\"\" id=\"gallery-image-{$number}\" class=\"main-img hidden\">
+                                <div class=\"label-content show-block\">
+                                    <div class=\"browse-icon\"></div>
+                                    Browse<br>
+                                </div>
+                            </label>
+                        </div>
+                    </div>";
+            return $html;
+        }
+    }
+
 
 
 }

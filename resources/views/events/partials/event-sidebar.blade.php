@@ -59,6 +59,29 @@ Organizer </span>
             </div>
         </div>
 
+
+        <div id="wiloke_price_segment-5" class="widget widget wiloke_price_segment">
+            <h4 class="widget_title"><i class="fa fa-map-marker"></i><span class="active"></span>Time & Locations</h4>
+            <div class="organizer-dropdown mapDropdown">
+                <span class="active">Select Event Time<i class="fa fa-chevron-down"></i></span>
+                <ul class="list" style="display: none;">
+                    @if(count($locations))
+                        @foreach($locations as $location)
+                            <li>
+                                <a href="{{url('events/').encrypt_id($event->id)}}">{{$location->starting->format('g:i A')}} - {{$location->ending->format('g:i A')}}</a>
+                            </li>
+                        @endforeach
+                    @else
+                        <li>
+                            <a href="">No time has entered</a>
+                        </li>
+                    @endif
+                </ul>
+            </div>
+        </div>
+
+
+
         @if(!empty($event->referral_code))
             <div id="wiloke_price_segment-3" class="widget widget wiloke_price_segment">
                 <h4 class="widget_title"><i class="icon_currency"></i><span class="active"></span>Discount</h4>
@@ -116,18 +139,18 @@ Organizer </span>
                     @for($i = 0; $i < $eventImagesCount; $i++)
                         @if($i < 3)
                             <li class="">
-                                <a class="bg-scroll" href="" style="background-image: url({{$directory['web_path'].$event->images[$i]->name}})">
+                                <a class="bg-scroll fancybox" data-fancybox="gallery" href="{{$directory['web_path'].$event->images[$i]->name}}" style="background-image: url({{$directory['web_path'].$event->images[$i]->name}})">
                                 </a>
                             </li>
                         @elseif($i == 4)
                             <li class="author__gallery-plus">
-                                <a class="bg-scroll" href="" style="background-image: url({{$directory['web_path'].$event->images[$i]->name}})">
+                                <a class="bg-scroll fancybox" data-fancybox="gallery" href="{{$directory['web_path'].$event->images[$i]->name}}" style="background-image: url({{$directory['web_path'].$event->images[$i]->name}})">
                                     <span class="count">+9</span>
                                 </a>
                             </li>
                         @else
                             <li class="hidden">
-                                <a class="bg-scroll" href="" style="background-image: url({{$directory['web_path'].$event->images[$i]->name}})">
+                                <a class="bg-scroll fancybox" data-fancybox="gallery" href="{{$directory['web_path'].$event->images[$i]->name}}" style="background-image: url({{$directory['web_path'].$event->images[$i]->name}})">
                                 </a>
                             </li>
                         @endif

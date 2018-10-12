@@ -36,27 +36,6 @@
                                         <div class="info">
                                             <ul class="actions-btns header-dropdown m-r--5">
                                                 <li class="action-list"><a class="btn" href="{{url('events/'.encrypt_id($liveEvent->id).'/edit')}}">Manage</a></li>
-                                                {{--<li class="dropdown action-list">--}}
-                                                {{--<button href="javascript:void(0)" class="dropdown-toggle btn" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">--}}
-                                                {{--More <i class="zmdi zmdi-more-vert"></i>--}}
-                                                {{--</button>--}}
-                                                {{--<ul class="dropdown-menu pull-right">--}}
-                                                {{--<li><a href="#" class="remove_hot" onclick="deleteHotDeal(this)" id="".$live->id."">Remove Deal</a></li>--}}
-                                                {{--endif--}}
-                                                {{--<li><a href="javascript:void(0)">Another action</a></li>--}}
-                                                {{--<li><a href="javascript:void(0)">Something else here</a></li>--}}
-                                                {{--</ul>--}}
-                                                {{--</li>--}}
-                                                {{--if($live->is_hotdeal == 1):--}}
-                                                {{--<li class="action-list">--}}
-                                                {{--<button class="btn edit_hot" onclick="editHotDeal(this)" id="" .$live->id."">Edit Deal--}}
-                                                {{--</button>--}}
-                                                {{--</li>--}}
-                                                {{--else:--}}
-                                                {{--<li class="action-list">--}}
-                                                {{--<button class="btn make_hot" onclick="createHotDeal(this)" id="".$live->id."">Make Hot Deal</button>--}}
-                                                {{--</li>--}}
-                                                {{--endif--}}
                                             </ul>
                                             <div class="event-title">
                                                 <a href="{{url('events/'.encrypt_id($liveEvent->id))}}">{{$liveEvent->title}}</a>
