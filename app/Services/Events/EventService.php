@@ -8,6 +8,7 @@ use App\Services\BaseService;
 use App\Services\RefundPolicyService;
 use App\Services\Events\EventTopicService;
 use App\Services\Events\EventTypeService;
+use App\Services\Events\EventTagService;
 use App\Services\Events\EventSubTopicService;
 use App\Services\Events\EventDetailService;
 use App\Services\Events\EventTimeLocationService;
@@ -35,11 +36,13 @@ class EventService extends BaseService implements IDBService
     protected $eventTicketService;
     protected $eventLayoutService;
     protected $organizerService;
+    protected $eventTagService;
 
     public function __construct(){
         $this->refundPolicyService      = new RefundPolicyService();
         $this->eventTopicService        = new EventTopicService();
         $this->eventTypeService         = new EventTypeService();
+        $this->eventTagService          = new EventTagService();
         $this->categoryServices         = new CategoryServices();
         $this->eventSubTopicService     = new EventSubTopicService();
         $this->eventDetailService       = new EventDetailService();
@@ -93,6 +96,7 @@ class EventService extends BaseService implements IDBService
         $event          = $this->getByID($event_id);
         $refundPolicies = $this->refundPolicyService->getAll();
         $eventTopics    = $this->eventTopicService->getAll();
+        $eventTags      = $this->eventTagService->getEventTags($event_id);
         $categories     = $this->categoryServices->getAll();
         $eventTypes     = $this->eventTypeService->getAll();
         $currencies     = $this->currencyService->getAll();
@@ -112,7 +116,7 @@ class EventService extends BaseService implements IDBService
             $eventTopics, 'categories' => $categories, 'eventTypes' => $eventTypes, 'eventSubTopics' =>
             $eventSubTopics, 'eventId' => $id, 'locations' => $locations, 'currencies' => $currencies, 'timeZones' =>
             $timeZones, 'tickets' => $tickets, 'layouts' => $layouts, 'organizers' => $organizers, 'directory' =>
-            $directory]);
+            $directory, 'eventTags' => $eventTags]);
     }
 
     public function show($id){
@@ -120,6 +124,7 @@ class EventService extends BaseService implements IDBService
         $event          = $this->getByID($event_id);
         $locations      = $this->eventLocationService->getEventLocations($event_id);
         $tickets        = $this->eventTicketService->getEventTickets($event_id);
+        $tags           = $this->eventTagService->getEventTags($event_id);
         $moreEvents     = $this->eventRepo->getMoreEvents($event->vendor->id, $event_id);
         $directory      = getDirectory('events', $event_id);
         if(empty($event->event_layout_id)){
@@ -127,6 +132,10 @@ class EventService extends BaseService implements IDBService
         }else{
             $layout         = $event->layout->name;
         }
-        return (['event' => $event, 'layout' => $layout, 'eventId' => $id, 'locations' => $locations, 'tickets' => $tickets, 'directory' => $directory, 'moreEvents' => $moreEvents ]);
+        return (['event' => $event, 'layout' => $layout, 'eventId' => $id, 'locations' => $locations, 'tickets' => $tickets, 'directory' => $directory, 'moreEvents' => $moreEvents, 'tags' => $tags ]);
+    }
+
+    public function goLive($request){
+        $this->eventRepo->goLive($request);
     }
 }

@@ -342,3 +342,16 @@
     background-color : #8dc63f;
     border-color : #8dc63f;
 }
+
+p .event-tag-name{
+    background-color: #f5af02;
+    border-color: #f5af02;
+    border-radius: 5px;
+    color: #ffffff;
+    padding: 5px 15px;
+    display: inline-block;
+    vertical-align: top;
+    margin: 3px;
+    font-size: 13px;
+    text-transform: capitalize;
+}

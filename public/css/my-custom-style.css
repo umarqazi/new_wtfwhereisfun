@@ -44,7 +44,7 @@ textarea {
   resize: vertical;
 }
 .contact-wrap > .signup-signin-wrap .nav-tabs > li > a {
-  text-align: none !important; 
+  text-align: none !important;
   margin-left: 25px !important;
 }
 .ex-cities-title-wrap {
@@ -724,10 +724,12 @@ form#profile-image,form#organizers-profile-image{
 .listing__media{
     max-height: 350px!important;
     overflow: hidden!important;
+    position: relative;
 }
 
 .listing--grid1{
     border: solid 2px #fafafa;
+    margin-bottom: 30px;
 }
 
 .listing--grid1:hover{

@@ -16,10 +16,11 @@
                     </div>
                     <div class="overflow-hidden">
                         <h4 class="widget_author__name">{{$event->organizer->name}}</h4>
-                        <span class="widget_author__role"> <span class="member-item__role" style="color: rgb(250, 34, 118)">
-<img src="{{asset('img/admin.png')}}" alt="Badge">
-Organizer </span>
-</span>
+                        <span class="widget_author__role">
+                            <span class="member-item__role" style="color: rgb(250, 34, 118)">
+                                <img src="{{asset('img/admin.png')}}" alt="Badge"> Organizer
+                            </span>
+                        </span>
                     </div>
                 </a>
             </div>
@@ -92,7 +93,7 @@ Organizer </span>
 
                 <div class="wiloke_price-range">
                     <span class="active"></span> Discount
-                    <span class="wiloke_price-range__price">{{$event->discount}}</span>
+                    <span class="wiloke_price-range__price">{{$event->discount}}%</span>
                 </div>
             </div>
         @endif
@@ -121,43 +122,22 @@ Organizer </span>
                 </div>
             @endif
 
-            {{--@if(count($event->tags))--}}
-                {{--<div class="wiloke_price-range">--}}
-                    {{--<span class="active"></span> Event Tags--}}
-                    {{--<span class="wiloke_price-range__price">--}}
-                        {{--@foreach($event->tags as $tags)--}}
-                            {{--{{$tag->name}}--}}
-                        {{--@endforeach--}}
-                    {{--</span>--}}
-                {{--</div>--}}
-            {{--@endif--}}
         </div>
 
-        <div id="wiloke_gallery-3" class="widget widget widget_author_gallery"><h4 class="widget_title"><i class="icon_camera_alt"></i> Gallery</h4> <div class="widget_author-gallery">
-                <ul class="popup-gallery">
-                    @php $eventImagesCount = count($event->images) @endphp
-                    @for($i = 0; $i < $eventImagesCount; $i++)
-                        @if($i < 3)
-                            <li class="">
-                                <a class="bg-scroll fancybox" data-fancybox="gallery" href="{{$directory['web_path'].$event->images[$i]->name}}" style="background-image: url({{$directory['web_path'].$event->images[$i]->name}})">
-                                </a>
-                            </li>
-                        @elseif($i == 4)
-                            <li class="author__gallery-plus">
-                                <a class="bg-scroll fancybox" data-fancybox="gallery" href="{{$directory['web_path'].$event->images[$i]->name}}" style="background-image: url({{$directory['web_path'].$event->images[$i]->name}})">
-                                    <span class="count">+9</span>
-                                </a>
-                            </li>
-                        @else
-                            <li class="hidden">
-                                <a class="bg-scroll fancybox" data-fancybox="gallery" href="{{$directory['web_path'].$event->images[$i]->name}}" style="background-image: url({{$directory['web_path'].$event->images[$i]->name}})">
-                                </a>
-                            </li>
-                        @endif
-                    @endfor
-                </ul>
+        @if(!$tags->isEmpty())
+            <div id="wiloke_gallery-3" class="widget widget widget_author_gallery">
+                <h4 class="widget_title">
+                    <i class="icon_tags_alt"></i>Event Tags
+                </h4>
+                <div class="widget_author-gallery">
+                    <p class="tags">
+                        @foreach($tags as $tag)
+                            <span class="event-tag-name">{{$tag->name}}</span>
+                        @endforeach
+                    </p>
+                </div>
             </div>
-        </div>
+        @endif
 
     </div>
 </div>

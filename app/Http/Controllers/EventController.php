@@ -163,6 +163,10 @@ class EventController extends Controller
         //
     }
 
+    public function eventGoLive(Request $request){
+        $this->eventService->goLive($request);
+    }
+
     public function getTopicSubTopics(Request $request){
         $type = 'ajax';
         $eventSubTopics = $this->eventSubTopicService->getTopicSubTopics($request->event_topic, $type);
@@ -195,7 +199,7 @@ class EventController extends Controller
         return response()->json([
             'type'      =>  'success',
             'msg'       =>  'Event Locations has been updated Successfully',
-            'data'      =>  $response
+            'data'      =>  $request->all()
         ]);
     }
 

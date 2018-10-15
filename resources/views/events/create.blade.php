@@ -1,7 +1,7 @@
 @extends('layouts.master')
 @section('title', "Where's the fun:: Create Event")
+@section('content')
     <link rel="stylesheet" href="{{asset('css/eventpage/richtext.min.css')}}">
-    <link rel='stylesheet' href="{{asset('css/eventpage/custom.css')}}">
     <link rel="stylesheet" href="{{asset('css/eventpage/bootstrap-datetimepicker.min.css')}}">
     <script src="{{asset('js/moment.min.js')}}></script>
     <script src="{{asset('js/eventpage/jquery.bxslider.js')}}></script>
@@ -92,16 +92,14 @@
                                         </div>
 
                                         <div class="add_category_main">
-                                            <div class="row">
-                                                <div class="col-sm-12">
-                                                    <div class="col-sm-6 chk-on-off">
-                                                        <label class="switch ">
-                                                            <input type="checkbox" name="event_on_off" id="event_on_off">
-                                                            <span class="slider round"></span>
-                                                        </label>
-                                                        <span> Online Event</span>
-                                                        <input type="hidden" name="is_online" id="on_off_event" value="0">
-                                                    </div>
+                                            <div class="col-sm-12">
+                                                <div class="col-sm-6 chk-on-off">
+                                                    <label class="switch ">
+                                                        <input type="checkbox" name="event_on_off" id="event_on_off">
+                                                        <span class="slider round"></span>
+                                                    </label>
+                                                    <span> Online Event</span>
+                                                    <input type="hidden" name="is_online" id="on_off_event" value="0">
                                                 </div>
                                             </div>
                                         </div>
@@ -157,25 +155,26 @@
             </div>
         </div>
     </div>
-<meta name="csrf-token" content="{{ csrf_token() }}">
-<script src="{{asset('js/ckeditor/ckeditor.js')}}"></script>
-<script src="{{asset('js/ckeditor/config.js')}}"></script>
-<script src="{{asset('js/ckeditor/styles.js')}}"></script>
-<link rel="stylesheet" href="{{asset('js/ckeditor/contents.css')}}">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <script src="{{asset('js/ckeditor/ckeditor.js')}}"></script>
+    <script src="{{asset('js/ckeditor/config.js')}}"></script>
+    <script src="{{asset('js/ckeditor/styles.js')}}"></script>
+    {{--<link rel="stylesheet" href="{{asset('css/ckeditor/content.css')}}">--}}
 
-<script>
-    var config = {
-        language : 'en',
-        height : '150',
-        width : '1090',
-        colorButton_colors : 'F00,FF8C00,FFFF00,3A9D23,318CE7,0FF,00FF00,FF00FF',
-    };
+    <script>
+        var config = {
+            language : 'en',
+            height : '150',
+            width : '1090',
+            colorButton_colors : 'F00,FF8C00,FFFF00,3A9D23,318CE7,0FF,00FF00,FF00FF',
+        };
 
-    CKEDITOR.replace( 'description' ,config);
-    timer = setInterval(updateDiv,100);
-    function updateDiv(){
-        var editorText = CKEDITOR.instances.description.getData();
-        $('#description').html(editorText);
-    }
-</script>
+        CKEDITOR.replace( 'description' ,config);
+        timer = setInterval(updateDiv,100);
+        function updateDiv(){
+            var editorText = CKEDITOR.instances.description.getData();
+            $('#description').html(editorText);
+        }
+    </script>
 
+@endsection

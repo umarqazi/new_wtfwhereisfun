@@ -19,6 +19,9 @@
     <link href="{{asset('css/owl.carousel.min.css')}}" rel="stylesheet" type="text/css">
     <link href="{{asset('css/owl-animate.css')}}" rel="stylesheet" type="text/css">
     <link href="{{asset('css/owl.theme.default.min.css')}}" rel="stylesheet" type="text/css">
+    <!-- Tags Input -->
+    <link href="{{asset('css/bootstrap-tagsinput.css')}}" rel="stylesheet" type="text/css">
+    <link href="{{asset('css/app2.css')}}" rel="stylesheet" type="text/css">
     <!-- Sweet Alert Style -->
     <link href="{{asset('css/sweetalert2.min.css')}}" rel="stylesheet" type="text/css">
 
@@ -32,7 +35,7 @@
     <!-- Custom Style -->
     <link href="{{asset('css/custom-style.css')}}" rel="stylesheet" type="text/css">
     <!-- My Custom Style -->
-    <link href="{{asset('css/my-custom-style.css')}}" rel="stylesheet" type="text/css">
+    {{--<link href="{{asset('css/my-custom-style.css')}}" rel="stylesheet" type="text/css">--}}
     <!-- Responsive Style -->
     <link href="{{asset('css/responsive.css')}}" rel="stylesheet" type="text/css">
 

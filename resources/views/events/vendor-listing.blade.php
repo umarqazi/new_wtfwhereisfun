@@ -1,11 +1,11 @@
 @extends("layouts.master")
 @section("title", "Event Listings")
 @section("content")
-    <div id="maincontent" class="main_content">
-        <a href="javascript:void(0)" onclick="window.history.back()" class=" pull-right btn btn-raised btn-default waves-effect back-button1">Back</a>
+    <div id="" class="main_content">
         <div class="container">
-            <h2>Manage Events</h2>
             <div class="col-md-12">
+                <a href="javascript:void(0)" onclick="window.history.back()" class=" pull-right btn btn-raised btn-default waves-effect back-button1">Back</a>
+                <h2>Manage Events</h2>
                 <ul class="nav nav-tabs eventsTabs">
                     <li class="active"><a data-toggle="tab" href="#home">LIVE {{count($liveEvents)}}</a></li>
                     <li><a data-toggle="tab" href="#menu1">DRAFT {{count($draftEvents)}}</a></li>

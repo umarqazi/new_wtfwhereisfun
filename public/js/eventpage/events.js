@@ -1,5 +1,4 @@
 $(document).ready(function($) {
-
     // toggle tickets details
 
     $('.tickets-table .ticket-details button').click(function (){
@@ -74,13 +73,12 @@ $(document).ready(function($) {
             },
             success: function(response){
                 if(response.type == "success"){
-                    showToaster('success',response.msg);
+                    nextTab();
                 }
                 else{
                     showToaster('error',response.msg);
                 }
                 $('#event-details .btn-save').attr('disabled',false).text('Next');
-                nextTab();
             },
             error:function(response)
             {
@@ -120,13 +118,12 @@ $(document).ready(function($) {
             },
             success: function(response){
                 if(response.type == "success"){
-                    showToaster('success',response.msg);
+                    nextTab();
                 }
                 else{
                     showToaster('error',response.msg);
                 }
                 $('#event-topics .btn-save').attr('disabled',false).text('Next');
-                nextTab();
             },
             error:function(response)
             {
@@ -166,8 +163,8 @@ function eventLocationForm(event, obj, type){
         processData: false,
         beforeSend:function(){
             $(id+' .form-error').html('');
-            $(id+' .btn-save').attr('disabled',true).text('Loading....');
-            $(id+' :input').prop('disabled', true);
+            // $(id+' .btn-save').attr('disabled',true).text('Loading....');
+            // $(id+' :input').prop('disabled', true);
         },
         success: function(response){
             if(response.type == "success"){
@@ -586,9 +583,10 @@ $(document).ready(function(){
 
     $('#datetimepicker1,#datetimepicker2').datetimepicker({
         useCurrent: false,
-        format:'YYYY-MM-DD HH:mm:ss',
+        format:'YYYY-MM-DD hh:mm A',
         allowInputToggle: true,
-        minDate: moment()
+        minDate: moment(),
+
     });
 
     $(document).on('click',".datepicker1, .datepicker2", function(e){
@@ -614,7 +612,7 @@ $(document).on('change','#hide_date_from_ticket',function() {
     }
 });
 
-$(document).on('change','select#event_topic',function() {
+$(document).on('change','select#event_sub_topic',function() {
     $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -834,3 +832,37 @@ function addNewImage(eventId){
  *************************End Add New Block For Photo Upload*****************************
  ******************************************************************************/
 
+function eventGolive(event, obj){
+    event.preventDefault();
+    var formData = new FormData($(obj)[0]);
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+    $.ajax({
+        url  : base_url() + "/events/go-live",
+        type : "POST",
+        data : formData,
+        dataType : "JSON",
+        cache: false,
+        contentType: false,
+        processData: false,
+        beforeSend:function(){
+            $(obj).find('.form-error').html('');
+        },
+        success: function(response){
+            if(response.type == "success"){
+                showToaster('success',response.msg);
+            }
+            else{
+                showToaster('error',response.msg);
+            }
+        },
+        error:function(response)
+        {
+            var respObj = response.responseJSON;
+            showToaster('error', respObj.message);
+        }
+    });
+}

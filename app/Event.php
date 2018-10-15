@@ -101,4 +101,11 @@ class Event extends Model
         return $this->belongsTo('App\Organizer');
     }
 
+    /**
+     * Get Event Tags.
+     */
+    public function tags(){
+        return $this->HasMany('App\EventTag');
+    }
+
 }

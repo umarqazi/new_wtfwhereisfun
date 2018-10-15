@@ -62,6 +62,7 @@ Route::group(['middleware' => ['web']], function () {
             Route::get('dashboard',  'UsersController@vendorDashboard');
 
             Route::resource('events', 'EventController');
+            Route::post('go-live', 'EventController@eventGoLive');
             Route::get('my-events', 'EventController@getMyEvents');
 
             Route::post('get-event-sub-topics', 'EventController@getTopicSubTopics');
