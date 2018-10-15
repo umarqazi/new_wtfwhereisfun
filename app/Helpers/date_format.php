@@ -15,3 +15,9 @@ if (! function_exists('getMonths')) {
             'November','December');
     }
 }
+
+if (! function_exists('monthDateYearFromat')) {
+    function monthDateYearFromat($date){
+        return \Carbon\Carbon::parse($date)->format('M d, Y');
+    }
+}

@@ -12,22 +12,26 @@ class ImageService extends BaseService implements IService
     protected $userRepo;
     protected $organizerRepo;
 
-    public function __construct(UserRepo $userRepo, OrganizerRepo $organizerRepo){
-        $this->userRepo         = $userRepo;
-        $this->organizerRepo    = $organizerRepo;
+    public function __construct(){
+        $this->userRepo         = new UserRepo();
+        $this->organizerRepo    = new OrganizerRepo();
     }
 
-    public function uploadImage($request, $type, $id){
+    public function uploadImage($image, $type, $id, $multiple = false){
         $directory = getDirectory($type, $id);
         if(!Storage::exists($directory['relative_path'])){
             Storage::makeDirectory($directory['relative_path']);
         }
-        $path = Storage::putFile($directory['relative_path'], $request->file('thumbnail'));
-        $fileName = basename($path);
-        if($type == 'organizers'){
-            $this->organizerRepo->updateProfileImage($fileName, $id);
+        if($multiple){
+            $fileName = [];
+            foreach($image as $img){
+                $path = Storage::putFile($directory['relative_path'], $img);
+                $uploadedFileName = basename($path);
+                array_push($fileName, $uploadedFileName);
+            }
         }else{
-            $this->userRepo->updateProfileImage($fileName, $id);
+            $path = Storage::putFile($directory['relative_path'], $image);
+            $fileName = basename($path);
         }
         return $fileName;
     }

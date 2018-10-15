@@ -1,13 +1,6 @@
 
 // Menu Toggle
 //========================================
-jQuery(document).ready(function(){
-	jQuery('.menu-toggle').on('click', function(){
-		jQuery(this).toggleClass('menu-toggle-active');
-	});
-
-});
-
 $('.blog-thumbnail-slider').owlCarousel({
     loop:true,
     margin:10,
@@ -25,7 +18,7 @@ $('.blog-thumbnail-slider').owlCarousel({
             items:3
         }
     }
-})
+});
 
 // Email adress change
 //========================================
@@ -500,4 +493,3 @@ $(document).ready(function(){
 
 //            End 
 //========================================
-

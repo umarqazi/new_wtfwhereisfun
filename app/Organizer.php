@@ -13,10 +13,18 @@ class Organizer extends Model
     ];
 
     /**
-     * Get the Country that owns the states.
+     * Get Organizer Vendor.
      */
     public function vendor()
     {
         return $this->belongsTo('App\User');
+    }
+
+    /**
+     * Get organizer events.
+     */
+    public function events()
+    {
+        return $this->HasMany('App\Event');
     }
 }

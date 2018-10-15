@@ -16,8 +16,8 @@ class RefundPolicyService extends BaseService implements IDBService
 {
     protected $refundPolicyRepo;
 
-    public function __construct(RefundPolicyRepo $refundPolicyRepo){
-        $this->refundPolicyRepo = $refundPolicyRepo;
+    public function __construct( ){
+        $this->refundPolicyRepo = new RefundPolicyRepo();
     }
 
 

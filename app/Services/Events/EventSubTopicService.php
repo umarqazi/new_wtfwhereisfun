@@ -16,9 +16,9 @@ class EventSubTopicService
 {
     protected $eventSubTopicRepo;
 
-    public function __construct(EventSubTopicRepo $eventSubTopicRepo)
+    public function __construct()
     {
-        $this->eventSubTopicRepo   = $eventSubTopicRepo;
+        $this->eventSubTopicRepo   = new EventSubTopicRepo();
     }
 
     public function getTopicSubTopics($id, $requestType=''){

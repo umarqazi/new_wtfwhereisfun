@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: jazib
- * Date: 8/30/18
- * Time: 5:06 PM
- */
 
 namespace App\Services;
 
@@ -17,8 +11,8 @@ class UserProfileService
 {
     protected $userRepo;
 
-    public function __construct(UserRepo $userRepo){
-        $this->userRepo = $userRepo;
+    public function __construct(){
+        $this->userRepo = new UserRepo();
     }
 
     public function updateProfile($request){

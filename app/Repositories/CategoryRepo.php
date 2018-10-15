@@ -10,9 +10,9 @@ class CategoryRepo
 
     private $category;
 
-    public function __construct(Category $category)
+    public function __construct()
     {
-        $this->category = $category;
+        $this->category = new Category();
     }
 
     public function getAll(){

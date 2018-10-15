@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class EventTimeLocation extends Model
 {
+    protected $dates = ['created_at', 'updated_at', 'starting', 'ending'];
+
     protected $fillable = [
         'event_id', 'location', 'address', 'display_currency', 'transacted_currency', 'longitude', 'latitude', 'starting',
         'ending', 'timezone_id'

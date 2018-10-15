@@ -17,19 +17,22 @@ use App\Role;
 use Illuminate\Support\Facades\Hash;
 use App\Services\Organizers\OrganizerService;
 use App\Services\Organizers\OrganizerSocialLinksService;
+use App\Services\Organizers\OrganizerImageService;
 use App\Services\ImageService;
 class OrganizerController extends Controller
 {
     protected $organizerService;
     protected $organizerSocialLinksService;
+    protected $organizerImageService;
     protected $imageService;
 
-    public function __construct(OrganizerService $organizerService, OrganizerSocialLinksService
-    $organizerSocialLinksService, ImageService $imageService){
 
-        $this->organizerService             = $organizerService;
-        $this->organizerSocialLinksService  = $organizerSocialLinksService;
-        $this->imageService                 = $imageService;
+    public function __construct(){
+
+        $this->organizerService             = new OrganizerService();
+        $this->organizerSocialLinksService  = new OrganizerSocialLinksService();
+        $this->imageService                 = new ImageService();
+        $this->organizerImageService        = new OrganizerImageService();
     }
     /**
      * Display a listing of the resource.
@@ -150,8 +153,7 @@ class OrganizerController extends Controller
      * Upload Organizer Profile Image
      */
     public function uploadImage(Request $request){
-
-        $response = $this->imageService->uploadImage($request,'organizers', $request->id);
+        $response = $this->organizerImageService->uploadImage($request, 'organizers', $request->id);
         return response()->json([
             'type'      =>      'success',
             'msg'       =>      Config::get('constants.PROFILEINFO_SUCCESS'),

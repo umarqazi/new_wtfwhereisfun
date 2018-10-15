@@ -9,9 +9,9 @@ class EventTicketService extends BaseService
 {
     protected $eventRepo;
 
-    public function __construct(EventRepo $eventRepo)
+    public function __construct()
     {
-        $this->eventRepo   = $eventRepo;
+        $this->eventRepo   = new EventRepo();
     }
 
     public function getEventTickets($id){

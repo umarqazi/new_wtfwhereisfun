@@ -4,11 +4,18 @@ namespace App\Repositories;
 
 use App\Event;
 use App\EventTicket;
+use App\EventTag;
 use App\EventTimeLocation;
 use App\TicketPass;
 use Illuminate\Support\Facades\Auth;
+use Carbon\Carbon;
 class EventRepo
 {
+    public function __construct()
+    {
+        $this->eventModel   =   new Event;
+    }
+
     public function create($request){
         if($request->access == 'public'){
             $isShareable = 0;
@@ -31,6 +38,10 @@ class EventRepo
         $event->refund_policy_id            =       $request->refund_policy;
         $event->user_id                     =       Auth::user()->id;
         $event->status                      =       0;
+        $event->organizer_id                =       $request->organizer_id;
+        $event->is_cancelled                =       0;
+        $event->is_approved                 =       0;
+        $event->is_published                =       0;
 
         $event->save();
         return $event;
@@ -61,6 +72,7 @@ class EventRepo
         $event->is_shareable                =       $isShareable;
         $event->additional_message          =       $request->additional_message;
         $event->refund_policy_id            =       $request->refund_policy;
+        $event->organizer_id                =       $request->organizer_id;
 
         $event->save();
         return $event;
@@ -70,7 +82,6 @@ class EventRepo
         $event  = Event::find($id);
 
         $event->event_topic_id              =       $request->event_topic;
-        $event->event_sub_topic_id          =       $request->event_sub_topic;
         $event->category_id                 =       $request->event_type;
         $event->event_type_id               =       $request->category;
 
@@ -89,14 +100,17 @@ class EventRepo
         }else{
             $eventTimeLocation = EventTimeLocation::find($request->time_location_id);
         }
+
+        $startDate = Carbon::parse($request->event_start_date);
+        $endDate   = Carbon::parse($request->event_end_date);
         $eventTimeLocation->location                =       $request->event_location;
         $eventTimeLocation->address                 =       $request->event_address;
         $eventTimeLocation->display_currency_id     =       $request->display_currency;
         $eventTimeLocation->transacted_currency_id	=       $request->transacted_currency;
         $eventTimeLocation->longitude               =       $request->longitude;
         $eventTimeLocation->latitude                =       $request->latitude;
-        $eventTimeLocation->starting                =       $request->event_start_date;
-        $eventTimeLocation->ending                  =       $request->event_end_date;
+        $eventTimeLocation->starting                =       $startDate->format('Y-m-d H:i:s');
+        $eventTimeLocation->ending                  =       $endDate->format('Y-m-d H:i:s');
         $eventTimeLocation->timezone_id             =       $request->timezone;
 
         $eventTimeLocation->save();
@@ -152,13 +166,34 @@ class EventRepo
     }
 
     public function liveEvents(){
-        $eventTicketPass = TicketPass::destroy($request->pass_id);
+        return $this->eventModel->where(['user_id' => Auth::user()->id, 'is_published' => 1, 'deleted_at' => null, 'is_approved' => 1])->where('is_cancelled', '!=', 1)->where('is_draft', '!=', 1)->whereHas('time_locations', function($query){
+            return $query->where('starting', '<=', now())->where('ending', '>=', now());
+        })->get();
     }
 
     public function draftEvents(){
-        $eventTicketPass = TicketPass::destroy($request->pass_id);
+        return $this->eventModel->where(['user_id' => Auth::user()->id, 'deleted_at' => null, 'is_draft' => 1])->get();
     }
+
     public function pastEvents(){
-        $eventTicketPass = TicketPass::destroy($request->pass_id);
+        return $this->eventModel->where(['user_id' => Auth::user()->id, 'is_published' => 1, 'deleted_at' => null, 'is_approved' => 1])->where('is_cancelled', '!=', 1)->where('is_draft', '!=', 1)->whereHas('time_locations', function($query){
+            return $query->where('starting', '<=', now())->where('ending', '<=', now());
+        })->whereDoesntHave('time_locations', function($query){
+            return $query->where('starting', '<=', now())->where('ending', '>=', now());
+        })->whereDoesntHave('time_locations', function($query){
+            return $query->where('starting', '>', now())->where('ending', '>', now());
+        })->get();
+    }
+
+    public function getMoreEvents($vendor, $event){
+        return $this->eventModel->where('user_id', $vendor)->where('id','!=', $event)->orderBy('created_at', 'desc')->limit(2)->get();
+    }
+
+    public function goLive($request){
+        $event = $this->eventModel->find(decrypt_id($request->event_id));
+        $event->status                      =       1;
+        $event->is_published                =       1;
+        $event->is_draft                    =       0;
+        $event->save();
     }
 }

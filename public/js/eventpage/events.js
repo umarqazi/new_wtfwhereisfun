@@ -1,4 +1,10 @@
 $(document).ready(function($) {
+    // toggle tickets details
+
+    $('.tickets-table .ticket-details button').click(function (){
+        $(this).parent().parent().next('.ticket_description_wrapper').slideToggle();
+    });
+
     $("#event-create").submit(function(event) {
         event.preventDefault();
         var form_data = new FormData($('#event-create')[0]);
@@ -17,7 +23,7 @@ $(document).ready(function($) {
             processData: false,
             beforeSend:function(){
                 $('#event-create .form-error').html('');
-                $('#event-create .btn-save').attr('disabled',true).text('Loading....');
+                // $('#event-create .btn-save').attr('disabled',true).text('Loading....');
             },
             success: function(response){
                 if(response.type == "success"){
@@ -67,13 +73,12 @@ $(document).ready(function($) {
             },
             success: function(response){
                 if(response.type == "success"){
-                    showToaster('success',response.msg);
+                    nextTab();
                 }
                 else{
                     showToaster('error',response.msg);
                 }
                 $('#event-details .btn-save').attr('disabled',false).text('Next');
-                nextTab();
             },
             error:function(response)
             {
@@ -113,13 +118,12 @@ $(document).ready(function($) {
             },
             success: function(response){
                 if(response.type == "success"){
-                    showToaster('success',response.msg);
+                    nextTab();
                 }
                 else{
                     showToaster('error',response.msg);
                 }
                 $('#event-topics .btn-save').attr('disabled',false).text('Next');
-                nextTab();
             },
             error:function(response)
             {
@@ -159,8 +163,8 @@ function eventLocationForm(event, obj, type){
         processData: false,
         beforeSend:function(){
             $(id+' .form-error').html('');
-            $(id+' .btn-save').attr('disabled',true).text('Loading....');
-            $(id+' :input').prop('disabled', true);
+            // $(id+' .btn-save').attr('disabled',true).text('Loading....');
+            // $(id+' :input').prop('disabled', true);
         },
         success: function(response){
             if(response.type == "success"){
@@ -226,10 +230,10 @@ function eventTicketForm(event, obj){
             var addNewPass = '<a href="javascript:void(0);" class="add-pass" onclick="addNewTicketPass(event,this,'+ response.data.id+')" title="Connect Pass"><i class="fa fa-plus"></i></a>';
             $(obj).find('.event-passes-heading h4').append(addNewPass);
             $(obj).find('.request-type').attr('value', 'edit');
-            var eventId = $('#new-ticket-buttons paid_ticket_btn').attr('data-event-id');
-            $('#new-ticket-buttons .paid_ticket_btn').attr('onclick', 'addNewTicket(this,"Paid",'+ eventId+')');
-            $('#new-ticket-buttons .donation_btn').attr('onclick', 'addNewTicket(this,"Donation",'+ eventId+')');
-            $('#new-ticket-buttons .free_ticket_btn').attr('onclick', 'addNewTicket(this,"Free",'+ eventId+')');
+            var eventId = $('#new-ticket-buttons .paid_ticket_btn').attr('data-event-id');
+            $('#new-ticket-buttons .paid_ticket_btn').attr('onclick', 'addNewTicket(this,"Paid","'+ eventId+'")');
+            $('#new-ticket-buttons .donation_btn').attr('onclick', 'addNewTicket(this,"Donation","'+ eventId+'")');
+            $('#new-ticket-buttons .free_ticket_btn').attr('onclick', 'addNewTicket(this,"Free","'+ eventId+'")');
         },
         error:function(response)
         {
@@ -254,10 +258,6 @@ function eventTicketForm(event, obj){
 function promptForDetails(event, obj){
     event.preventDefault();
     showToaster('error', 'Complete event details first to move forward');
-    // setTimeout(function(){
-    //     $(obj).parent('li').removeClass('active');
-    //     $(obj).parent('ul').first('li').addClass('active');
-    // }, 1000);
 }
 
 function nextTab(){
@@ -327,10 +327,10 @@ function deleteTicket(event, obj){
     if (typeof attr !== typeof undefined && attr !== false) {
         // Element has this attribute
     }else{
-        var eventId = $('#new-ticket-buttons paid_ticket_btn').attr('data-event-id');
-        $('#new-ticket-buttons .paid_ticket_btn').attr('onclick', 'addNewTicket(this,"Paid",'+ eventId+')');
-        $('#new-ticket-buttons .donation_btn').attr('onclick', 'addNewTicket(this,"Donation",'+ eventId+')');
-        $('#new-ticket-buttons .free_ticket_btn').attr('onclick', 'addNewTicket(this,"Free",'+ eventId+')');
+        var eventId = $('#new-ticket-buttons .paid_ticket_btn').attr('data-event-id');
+        $('#new-ticket-buttons .paid_ticket_btn').attr('onclick', 'addNewTicket(this,"Paid","'+ eventId+'")');
+        $('#new-ticket-buttons .donation_btn').attr('onclick', 'addNewTicket(this,"Donation","'+ eventId+'")');
+        $('#new-ticket-buttons .free_ticket_btn').attr('onclick', 'addNewTicket(this,"Free","'+ eventId+'")');
     }
 
     if(ticketId != ''){
@@ -494,6 +494,61 @@ function deleteTicketPass(event, obj){
 }
 
 /*****************************************************************************
+ *************************Select Event Layout**************************
+ ******************************************************************************/
+function selectLayout(obj){
+    $(obj).closest('.layout-listing').find('.active').removeClass('active');
+    $(obj).addClass('active');
+    $(obj).closest('.layout-listing').find('input#event_layout_id').attr('value', $(obj).attr('id'));
+}
+
+/*****************************************************************************
+ *************************Update Event Layout**************************
+ ******************************************************************************/
+function updateEventLayout(obj){
+    event.preventDefault();
+    var formData = new FormData($(obj)[0]);
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+    $.ajax({
+        url  : base_url() + "/events/update-layout",
+        type : "POST",
+        data : formData,
+        dataType : "JSON",
+        cache: false,
+        contentType: false,
+        processData: false,
+        beforeSend:function(){
+            $(obj).find('.form-error').html('');
+        },
+        success: function(response){
+            if(response.type == "success"){
+                showToaster('success',response.msg);
+            }
+            else{
+                showToaster('error',response.msg);
+            }
+        },
+        error:function(response)
+        {
+            var respObj = response.responseJSON;
+            showToaster('error', respObj.message);
+            errors = respObj.errors;
+            var keys   = Object.keys(errors);
+            var count  = keys.length;
+            for (var i = 0; i < count; i++)
+            {
+                $(obj).find('.'+keys[i]).html(errors[keys[i]]).focus();
+            }
+
+        }
+    });
+}
+
+/*****************************************************************************
  *************************Change Password Script End **************************
  ******************************************************************************/
 
@@ -528,9 +583,10 @@ $(document).ready(function(){
 
     $('#datetimepicker1,#datetimepicker2').datetimepicker({
         useCurrent: false,
-        format:'YYYY-MM-DD HH:mm:ss',
+        format:'YYYY-MM-DD hh:mm A',
         allowInputToggle: true,
-        minDate: moment()
+        minDate: moment(),
+
     });
 
     $(document).on('click',".datepicker1, .datepicker2", function(e){
@@ -556,7 +612,7 @@ $(document).on('change','#hide_date_from_ticket',function() {
     }
 });
 
-$(document).on('change','select#event_topic',function() {
+$(document).on('change','select#event_sub_topic',function() {
     $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -644,8 +700,169 @@ function addNewLocationRow(obj){
         success: function(response)
         {
             $('.time-location-rows').append(response.data);
-            // console.log(response.data)
         }
     });
 }
 
+/*****************************************************************************
+ ***************************Change Photo Script Start**************************
+ ******************************************************************************/
+function eventImageUpdate(fieldObj, type)
+{
+    let file_name = fieldObj.value;
+    let split_extension = file_name.split(".");
+    let calculatedSize = fieldObj.files[0].size / (1024 * 1024);
+    let ext = ["png","jpg","gif"];
+    if ($.inArray(split_extension[1].toLowerCase(), ext) == -1) {
+        $(this).val(fieldObj.value = null);
+        showToaster('error','You Can Upload Only .jpg, png, jpeg, gif Images !');
+        return false;
+    }
+    if (calculatedSize > 1) {
+        $(this).val(fieldObj.value = null);
+        showToaster('error','File size should be less then 1 MB !');
+        return false;
+    }
+    if ($.inArray(split_extension[1].toLowerCase(), ext) != -1 && calculatedSize < 1) {
+        var file = fieldObj.files[0];
+        img = new Image();
+        img.src = URL.createObjectURL(file);
+        img.onload = function() {
+            if(type == 'header' && this.width <= 1600 && this.height <= 700){
+                showToaster('error', 'Image Width must be 1600px & Height must be 900px');
+                return false;
+            }else if(type == 'gallery' && this.width <= 600 && this.height <= 600){
+                showToaster('error', 'Image Width must be 600px & Height must be 600px atleast');
+                return false;
+            }
+
+            if(type == 'gallery'){
+                var eventId = $('#event_id').val();
+                var image = $(fieldObj)[0].files[0];
+                var form = new FormData();
+                form.append('event_id', eventId);
+                form.append('gallery_image', image);
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+                $.ajax({
+                    url  : base_url() + "/events/upload-image",
+                    type : "POST",
+                    data : form,
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    dataType : "JSON",
+                    success: function(response)
+                    {
+                        if(response){
+                            $(fieldObj).closest('.tooltipContainer').find('.customToolTip').addClass('hidden');
+                            $(fieldObj).closest('.tooltipContainer').find('.remove-button').addClass('show-block').removeClass('hidden').attr('onclick', 'removeEventImage(this, "'+ response.data+'")');
+                            $(fieldObj).closest('.tooltipContainer').find('.header-img').addClass('disable-events');
+                        }
+                    }
+                });
+            }
+
+
+            var targetId = $(fieldObj).next('img').removeClass('hidden').addClass('show-block').attr('id');
+            var target = document.getElementById(targetId);
+            var fr = new FileReader();
+            fr.onload = function(e) {
+                target.src = this.result;
+            };
+            fr.readAsDataURL(fieldObj.files[0]);
+            $(fieldObj).parent('.header-img').find('.label-content').removeClass('show-block').addClass('hidden');
+        }
+    }
+}
+/*****************************************************************************
+ *************************Change Photo Script End *****************************
+ ******************************************************************************/
+
+/*****************************************************************************
+ *************************Remove Photo From Event Edit Page*****************************
+ ******************************************************************************/
+function removeEventImage(obj, id){
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+    $.ajax({
+        url  : base_url() + "/events/remove-image",
+        type : "POST",
+        data : {id : id},
+        dataType : "JSON",
+        success: function(response)
+        {
+            if(response){
+                $(obj).parent().parent().remove();
+            }
+        }
+    });
+}
+/*****************************************************************************
+ *************************End Remove Photo From Event Edit Page*****************************
+ ******************************************************************************/
+
+/*****************************************************************************
+ *************************Add New Block For Photo Upload*****************************
+ ******************************************************************************/
+function addNewImage(eventId){
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+    $.ajax({
+        url  : base_url() + "/events/add-new-image",
+        type : "POST",
+        data : {event_id : eventId},
+        dataType : "JSON",
+        success: function(response)
+        {
+            $('.upload-imges-row').append(response.data);
+        }
+    });
+}
+/*****************************************************************************
+ *************************End Add New Block For Photo Upload*****************************
+ ******************************************************************************/
+
+function eventGolive(event, obj){
+    event.preventDefault();
+    var formData = new FormData($(obj)[0]);
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+    $.ajax({
+        url  : base_url() + "/events/go-live",
+        type : "POST",
+        data : formData,
+        dataType : "JSON",
+        cache: false,
+        contentType: false,
+        processData: false,
+        beforeSend:function(){
+            $(obj).find('.form-error').html('');
+        },
+        success: function(response){
+            if(response.type == "success"){
+                showToaster('success',response.msg);
+            }
+            else{
+                showToaster('error',response.msg);
+            }
+        },
+        error:function(response)
+        {
+            var respObj = response.responseJSON;
+            showToaster('error', respObj.message);
+        }
+    });
+}

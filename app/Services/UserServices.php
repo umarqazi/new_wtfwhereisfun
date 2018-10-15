@@ -20,10 +20,11 @@ use App\Repositories\UserRepo;
 class UserServices
 {
     protected $userRepo;
+    protected $addressServices;
 
-    public function __construct(UserRepo $userRepo, AddressServices $addressServices){
-        $this->addressServices= $addressServices;
-        $this->userRepo = $userRepo;
+    public function __construct(){
+        $this->addressServices      = new AddressServices();
+        $this->userRepo             = new UserRepo();
     }
 
     public function countUsers(){

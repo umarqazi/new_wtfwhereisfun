@@ -8,8 +8,8 @@ class AddressServices
 {
     protected $addressRepo;
 
-    public function __construct(AddressRepo $addressRepo){
-        $this->addressRepo = $addressRepo;
+    public function __construct(){
+        $this->addressRepo = new AddressRepo();
     }
 
     public function getAllCountries(){

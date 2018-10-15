@@ -16,9 +16,9 @@ class EventTypeService extends BaseService implements IDBService{
 
     protected $eventTypeRepo;
 
-    public function __construct(EventTypeRepo $eventTypeRepo)
+    public function __construct()
     {
-        $this->eventTypeRepo   = $eventTypeRepo;
+        $this->eventTypeRepo   = new EventTypeRepo();
     }
 
 

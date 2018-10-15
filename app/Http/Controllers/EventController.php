@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\EventLayout;
+use App\Repositories\EventImageRepo;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Config;
@@ -24,12 +26,16 @@ use App\Services\Events\EventDetailService;
 use App\Services\Events\EventTimeLocationService;
 use App\Services\Events\EventTicketService;
 use App\Services\Events\EventListingService;
+use App\Services\Events\EventLayoutService;
+use App\Services\Events\EventImageService;
 use App\Services\CurrencyService;
 use App\Services\TimeZoneService;
 use App\Services\CategoryServices;
+use App\Services\Organizers\OrganizerService;
 use App\Http\Requests\Event;
 use App\Http\Requests\EventTicket;
 use App\Http\Requests\EventTimeLocation;
+use Carbon\Carbon;
 class EventController extends Controller
 {
     protected $eventService;
@@ -44,26 +50,27 @@ class EventController extends Controller
     protected $timeZoneService;
     protected $eventTicketService;
     protected $eventListingService;
+    protected $eventLayoutService;
+    protected $organizerService;
+    protected $eventImageService;
 
-    public function __construct(EventService $eventService, RefundPolicyService $refundPolicyService,
-                                EventTopicService $eventTopicService, EventTypeService $eventTypeService,
-                                CategoryServices $categoryServices, EventSubTopicService $eventSubTopicService,
-                                EventDetailService $eventDetailService, EventTimeLocationService
-                                $eventLocationService, CurrencyService $currencyService, TimeZoneService
-                                $timeZoneService, EventTicketService $eventTicketService, EventListingService $eventListingService)
+    public function __construct()
     {
-        $this->eventService             = $eventService;
-        $this->refundPolicyService      = $refundPolicyService;
-        $this->eventTopicService        = $eventTopicService;
-        $this->eventTypeService         = $eventTypeService;
-        $this->categoryServices         = $categoryServices;
-        $this->eventSubTopicService     = $eventSubTopicService;
-        $this->eventDetailService       = $eventDetailService;
-        $this->eventLocationService     = $eventLocationService;
-        $this->currencyService          = $currencyService;
-        $this->timeZoneService          = $timeZoneService;
-        $this->eventTicketService       = $eventTicketService;
-        $this->eventListingService       = $eventListingService;
+        $this->eventService             = new EventService();
+        $this->refundPolicyService      = new RefundPolicyService();
+        $this->eventTopicService        = new EventTopicService();
+        $this->eventTypeService         = new EventTypeService();
+        $this->categoryServices         = new CategoryServices();
+        $this->eventSubTopicService     = new EventSubTopicService();
+        $this->eventDetailService       = new EventDetailService();
+        $this->eventLocationService     = new EventTimeLocationService();
+        $this->currencyService          = new CurrencyService();
+        $this->timeZoneService          = new TimeZoneService();
+        $this->eventTicketService       = new EventTicketService();
+        $this->eventListingService      = new EventListingService();
+        $this->eventLayoutService       = new EventLayoutService();
+        $this->organizerService         = new OrganizerService();
+        $this->eventImageService        = new EventImageService();
     }
 
     /**
@@ -83,8 +90,13 @@ class EventController extends Controller
      */
     public function create()
     {
-        $response = $this->refundPolicyService->getAll();
-        return view('events.create')->with('refundPolicies', $response);
+        $response = $this->eventService->create();
+        if(count($response['organizers'])){
+            return view('events.create')->with($response);
+        }else{
+            Alert::error('Please create an Organizer first!', 'Error');
+            return redirect('organizers/create');
+        }
     }
 
     /**
@@ -93,9 +105,9 @@ class EventController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Event $request)
     {
-        $response = $this->eventService->create($request);
+        $response = $this->eventService->store($request);
         $response['encoded_id'] = encrypt_id($response['id']);
         return response()->json([
             'type'  =>  'success',
@@ -112,7 +124,8 @@ class EventController extends Controller
      */
     public function show($id)
     {
-        //
+        $response = $this->eventService->show($id);
+        return view('events.layouts.'.$response['layout'])->with($response);
     }
 
     /**
@@ -123,25 +136,8 @@ class EventController extends Controller
      */
     public function edit($id)
     {
-        $event_id = decrypt_id($id);
-        $event = $this->eventService->getByID($event_id);
-        $refundPolicies = $this->refundPolicyService->getAll();
-        $eventTopics = $this->eventTopicService->getAll();
-        $categories = $this->categoryServices->getAll();
-        $eventTypes = $this->eventTypeService->getAll();
-        $currencies = $this->currencyService->getAll();
-        $timeZones = $this->timeZoneService->getAll();
-        if(!is_null($event->topic)){
-            $eventSubTopics = $this->eventSubTopicService->getTopicSubTopics($event->topic->id);
-        }else{
-            $eventSubTopics = [];
-        }
-        $locations = $this->eventLocationService->getEventLocations($event_id);
-        $tickets = $this->eventTicketService->getEventTickets($event_id);
-        return view('events.edit')->with(['event' => $event, 'refundPolicies' => $refundPolicies, 'eventTopics' =>
-            $eventTopics, 'categories' => $categories, 'eventTypes' => $eventTypes, 'eventSubTopics' =>
-            $eventSubTopics, 'eventId' => $id, 'locations' => $locations, 'currencies' => $currencies, 'timeZones' =>
-        $timeZones, 'tickets' => $tickets]);
+        $response = $this->eventService->edit($id);
+        return view('events.edit')->with($response);
     }
 
     /**
@@ -165,6 +161,10 @@ class EventController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function eventGoLive(Request $request){
+        $this->eventService->goLive($request);
     }
 
     public function getTopicSubTopics(Request $request){
@@ -199,7 +199,7 @@ class EventController extends Controller
         return response()->json([
             'type'      =>  'success',
             'msg'       =>  'Event Locations has been updated Successfully',
-            'data'      =>  $response
+            'data'      =>  $request->all()
         ]);
     }
 
@@ -218,7 +218,7 @@ class EventController extends Controller
         $response = $this->eventLocationService->addNewLocation($currencies, $timeZones, $request->event_id);
         return response()->json([
             'type'      => 'success',
-            'msg'       => 'Haha',
+            'msg'       => '',
             'data'      => $response
         ]);
     }
@@ -276,14 +276,51 @@ class EventController extends Controller
             'msg'       =>  'Pass Deleted',
             'data'      =>  ''
         ]);
+    }
 
+    public function eventLayoutUpdate(Request $request){
+        $response   = $this->eventLayoutService->updateEventLayout($request);
+        return response()->json([
+            'type'      =>  'success',
+            'msg'       =>  'Event Layout Updated',
+            'data'      =>  $response
+        ]);
+    }
+
+    public function addNewImage(Request $request){
+        $response   = $this->eventImageService->addNewImage($request);
+        return response()->json([
+            'type'      =>  'success',
+            'msg'       =>  '',
+            'data'      =>  $response
+        ]);
+    }
+
+    public function uploadEventImage(Request $request){
+        $response   = $this->eventImageService->uploadImage($request, 'events', decrypt_id($request->event_id), 'gallery');
+        return response()->json([
+            'type'      =>  'success',
+            'msg'       =>  'Event Layout Updated',
+            'data'      =>  $response
+        ]);
+    }
+
+    public function layout(){
+        return view('events/layouts/layout-3');
     }
 
     public function getMyEvents(){
-        $draftEvents = $this->eventListingService->getDraftEvents();
-        $liveEvents = $this->eventListingService->getLiveEvents();
-        $pastEvents = $this->eventListingService->getPastEvents();
-        return view('events.my-events')->with(['draftEvents' => $draftEvents, 'liveEvents' => $liveEvents, 'pastEvents' => $pastEvents]);
+        $response = $this->eventListingService->getVendorEvents();
+        return view('events.vendor-listing')->with($response);
+    }
+
+    public function removeEventImage(Request $request){
+        $response = $this->eventImageService->removeImage($request->id);
+        return response()->json([
+            'type'      =>  'success',
+            'msg'       =>  'Image Deleted Successfully',
+            'data'      =>  $response
+        ]);
     }
 
 }

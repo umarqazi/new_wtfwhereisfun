@@ -44,7 +44,6 @@ Route::group(['middleware' => ['web']], function () {
     Route::resource('blogs', 'BlogController');
 
     Route::group(['middleware' => ['auth']], function () {
-
         /*User Routes*/
         Route::get('profile', 'UsersController@edit');
         Route::post('update-profile', 'UsersController@profileUpdate');
@@ -62,8 +61,8 @@ Route::group(['middleware' => ['web']], function () {
         Route::group(['middleware' => ['role:vendor','auth']], function () {
             Route::get('dashboard',  'UsersController@vendorDashboard');
 
-
             Route::resource('events', 'EventController');
+            Route::post('go-live', 'EventController@eventGoLive');
             Route::get('my-events', 'EventController@getMyEvents');
 
             Route::post('get-event-sub-topics', 'EventController@getTopicSubTopics');
@@ -81,6 +80,13 @@ Route::group(['middleware' => ['web']], function () {
             Route::post('events/add-new-ticket-pass', 'EventController@addNewTicketPass');
             Route::post('events/update-pass', 'EventController@ticketPassUpdate');
             Route::post('events/delete-pass', 'EventController@ticketPassDelete');
+
+
+            Route::post('events/update-layout', 'EventController@eventLayoutUpdate');
+            Route::get('event/layout', 'EventController@layout');
+            Route::post('events/add-new-image', 'EventController@addNewImage');
+            Route::post('events/upload-image', 'EventController@uploadEventImage');
+            Route::post('events/remove-image', 'EventController@removeEventImage');
 
             /*Organzier Routes*/
             Route::resource('organizers', 'OrganizerController');

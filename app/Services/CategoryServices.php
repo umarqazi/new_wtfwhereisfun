@@ -9,9 +9,9 @@ class CategoryServices
 {
     protected $category;
 
-    public function __construct(CategoryRepo $category)
+    public function __construct()
     {
-        $this->category = $category;
+        $this->category = new CategoryRepo();
     }
 
     public function getAll(){
