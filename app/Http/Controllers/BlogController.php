@@ -3,14 +3,14 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Services\BlogServices;
+use App\Services\BlogService;
 class BlogController extends Controller
 {
     protected $blogService;
     /**
      * Instantiate a new BlogController instance.
      */
-    public function __construct(BlogServices $blogServices)
+    public function __construct(BlogService $blogServices)
     {
         $this->blogService = $blogServices;
     }

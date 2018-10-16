@@ -165,35 +165,60 @@ class EventRepo
         $eventTicketPass = TicketPass::destroy($request->pass_id);
     }
 
-    public function liveEvents(){
-        return $this->eventModel->where(['user_id' => Auth::user()->id, 'is_published' => 1, 'deleted_at' => null, 'is_approved' => 1])->where('is_cancelled', '!=', 1)->where('is_draft', '!=', 1)->whereHas('time_locations', function($query){
+    public function liveEvents($vendorId){
+        $liveEvents = $this->eventModel->where(['is_published' => 1, 'deleted_at' => null, 'is_approved' => 1])->where('is_cancelled', '!=', 1)->where('is_draft', '!=', 1)->whereHas('time_locations', function($query){
             return $query->where('starting', '<=', now())->where('ending', '>=', now());
-        })->get();
+        });
+
+        if(!is_null($vendorId)){
+            $liveEvents->where('user_id', $vendorId);
+        }
+        return $liveEvents->get();
     }
 
-    public function draftEvents(){
-        return $this->eventModel->where(['user_id' => Auth::user()->id, 'deleted_at' => null, 'is_draft' => 1])->get();
+    public function draftEvents($vendorId){
+        $draftEvents = $this->eventModel->where(['deleted_at' => null, 'is_draft' => 1]);
+
+        if(!is_null($vendorId)){
+            $draftEvents->where('user_id', $vendorId);
+        }
+        return $draftEvents->get();
     }
 
-    public function pastEvents(){
-        return $this->eventModel->where(['user_id' => Auth::user()->id, 'is_published' => 1, 'deleted_at' => null, 'is_approved' => 1])->where('is_cancelled', '!=', 1)->where('is_draft', '!=', 1)->whereHas('time_locations', function($query){
+    public function pastEvents($vendorId){
+        $pastEvents = $this->eventModel->where(['is_published' => 1, 'deleted_at' => null, 'is_approved' => 1])->where('is_cancelled', '!=', 1)->where('is_draft', '!=', 1)->whereHas('time_locations', function($query){
             return $query->where('starting', '<=', now())->where('ending', '<=', now());
         })->whereDoesntHave('time_locations', function($query){
             return $query->where('starting', '<=', now())->where('ending', '>=', now());
         })->whereDoesntHave('time_locations', function($query){
             return $query->where('starting', '>', now())->where('ending', '>', now());
-        })->get();
+        });
+
+        if(!is_null($vendorId)){
+            $pastEvents->where('user_id', $vendorId);
+        }
+        return $pastEvents->get();
+    }
+
+    public function allEvents($vendorId){
+        $allEvents = $this->eventModel->where('deleted_at', null);
+
+        if(!is_null($vendorId)){
+            $allEvents->where('user_id', $vendorId);
+        }
+        return $allEvents->get();
     }
 
     public function getMoreEvents($vendor, $event){
         return $this->eventModel->where('user_id', $vendor)->where('id','!=', $event)->orderBy('created_at', 'desc')->limit(2)->get();
     }
 
-    public function goLive($request){
-        $event = $this->eventModel->find(decrypt_id($request->event_id));
+    public function goLive($id){
+        $event = $this->eventModel->find($id);
         $event->status                      =       1;
         $event->is_published                =       1;
         $event->is_draft                    =       0;
         $event->save();
+        return $event;
     }
 }

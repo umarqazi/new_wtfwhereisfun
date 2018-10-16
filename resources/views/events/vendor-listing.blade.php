@@ -10,6 +10,7 @@
                     <li class="active"><a data-toggle="tab" href="#home">LIVE {{count($liveEvents)}}</a></li>
                     <li><a data-toggle="tab" href="#menu1">DRAFT {{count($draftEvents)}}</a></li>
                     <li><a data-toggle="tab" href="#menu2">PAST {{count($pastEvents)}}</a></li>
+                    <li><a data-toggle="tab" href="#menu3">All {{count($allEvents)}}</a></li>
                 </ul>
 
                 <div class="eventsSearch">
@@ -27,10 +28,16 @@
                                 @foreach($liveEvents as $liveEvent)
                                     <div class="eventListing">
                                         <div class="img-holder">
-                                            @php
-                                                $directory = getDirectory('events', $liveEvent->id);
-                                                $img = $directory['web_path'].$liveEvent->header_image;
-                                            @endphp
+                                            @if(!empty($liveEvent->header_image))
+                                                @php
+                                                    $directory = getDirectory('events', $liveEvent->id);
+                                                    $img = $directory['web_path'].$liveEvent->header_image;
+                                                @endphp
+                                            @else
+                                                @php
+                                                    $img = asset('img/dummy.jpg');
+                                                @endphp
+                                            @endif
                                             <img src="{{$img}}">
                                         </div>
                                         <div class="info">
@@ -64,10 +71,16 @@
                                 @foreach($draftEvents as $draftEvent)
                                     <div class="eventListing">
                                         <div class="img-holder">
-                                            @php
-                                                $directory = getDirectory('events', $draftEvent->id);
-                                                $img = $directory['web_path'].$draftEvent->header_image;
-                                            @endphp
+                                            @if(!empty($draftEvent->header_image))
+                                                @php
+                                                    $directory = getDirectory('events', $draftEvent->id);
+                                                    $img = $directory['web_path'].$draftEvent->header_image;
+                                                @endphp
+                                            @else
+                                                @php
+                                                    $img = asset('img/dummy.jpg');
+                                                @endphp
+                                            @endif
                                             <img src="{{$img}}">
                                         </div>
                                         <div class="info">
@@ -104,10 +117,16 @@
                                 @foreach($pastEvents as $pastEvent)
                                     <div class="eventListing">
                                         <div class="img-holder">
-                                            @php
-                                                $directory = getDirectory('events', $pastEvent->id);
-                                                $img = $directory['web_path'].$pastEvent->header_image;
-                                            @endphp
+                                            @if(!empty($pastEvent->header_image))
+                                                @php
+                                                    $directory = getDirectory('events', $pastEvent->id);
+                                                    $img = $directory['web_path'].$pastEvent->header_image;
+                                                @endphp
+                                            @else
+                                                @php
+                                                    $img = asset('img/dummy.jpg');
+                                                @endphp
+                                            @endif
                                             <img src="{{$img}}">
                                         </div>
                                         <div class="info">
@@ -135,8 +154,52 @@
                                 @endforeach
                             @endif
                         </div>
-
                     </div>
+
+                    <div id="menu3" class="tab-pane fade">
+                        <div id="menu_past">
+                            @if(count($allEvents))
+                                @foreach($allEvents as $event)
+                                    <div class="eventListing">
+                                        <div class="img-holder">
+                                            @if(!empty($event->header_image))
+                                                @php
+                                                    $directory = getDirectory('events', $event->id);
+                                                    $img = $directory['web_path'].$event->header_image;
+                                                @endphp
+                                            @else
+                                                @php
+                                                    $img = asset('img/dummy.jpg');
+                                                @endphp
+                                            @endif
+                                            <img src="{{$img}}">
+                                        </div>
+                                        <div class="info">
+                                            <ul class="actions-btns header-dropdown m-r--5">
+                                                <li class="action-list">
+                                                    <a class="btn" href="{{url('events/'.encrypt_id($event->id).'/edit')}}">Manage</a>
+                                                </li>
+                                            </ul>
+                                            <div class="event-title">
+                                                <a href="{{url('events/'.encrypt_id($event->id))}}">{{$event->title}}</a>
+                                            </div>
+                                            @if(count($event->time_locations))
+                                                <p>
+                                                    <i class="fa fa-calendar"></i> {{$event->time_locations->first()->starting->format('D, M Y')}} - {{$event->time_locations->first()->ending->format('D, M Y')}}</p>
+                                                <p>
+                                                    <i class="fa fa-clock-o"></i> {{$event->time_locations->first()->starting->format('g:i A')}}  - {{$event->time_locations->first()->ending->format('g:i A')}}
+                                                </p>
+                                                <p><i class="fa fa-map-marker"></i>
+                                                    {{$event->time_locations->first()->location}}
+                                                </p>
+                                            @endif
+                                        </div>
+                                    </div>
+                                @endforeach
+                            @endif
+                        </div>
+                    </div>
+
                 </div>
 
             </div>

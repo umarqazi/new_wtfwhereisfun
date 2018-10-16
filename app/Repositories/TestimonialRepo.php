@@ -9,9 +9,9 @@ class TestimonialRepo
 
     private $testimonial;
 
-    public function __construct(Testimonial $testimonial)
+    public function __construct()
     {
-        $this->testimonial = $testimonial;
+        $this->testimonial = new Testimonial;
     }
 
     public function index(){

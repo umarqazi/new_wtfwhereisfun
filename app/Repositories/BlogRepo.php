@@ -9,16 +9,16 @@ class BlogRepo
 
     private $blog;
 
-    public function __construct(Blog $blog)
+    public function __construct()
     {
-        $this->blog = $blog;
+        $this->blog = new Blog;
     }
 
     public function getAll(){
-        return Blog::all();
+        return $this->blog->all();
     }
 
     public function getById($id){
-        return Blog::find($id);
+        return $this->blog->find($id);
     }
 }
