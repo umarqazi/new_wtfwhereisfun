@@ -7,9 +7,9 @@ class TestimonialService extends BaseService implements IDBService
 {
     protected $testimonial;
 
-    public function __construct(TestimonialRepo $testimonial)
+    public function __construct()
     {
-        $this->testimonial = $testimonial;
+        $this->testimonial = new TestimonialRepo;
     }
 
     public function getAll(){

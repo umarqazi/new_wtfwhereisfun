@@ -424,6 +424,9 @@
                                         </div>
                                     @endif
                                     <div class="ajax-map"></div>
+                                        <div class="">
+                                            <button type="button" class="btn rounded-border" onclick="nextTab()">Continue</button>
+                                        </div>
                                 </div>
                             </div>
                         </div>
@@ -622,6 +625,9 @@
                                             </div>
                                         @endforeach
                                     @endif
+                                    <div class="">
+                                        <button type="button" class="btn rounded-border" onclick="nextTab()">Continue</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>

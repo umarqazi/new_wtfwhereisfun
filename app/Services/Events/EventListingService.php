@@ -4,6 +4,7 @@ namespace App\Services\Events;
 use App\Services\BaseService;
 use App\Services\IService;
 use App\Repositories\EventRepo;
+use Illuminate\Support\Facades\Auth;
 class EventListingService extends BaseService implements IService
 {
     protected $eventRepo;
@@ -13,22 +14,28 @@ class EventListingService extends BaseService implements IService
         $this->eventRepo = new EventRepo();
     }
 
-    public function getLiveEvents(){
-        return $this->eventRepo->liveEvents();
+    public function getLiveEvents($vendorId = null){
+        return $this->eventRepo->liveEvents($vendorId);
     }
 
-    public function getDraftEvents(){
-        return $this->eventRepo->draftEvents();
+    public function getDraftEvents($vendorId = null){
+        return $this->eventRepo->draftEvents($vendorId);
     }
 
-    public function getPastEvents(){
-        return $this->eventRepo->pastEvents();
+    public function getPastEvents($vendorId = null){
+        return $this->eventRepo->pastEvents($vendorId);
+    }
+
+    public function getAllEvents($vendorId = null){
+        return $this->eventRepo->allEvents($vendorId);
     }
 
     public function getVendorEvents(){
-        $draftEvents = $this->getDraftEvents();
-        $liveEvents = $this->getLiveEvents();
-        $pastEvents = $this->getPastEvents();
-        return ['draftEvents' => $draftEvents, 'liveEvents' => $liveEvents, 'pastEvents' => $pastEvents];
+        $vendorId    = Auth::user()->id;
+        $draftEvents = $this->getDraftEvents($vendorId);
+        $liveEvents  = $this->getLiveEvents($vendorId);
+        $pastEvents  = $this->getPastEvents($vendorId);
+        $allEvents   = $this->getAllEvents($vendorId);
+        return ['draftEvents' => $draftEvents, 'liveEvents' => $liveEvents, 'pastEvents' => $pastEvents, 'allEvents' => $allEvents];
     }
 }

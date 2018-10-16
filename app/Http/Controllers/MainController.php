@@ -13,10 +13,11 @@ use App\User;
 use App\ResetPassword;
 use Illuminate\Support\Facades\Config;
 use App\Services\UserServices;
-use App\Services\BlogServices;
-use App\Services\CategoryServices;
+use App\Services\BlogService;
+use App\Services\CategoryService;
 use App\Services\TestimonialService;
 use App\Services\ContentService;
+use App\Services\Events\EventListingService;
 use Illuminate\Http\Response;
 use App\UserVerification;
 use App\Http\Requests\RegisterUser;
@@ -34,15 +35,16 @@ class MainController extends Controller
     protected $testimonialServices;
     protected $categoryServices;
     protected $contentService;
+    protected $eventListingService;
 
-    public function __construct(UserServices $userServices, BlogServices $blogServices, CategoryServices
-    $categoryServices, TestimonialService $testimonialServices, ContentService $contentService)
+    public function __construct()
     {
-        $this->userServices         = $userServices;
-        $this->blogServices         = $blogServices;
-        $this->testimonialServices  = $testimonialServices;
-        $this->categoryServices     = $categoryServices;
-        $this->contentService       = $contentService;
+        $this->userServices         = new UserServices;
+        $this->blogServices         = new BlogService;
+        $this->testimonialServices  = new TestimonialService;
+        $this->categoryServices     = new CategoryService;
+        $this->contentService       = new ContentService;
+        $this->eventListingService  = new EventListingService;
     }
     /**
      * Show the application's landing Page.
@@ -53,8 +55,9 @@ class MainController extends Controller
     {
         $user = Auth::user();
         $blogs = $this->blogServices->getAll();
-        $testimonials = $this->testimonialServices->getAll($request='');
+        $testimonials = $this->testimonialServices->getAll();
         $categories = $this->categoryServices->getAll();
+        $liveEvents = $this->eventListingService->getLiveEvents();
         return view('front-end.public.landing-page')->with(['blogs' => $blogs, 'categories' => $categories, 'testimonials'
             => $testimonials, 'user' => $user]);
     }

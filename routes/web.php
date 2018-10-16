@@ -25,6 +25,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 //Route::patch('update-profile', 'UsersController@update');
 //->name('update profile');
 Route::group(['middleware' => ['web']], function () {
+    Route::get('login', 'MainController@index')->name('login');
     Route::get('/', 'MainController@index');
     Route::get('about-us', 'MainController@aboutUs');
     Route::get('terms-conditions', 'MainController@termsCondition');
@@ -62,7 +63,7 @@ Route::group(['middleware' => ['web']], function () {
             Route::get('dashboard',  'UsersController@vendorDashboard');
 
             Route::resource('events', 'EventController');
-            Route::post('go-live', 'EventController@eventGoLive');
+            Route::post('events/go-live', 'EventController@eventGoLive');
             Route::get('my-events', 'EventController@getMyEvents');
 
             Route::post('get-event-sub-topics', 'EventController@getTopicSubTopics');

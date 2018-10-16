@@ -30,7 +30,7 @@ use App\Services\Events\EventLayoutService;
 use App\Services\Events\EventImageService;
 use App\Services\CurrencyService;
 use App\Services\TimeZoneService;
-use App\Services\CategoryServices;
+use App\Services\CategoryService;
 use App\Services\Organizers\OrganizerService;
 use App\Http\Requests\Event;
 use App\Http\Requests\EventTicket;
@@ -60,7 +60,7 @@ class EventController extends Controller
         $this->refundPolicyService      = new RefundPolicyService();
         $this->eventTopicService        = new EventTopicService();
         $this->eventTypeService         = new EventTypeService();
-        $this->categoryServices         = new CategoryServices();
+        $this->categoryServices         = new CategoryService();
         $this->eventSubTopicService     = new EventSubTopicService();
         $this->eventDetailService       = new EventDetailService();
         $this->eventLocationService     = new EventTimeLocationService();
@@ -163,16 +163,40 @@ class EventController extends Controller
         //
     }
 
+    /**
+     * Make Event Live And generate
+     * notification for admin Approval
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
     public function eventGoLive(Request $request){
-        $this->eventService->goLive($request);
+        $response = $this->eventService->goLive($request);
+        return response()->json([
+            'type'      =>  $response['type'],
+            'msg'       =>  $response['msg'],
+            'data'      =>  $response['data']
+        ]);
     }
 
+    /**
+     * Get Topic children topics
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
     public function getTopicSubTopics(Request $request){
         $type = 'ajax';
         $eventSubTopics = $this->eventSubTopicService->getTopicSubTopics($request->event_topic, $type);
         return $eventSubTopics;
     }
 
+    /**
+     * Update Event Basic Details
+     *
+     * @param  \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\Response
+     */
     public function detailsUpdate(Event $request){
         $eventId = decrypt_id($request->event_id);
         $response = $this->eventDetailService->updateDetails($request, $eventId);
@@ -183,6 +207,12 @@ class EventController extends Controller
         ]);
     }
 
+    /**
+     * Update Event Topics & Category & Tags
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
     public function topicsUpdate(Request $request){
         $eventId = decrypt_id($request->event_id);
         $response = $this->eventTopicService->updateTopics($request, $eventId);
@@ -193,6 +223,12 @@ class EventController extends Controller
         ]);
     }
 
+    /**
+     * Update Event Time & Locations
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
     public function timeLocationUpdate(EventTimeLocation $request){
         $eventId = decrypt_id($request->event_id);
         $response = $this->eventLocationService->updateTimeLocation($request, $eventId);
@@ -203,6 +239,12 @@ class EventController extends Controller
         ]);
     }
 
+    /**
+     * Search Location
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
     public function searchLocation(Request $request){
         $response = $this->eventLocationService->searchLocation($request);
         return response()->json([
@@ -212,6 +254,12 @@ class EventController extends Controller
         ]);
     }
 
+    /**
+     * Add new Location Row
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
     public function addNewLocationRow(Request $request){
         $currencies = $this->currencyService->getAll();
         $timeZones = $this->timeZoneService->getAll();
@@ -223,6 +271,12 @@ class EventController extends Controller
         ]);
     }
 
+    /**
+     * Update Event Ticket
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
     public function ticketUpdate(EventTicket $request){
         $eventId = decrypt_id($request->event_id);
         $response = $this->eventTicketService->updateEventTicket($request, $eventId);
@@ -233,6 +287,12 @@ class EventController extends Controller
         ]);
     }
 
+    /**
+     * Add new Event Ticket
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
     public function addNewTicket(Request $request){
         $response = $this->eventTicketService->addNewTicket($request);
         return response()->json([
@@ -242,6 +302,12 @@ class EventController extends Controller
         ]);
     }
 
+    /**
+     * Delete Event Ticket
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
     public function ticketDelete(Request $request){
         $this->eventTicketService->deleteTicket($request);
         return response()->json([
@@ -251,6 +317,12 @@ class EventController extends Controller
         ]);
     }
 
+    /**
+     * Add New Ticket Pass
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
     public function addNewTicketPass(Request $request){
         $response = $this->eventTicketService->addNewTicketPass($request);
         return response()->json([
@@ -260,6 +332,12 @@ class EventController extends Controller
         ]);
     }
 
+    /**
+     * Update Event Ticket Pass
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
     public function ticketPassUpdate(Request $request){
         $response = $this->eventTicketService->updateEventTicketPass($request);
         return response()->json([
@@ -269,6 +347,12 @@ class EventController extends Controller
         ]);
     }
 
+    /**
+     * Delete Event Ticket Pass
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
     public function ticketPassDelete(Request $request){
         $this->eventTicketService->deleteTicketPass($request);
         return response()->json([
@@ -278,6 +362,12 @@ class EventController extends Controller
         ]);
     }
 
+    /**
+     * Update Event Layout
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
     public function eventLayoutUpdate(Request $request){
         $response   = $this->eventLayoutService->updateEventLayout($request);
         return response()->json([
@@ -287,6 +377,12 @@ class EventController extends Controller
         ]);
     }
 
+    /**
+     * Add New Event Image
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
     public function addNewImage(Request $request){
         $response   = $this->eventImageService->addNewImage($request);
         return response()->json([
@@ -296,6 +392,12 @@ class EventController extends Controller
         ]);
     }
 
+    /**
+     * Update Event Image
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
     public function uploadEventImage(Request $request){
         $response   = $this->eventImageService->uploadImage($request, 'events', decrypt_id($request->event_id), 'gallery');
         return response()->json([
@@ -305,15 +407,12 @@ class EventController extends Controller
         ]);
     }
 
-    public function layout(){
-        return view('events/layouts/layout-3');
-    }
-
-    public function getMyEvents(){
-        $response = $this->eventListingService->getVendorEvents();
-        return view('events.vendor-listing')->with($response);
-    }
-
+    /**
+     * Delete Event Image
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
     public function removeEventImage(Request $request){
         $response = $this->eventImageService->removeImage($request->id);
         return response()->json([
@@ -321,6 +420,16 @@ class EventController extends Controller
             'msg'       =>  'Image Deleted Successfully',
             'data'      =>  $response
         ]);
+    }
+
+    /**
+     * Get Vendor Events
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function getMyEvents(){
+        $response = $this->eventListingService->getVendorEvents();
+        return view('events.vendor-listing')->with($response);
     }
 
 }

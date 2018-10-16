@@ -4295,6 +4295,7 @@ section.main-content-padding{
    top: 50%;
    min-height: 100%;
    max-width: inherit;
+   height:200px;
 }
 
 .eventListing .info{
@@ -4893,8 +4894,9 @@ form#profile-image,form#organizers-profile-image{
 .upload-imges-row .remove-button{
    background: rgba(0,0,0,0.5);
    color: #fff;
-   padding: 4px 6px;
+   padding: 3px 8px;
    border-radius: 2px;
+   border:none;
 }
 
 .disable-events{
@@ -5266,7 +5268,7 @@ ul.table_row > li:first-child, ul.table_row > li:last-child{
    margin-bottom: 15px;
 }
 .newpass_buttons .public_unlisted a{
-   width: 33.33%;
+   width: 33.33%!important;
 }
 .per_order_minmax >div {
    display: inline-block;

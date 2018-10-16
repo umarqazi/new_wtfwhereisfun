@@ -119,6 +119,12 @@ class OrganizerController extends Controller
         //
     }
 
+    /**
+     * Update Organizer Profile.
+     *
+     * @param  \Illuminate\Http\StoreOrganizer  $request
+     * @return \Illuminate\Http\Response
+     */
     public function profileUpdate(StoreOrganizer $request){
         $organizerId = decrypt_id($request->organizer_id);
         $response = $this->organizerService->profileUpdate($request, $organizerId);
@@ -129,6 +135,12 @@ class OrganizerController extends Controller
         ]);
     }
 
+    /**
+     * Update Organizer's Social Links
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
     public function socialLinksUpdate(Request $request){
         $organizerId = decrypt_id($request->organizer_id);
         $response = $this->organizerSocialLinksService->socialLinksUpdate($request, $organizerId);
@@ -139,6 +151,12 @@ class OrganizerController extends Controller
         ]);
     }
 
+    /**
+     * Update Organizer's Profile Color
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
     public function profileColorsUpdate(StoreOrganizer $request){
         $organizerId = decrypt_id($request->organizer_id);
         $response = $this->organizerService->profileColorsUpdate($request, $organizerId);

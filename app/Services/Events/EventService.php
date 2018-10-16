@@ -17,7 +17,7 @@ use App\Services\Events\EventListingService;
 use App\Services\Events\EventLayoutService;
 use App\Services\CurrencyService;
 use App\Services\TimeZoneService;
-use App\Services\CategoryServices;
+use App\Services\CategoryService;
 use App\Services\Organizers\OrganizerService;
 use Alert;
 use Illuminate\Support\Facades\Redirect;
@@ -43,7 +43,7 @@ class EventService extends BaseService implements IDBService
         $this->eventTopicService        = new EventTopicService();
         $this->eventTypeService         = new EventTypeService();
         $this->eventTagService          = new EventTagService();
-        $this->categoryServices         = new CategoryServices();
+        $this->categoryServices         = new CategoryService();
         $this->eventSubTopicService     = new EventSubTopicService();
         $this->eventDetailService       = new EventDetailService();
         $this->eventLocationService     = new EventTimeLocationService();
@@ -136,6 +136,13 @@ class EventService extends BaseService implements IDBService
     }
 
     public function goLive($request){
-        $this->eventRepo->goLive($request);
+        $eventId = decrypt_id($request->event_id);
+        $event = $this->getByID($eventId);
+        if(empty($event->header_image)){
+            return ['type' => 'error', 'msg' => 'Please upload Header Image before going Live', 'data' => $event];
+        }else{
+            $event = $this->eventRepo->goLive($eventId);
+            return ['type' => 'success', 'msg' => 'Your request has be forwarded, Your event will be live after Admin Approval', 'data' => $event];
+        }
     }
 }

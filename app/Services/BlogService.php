@@ -7,13 +7,13 @@ use Illuminate\Support\Facades\Auth;
 use App\Role;
 use App\Repositories\BlogRepo;
 
-class BlogServices extends Service implements IDBService
+class BlogService extends Service implements IDBService
 {
     protected $blogRepo;
 
-    public function __construct(BlogRepo $blogRepo)
+    public function __construct()
     {
-        $this->blogRepo = $blogRepo;
+        $this->blogRepo = new BlogRepo;
     }
 
     public function getAll(){

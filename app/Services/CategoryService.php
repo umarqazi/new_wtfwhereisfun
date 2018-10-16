@@ -5,7 +5,7 @@ namespace App\Services;
 use App\Repositories\CategoryRepo;
 use App\Category;
 
-class CategoryServices
+class CategoryService
 {
     protected $category;
 

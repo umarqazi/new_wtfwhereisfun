@@ -7,9 +7,9 @@ class ContentService
 {
     protected $contentRepo;
 
-    public function __construct(ContentRepo $contentRepo)
+    public function __construct()
     {
-        $this->contentRepo = $contentRepo;
+        $this->contentRepo = new ContentRepo;
     }
 
     public function getContent($type){
