@@ -20,6 +20,26 @@ $('.blog-thumbnail-slider').owlCarousel({
     }
 });
 
+//Events Slide Homepage
+$('.event-slider').owlCarousel({
+    loop:true,
+    margin:10,
+    dots:false,
+    nav: true,
+    navText: ["<i class='fa fa-angle-left'></i>","<i class='fa fa-angle-right'></i>"],
+    responsive:{
+        1200:{
+            items:4
+        },
+        1024:{
+            items:3
+        },
+        600:{
+            items:1
+        }
+    }
+});
+
 // Email adress change
 //========================================
 jQuery(document).ready(function(){

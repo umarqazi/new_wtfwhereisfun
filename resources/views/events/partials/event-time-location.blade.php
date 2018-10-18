@@ -17,15 +17,20 @@
 
                     <li><strong><i class="fa fa-location-arrow"></i>Event Address</strong></li>
                     <li><span>{{$location->address}}</span></li>
+                    @if(!is_null($location->display_currency))
+                        <li><strong><i class="fa fa-money"></i>Display Currency</strong></li>
+                        <li><span>{{$location->display_currency->code}}</span></li>
+                    @endif
 
-                    <li><strong><i class="fa fa-money"></i>Display Currency</strong></li>
-                    <li><span>{{$location->display_currency->code}}</span></li>
+                    @if(!is_null($location->transacted_currency))
+                        <li><strong><i class="fa fa-money"></i>Transacted Currency</strong></li>
+                        <li><span>{{$location->transacted_currency->symbol.' '.$location->transacted_currency->code}}</span></li>
+                    @endif
 
-                    <li><strong><i class="fa fa-money"></i>Transacted Currency</strong></li>
-                    <li><span>{{$location->transacted_currency->symbol.' '.$location->transacted_currency->code}}</span></li>
-
-                    <li><strong><i class="fa fa-clock-o"></i>Time Zones</strong></li>
-                    <li><span>{{$location->timezone->text}}</span></li>
+                    @if(!is_null($location->timezone))
+                        <li><strong><i class="fa fa-clock-o"></i>Time Zones</strong></li>
+                        <li><span>{{$location->timezone->text}}</span></li>
+                    @endif
 
                 </ul>
                 <div class="col-md-6 col-xs-12">

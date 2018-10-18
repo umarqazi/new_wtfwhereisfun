@@ -832,6 +832,10 @@ function addNewImage(eventId){
  *************************End Add New Block For Photo Upload*****************************
  ******************************************************************************/
 
+/*****************************************************************************
+ *************************Event Go Live*****************************
+ ******************************************************************************/
+
 function eventGolive(event, obj){
     event.preventDefault();
     var formData = new FormData($(obj)[0]);
@@ -866,3 +870,93 @@ function eventGolive(event, obj){
         }
     });
 }
+
+/*****************************************************************************
+ *************************End Event Go Live*****************************
+ ******************************************************************************/
+
+function createHotDeal(obj){
+    var event_id = $(obj).attr('id');
+    $('#make-hot-deal').modal('show');
+    $('#make-hot-deal input.event_id').attr('value', event_id);
+}
+
+$("#make-hot").submit(function(event) {
+    window.onbeforeunload = null;
+    event.preventDefault();
+    var form_data = new FormData($('#make-hot')[0]);
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+    $.ajax({
+        url  : base_url() + "/events/make-hot-deal",
+        type : "POST",
+        data : form_data,
+        dataType : "JSON",
+        cache: false,
+        contentType: false,
+        processData: false,
+        success: function(resp){
+            if(resp.type == "error"){
+                var errObj = resp.msg;
+                if(errObj != "")
+                {
+                    showToaster('error', errObj);
+                    $('.save-hot').attr('disabled',false).text('Save Hot Deal');
+                    return false;
+                }
+            }
+            else if(resp.type == "success"){
+                $('#make-hot')[0].reset();
+                $('#make-hot-deal').modal('hide');
+                showToaster('success',resp.msg);
+                setTimeout(function(){
+                    location.reload();
+                },1000);
+            }
+        },
+        error:function(error)
+        {
+            $('.save-hot').attr('disabled',false).text('Save Hot Deal');
+        }
+    });
+});
+/*****************************************************************************
+ *************************End Create Event Hot Deal*****************************
+ ******************************************************************************/
+
+/*****************************************************************************
+ *************************Delete Event Hot Deal*****************************
+ ******************************************************************************/
+
+function deleteHotDeal(obj){
+    var event_id = $(obj).attr('id');
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+    $.ajax({
+        url  : base_url() + "/events/remove-deal",
+        type : "POST",
+        data : {event_id : event_id},
+        dataType : "JSON",
+        success :function(response){
+            if(response.type == 'success'){
+                showToaster('success',response.msg);
+                setTimeout(function(){
+                    location.reload();
+                },1000);
+            }else{
+                showToaster('error', response.msg);
+                return false;
+            }
+        }
+    });
+}
+
+/*****************************************************************************
+ *************************End Delete Event Hot Deal*****************************
+ ******************************************************************************/

@@ -221,4 +221,9 @@ class EventRepo
         $event->save();
         return $event;
     }
+
+    public function hotEvents(){
+        return $this->eventModel->has('hot_deal')->get();
+
+    }
 }

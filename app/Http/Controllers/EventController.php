@@ -28,6 +28,7 @@ use App\Services\Events\EventTicketService;
 use App\Services\Events\EventListingService;
 use App\Services\Events\EventLayoutService;
 use App\Services\Events\EventImageService;
+use App\Services\Events\EventHotDealService;
 use App\Services\CurrencyService;
 use App\Services\TimeZoneService;
 use App\Services\CategoryService;
@@ -53,6 +54,7 @@ class EventController extends Controller
     protected $eventLayoutService;
     protected $organizerService;
     protected $eventImageService;
+    protected $eventHotDealService;
 
     public function __construct()
     {
@@ -71,6 +73,7 @@ class EventController extends Controller
         $this->eventLayoutService       = new EventLayoutService();
         $this->organizerService         = new OrganizerService();
         $this->eventImageService        = new EventImageService();
+        $this->eventHotDealService      = new EventHotDealService();
     }
 
     /**
@@ -430,6 +433,59 @@ class EventController extends Controller
     public function getMyEvents(){
         $response = $this->eventListingService->getVendorEvents();
         return view('events.vendor-listing')->with($response);
+    }
+
+    /**
+     * Get Vendor Events
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function getAllLiveEvents(){
+        $liveEvents = $this->eventListingService->getLiveEvents();
+        return view('front-end.events.index')->with('liveEvents', $liveEvents);
+    }
+
+    /**
+     * Make Event Hot Deal
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function makeHotDeal(Request $request){
+        $response = $this->eventHotDealService->makeHotDeal($request);
+        return response()->json([
+            'type'      =>  'success',
+            'msg'       =>  'Hot Deal Created Successfully',
+            'data'      =>  $response
+        ]);
+
+    }
+
+    /**
+     * Remove Event Hot Deal
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function removeHotDeal(Request $request){
+        $response = $this->eventHotDealService->removeHotDeal(decrypt_id($request->event_id));
+        if($response){
+
+            return response()->json([
+                'type'      =>  'success',
+                'msg'       =>  'Hot Deal Removed Successfully',
+                'data'      =>  ''
+            ]);
+        }else{
+            return response()->json([
+                'type'      =>  'error',
+                'msg'       =>  'Could not remove the Hot Deal. Please try again!',
+                'data'      =>  ''
+            ]);
+        }
+    }
+
+    public function getHotDealEvents(){
+        $hotDealEvents = $this->eventListingService->getHotDealEvents();
+        return view('front-end.events.hot-deals')->with('hotDeals', $hotDealEvents);
     }
 
 }

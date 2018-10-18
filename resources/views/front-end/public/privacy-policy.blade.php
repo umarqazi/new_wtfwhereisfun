@@ -1,7 +1,8 @@
-
-<!-- ______________________ Start Main Content __________________ -->
-<div id="maincontent" class="main-content">
-    <div class="account-setting-section">
+@extends('layouts.master')
+@section('title', "Privacy Policy :: Where's the fun")
+@section('content')
+    <!-- ______________________ Start Main Content __________________ -->
+    <div id="maincontent" class="main-content">
         <div class="container">
 
             <div class="row">
@@ -16,5 +17,5 @@
                 </div><!-- /.side-content-wrap -->
             </div>
         </div>
-    </div>
-</div><!-- /.main-content -->
+    </div><!-- /.main-content -->
+@endsection

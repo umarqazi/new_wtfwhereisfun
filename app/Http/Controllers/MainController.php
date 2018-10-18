@@ -59,7 +59,7 @@ class MainController extends Controller
         $categories = $this->categoryServices->getAll();
         $liveEvents = $this->eventListingService->getLiveEvents();
         return view('front-end.public.landing-page')->with(['blogs' => $blogs, 'categories' => $categories, 'testimonials'
-            => $testimonials, 'user' => $user]);
+            => $testimonials, 'user' => $user, 'liveEvents' => $liveEvents]);
     }
 
     /**

@@ -64,9 +64,11 @@
                         </div>
                     </div><!-- /.circle-logo-col -->
                     <div class="circle-logo-col cl-item-4">
-                        <div class="circle-logo">
-                            <div class="circle-logo-name">Hot Deals</div>
-                        </div>
+                        <a href="{{url('events/hot-deals')}}">
+                            <div class="circle-logo">
+                                <div class="circle-logo-name">Hot Deals</div>
+                            </div>
+                        </a>
                     </div><!-- /.circle-logo-col -->
                     <div class="circle-logo-col cl-item-5">
                         <div class="circle-logo">
@@ -89,49 +91,79 @@
                 </div>
                 <div class="landmarks-listings-wrap">
                     <div class="row">
-                        {{-- Events Loop Here--}}
+                        <div @if(count($liveEvents) > 4) class="event-slider owl-carousel owl-theme" @endif>
+                            @if(!empty($liveEvents))
+                                @foreach($liveEvents as $event)
+                                    @if(count($liveEvents) > 4)
+                                        <div class="items">
+                                            @else
+                                                <div class="col-md-3">
+                                                    @endif
+                                                    <div class="card">
+                                                        <div class="card-inner">
+                                                            <div class="card-image">
+                                                                @php
+                                                                    $link = url('events/'.encrypt_id($event->id));
+                                                                @endphp
 
-                        <div class="col-md-4 col-sm-6 col-xs-12 ldm-list-item">
-                            <div class="ldm-list-wrap">
-                                <div class="ldm-list-media">
-                                    <div class="ldm-list-image ">
-                                        {{-- Event Images--}}
+                                                                @if(empty($event->header_image))
+                                                                    @php $img = asset('img/dummy.png') @endphp
+                                                                @else
+                                                                    @php
+                                                                        $directory = getDirectory('events', $event->id);
+                                                                        $img = $directory['web_path'].$event->header_image;
+                                                                    @endphp
+                                                                @endif
 
-                                        {{--<a href=""><img src="" alt="List Image" class="img-list-home" ></a> --}}
-                                        {{-- Event Link--}}
-                                    </div>
-                                    <div class="ldm-list-profile-pic"><img src="asset{{'images/logo/1.jpg'}}" alt="Profile
-                                Pic"></div>
-                                </div><!-- /.ldm-list-media -->
-                                <div class="ldm-list-content">
-                                    <h3 class="ldm-list-title"><a href="{{-- Event Link--}}"></a></h3>
-                                    <p>{{-- Event Title--}}</p>
-                                    <div class="ldm-list-actions clearfix">
-                                        <div class="ldml-vdetail-btn">
-                                            <a class="btn" href="{{-- Event Link--}}">View Detail</a>
-                                        </div>
-                                        <div class="ldml-mab-btn">
-                                            <a class="btn" href="{{-- Event Link-Map #Map--}}"><i class="fa fa-map-marker" aria-hidden="true"></i></a>
-                                        </div>
-                                        <div class="ldml-direction-btn">
-                                            <a class="btn" href="{{-- Event Link--}}"><i class="fa fa-share-alt" aria-hidden="true"></i></a>
-                                            <div class="wiloke-sharing-post-social action__share-list hidden">
-                                                <a class="share-facebook facebook fb-share-button" href="https://facebook.com/sharer.php?u=https%3A%2F%2Flistgo.wiloke.com%2Flisting%2Fchilean-patagonia%2F&amp;t=Chilean+Patagonia" data-href="https://listgo.wiloke.com/listing/chilean-patagonia/" target="_blank" title="Share on Facebook"> <i class="fa fa-facebook"></i> Facebook </a><a class="share-twitter twitter" href="https://twitter.com/intent/tweet?text=Chilean+Patagonia-https%3A%2F%2Flistgo.wiloke.com%2Flisting%2Fchilean-patagonia%2F&amp;source=webclient" target="_blank" title="Share on Twitter"> <i class="fa fa-twitter"></i> Twitter </a><a class="share-googleplus googleplus" href="https://www.google.com/bookmarks/mark?op=edit&amp;bkmk=https%3A%2F%2Flistgo.wiloke.com%2Flisting%2Fchilean-patagonia%2F&amp;title=Chilean+Patagonia" target="_blank" title="Share on Google Plus"> <i class="fa fa-google-plus"></i> Google Plus </a><a class="share-digg digg" href="https://www.digg.com/submit?url=https%3A%2F%2Flistgo.wiloke.com%2Flisting%2Fchilean-patagonia%2F&amp;title=Chilean+Patagonia" target="_blank" title="Share on Digg"> <i class="fa fa-digg"></i> Digg </a><a class="share-reddit reddit" href="https://reddit.com/submit?url=https%3A%2F%2Flistgo.wiloke.com%2Flisting%2Fchilean-patagonia%2F&amp;title=Chilean+Patagonia" target="_blank" title="Share on Reddit"> <i class="fa fa-reddit"></i> Reddit </a><a class="share-linkedin linkedin" href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https%3A%2F%2Flistgo.wiloke.com%2Flisting%2Fchilean-patagonia%2F&amp;title=Chilean+Patagonia" target="_blank" title="Share on LinkedIn"> <i class="fa fa-linkedin"></i> LinkedIn </a><a class="share-stumbleupon stumbleupon" href="http://www.stumbleupon.com/submit?url=https%3A%2F%2Flistgo.wiloke.com%2Flisting%2Fchilean-patagonia%2F&amp;title=Chilean+Patagonia" target="_blank" title="Share on StumbleUpon"> <i class="fa fa-stumbleupon"></i> StumbleUpon </a><a class="share-tumblr tumblr" href="https://www.tumblr.com/share/link?url=https%3A%2F%2Flistgo.wiloke.com%2Flisting%2Fchilean-patagonia%2F&amp;name=Chilean+Patagonia" target="_blank" title="Share on Tumblr"> <i class="fa fa-tumblr"></i> Tumblr </a><a class="share-pinterest pinterest" href="https://pinterest.com/pin/create/button/?url=https%3A%2F%2Flistgo.wiloke.com%2Flisting%2Fchilean-patagonia%2F&amp;media=https%3A%2F%2Fi1.wp.com%2Flistgo.wiloke.com%2Fwp-content%2Fuploads%2F2017%2F07%2Fpost_355.jpg%3Ffit%3D640%252C427%26ssl%3D1&amp;description=Chilean+Patagonia" target="_blank" data-pin-do="buttonBookmark" title="Share on Pinterest"> <i class="fa fa-pinterest"></i> Pinterest </a><a class="share-mail mail" href="mailto:?Subject=Chilean%20Patagonia&amp;Body=Click%20on%20this%20link%20to%20read%20the%20article%20https://listgo.wiloke.com/listing/chilean-patagonia/" title="Send this article to an email"> <i class="fa fa-envelope"></i> Email </a><a class="share-link copy_link" href="#" data-shortlink="https://listgo.wiloke.com/listing/chilean-patagonia/" title="Copy link"> <i class="fa fa-link"></i> Copy Link </a> </div>
-                                        </div>
+                                                                <a href="{{$link}}" style="background-image: url({{$img}});" target="_blank">
+                                                                    <span><i class="fa fa-search"></i></span>
+                                                                </a>
 
-                                        <div class="ldml-favorite-btn">
-                                            <a class="btn" href="#"><i class="fa fa-heart-o" aria-hidden="true"></i></a>
+                                                                <div class="card-actions">
+                                                                    <a href="#"><i class="fa fa-bookmark"></i> <span>Save</span></a>
+                                                                    <a href="#"><i class="fa fa-heart"></i> <span>Like</span></a>
+                                                                </div><!-- /.card-actions -->
+
+                                                            </div><!-- /.card-image -->
+
+                                                            <div class="card-content">
+                                                                <div class="event-organizer-thumbnail">
+                                                                    @if(empty($event->organizer->thumbnail))
+                                                                        @php $img = asset('img/default-148.png') @endphp
+                                                                    @else
+                                                                        @php
+                                                                            $directory = getDirectory('organizers', $event->organizer->id);
+                                                                            $img = $directory['web_path'].$event->organizer->thumbnail;
+                                                                        @endphp
+                                                                    @endif
+                                                                    <img src="{{$img}}" alt="Organizer Image">
+                                                                </div>
+                                                                <div class="card-date">
+                                                                    <strong>{{$event->time_locations->first()->starting->day}}</strong>
+                                                                    <span>{{get_month($event->time_locations->first()->starting)}}</span>
+                                                                </div><!-- /.card-date -->
+
+                                                                <h3 class="card-title">
+                                                                    <a href="{{$link}}" target="_blank">{{$event->title}}</a>
+                                                                </h3>
+
+                                                                <h4 class="card-subtitle">
+                                                                    <a href="{{$link}}" target="_blank">{{$event->time_locations->first()->location}}</a>
+                                                                </h4>
+                                                            </div><!-- /.card-content -->
+                                                        </div><!-- /.card-inner -->
+                                                    </div><!-- /.card -->
+                                                </div>
+
+                                                @endforeach
+                                            @endif
                                         </div>
-                                    </div><!-- /.ldm-list-actions -->
-                                </div><!-- /.ldm-list-content -->
-                            </div>
+                        </div>
+                        <div class="landmarks-listings-all">
+                            <a href="{{url('events/all')}}" class="ldm-all btn">View All Listing <i class="fa fa-facebookrrow-circle-o-right"></i></a>
                         </div>
                     </div>
-                    <div class="landmarks-listings-all">
-                        <a href="{{-- All Events Link--}}" class="ldm-all btn">View All Listing <i class="fa fa-facebookrrow-circle-o-right"></i></a>
-                    </div>
                 </div>
-            </div>
         </section><!-- /.landmarks-listings-section -->
         <section class="explore-cities-section">
             <div class="container">
@@ -172,7 +204,7 @@
                 <div class="map" id="map" style="width: 100%; height: 500px;"></div>
             </div>
             <!-- /.home-map-wrap -->
-        </section><!-- /.upcoming-events-section -->
+        </section>
         <section class="testimonial-section">
             <div class="container">
                 <div class="testimonial-wrap owl-carousel owl-theme">
@@ -249,6 +281,4 @@
             color: orange;
         }
     </style>
-
-    @include('partials.signup-signin')
 @endsection

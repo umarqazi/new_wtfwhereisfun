@@ -32,6 +32,10 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('privacy-policy', 'MainController@privacyPolicy');
     Route::get('contact-us', 'MainController@contactUs');
 
+    Route::get('events/hot-deals', 'EventController@getHotDealEvents');
+    Route::get('events/all', 'EventController@getAllLiveEvents');
+    Route::get('events/{id}', 'EventController@show');
+
     Route::post('do-login',  'MainController@authenticate');
     Route::get('logout',  'MainController@logout');
     Route::post('do-register', 'MainController@register');
@@ -46,6 +50,7 @@ Route::group(['middleware' => ['web']], function () {
 
     Route::group(['middleware' => ['auth']], function () {
         /*User Routes*/
+
         Route::get('profile', 'UsersController@edit');
         Route::post('update-profile', 'UsersController@profileUpdate');
         Route::post('update-contact', 'UsersController@contactUpdate');
@@ -63,31 +68,39 @@ Route::group(['middleware' => ['web']], function () {
             Route::get('dashboard',  'UsersController@vendorDashboard');
 
             Route::resource('events', 'EventController');
-            Route::post('events/go-live', 'EventController@eventGoLive');
             Route::get('my-events', 'EventController@getMyEvents');
 
             Route::post('get-event-sub-topics', 'EventController@getTopicSubTopics');
-            Route::post('events/update-details', 'EventController@detailsUpdate');
-            Route::post('events/update-topics', 'EventController@topicsUpdate');
 
-            Route::post('events/maps-search', 'EventController@searchLocation');
-            Route::post('events/add-new-location-row', 'EventController@addNewLocationRow');
-            Route::post('events/update-time-location', 'EventController@timeLocationUpdate');
+            Route::prefix('events')->group(function () {
 
-            Route::post('events/update-ticket', 'EventController@ticketUpdate');
-            Route::post('events/add-new-ticket', 'EventController@addNewTicket');
-            Route::post('events/delete-ticket', 'EventController@ticketDelete');
+                Route::post('go-live', 'EventController@eventGoLive');
 
-            Route::post('events/add-new-ticket-pass', 'EventController@addNewTicketPass');
-            Route::post('events/update-pass', 'EventController@ticketPassUpdate');
-            Route::post('events/delete-pass', 'EventController@ticketPassDelete');
+                Route::post('update-details', 'EventController@detailsUpdate');
+                Route::post('update-topics', 'EventController@topicsUpdate');
 
+                Route::post('maps-search', 'EventController@searchLocation');
+                Route::post('add-new-location-row', 'EventController@addNewLocationRow');
+                Route::post('update-time-location', 'EventController@timeLocationUpdate');
 
-            Route::post('events/update-layout', 'EventController@eventLayoutUpdate');
-            Route::get('event/layout', 'EventController@layout');
-            Route::post('events/add-new-image', 'EventController@addNewImage');
-            Route::post('events/upload-image', 'EventController@uploadEventImage');
-            Route::post('events/remove-image', 'EventController@removeEventImage');
+                Route::post('update-ticket', 'EventController@ticketUpdate');
+                Route::post('add-new-ticket', 'EventController@addNewTicket');
+                Route::post('delete-ticket', 'EventController@ticketDelete');
+
+                Route::post('add-new-ticket-pass', 'EventController@addNewTicketPass');
+                Route::post('update-pass', 'EventController@ticketPassUpdate');
+                Route::post('delete-pass', 'EventController@ticketPassDelete');
+
+                Route::post('update-layout', 'EventController@eventLayoutUpdate');
+                Route::post('add-new-image', 'EventController@addNewImage');
+                Route::post('upload-image', 'EventController@uploadEventImage');
+                Route::post('remove-image', 'EventController@removeEventImage');
+
+                Route::post('make-hot-deal', 'EventController@makeHotDeal');
+                Route::post('remove-deal', 'EventController@removeHotDeal');
+
+            });
+
 
             /*Organzier Routes*/
             Route::resource('organizers', 'OrganizerController');

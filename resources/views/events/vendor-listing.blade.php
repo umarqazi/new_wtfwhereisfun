@@ -41,11 +41,26 @@
                                             <img src="{{$img}}">
                                         </div>
                                         <div class="info">
+                                            @php
+                                                $liveEventId = encrypt_id($liveEvent->id);
+                                            @endphp
                                             <ul class="actions-btns header-dropdown m-r--5">
-                                                <li class="action-list"><a class="btn" href="{{url('events/'.encrypt_id($liveEvent->id).'/edit')}}">Manage</a></li>
+                                                <li class="action-list"><a class="btn" href="{{url('events/'.$liveEventId.'/edit')}}">Manage</a></li>
+                                                <li class='dropdown action-list'>
+                                                    <button href='javascript:void(0);' class='dropdown-toggle btn rounded-border' data-toggle='dropdown' role='button' aria-haspopup='true' aria-expanded='false'>
+                                                        More <i class='zmdi zmdi-more-vert'></i>
+                                                    </button>
+                                                    <ul class='dropdown-menu pull-right'>
+                                                        @if($liveEvent->hot_deal()->exists())
+                                                            <li><a href='javascript:void(0);' class='remove_hot' onclick='deleteHotDeal(this)' id="{{$liveEventId}}">Remove Deal</a></li>
+                                                        @else
+                                                            <li><a href='javascript:void(0);' onclick='createHotDeal(this)' id="{{$liveEventId}}">Make Hot Deal</a></li>
+                                                        @endif
+                                                    </ul>
+                                                </li>
                                             </ul>
                                             <div class="event-title">
-                                                <a href="{{url('events/'.encrypt_id($liveEvent->id))}}">{{$liveEvent->title}}</a>
+                                                <a href="{{url('events/'.$liveEventId)}}">{{$liveEvent->title}}</a>
                                             </div>
                                             @if(count($liveEvent->time_locations))
                                                 <p>
@@ -56,6 +71,18 @@
                                                 <p><i class="fa fa-map-marker"></i>
                                                     {{$liveEvent->time_locations->first()->location}}
                                                 </p>
+                                            @endif
+                                            @if($liveEvent->hot_deal()->exists())
+                                                <div class="tooltipContainer hotDeal">
+                                                    <i class="fa fa-tag"></i> Hot Deal
+                                                    <div class="customToolTip">
+                                                        <p>
+                                                            <strong>Starts At : </strong><span>{{$liveEvent->hot_deal->start_time->format('D, M Y g:i A')}}</span><br>
+                                                            <strong>Ends At : </strong><span>{{$liveEvent->hot_deal->end_time->format('D, M Y g:i A')}}</span><br>
+                                                            <strong>Discount : </strong><span>{{$liveEvent->hot_deal->discount}}%</span>
+                                                        </p>
+                                                    </div>
+                                                </div>
                                             @endif
                                             <p class="green"><i class="fa fa-circle"></i>Live</p>
                                         </div>
@@ -209,4 +236,41 @@
 
         </div>
     </div>
+
+    <!-- Default Size -->
+    <div class="modal fade" id="make-hot-deal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <form method="post" id="make-hot" class="serialize-form">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="defaultModalLabel">Make Hot Deal</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="email">Discount</label>
+                            <input type="number" class="form-control" id="" name="discount" placeholder="Discount in Percentage" required="">
+                        </div>
+                        <div class="form-group">
+                            <label for="pwd">Hours</label>
+                            <select name="hours" required>
+                                <option disabled selected>Select Hours</option>
+                                <option value="12">12 Hours</option>
+                                <option value="24">24 Hours</option>
+                                <option value="36">36 Hours</option>
+                                <option value="48">48 Hours</option>
+                                <option value="60">60 Hours</option>
+                                <option value="72">72 Hours</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn  btn-default save-hot modal-btn">Save Hot Deal</button>
+                        <button type="button" class="btn btn-default modal-btn waves-effect" data-dismiss="modal">CLOSE</button>
+                    </div>
+                    <input type="hidden" class="event_id" name="event_id">
+                </form>
+            </div>
+        </div>
+    </div>
+
 @endsection

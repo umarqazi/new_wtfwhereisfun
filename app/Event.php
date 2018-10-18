@@ -108,4 +108,12 @@ class Event extends Model
         return $this->HasMany('App\EventTag');
     }
 
+    /**
+     * Get Hot Event.
+     */
+    public function hot_deal(){
+        return $this->HasOne('App\EventHotDeal');
+    }
+
+
 }
