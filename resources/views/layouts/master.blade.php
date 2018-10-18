@@ -9,6 +9,7 @@
             @include('partials.footer')
         </div>
     </div>
+    @include('partials.signup-signin')
     @include('partials.scripts-includes')
 </body>
 </html>

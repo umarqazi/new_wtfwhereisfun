@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: jazib
- * Date: 9/4/18
- * Time: 9:08 PM
- */
 
 namespace App\Services\Events;
 

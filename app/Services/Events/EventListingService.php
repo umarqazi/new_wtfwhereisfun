@@ -38,4 +38,8 @@ class EventListingService extends BaseService implements IService
         $allEvents   = $this->getAllEvents($vendorId);
         return ['draftEvents' => $draftEvents, 'liveEvents' => $liveEvents, 'pastEvents' => $pastEvents, 'allEvents' => $allEvents];
     }
+
+    public function getHotDealEvents(){
+        return $this->eventRepo->hotEvents();
+    }
 }

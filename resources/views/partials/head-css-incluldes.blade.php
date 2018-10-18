@@ -19,6 +19,7 @@
     <link href="{{asset('css/owl.carousel.min.css')}}" rel="stylesheet" type="text/css">
     <link href="{{asset('css/owl-animate.css')}}" rel="stylesheet" type="text/css">
     <link href="{{asset('css/owl.theme.default.min.css')}}" rel="stylesheet" type="text/css">
+
     <!-- Tags Input -->
     <link href="{{asset('css/bootstrap-tagsinput.css')}}" rel="stylesheet" type="text/css">
     <link href="{{asset('css/app2.css')}}" rel="stylesheet" type="text/css">
