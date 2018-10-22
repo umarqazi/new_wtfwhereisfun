@@ -32,10 +32,6 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('privacy-policy', 'MainController@privacyPolicy');
     Route::get('contact-us', 'MainController@contactUs');
 
-    Route::get('events/hot-deals', 'EventController@getHotDealEvents');
-    Route::get('events/all', 'EventController@getAllLiveEvents');
-    Route::get('events/{id}', 'EventController@show');
-
     Route::post('do-login',  'MainController@authenticate');
     Route::get('logout',  'MainController@logout');
     Route::post('do-register', 'MainController@register');
@@ -116,7 +112,9 @@ Route::group(['middleware' => ['web']], function () {
         });
     });
 
-
+    Route::get('events/hot-deals', 'EventController@getHotDealEvents');
+    Route::get('events/all', 'EventController@getAllLiveEvents');
+    Route::get('events/{id}', 'EventController@show');
 
 
 });
