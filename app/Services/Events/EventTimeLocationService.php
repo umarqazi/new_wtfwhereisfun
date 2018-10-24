@@ -26,11 +26,11 @@ class EventTimeLocationService extends BaseService
         return $location;
     }
 
-    public function addNewLocation($currencies, $timeZones, $eventID){
+    public function addNewLocation($currencies, $timeZones, $eventID, $elementId){
         Mapper::map(53.381128999999990000, -1.470085000000040000);
-//        View::share('javascript', true);
+        View::share('javascript', true);
         $map = Mapper::render();
-        $html = addNewTimeLocationRow($currencies, $timeZones, $eventID, $map);
+        $html = addNewTimeLocationRow($currencies, $timeZones, $eventID, $map, $elementId);
         return $html;
     }
 

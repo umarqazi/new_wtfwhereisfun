@@ -238,7 +238,7 @@ class EventController extends Controller
         return response()->json([
             'type'      =>  'success',
             'msg'       =>  'Event Locations has been updated Successfully',
-            'data'      =>  $request->all()
+            'data'      =>  $response
         ]);
     }
 
@@ -266,7 +266,7 @@ class EventController extends Controller
     public function addNewLocationRow(Request $request){
         $currencies = $this->currencyService->getAll();
         $timeZones = $this->timeZoneService->getAll();
-        $response = $this->eventLocationService->addNewLocation($currencies, $timeZones, $request->event_id);
+        $response = $this->eventLocationService->addNewLocation($currencies, $timeZones, $request->event_id, $request->element_id);
         return response()->json([
             'type'      => 'success',
             'msg'       => '',

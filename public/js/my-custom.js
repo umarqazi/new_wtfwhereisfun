@@ -177,37 +177,10 @@ $('ul.nav-tabs a[href="' + hash + '"]').tab('show');
 });
 
 /*****************************************************************************
-****************Google address autocomplete start ****************************
-******************************************************************************/
-
-//document.write("\<script src='https://maps.googleapis.com/maps/api/js?key=AIzaSyCz7Bo_xQIywAxLvk5BRR5xz70VY2VhLPk&libraries=places&callback=initMap' type='text/javascript'>\<\/script>");
-var script = document.createElement('script');  
-//AIzaSyCz7Bo_xQIywAxLvk5BRR5xz70VY2VhLPk
-script.src = "https://maps.googleapis.com/maps/api/js?key=AIzaSyCz7Bo_xQIywAxLvk5BRR5xz70VY2VhLPk&libraries=places&callback=initMap";  
-document.head.appendChild(script);
-var autocomplete;
-function initMap() {
-    var class_exist = $('input').hasClass('google_autocomplete');
-    if(class_exist == true){   
-      autocomplete = new google.maps.places.Autocomplete(
-          (document.getElementById('autocomplete')),
-          { types: ['geocode'] });
-      google.maps.event.addListener(autocomplete, 'place_changed', function() {
-      });
-    }
-}
-
-/*****************************************************************************
-****************Google address autocomplete end ******************************
-******************************************************************************/
-
-/*****************************************************************************
 **********************Tinymce editor start ***********************************
 ******************************************************************************/
 
-//document.write("\<script src='' type='text/javascript'>\<\/script>");
-//document.write("\<script src='https://maps.googleapis.com/maps/api/js?key=AIzaSyCz7Bo_xQIywAxLvk5BRR5xz70VY2VhLPk&libraries=places&callback=initMap' type='text/javascript'>\<\/script>");
-var script1 = document.createElement('script');  
+var script1 = document.createElement('script');
 script1.src = "//cdn.tinymce.com/4/tinymce.min.js";  
 document.head.appendChild(script1);
 function initEditor() {
@@ -264,7 +237,6 @@ function initEditor() {
 ******************************************************************************/
 
 window.onload = function() {
-  initMap();
   initEditor();
 };
 

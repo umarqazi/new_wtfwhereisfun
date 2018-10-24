@@ -141,59 +141,6 @@ $(document).ready(function($) {
         });
     });
 });
-/*****************************************************************************
- *************************Event Location Form **************************
- ******************************************************************************/
-function eventLocationForm(event, obj, type){
-    event.preventDefault();
-    var form_data = new FormData($(obj)[0]);
-    var id = '#'+$(obj).attr('id');
-    $.ajaxSetup({
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        }
-    });
-    $.ajax({
-        url  : base_url() + "/events/update-time-location",
-        type : "POST",
-        data : form_data,
-        dataType : "JSON",
-        cache: false,
-        contentType: false,
-        processData: false,
-        beforeSend:function(){
-            $(id+' .form-error').html('');
-            // $(id+' .btn-save').attr('disabled',true).text('Loading....');
-            // $(id+' :input').prop('disabled', true);
-        },
-        success: function(response){
-            if(response.type == "success"){
-                showToaster('success',response.msg);
-            }
-            else{
-                showToaster('error',response.msg);
-            }
-            $(id+' .btn-save').css('display', 'none');
-            $(id+' .btn-edit').css('display', 'block').prop('disabled', false);
-            $(id+' .time-location-id').attr('value', response.data.id);
-            $(id+' .request-type').attr('value', 'update');
-            $('.add-another-location').css('display', 'block');
-        },
-        error:function(response)
-        {
-            var respObj = response.responseJSON;
-            showToaster('error', respObj.message);
-            errors = respObj.errors;
-            var keys   = Object.keys(errors);
-            var count  = keys.length;
-            for (var i = 0; i < count; i++)
-            {
-                $(id +' .'+keys[i]).html(errors[keys[i]]).focus();
-            }
-            $(id+' .btn-save').attr('disabled',false).text('Save');
-        }
-    });
-}
 
 
 /*****************************************************************************
@@ -557,13 +504,13 @@ $(document).on('change','#event_on_off',function() {
 
         $('.on-off').removeClass('hidden');
         $('#location_box_main').addClass('hidden');
-        $('.addAnother_event_location').addClass('hidden');
+        // $('.addAnother_event_location').addClass('hidden');
         $('#on_off_event').val(1);
 
     } else {
         $('.on-off').addClass('hidden');
         $('#location_box_main').removeClass('hidden');
-        $('.addAnother_event_location').removeClass('hidden');
+        // $('.addAnother_event_location').removeClass('hidden');
         $('#on_off_event').val(0);
 
     }
@@ -633,6 +580,54 @@ $(document).on('change','select#event_sub_topic',function() {
     });
 });
 
+/*****************************************************************************
+ *************************Event Location Form **************************
+ ******************************************************************************/
+function eventLocationForm(event, obj, type){
+    event.preventDefault();
+    var form_data = new FormData($(obj)[0]);
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+    $.ajax({
+        url  : base_url() + "/events/update-time-location",
+        type : "POST",
+        data : form_data,
+        dataType : "JSON",
+        cache: false,
+        contentType: false,
+        processData: false,
+        beforeSend:function(){
+            $(obj).find('.form-error').html('');
+        },
+        success: function(response){
+            if(response.type == "success"){
+                showToaster('success',response.msg);
+            }
+            else{
+                showToaster('error',response.msg);
+            }
+            $(obj).find('.time-location-id').attr('value', response.data.id);
+            $(obj).find('.request-type').attr('value', 'update');
+        },
+        error:function(response)
+        {
+            var respObj = response.responseJSON;
+            showToaster('error', respObj.message);
+            errors = respObj.errors;
+            var keys   = Object.keys(errors);
+            var count  = keys.length;
+            for (var i = 0; i < count; i++)
+            {
+                $(obj).find('.'+keys[i]).html(errors[keys[i]]).focus();
+            }
+            $(obj).find('.btn-save').attr('disabled',false).text('Save');
+        }
+    });
+}
+
 function searchLocation(event, obj){
     // event.preventDefault();
     if (event.keyCode === 13) {
@@ -670,8 +665,17 @@ function searchLocation(event, obj){
         }
         else
         {
-            maps[0].map.setCenter(place.geometry.location);
-            maps[0].markers[0].setPosition(place.geometry.location);
+            var id = $(obj).closest('form').find('#location_map .event-maps').attr('id');
+            map = new google.maps.Map(document.getElementById(id), {
+                zoom : 8,
+                center : {lat : place.geometry.location.lat(), lng : place.geometry.location.lng()},
+                type : 'ROADMAP'
+            });
+
+            var marker = new google.maps.Marker({
+                position : {lat : place.geometry.location.lat(), lng : place.geometry.location.lng()},
+                map : map
+            });
             $(obj).parent().find('#event_lat').val(place.geometry.location.lat());
             $(obj).parent().find('#event_lng').val(place.geometry.location.lng());
             $(obj).parent().next().find('#event_address').val($(obj).val());
@@ -681,9 +685,8 @@ function searchLocation(event, obj){
 }
 
 
-function addNewLocationRow(obj){
-    var element = $(obj).parent().prev().find('input[name=event_id]');
-    var eventID = element.attr('value');
+function addNewLocationRow(obj, eventId){
+    var newId = parseInt($('#locations .time-location-rows').children().first('.row').attr('id')) + 1;
     $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -692,14 +695,13 @@ function addNewLocationRow(obj){
     $.ajax({
         url  : base_url() + "/events/add-new-location-row",
         type : "POST",
-        data : {event_id : eventID},
+        data : {event_id : eventId, element_id : newId},
         dataType : "JSON",
-        cache: false,
-        contentType: false,
-        processData: false,
         success: function(response)
         {
-            $('.time-location-rows').append(response.data);
+            $('#locations .time-location-rows').prepend(response.data);
+            $('#locations .time-location-rows #'+newId).find('#location_map .event-maps').attr('id', 'map-canvas-'+newId);
+
         }
     });
 }

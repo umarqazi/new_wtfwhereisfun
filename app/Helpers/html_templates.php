@@ -1,6 +1,6 @@
 <?php
 if (! function_exists('addNewTimeLocationRow')) {
-    function addNewTimeLocationRow($currencies, $timeZones, $eventId, $map)
+    function addNewTimeLocationRow($currencies, $timeZones, $eventId, $map, $elementId)
     {
         $displayCurrencyOptions = '';
         $transactedCurrencyOptions = '';
@@ -14,7 +14,7 @@ if (! function_exists('addNewTimeLocationRow')) {
         foreach($timeZones as $timeZone){
             $timeZonesOptions .= "<option value='$timeZone->id'>$timeZone->text</option>";
         }
-        $html = "<div class=\"row\">
+        $html = "<div class=\"row\" id=\"{$elementId}\">
                     <form type=\"post\" onsubmit=\"eventLocationForm(event, this)\" id=\"event-save-location\">
                         <div class=\"col-sm-6 datepicker_row\" id=\"datetime_area\">
                             <div class=\"form-group\">
@@ -42,7 +42,7 @@ if (! function_exists('addNewTimeLocationRow')) {
                             <div class=\"form-group\">
                                 <label>Event location</label>
                                 <input type=\"text\" onkeyup=\"searchLocation(event, this)\"
-                                       class=\"form-control event_location-serach event_location\" placeholder=\"Enter your event's location\" name=\"event_location\" id=\"event_location\">
+                                       class=\"form-control event_location-serach event_location\" placeholder=\"Enter your event's location\" name=\"event_location\" id=\"event_location_{$elementId}\">
                                 <input type=\"hidden\" name=\"latitude\" id=\"event_lat\">
                                 <input type=\"hidden\" name=\"longitude\" id=\"event_lng\">
                                 <div class=\"form-error event_location\"></div>
@@ -77,12 +77,12 @@ if (! function_exists('addNewTimeLocationRow')) {
                             </div>
                             <div class=\"form-group\">
                                 <div class=\"form-button\">
-                                    <button type=\"submit\" class=\"btn btn-default btn-save\">Save</button>
+                                    <button type=\"submit\" class=\"btn btn-default rounded-border btn-save\">Save</button>
                                     <button type=\"button\" style=\"display:none;\" class=\"btn btn-default
                                     btn-edit\">Edit</button>
                                 </div>
                             </div>
-                            <input type=\"hidden\" value=\"{{$eventId}}\" name=\"event_id\">
+                            <input type=\"hidden\" value=\"{$eventId}\" name=\"event_id\">
                             <input type=\"hidden\" value=\"\" name=\"time_location_id\" class=\"time-location-id\">
                             <input type=\"hidden\" value=\"store\" name=\"request_type\" class=\"request-type\">
                         </div>
@@ -94,9 +94,6 @@ if (! function_exists('addNewTimeLocationRow')) {
                             </div>
                         </div>
                     </form>
-                </div>
-                <div class=\"text-right add-another-location\" style=\"display: none;\">
-                    <a href=\"JavaScript:void(0);\" onclick=\"addNewLocationRow()\" class=\"addAnother_event_location\"><i class=\"fa fa-plus\"></i> Add another Event Location</a>
                 </div>";
         return $html;
     }

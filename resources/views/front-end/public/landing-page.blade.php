@@ -138,11 +138,12 @@
                                                                     @endif
                                                                     <img src="{{$img}}" alt="Organizer Image">
                                                                 </div>
-                                                                <div class="card-date">
-                                                                    <strong>{{$event->time_locations->first()->starting->day}}</strong>
-                                                                    <span>{{get_month($event->time_locations->first()->starting)}}</span>
-                                                                </div><!-- /.card-date -->
-
+                                                                @if(!empty($event->time_locations))
+                                                                    <div class="card-date">
+                                                                        <strong>{{$event->time_locations->first()->starting->day}}</strong>
+                                                                        <span>{{get_month($event->time_locations->first()->starting)}}</span>
+                                                                    </div><!-- /.card-date -->
+                                                                @endif
                                                                 <h3 class="card-title">
                                                                     <a href="{{$link}}" target="_blank">{{$event->title}}</a>
                                                                 </h3>
