@@ -2,6 +2,7 @@
 namespace App\Repositories;
 use App\Event;
 use App\EventTimeLocation;
+use Carbon\Carbon;
 class EventLocationRepo
 {
     protected $eventLocationModel;
