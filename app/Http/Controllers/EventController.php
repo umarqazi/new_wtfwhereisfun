@@ -483,11 +483,19 @@ class EventController extends Controller
         }
     }
 
+    /**
+     * Remove Get All Hot Deals
+     */
     public function getHotDealEvents(){
         $hotDealEvents = $this->eventListingService->getHotDealEvents();
         return view('front-end.events.hot-deals')->with('hotDeals', $hotDealEvents);
     }
 
+    /**
+     * Get Event Time's Location
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
     public function getTimeLocation(Request $request){
         $response = $this->eventLocationService->getTimeLocation($request);
         return response()->json([

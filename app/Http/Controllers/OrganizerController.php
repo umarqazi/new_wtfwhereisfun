@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\SocialLink;
 use App\Http\Requests\StoreOrganizer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -141,7 +142,7 @@ class OrganizerController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function socialLinksUpdate(Request $request){
+    public function socialLinksUpdate(SocialLink $request){
         $organizerId = decrypt_id($request->organizer_id);
         $response = $this->organizerSocialLinksService->socialLinksUpdate($request, $organizerId);
         return response()->json([
