@@ -255,7 +255,7 @@ class UsersController extends Controller
     public function edit()
     {
         $response = $this->userServices->accountSettings();
-        return view('users.edit')->with($response);
+        return view('users.vendors.edit')->with($response);
     }
 
     /**

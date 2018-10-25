@@ -398,7 +398,6 @@
     <script src="{{asset('js/ckeditor/ckeditor.js')}}"></script>
     <script src="{{asset('js/ckeditor/config.js')}}"></script>
     <script src="{{asset('js/ckeditor/styles.js')}}"></script>
-    {{--<link rel="stylesheet" href="{{asset('js/ckeditor/contents.css')}}">--}}
 
     @php
         $previousUrl = explode('/', URL::previous());

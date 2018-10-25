@@ -488,4 +488,12 @@ class EventController extends Controller
         return view('front-end.events.hot-deals')->with('hotDeals', $hotDealEvents);
     }
 
+    public function getTimeLocation(Request $request){
+        $response = $this->eventLocationService->getTimeLocation($request);
+        return response()->json([
+            'type'      =>  'success',
+            'msg'       =>  '',
+            'data'      =>  $response
+        ]);
+    }
 }

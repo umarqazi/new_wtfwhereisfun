@@ -654,8 +654,18 @@ function searchLocation(event, obj){
                 success: function(location)
                 {
                     var latLng = new google.maps.LatLng(location.latitude, location.longitude);
-                    maps[0].map.setCenter(latLng);
-                    new google.maps.Marker({position: latLng, map: maps[0].map, draggable: true});
+                    var id = $(obj).closest('form').find('#location_map .event-maps').attr('id');
+                    map = new google.maps.Map(document.getElementById(id), {
+                        zoom : 8,
+                        center : latLng,
+                        type : 'ROADMAP'
+                    });
+
+                    var marker = new google.maps.Marker({
+                        position : latLng,
+                        map : map,
+                        draggable : true
+                    });
                     $(obj).parent().find('#event_lat').val(place.geometry.location.lat());
                     $(obj).parent().find('#event_lng').val(place.geometry.location.lng());
                     $(obj).parent().next().find('#event_address').val($(obj).val());
@@ -674,7 +684,8 @@ function searchLocation(event, obj){
 
             var marker = new google.maps.Marker({
                 position : {lat : place.geometry.location.lat(), lng : place.geometry.location.lng()},
-                map : map
+                map : map,
+                draggable : true
             });
             $(obj).parent().find('#event_lat').val(place.geometry.location.lat());
             $(obj).parent().find('#event_lng').val(place.geometry.location.lng());

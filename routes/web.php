@@ -112,9 +112,12 @@ Route::group(['middleware' => ['web']], function () {
         });
     });
 
-    Route::get('events/hot-deals', 'EventController@getHotDealEvents');
-    Route::get('events/all', 'EventController@getAllLiveEvents');
-    Route::get('events/{id}', 'EventController@show');
+    Route::prefix('events')->group(function () {
+        Route::get('hot-deals', 'EventController@getHotDealEvents');
+        Route::get('all', 'EventController@getAllLiveEvents');
+        Route::get('{id}', 'EventController@show');
+        Route::post('get-time-location', 'EventController@getTimeLocation');
+    });
 
 
 });

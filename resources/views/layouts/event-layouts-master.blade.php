@@ -29,19 +29,25 @@
 </head>
 <body>
     @yield('content')
+<script>
+    function base_url()
+    {
+        return "{{url('')}}";
+    }
+</script>
 <script data-cfasync="false" src="../cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
 <script type="text/javascript" src="{{asset('listgo/js/lib/jquery-1.11.2.min.js')}}"></script>
 <script type="text/javascript" src="{{asset('listgo/js/lib/jquery-ui.min.js')}}"></script>
 <script type="text/javascript" src="{{asset('listgo/js/lib/jquery.owl.carousel.js')}}"></script>
 <script src="{{asset('js/fancybox/jquery.fancybox.min.js')}}"></script>
+<script src="{{asset('js/moment.min.js')}}"></script>
 <script src="{{asset('js/bootstrap.min.js')}}"></script>
 <script src="{{asset('js/custom.js')}}"></script>
 <script type="text/javascript" src="{{asset('listgo/js/lib/perfect-scrollbar.min.js')}}"></script>
 <script type="text/javascript" src="{{asset('listgo/js/lib/jquery.magnific-popup.min.js')}}"></script>
-<script src="{{asset('js/fancybox/jquery.fancybox.min.js')}}"></script>
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCwTDuEZdy-ST4qjk4mtBYlTjJ10xRHQLc" type="text/javascript"></script>
 <script type="text/javascript" src="{{asset('listgo/js/scripts.js')}}"></script>
-<script type="text/javascript" src="{{asset('js/eventpage/events.js')}}"></script>
+<script type="text/javascript" src="{{asset('listgo/js/listgo-custom.js')}}"></script>
+{{--<script type="text/javascript" src="{{asset('js/eventpage/events.js')}}"></script>--}}
 
 </body>
 </html>

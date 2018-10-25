@@ -21,6 +21,8 @@ use App\Services\CategoryService;
 use App\Services\Organizers\OrganizerService;
 use Alert;
 use Illuminate\Support\Facades\Redirect;
+use Mapper;
+use View;
 class EventService extends BaseService implements IDBService
 {
     protected $eventRepo;
@@ -102,7 +104,7 @@ class EventService extends BaseService implements IDBService
         $currencies     = $this->currencyService->getAll();
         $timeZones      = $this->timeZoneService->getAll();
         $layouts        = $this->eventLayoutService->getAll();
-        $locations      = $this->eventLocationService->getEventLocations($event_id);
+        $locations      = $this->eventLocationService->getEventLocations($event_id, $renderMap = true);
         $tickets        = $this->eventTicketService->getEventTickets($event_id);
         $organizers     = $this->organizerService->getUserOrganizers();
         $directory      = getDirectory('events', $event_id);
@@ -127,6 +129,9 @@ class EventService extends BaseService implements IDBService
         $tags           = $this->eventTagService->getEventTags($event_id);
         $moreEvents     = $this->eventRepo->getMoreEvents($event->vendor->id, $event_id);
         $directory      = getDirectory('events', $event_id);
+        if(!empty($locations)){
+            Mapper::map($locations->first()->latitude , $locations->first()->longitude);
+        }
         if(empty($event->event_layout_id)){
             $layout     = 'layout-1';
         }else{

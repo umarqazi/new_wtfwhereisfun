@@ -61,24 +61,20 @@
         </div>
 
 
-        <div id="wiloke_price_segment-5" class="widget widget wiloke_price_segment">
+        <div id="wiloke_price_segment-5" class="widget widget wiloke_price_segment time-location">
             <h4 class="widget_title"><i class="fa fa-map-marker"></i><span class="active"></span>Time & Locations</h4>
-            <div class="organizer-dropdown mapDropdown">
-                <span class="active">Select Event Time<i class="fa fa-chevron-down"></i></span>
-                <ul class="list" style="display: none;">
-                    @if(count($locations))
-                        @foreach($locations as $location)
-                            <li>
-                                <a href="{{url('events/').encrypt_id($event->id)}}">{{$location->starting->format('g:i A')}} - {{$location->ending->format('g:i A')}}</a>
-                            </li>
-                        @endforeach
-                    @else
-                        <li>
-                            <a href="">No time has entered</a>
-                        </li>
-                    @endif
-                </ul>
-            </div>
+            <select class="select-time-location" name="location_id" onchange="getTimeLocation(this)">
+                @if(!empty($locations))
+                    @foreach($locations as $key => $location)
+                        <option value="{{encrypt_id($location->id)}}" @if($key == 0) selected @endif>
+                            {{$location->starting->format('Y-m-d g:i A')}} - {{$location->ending->format('Y-m-d g:i A')}}
+                        </option>
+                    @endforeach
+                @else
+                    <option>No time has entered</option>
+                @endif
+            </select>
+            <meta name="csrf-token" content="{{ csrf_token() }}">
         </div>
 
 

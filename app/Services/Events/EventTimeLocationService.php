@@ -2,7 +2,7 @@
 
 namespace App\Services\Events;
 
-use App\Repositories\EventRepo;
+use App\Repositories\EventLocationRepo;
 use App\Services\BaseService;
 use App\Services\IDBService;
 use Illuminate\Http\Response;
@@ -10,15 +10,15 @@ use Mapper;
 use View;
 class EventTimeLocationService extends BaseService
 {
-    protected $eventRepo;
+    protected $eventLocationRepo;
 
     public function __construct()
     {
-        $this->eventRepo   = new EventRepo();
+        $this->eventLocationRepo    = new EventLocationRepo;
     }
 
     public function updateTimeLocation($request, $eventId){
-        return $this->eventRepo->updateTimeLocation($request, $eventId);
+        return $this->eventLocationRepo->updateTimeLocation($request, $eventId);
     }
 
     public function searchLocation($request){
@@ -34,19 +34,27 @@ class EventTimeLocationService extends BaseService
         return $html;
     }
 
-    public function getEventLocations($event_id){
-        $locations = $this->eventRepo->getEventLocations($event_id);
+    public function getEventLocations($event_id, $renderMap = false){
+        $locations = $this->eventLocationRepo->getEventLocations($event_id);
         $html = '';
         if(count($locations)){
-            $maps = [];
-            foreach($locations as $location){
-                Mapper::map($location->latitude , $location->longitude);
-//                View::share('javascript', true);
+            if($renderMap) {
+                $maps = [];
+                foreach ($locations as $location) {
+                    Mapper::map($location->latitude, $location->longitude);
+                }
             }
             return $locations;
         }else{
-            Mapper::map(53.381128999999990000, -1.470085000000040000);
+            if($renderMap) {
+                Mapper::map(53.381128999999990000, -1.470085000000040000);
+            }
             return [];
         }
+    }
+
+    public function getTimeLocation($request){
+        $locationId = decrypt_id($request->location_id);
+        return $this->eventLocationRepo->getTimeLocation($locationId);
     }
 }

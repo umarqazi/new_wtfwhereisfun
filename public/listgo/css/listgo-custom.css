@@ -355,3 +355,16 @@ p .event-tag-name{
     font-size: 13px;
     text-transform: capitalize;
 }
+
+.time-location .select-time-location{
+    background-color : #fff;
+    border-bottom: solid #d9d9d9 2px;
+}
+
+.time-location .select-time-location option:hover{
+    color : #86C543;
+}
+
+.event-additional-description .location_map{
+    margin-bottom: 30px;
+}
