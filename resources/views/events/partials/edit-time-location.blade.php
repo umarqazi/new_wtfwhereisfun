@@ -18,6 +18,7 @@
                                         </span>
                                         <input type="text" class="form-control datepic" value="{{$location->starting}}" name="start_date" />
                                     </div>
+                                    <div class="form-error start_date"></div>
                                 </div>
                             </div>
 
@@ -30,6 +31,7 @@
                                         </span>
                                         <input type="text" class="form-control" value="{{$location->ending}}" name="end_date" />
                                     </div>
+                                    <div class="form-error end_date"></div>
                                 </div>
                             </div>
 
@@ -39,6 +41,9 @@
                                     <input type="text" class="form-control event_location-serach" value="{{$location->location}}" placeholder="Enter your event's location" name="event_location" id="event_location_{{$countLocations - $key}}" onkeyup="searchLocation(event, this)" >
                                     <input type="hidden" name="latitude" id="event_lat" value="{{$location->longitude}}">
                                     <input type="hidden" name="longitude" id="event_lng" value="{{$location->longitude}}">
+                                    <div class="form-error event_location"></div>
+                                    <div class="form-error latitude"></div>
+                                    <div class="form-error longitude"></div>
                                 </div>
                                 <div class="form-group">
                                     <label>Address </label>
@@ -78,6 +83,7 @@
                                             </option>
                                         @endforeach
                                     </select>
+                                    <div class="form-error timezone"></div>
                                 </div>
                                 <div class="form-group">
                                     <button type="submit" class="btn btn-default btn-save rounded-border">Save</button>
@@ -111,6 +117,7 @@
                                     </span>
                                     <input autocomplete="off" type="text" class="form-control datepic" name="event_start_date" id="start_date"/>
                                 </div>
+                                <div class="form-error start_date"></div>
                             </div>
                         </div>
                         <div class="col-sm-6 datepicker_row" id="datetime_area">
@@ -122,6 +129,7 @@
                                     </span>
                                     <input autocomplete="off" type="text" class="form-control" name="event_end_date"/>
                                 </div>
+                                <div class="form-error end_date"></div>
                             </div>
                         </div>
                         <div class="col-sm-6">
@@ -131,6 +139,8 @@
                                 <input type="hidden" name="latitude" id="event_lat">
                                 <input type="hidden" name="longitude" id="event_lng">
                                 <div class="form-error event_location"></div>
+                                <div class="form-error latitude"></div>
+                                <div class="form-error longitude"></div>
                             </div>
                             <div class="form-group">
                                 <label>Address </label>
@@ -165,6 +175,7 @@
                                         <option value="{{$timeZone->id}}">{{$timeZone->text}}</option>
                                     @endforeach
                                 </select>
+                                <div class="form-error timezone"></div>
                             </div>
                             <div class="form-group">
                                 <div class="form-button">

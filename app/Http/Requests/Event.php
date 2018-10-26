@@ -27,7 +27,8 @@ class Event extends FormRequest
             'title'             => 'required|string|max:75',
             'description'       => 'required',
             'organizer_id'      => 'required',
-            'discount'          => 'required_if:referral_code,any'
+            'discount'          => 'required_with:referral_code,numeric',
+            'contact'           => ''
         ];
     }
 
@@ -39,9 +40,8 @@ class Event extends FormRequest
     public function messages()
     {
         return [
-            'organizer_id.required'  => 'Please select an Organizer',
-            'discount.required_if'   => 'Discount is required',
-            'discount.integer'       => 'Please enter percentage of discount in numbers'
+            'organizer_id.required'     => 'Please select an Organizer',
+            'discount.required_with'    => 'Discount is required',
         ];
     }
 }

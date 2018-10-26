@@ -482,15 +482,9 @@ function updateEventLayout(obj){
         error:function(response)
         {
             var respObj = response.responseJSON;
-            showToaster('error', respObj.message);
             errors = respObj.errors;
             var keys   = Object.keys(errors);
-            var count  = keys.length;
-            for (var i = 0; i < count; i++)
-            {
-                $(obj).find('.'+keys[i]).html(errors[keys[i]]).focus();
-            }
-
+            showToaster('error', errors[keys[0]]);
         }
     });
 }
