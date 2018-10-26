@@ -30,4 +30,16 @@ class UserContact extends FormRequest
             'blog'              =>  'string|max:100'
         ];
     }
+
+    /**
+     * Get the error messages for the defined validation rules.
+     *
+     * @return array
+     */
+    public function messages()
+    {
+        return [
+            'website.url'  => 'Website url must starts from http:// or https://',
+        ];
+    }
 }

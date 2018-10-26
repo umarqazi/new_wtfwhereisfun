@@ -29,9 +29,11 @@ class EventTicket extends FormRequest
             'name'                      =>          'required|string',
             'price'                     =>          'required|integer',
             'quantity'                  =>          'required|integer',
-//            'selling_start'             =>          'date_format:Y-m-d H:i:s',
-//            'selling_end'               =>          'date_format:Y-m-d H:i:s',
-            'request_type'              =>          'required|in:store,edit'
+            'selling_start'             =>          'before:selling_end|nullable',
+            'selling_end'               =>          'after:selling_start|nullable',
+            'request_type'              =>          'required|in:store,edit',
+            'min_order'                 =>          'integer|nullable',
+            'max_order'                 =>          'integer|nullable'
         ];
     }
 }

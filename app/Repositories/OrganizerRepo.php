@@ -108,7 +108,7 @@ class OrganizerRepo
     }
 
     public function updateProfileImage($file, $id){
-        $this->organizerModel->where('id', $id)->update(['thumbnail' => $file]);
+        return $this->organizerModel->where('id', $id)->update(['thumbnail' => $file]);
     }
 
 }

@@ -25,6 +25,7 @@ if (! function_exists('addNewTimeLocationRow')) {
                                     </span>
                                     <input autocomplete=\"off\" type=\"text\" class=\"form-control datepic\" name=\"event_start_date\" id=\"start_date\"/>
                                 </div>
+                                <div class=\"form-error start_date\"></div>
                             </div>
                         </div>
                         <div class=\"col-sm-6 datepicker_row\" id=\"datetime_area\">
@@ -36,6 +37,7 @@ if (! function_exists('addNewTimeLocationRow')) {
                                     </span>
                                     <input autocomplete=\"off\" type=\"text\" class=\"form-control\" name=\"event_end_date\" id=\"end_date\"/>
                                 </div>
+                                <div class=\"form-error end_date\"></div>
                             </div>
                         </div>
                         <div class=\"col-sm-6\">
@@ -46,6 +48,8 @@ if (! function_exists('addNewTimeLocationRow')) {
                                 <input type=\"hidden\" name=\"latitude\" id=\"event_lat\">
                                 <input type=\"hidden\" name=\"longitude\" id=\"event_lng\">
                                 <div class=\"form-error event_location\"></div>
+                                <div class=\"form-error longitude\"></div>
+                                <div class=\"form-error latitude\"></div>
                             </div>
                             <div class=\"form-group\">
                                 <label>Address </label>
@@ -74,6 +78,7 @@ if (! function_exists('addNewTimeLocationRow')) {
                                     <option disabled value=\"\" selected>Select Timezone</option>"
                                     .$timeZonesOptions.
                                 "</select>
+                                 <div class=\"form-error timezone\"></div>   
                             </div>
                             <div class=\"form-group\">
                                 <div class=\"form-button\">
@@ -210,9 +215,11 @@ if (! function_exists('addNewTimeLocationRow')) {
                                             <div class=\"per_order_minmax\">
                                                 <div class=\"ordermin\">
                                                     <input type=\"number\" class=\"form-control\" placeholder=\"Min\" name=\"min_order\">
+                                                    <div class=\"form-error min_order\"></div>
                                                 </div>
                                                 <div class=\"ordermax\">
                                                     <input type=\"number\" class=\"form-control\" placeholder=\"Max\" name=\"max_order\">
+                                                    <div class=\"form-error max_order\"></div>
                                                 </div>
                                             </div>
             
@@ -248,13 +255,14 @@ if (! function_exists('addNewTimeLocationRow')) {
                             <div class=\"pass-details\">
                                 <div class=\"pass-name\">
                                     <label>Pass Name</label>
-                                    <input type=\"text\" class=\"form-control\" placeholder=\"Pass Name\" name=\"pass_name\">
+                                    <input type=\"text\" class=\"form-control\" placeholder=\"Pass Name\" name=\"pass_name\">                                    
                                 </div>
                                 <div class=\"action_list\">
                                     <button type=\"submit\" class=\"no-background-border\"><i class=\"fa fa-save\"></i></button>                                            
                                     <button type=\"button\" class=\"no-background-border\" title=\"Delete Pass\" 
                                     onclick=\"deleteTicketPass(event,this)\"><i class=\"fa fa-trash\"></i></button>                                            
                                 </div>
+                                <div class=\"form-error pass_name\"></div>
                                 <input type=\"hidden\" name=\"pass_id\" value=\"\" class=\"pass-id\">
                                 <input type=\"hidden\" name=\"ticket_id\" value=\"{$request->ticket_id}\" class=\"ticket-id\">
                                 <input type=\"hidden\" name=\"request_type\" class=\"request-type\" value=\"store\">

@@ -135,9 +135,11 @@
                                             <div class="per_order_minmax">
                                                 <div class="ordermin">
                                                     <input type="number" class="form-control" placeholder="Min" name="min_order" value="{{$ticket->min_order}}">
+                                                    <div class="form-error min_order"></div>
                                                 </div>
                                                 <div class="ordermax">
                                                     <input type="number" class="form-control" placeholder="Max" name="max_order" value="{{$ticket->max_order}}">
+                                                    <div class="form-error max_order"></div>
                                                 </div>
                                             </div>
 
@@ -166,6 +168,7 @@
                                                             <button type="submit" class="no-background-border"><i class="fa fa-save"></i></button>
                                                             <button type="button" class="no-background-border" title="Delete Pass" onclick="deleteTicketPass(event,this)"><i class="fa fa-trash"></i></button>
                                                         </div>
+                                                        <div class="form-error pass_name"></div>
                                                         <input type="hidden" class="pass-id" name="pass_id" value="{{$pass->id}}">
                                                         <input type="hidden" name="ticket_id" value="{{$ticket->id}}" class="ticket-id">
                                                         <input type="hidden" class="request-type" name="request_type" value="edit">

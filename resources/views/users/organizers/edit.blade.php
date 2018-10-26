@@ -122,43 +122,49 @@
                                         <div class="col-xs-12 col-sm-12 col-md-6">
                                             <div class="form-group">
                                                 <label for="">Facebook page</label>
-                                                <input class="form-control" placeholder="Facebook.com" id="" name="facebook" type="text" value="{{$organizer->facebook}}">
+                                                <input class="form-control" placeholder="http://facebook.com" id="" name="facebook" type="text" value="{{$organizer->facebook}}">
                                                 <span class="field-beffect"></span>
+                                                <div class="form-error facebook"></div>
                                             </div>
                                         </div>
                                         <div class="col-xs-12 col-sm-12 col-md-6">
                                             <div class="form-group">
                                                 <label for="">Twitter</label>
-                                                <input class="form-control" placeholder="@" name="twitter" type="text" value="{{$organizer->twitter}}">
+                                                <input class="form-control" placeholder="http://twitter.com" name="twitter" type="text" value="{{$organizer->twitter}}">
                                                 <span class="field-beffect"></span>
+                                                <div class="form-error twitter"></div>
                                             </div>
                                         </div>
                                         <div class="col-xs-12 col-sm-12 col-md-6">
                                             <div class="form-group">
                                                 <label for="">Google</label>
-                                                <input class="form-control" placeholder="Google.com" id="" name="google" type="text" value="{{$organizer->google}}">
+                                                <input class="form-control" placeholder="http://google.com" id="" name="google" type="text" value="{{$organizer->google}}">
                                                 <span class="field-beffect"></span>
+                                                <div class="form-error google"></div>
                                             </div>
                                         </div>
                                         <div class="col-xs-12 col-sm-12 col-md-6">
                                             <div class="form-group">
                                                 <label for="">Linkedin</label>
-                                                <input class="form-control" placeholder="Linkedin.com" name="linkedin" type="text" value="{{$organizer->linkedin}}">
+                                                <input class="form-control" placeholder="http://linkedin.com" name="linkedin" type="text" value="{{$organizer->linkedin}}">
                                                 <span class="field-beffect"></span>
+                                                <div class="form-error linkedin"></div>
                                             </div>
                                         </div>
                                         <div class="col-xs-12 col-sm-12 col-md-6">
                                             <div class="form-group">
                                                 <label for="">Timbler</label>
-                                                <input class="form-control" placeholder="Timbler.com" name="timbler" type="text" value="{{$organizer->timbler}}">
+                                                <input class="form-control" placeholder="http://timbler.com" name="timbler" type="text" value="{{$organizer->timbler}}">
                                                 <span class="field-beffect"></span>
+                                                <div class="form-error timbler"></div>
                                             </div>
                                         </div>
                                         <div class="col-xs-12 col-sm-12 col-md-6">
                                             <div class="form-group">
                                                 <label for="">Instagram</label>
-                                                <input class="form-control" placeholder="Instagram.com" name="instagram" type="text" value="{{$organizer->instagram}}">
+                                                <input class="form-control" placeholder="http://instagram.com" name="instagram" type="text" value="{{$organizer->instagram}}">
                                                 <span class="field-beffect"></span>
+                                                <div class="form-error instagram"></div>
                                             </div>
                                         </div>
                                     </div>

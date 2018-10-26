@@ -20,7 +20,7 @@ class OrganizerImageService extends BaseService implements IService
     public function uploadImage($request, $type, $id){
         if($request->hasFile('thumbnail')){
             $fileName = $this->imageService->uploadImage($request->file('thumbnail'),$type, $id);
-            $this->organizerRepo->updateProfileImage($fileName, $id);
+            return $this->organizerRepo->updateProfileImage($fileName, $id);
         }
     }
 

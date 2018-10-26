@@ -35,6 +35,7 @@ use App\Services\CategoryService;
 use App\Services\Organizers\OrganizerService;
 use App\Http\Requests\Event;
 use App\Http\Requests\EventTicket;
+use App\Http\Requests\EventTicketPass;
 use App\Http\Requests\EventTimeLocation;
 use Carbon\Carbon;
 class EventController extends Controller
@@ -338,10 +339,10 @@ class EventController extends Controller
     /**
      * Update Event Ticket Pass
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\EventTicketPass  $request
      * @return \Illuminate\Http\Response
      */
-    public function ticketPassUpdate(Request $request){
+    public function ticketPassUpdate(EventTicketPass $request){
         $response = $this->eventTicketService->updateEventTicketPass($request);
         return response()->json([
             'type'      =>  'success',
@@ -368,10 +369,10 @@ class EventController extends Controller
     /**
      * Update Event Layout
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\EventLayout  $request
      * @return \Illuminate\Http\Response
      */
-    public function eventLayoutUpdate(Request $request){
+    public function eventLayoutUpdate(EventLayout $request){
         $response   = $this->eventLayoutService->updateEventLayout($request);
         return response()->json([
             'type'      =>  'success',
@@ -483,11 +484,19 @@ class EventController extends Controller
         }
     }
 
+    /**
+     * Remove Get All Hot Deals
+     */
     public function getHotDealEvents(){
         $hotDealEvents = $this->eventListingService->getHotDealEvents();
         return view('front-end.events.hot-deals')->with('hotDeals', $hotDealEvents);
     }
 
+    /**
+     * Get Event Time's Location
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
     public function getTimeLocation(Request $request){
         $response = $this->eventLocationService->getTimeLocation($request);
         return response()->json([

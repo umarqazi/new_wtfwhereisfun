@@ -4779,6 +4779,7 @@ a > img{
    max-height: inherit;
    width: auto;
    max-height: 200px;
+   object-fit: cover;
 }
 
 form#profile-image,form#organizers-profile-image{

@@ -666,8 +666,10 @@ function isShippingBilling(obj){
     element = $(obj);
     if(element.is(":checked")){
         $('.billing-address-wrap').hide().find('input').val('');
+        $('#address-information #basic_checkbox_1').attr('value', true)
     }else{
         $('.billing-address-wrap').show();
+        $('#address-information #basic_checkbox_1').attr('value', false)
     }
 
 }

@@ -27,6 +27,8 @@ class UserProfile extends FormRequest
             'first_name'        =>  'required|string|max:35',
             'last_name'         =>  'required|string|max:35',
             'prefix'            =>  'required',
+            'job_title'         =>  'string',
+            'company'           =>  'string'
         ];
     }
 

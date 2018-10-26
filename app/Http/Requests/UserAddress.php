@@ -28,10 +28,10 @@ class UserAddress extends FormRequest
             'shipping_country'  =>  'required|integer',
             'shipping_state'    =>  'required|integer',
             'shipping_city'     =>  'required|integer',
-            'billing_address'   =>  'required_if:is_billing_shipping,0',
-            'billing_country'   =>  'required_if:is_billing_shipping,0|integer',
-            'billing_state'     =>  'required_if:is_billing_shipping,0|integer',
-            'billing_city'      =>  'required_if:is_billing_shipping,0|integer',
+            'billing_address'   =>  'required_if:is_billing_shipping,false',
+            'billing_country'   =>  'required_if:is_billing_shipping,false|integer',
+            'billing_state'     =>  'required_if:is_billing_shipping,false|integer',
+            'billing_city'      =>  'required_if:is_billing_shipping,false|integer',
         ];
     }
 }

@@ -26,7 +26,19 @@ class EventLayout extends FormRequest
         return [
             'event_layout'      => 'required|integer',
             'header_image'      => 'required|image|dimensions:min_width=1600,min_height=900',
-            'gallery_medium'    => 'required|image|dimensions:min_width=600,min_height=600',
+        ];
+    }
+
+    /**
+     * Get the error messages for the defined validation rules.
+     *
+     * @return array
+     */
+    public function messages()
+    {
+        return [
+            'event_layout.required'     => 'Please select an Event Layout',
+            'header_image.required'     => 'Please upload Event Main Image',
         ];
     }
 }
