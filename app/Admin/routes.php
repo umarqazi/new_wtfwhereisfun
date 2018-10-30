@@ -9,7 +9,8 @@ Route::group([
     'middleware'    => config('admin.route.middleware'),
 ], function (Router $router) {
     $router->get('/', 'HomeController@index');
-    $router->resource('auth/simple-users', 'UserController');
+    $router->resource('auth/vendors', 'VendorController');
+    $router->resource('auth/customers', 'CustomerController');
     $router->resource('auth/simple-users-roles', 'RoleController');
     $router->resource('auth/simple-users-permissions', 'PermissionController');
 });

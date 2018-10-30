@@ -13,26 +13,8 @@ use App\Services\UserServices;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
 
-class UserController extends Controller
+class CustomerController extends Controller
 {
-    protected  $userServices;
-
-    public function __construct(UserServices $userServices)
-    {
-        $this->userServices = $userServices;
-    }
-
-    public function userCount(){
-        $countUsers = $this->userServices->countUsers();
-        return view('admin::dashboard.blocks',
-            [
-                'value'      => $countUsers,
-                'label'      => 'Users',
-                'url'        => '/admin/auth/simple-users',
-                'urlLabel'   => 'All Users'
-            ]
-        );
-    }
 
     /**
      * Index interface.
@@ -42,21 +24,8 @@ class UserController extends Controller
     public function index()
     {
         return Admin::content(function (Content $content) {
-            $content->header(trans('Users'));
-            $content->description(trans('User List'));
-            $content->body($this->grid()->render());
-        });
-    }
-
-    /**
-     * All Vendors Interface.
-     *
-     * @return Content
-     */
-    public function getAllVendors(){
-        return Admin::content(function (Content $content) {
-            $content->header(trans('Vendors'));
-            $content->description(trans('Vendor List'));
+            $content->header(trans('Customers'));
+            $content->description(trans('Customer List'));
             $content->body($this->grid()->render());
         });
     }
@@ -102,7 +71,6 @@ class UserController extends Controller
             $grid->id('ID')->sortable();
             $grid->name()->sortable();
             $grid->column('email','Email');
-            $grid->roles()->pluck('name')->label();
             $grid->column('created_at','Created at')->sortable();
             $grid->column('updated_at','Last Updated at')->sortable();
             $grid->filter(function ($filter){
@@ -110,14 +78,14 @@ class UserController extends Controller
                 $filter->like('email');
             });
             $grid->actions(function (Grid\Displayers\Actions $actions) {
-                $actions->append('<a href="'.$actions->getResource().'/'.$actions->getKey().'/"><i class="fa fa-eye"></i></a>');
+                //
             });
             $grid->tools(function (Grid\Tools $tools) {
                 $tools->batch(function (Grid\Tools\BatchActions $actions) {
                     $actions->disableDelete();
                 });
             });
-        })->where('email', 'jazib.javed@gems.techverx.com');
+        });
     }
 
     /**
@@ -147,11 +115,7 @@ class UserController extends Controller
                 ->default(function ($form) {
                     return $form->model()->password;
                 })->placeholder('Confirm Password...');
-//            $form->multipleSelect('roles', trans('Roles'))->options(function () {
-//                return Role::all()->pluck('name', 'id');
-//            })->rules('required')->placeholder('Select Role...');
             $form->radio('role', trans('Roles'))->options($roles)->default($current_role);
-//            $form->html('<b>Note*:</b> Please do not enter more than one Role.');
             $form->ignore(['password_confirmation', 'role']);
             $form->saving(function (Form $form) use ($user){
                 if ($form->password && $form->model()->password != $form->password) {

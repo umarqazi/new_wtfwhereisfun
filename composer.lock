@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "acc91140ee9896b0bbe4a27d0dc90392",
+    "content-hash": "54770c1500e930c9163e877621a48254",
     "packages": [
         {
             "name": "cornford/googlmapper",
@@ -628,16 +628,16 @@
         },
         {
             "name": "encore/laravel-admin",
-            "version": "v1.6.5",
+            "version": "v1.6.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/z-song/laravel-admin.git",
-                "reference": "01c6dea115da521782aa5bab939227b4fe17ce2d"
+                "reference": "d4950856fe59be95e7d5f9cfeaad1da3f7320cbc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/z-song/laravel-admin/zipball/01c6dea115da521782aa5bab939227b4fe17ce2d",
-                "reference": "01c6dea115da521782aa5bab939227b4fe17ce2d",
+                "url": "https://api.github.com/repos/z-song/laravel-admin/zipball/d4950856fe59be95e7d5f9cfeaad1da3f7320cbc",
+                "reference": "d4950856fe59be95e7d5f9cfeaad1da3f7320cbc",
                 "shasum": ""
             },
             "require": {
@@ -695,7 +695,7 @@
                 "grid",
                 "laravel"
             ],
-            "time": "2018-10-18T02:28:39+00:00"
+            "time": "2018-10-25T09:02:19+00:00"
         },
         {
             "name": "ernysans/laraworld",

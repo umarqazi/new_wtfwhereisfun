@@ -7,7 +7,7 @@
     "require": {
         "php": ">=7.0.0",
         "cornford/googlmapper": "2.*",
-        "encore/laravel-admin": "^1.5",
+        "encore/laravel-admin": "^1.6",
         "ernysans/laraworld": "^1.0",
         "fideloper/proxy": "~3.3",
         "fzaninotto/faker": "^1.8",

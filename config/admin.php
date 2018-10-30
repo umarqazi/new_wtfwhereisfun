@@ -5,7 +5,7 @@ return [
     /*
      * Laravel-admin name.
      */
-    'name' => 'Contextionary',
+    'name' => "WTF Where's The Fun",
 
     /*
      * Logo in admin panel header.
@@ -15,7 +15,7 @@ return [
     /*
      * Mini-logo in admin panel header.
      */
-    'logo-mini' => '<b>Cntx</b>',
+    'logo-mini' => '<b>WTF</b>',
 
     /*
      * Route configuration.

@@ -17,16 +17,15 @@ class HomeController extends Controller
 {
     public function index()
     {
-
         $userServices = new UserServices();
         $usersController = new UserController($userServices);
         return Admin::content(function (Content $content) use ($usersController){
             $content->header('Dashboard');
             $content->description('Admin Dashboard');
             $content->row($usersController->userCount().$usersController->userCount().$usersController->userCount().$usersController->userCount());
-            $content->row(Dashboard::title());
         });
     }
+
     public function userListing()
     {
         return Admin::content(function (Content $content){
