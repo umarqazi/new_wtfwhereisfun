@@ -3,14 +3,22 @@
 use Illuminate\Routing\Router;
 
 Admin::registerAuthRoutes();
+
 Route::group([
+    'middleware'    => config('admin.route.middleware'),
     'prefix'        => config('admin.route.prefix'),
     'namespace'     => config('admin.route.namespace'),
-    'middleware'    => config('admin.route.middleware'),
 ], function (Router $router) {
     $router->get('/', 'HomeController@index');
-    $router->resource('auth/vendors', 'VendorController');
-    $router->resource('auth/customers', 'CustomerController');
-    $router->resource('auth/simple-users-roles', 'RoleController');
-    $router->resource('auth/simple-users-permissions', 'PermissionController');
+
+    Route::prefix('auth')->group(function (Router $router) {
+        $router->resource('vendors', 'VendorController');
+        $router->resource('testimonials', 'TestimonialController');
+        $router->resource('categories', 'CategoryController');
+        $router->resource('event-types', 'EventTypeController');
+        $router->resource('event-topics', 'EventTopicController');
+        $router->resource('blogs', 'BlogController');
+        $router->resource('contents', 'ContentPageController');
+    });
+
 });
