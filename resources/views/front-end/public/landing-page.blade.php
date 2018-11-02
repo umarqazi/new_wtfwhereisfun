@@ -184,7 +184,7 @@
                                 <div class="ex-cities-item-wrap">
                                     <a href="javascript:void(0)">
                                         <div class="ex-cities-img-box">
-                                            <img src="{{url('images/'.$category->image)}}" />
+                                            <img src="{{asset('storage/'.$category->image)}}" />
                                         </div>
                                         <div class="ex-cities-title-wrap">
                                             <h3 class="ex-cities-title">{{$category->name}}</h3>
@@ -213,7 +213,7 @@
                         <div class="items">
                             <div class="testimonial-content text-center">
                                 <div class="testimonial-profile-img">
-                                    <img src="{{ $testimonial->thumbnail }}">
+                                    <img src="{{ asset('storage/'.$testimonial->image)}}">
                                 </div>
                                 <div class="testimonial-dis">
                                     <p>{{str_limit($testimonial->description, 160)}}</p>

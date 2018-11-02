@@ -25,7 +25,6 @@ class CreateEventsTable extends Migration
             $table->string('slug')->nullable();
             $table->text('additional_message')->nullable();
             $table->tinyInteger('total_capacity')->nullable();
-            $table->integer('refund_policy_id')->nullable();
             $table->tinyInteger('is_draft')->nullable()->default(0);
             $table->tinyInteger('is_online')->nullable();
             $table->tinyInteger('ticket_flag')->nullable();

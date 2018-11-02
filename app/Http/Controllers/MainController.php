@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Content;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Validator;
@@ -9,7 +8,6 @@ use Alert;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\ForgetPassword;
-use App\User;
 use App\ResetPassword;
 use Illuminate\Support\Facades\Config;
 use App\Services\UserServices;
@@ -21,7 +19,6 @@ use App\Services\Events\EventListingService;
 use Illuminate\Http\Response;
 use App\UserVerification;
 use App\Http\Requests\RegisterUser;
-use App\Role;
 use Illuminate\Support\Facades\Hash;
 use App\Mail\VerifyMail;
 use Illuminate\Support\Facades\Crypt;

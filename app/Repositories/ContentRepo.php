@@ -3,11 +3,11 @@
 
 namespace App\Repositories;
 
-use App\Content;
+use App\ContentPage;
 class ContentRepo
 {
     public function getContent($type){
-        return Content::where('type', $type)->first();
+        return ContentPage::where('type', $type)->first();
     }
 
 }

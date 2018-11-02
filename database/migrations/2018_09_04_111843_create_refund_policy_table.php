@@ -20,7 +20,7 @@ class CreateRefundPolicyTable extends Migration
         });
 
         Schema::table('events', function (Blueprint $table) {
-            $table->integer('refund_policy_id')->unsigned()->change();
+            $table->integer('refund_policy_id')->unsigned()->nullable();
             $table->foreign('refund_policy_id')->references('id')->on('refund_policies')->onDelete('cascade')->onUpdate('cascade');
         });
     }
