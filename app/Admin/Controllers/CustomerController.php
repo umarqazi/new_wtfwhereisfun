@@ -242,7 +242,7 @@ class CustomerController extends Controller
                 'url'       => '/admin/auth/customers',
                 'urlLabel'  => 'All Customers',
                 'class'     => '',
-                'color'     => ''
+                'color'     => 'orange'
             ]
         );
     }
