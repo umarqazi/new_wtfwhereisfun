@@ -242,7 +242,8 @@ class CustomerController extends Controller
                 'url'       => '/admin/auth/customers',
                 'urlLabel'  => 'All Customers',
                 'class'     => '',
-                'color'     => 'orange'
+                'color'     => 'orange',
+                'icon'      => 'fa-user'
             ]
         );
     }

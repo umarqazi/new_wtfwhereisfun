@@ -241,7 +241,8 @@ class VendorController extends Controller
                 'url'       => '/admin/auth/vendors',
                 'urlLabel'  => 'All Vendors',
                 'class'     => '',
-                'color'     => 'aqua'
+                'color'     => 'aqua',
+                'icon'      => 'fa-users'
             ]
         );
     }

@@ -8,7 +8,7 @@
         </div>
     </div>
     <div class="icon">
-        <i class="fa fa-users"></i>
+        <i class="fa {{$icon}}"></i>
     </div>
     <a href="{{url($url)}}" class="small-box-footer">{{$urlLabel}}<i class="fa fa-arrow-circle-right"></i></a>
 </div>

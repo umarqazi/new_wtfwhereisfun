@@ -14,6 +14,11 @@ use Encore\Admin\Facades\Admin;
 class HomeController extends Controller
 {
     protected $customerController;
+
+    protected $vendorController;
+
+    protected $eventController;
+
     /**
      * HomeController constructor.
      */

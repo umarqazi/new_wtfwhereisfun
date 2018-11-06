@@ -242,7 +242,8 @@ class EventController extends Controller
                 'url'       => '/admin/auth/events',
                 'urlLabel'  => 'All Events',
                 'class'     => '',
-                'color'     => 'olive'
+                'color'     => 'olive',
+                'icon'      => 'fa-calendar'
             ]
         );
     }
