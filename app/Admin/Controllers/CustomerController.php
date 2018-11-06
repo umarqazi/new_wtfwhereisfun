@@ -9,9 +9,8 @@ use Encore\Admin\Form;
 use Encore\Admin\Grid;
 use Encore\Admin\Layout\Content;
 use Encore\Admin\Show;
-use Illuminate\Support\Facades\App;
 
-class VendorController extends Controller
+class CustomerController extends Controller
 {
     use HasResourceActions;
 
@@ -24,8 +23,8 @@ class VendorController extends Controller
     public function index(Content $content)
     {
         return $content
-            ->header('Vendors')
-            ->description('All Vendors')
+            ->header('Customers')
+            ->description('All Customers')
             ->body($this->grid());
     }
 
@@ -39,7 +38,7 @@ class VendorController extends Controller
     public function show($id, Content $content)
     {
         return $content
-            ->header('Vendor')
+            ->header('Customer')
             ->description('Details')
             ->body($this->detail($id));
     }
@@ -54,7 +53,7 @@ class VendorController extends Controller
     public function edit($id, Content $content)
     {
         return $content
-            ->header('Vendor')
+            ->header('Customer')
             ->description('Edit Form')
             ->body($this->form()->edit($id));
     }
@@ -68,7 +67,7 @@ class VendorController extends Controller
     public function create(Content $content)
     {
         return $content
-            ->header('Vendor')
+            ->header('Customer')
             ->description('Create Form')
             ->body($this->form());
     }
@@ -82,8 +81,9 @@ class VendorController extends Controller
     {
         $grid = new Grid(new User);
         $grid->model()->whereHas('roles', function($query){
-            return $query->where('name', 'vendor');
+            return $query->where('name', 'normal');
         });
+
         $grid->id('Id');
         $grid->first_name('First name');
         $grid->last_name('Last name');
@@ -118,9 +118,9 @@ class VendorController extends Controller
 
         $grid->is_blocked('Block')->display(function ($block) {
             if($block == 1){
-                return '<a class="btn btn-success" href="vendors/unblock/'.$this->getKey().'" >UnBlock</a>';
+                return '<a class="btn btn-success" href="customers/unblock/'.$this->getKey().'" >UnBlock</a>';
             }else{
-                return '<a class="btn btn-danger" href="vendors/block/'.$this->getKey().'" >Block</a>';
+                return '<a class="btn btn-danger" href="customers/block/'.$this->getKey().'" >Block</a>';
             }
         });
 
@@ -138,8 +138,9 @@ class VendorController extends Controller
     protected function detail($id)
     {
         $show = new Show(User::findOrFail($id));
-        $directory  = getDirectory('vendors', $id);
-        $show->profile_thumbnail()->image($directory['web_path']);
+
+        $directory = getDirectory('customers', $id);
+        $show->profile_thumbnail('Profile Picture')->image($directory['web_path']);
         $show->first_name('First name');
         $show->last_name('Last name');
         $show->username('Username');
@@ -205,7 +206,7 @@ class VendorController extends Controller
         });
 
         $form->saved(function (Form $form){
-            $form->model()->assignRole('vendor');
+            $form->model()->assignRole('normal');
         });
 
         return $form;
@@ -217,7 +218,7 @@ class VendorController extends Controller
         $user->save();
 
         admin_toastr('User UnBlocked', 'success');
-        return redirect('admin/auth/vendors');
+        return redirect('admin/auth/customers');
     }
 
     public function blockVendor($id){
@@ -226,20 +227,20 @@ class VendorController extends Controller
         $user->save();
 
         admin_toastr('User Blocked', 'error');
-        return redirect('admin/auth/vendors');
+        return redirect('admin/auth/customers');
     }
 
     public function dashboardBlock(){
-        $countVendors = User::whereHas('roles', function($query){
-            $query->where('name', 'vendor');
+        $countCustomers = User::whereHas('roles', function($query){
+            return $query->where('name', 'normal');
         })->get()->count();
 
         return view('admin::dashboard.block',
             [
-                'text'      => 'Vendors',
-                'count'     =>  $countVendors,
-                'url'       => '/admin/auth/vendors',
-                'urlLabel'  => 'All Vendors',
+                'text'      => 'Customers',
+                'count'     =>  $countCustomers,
+                'url'       => '/admin/auth/customers',
+                'urlLabel'  => 'All Customers',
                 'class'     => '',
                 'color'     => ''
             ]

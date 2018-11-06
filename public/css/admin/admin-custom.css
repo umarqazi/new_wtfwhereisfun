@@ -1,0 +1,65 @@
+.dashboard-blocks{
+    padding : 20px;
+}
+
+.dashboard-blocks .icon{
+
+}
+
+.dashboard-blocks .content-details{
+    float:right;
+}
+
+.green{
+    background-color : #00a65a;
+}
+
+.dashboard-blocks{
+    background: #fff;
+    -webkit-box-shadow: 0px 0px 8px 0px rgba(0,0,0,0.23);
+    -moz-box-shadow: 0px 0px 8px 0px rgba(0,0,0,0.23);
+    box-shadow: 0px 0px 8px 0px rgba(0,0,0,0.23);
+    padding: 20px;
+    margin-top: 30px;
+}
+
+.dashboard-blocks .icon{
+    text-align: center;
+}
+
+.dashboard-blocks .dashboard-links{
+    display: block;
+    color: #5aa75b;
+    position: relative;
+    padding: 5px 0px;
+    margin-bottom: 5px;
+    font-size: 22px;
+    text-transform: uppercase;
+}
+
+.dashboard-blocks i{
+    font-size: 18px;
+    margin-bottom: 10px;
+    border: #d6d6d6 solid 1px;
+    width: 60px;
+    height: 60px;
+    line-height: 60px;
+    border-radius: 50%;
+    color: #5aa75b;
+}
+
+.dashboard-blocks .dashboard-links:after{
+    position: absolute;
+    content: '';
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    bottom: 0;
+    width: 50px;
+    height: 2px;
+    background: #5aa75b;
+}
+
+.dashboard-blocks p{
+    font-size: 20px;
+}

@@ -14,6 +14,11 @@ class BlogController extends Controller
 {
     use HasResourceActions;
 
+    public function __construct()
+    {
+        $this->blogsDirectory = getDirectory('blogs');
+    }
+
     /**
      * Index interface.
      *
@@ -86,7 +91,7 @@ class BlogController extends Controller
         $grid->description()->display(function($text) {
             return str_limit($text, 80, '...');
         });
-        $grid->image('Image')->image('', 100, 100);
+        $grid->image('Image')->image($this->blogsDirectory['web_path'] , 100, 100);
         $grid->created_at('Created at');
         $grid->updated_at('Updated at');
 
@@ -117,10 +122,9 @@ class BlogController extends Controller
     {
         $show = new Show(Blog::findOrFail($id));
 
-        $show->id('Id');
         $show->title('Title');
         $show->description('Description');
-        $show->image('Image')->image();
+        $show->image('Image')->image($this->blogsDirectory['web_path']);
         $show->created_at('Created at');
         $show->updated_at('Updated at');
 
@@ -138,7 +142,7 @@ class BlogController extends Controller
 
         $form->text('title', 'Title')->rules('required');
         $form->ckeditor('description', 'Description')->rules('required');
-        $form->image('image', 'Image')->default('NULL');
+        $form->image('image', 'Image')->default('NULL')->placeholder('Upload Testimonial Image')->move('uploads/blogs')->uniqueName()->rules('required|dimensions:min_width=600,min_height=600');
 
         $form->footer(function ($footer){
             // disable `View` checkbox
@@ -149,6 +153,16 @@ class BlogController extends Controller
 
             // disable `Continue Creating` checkbox
             $footer->disableCreatingCheck();
+        });
+
+
+        $form->saved(function (Form $form){
+            $fileName = basename($form->model()->image);
+            $blog = Blog::find($form->model()->id);
+            $blog->image = $fileName;
+            $blog->thumbnail = $fileName;
+            $blog->update();
+            return redirect(admin_base_path('auth/blogs'));
         });
 
         return $form;

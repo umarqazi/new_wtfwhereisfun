@@ -116,7 +116,6 @@ class ContentPageController extends Controller
     {
         $show = new Show(ContentPage::findOrFail($id));
 
-        $show->id('Id');
         $show->type('Type');
         $show->content('Content');
         $show->created_at('Created at');

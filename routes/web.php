@@ -60,7 +60,7 @@ Route::group(['middleware' => ['web']], function () {
         Route::post('get-country-states', 'AddressController@getCountryStates');
         Route::post('get-state-cities', 'AddressController@getStateCities');
 
-        Route::group(['middleware' => ['role:vendor','auth']], function () {
+        Route::group(['middleware' => ['role:vendor']], function () {
             Route::get('dashboard',  'UsersController@vendorDashboard');
 
             Route::resource('events', 'EventController');
@@ -97,7 +97,6 @@ Route::group(['middleware' => ['web']], function () {
 
             });
 
-
             /*Organzier Routes*/
             Route::resource('organizers', 'OrganizerController');
             Route::post('organizers/update-profile', 'OrganizerController@profileUpdate');
@@ -105,9 +104,6 @@ Route::group(['middleware' => ['web']], function () {
             Route::post('organizers/update-profile-colors', 'OrganizerController@profileColorsUpdate');
             Route::post('organizers/upload-image', 'OrganizerController@uploadImage');
             Route::post('organizers/remove-image', 'OrganizerController@removeImage');
-
-
-
 
         });
     });
@@ -118,7 +114,6 @@ Route::group(['middleware' => ['web']], function () {
         Route::get('{id}', 'EventController@show');
         Route::post('get-time-location', 'EventController@getTimeLocation');
     });
-
 
 });
 

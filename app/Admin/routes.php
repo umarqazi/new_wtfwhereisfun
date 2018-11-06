@@ -13,12 +13,29 @@ Route::group([
 
     Route::prefix('auth')->group(function (Router $router) {
         $router->resource('vendors', 'VendorController');
+        $router->resource('customers', 'CustomerController');
         $router->resource('testimonials', 'TestimonialController');
         $router->resource('categories', 'CategoryController');
         $router->resource('event-types', 'EventTypeController');
         $router->resource('event-topics', 'EventTopicController');
         $router->resource('blogs', 'BlogController');
         $router->resource('contents', 'ContentPageController');
+        $router->resource('events', 'EventController');
+
+        Route::prefix('events')->group(function (Router $router) {
+            $router->get('approve/{id}', 'EventController@approveEvent');
+            $router->get('block/{id}', 'EventController@blockEvent');
+        });
+
+        Route::prefix('vendors')->group(function (Router $router) {
+            $router->get('unblock/{id}', 'VendorController@unBlockVendor');
+            $router->get('block/{id}', 'VendorController@blockVendor');
+        });
+
+        Route::prefix('customers')->group(function (Router $router) {
+            $router->get('unblock/{id}', 'CustomerController@unBlockVendor');
+            $router->get('block/{id}', 'CustomerController@blockVendor');
+        });
     });
 
 });

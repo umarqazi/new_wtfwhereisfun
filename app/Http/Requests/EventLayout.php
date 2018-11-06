@@ -25,7 +25,7 @@ class EventLayout extends FormRequest
     {
         return [
             'event_layout'      => 'required|integer',
-            'header_image'      => 'required|image|dimensions:min_width=1600,min_height=900',
+            'header_image'      => 'required|image|dimensions:min_width=1600,min_height=700',
         ];
     }
 

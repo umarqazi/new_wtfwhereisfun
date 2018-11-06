@@ -5841,3 +5841,7 @@ i, cite, em, var, address, dfn {
 #locations h4 a{
    font-size : 14px;
 }
+
+.admin-event-preview{
+   margin-right : 3px;
+}

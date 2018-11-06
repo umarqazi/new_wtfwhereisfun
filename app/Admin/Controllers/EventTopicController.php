@@ -114,7 +114,6 @@ class EventTopicController extends Controller
     {
         $show = new Show(EventTopic::findOrFail($id));
 
-        $show->id('Id');
         $show->name('Name');
         $show->slug('Slug');
         $show->created_at('Created at');

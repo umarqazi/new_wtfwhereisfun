@@ -185,7 +185,7 @@ class UsersController extends Controller
      */
     public function uploadImage(Request $request)
     {
-        $response = $this->userImageService->uploadImage($request, 'vendors', Auth::user()->id);
+        $response = $this->userImageService->uploadImage($request, Auth::user());
         return response()->json([
             'type'      =>      'success',
             'msg'       =>      Config::get('constants.PROFILEINFO_SUCCESS'),

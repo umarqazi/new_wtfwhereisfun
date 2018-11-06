@@ -17,10 +17,15 @@ class UserImageService extends BaseService implements IService
         $this->imageService     = new ImageService();
     }
 
-    public function uploadImage($request, $type, $id){
+    public function uploadImage($request, $user){
+        if($user->hasRole('vendor')){
+            $type = 'vendors';
+        }else{
+            $type = 'customers';
+        }
         if($request->hasFile('thumbnail')){
-            $fileName = $this->imageService->uploadImage($request->file('thumbnail'),$type, $id);
-            $this->userRepo->updateProfileImage($fileName, $id);
+            $fileName = $this->imageService->uploadImage($request->file('thumbnail'), $type, $user->id);
+            $this->userRepo->updateProfileImage($fileName, $user->id);
         }
     }
 

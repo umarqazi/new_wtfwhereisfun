@@ -12,7 +12,7 @@ class ContentTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('contents')->delete();
+        DB::table('content_pages')->delete();
         $content = array(
             array('created_at' => Carbon::now()->format('Y-m-d H:i:s'), 'type' => 'ABOUT_US', 'content' => '<p style="text-align: center;">We are living in a time of constant innovation, where the opportunity to explore the</p>
 <p style="text-align: center;">hundreds of thrill-seeking events is endless, maybe even a &ldquo;click&rdquo; away. So why does</p>
@@ -410,6 +410,6 @@ class ContentTableSeeder extends Seeder
 <p style="line-height: 20.1pt; background: white; box-sizing: border-box; font-stretch: normal; orphans: 2; text-align: start; widows: 2; -webkit-text-stroke-width: 0px; text-decoration-style: initial; text-decoration-color: initial; word-spacing: 0px; margin: 0pt 0pt 7.55pt 0pt;"><span style="font-size: 13.5pt; font-family: arial, helvetica, sans-serif;">When you enter sensitive information (such as credit card numbers), we encrypt that information using secure socket layer technology (SSL). We follow generally accepted industry standards to protect the personal information submitted to us, both during transmission and once we receive it. No method of transmission over the Internet, or method of electronic storage, is 100% secure, however. Therefore, we cannot guarantee its absolute security. If you have any questions about security on our Service, you can contact us at support@wtfwheresthefun.com.</span></p>
 <h2 style="line-height: 23.45pt; background: white; box-sizing: border-box; -webkit-font-smoothing: antialiased; font-stretch: normal; orphans: 2; text-align: start; widows: 2; -webkit-text-stroke-width: 0px; text-decoration-style: initial; text-decoration-color: initial; word-spacing: 0px; margin: 15.05pt 0pt 7.55pt 0pt;"><span style="font-size: 17pt; font-family: arial, helvetica, sans-serif; letter-spacing: -0.2pt; font-weight: normal;">Compromise of Personal Information</span></h2>')
         );
-        DB::table('contents')->insert($content);
+        DB::table('content_pages')->insert($content);
     }
 }
