@@ -114,7 +114,6 @@ class EventTypeController extends Controller
     {
         $show = new Show(EventType::findOrFail($id));
 
-        $show->id('Id');
         $show->name('Name');
         $show->slug('Slug');
         $show->created_at('Created at');

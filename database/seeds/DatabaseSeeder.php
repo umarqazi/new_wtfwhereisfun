@@ -58,5 +58,26 @@ class DatabaseSeeder extends Seeder
 
         // Seed the Event Layouts
         $this->call(EventLayoutsTableSeeder::class);
+
+        // Seed the Admin Panel Menu
+        $this->call(AdminMenuSeeder::class);
+
+        // Seed the Admin User
+        $this->call(AdminUser::class);
+
+        // Seed the Admin Role
+        $this->call(AdminRole::class);
+
+        // Seed the Admin Role User
+        $this->call(AdminRoleUser::class);
+
+        // Seed the Admin Permissions
+        $this->call(AdminPermissions::class);
+
+        // Seed the Admin Permissions
+        $this->call(AdminRolePermission::class);
+
+
+
     }
 }

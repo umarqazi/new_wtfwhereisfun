@@ -15,6 +15,11 @@ class CategoryController extends Controller
 {
     use HasResourceActions;
 
+    public function __construct()
+    {
+        $this->categoriesDirectory = getDirectory('categories');
+    }
+
     /**
      * Index interface.
      *
@@ -85,7 +90,7 @@ class CategoryController extends Controller
         $grid->id('Id');
         $grid->name('Name');
         $grid->slug('Slug');
-        $grid->image()->image('', 100, 100);
+        $grid->image()->image($this->categoriesDirectory['web_path'], 100, 100);
         $grid->created_at('Created at');
         $grid->updated_at('Updated at');
 
@@ -102,10 +107,9 @@ class CategoryController extends Controller
     {
         $show = new Show(Category::findOrFail($id));
 
-        $show->id('Id');
         $show->name('Name');
         $show->slug('Slug');
-        $show->image()->image();
+        $show->image()->image($this->categoriesDirectory['web_path']);
         $show->created_at('Created at');
         $show->updated_at('Updated at');
 
@@ -121,8 +125,8 @@ class CategoryController extends Controller
     {
         $form = new Form(new Category);
 
-        $form->text('name', 'Name');
-        $form->image('image', 'Image')->placeholder('Upload Category Image')->move('uploads/categories/')->uniqueName();
+        $form->text('name', 'Name')->placeholder('Category Name')->rules('max:30');
+        $form->image('image', 'Image')->placeholder('Upload Category Image')->move('uploads/categories')->uniqueName()->rules('required|dimensions:min_width=500,min_height=400');
 
         $form->footer(function ($footer){
             // disable `View` checkbox
@@ -136,15 +140,14 @@ class CategoryController extends Controller
         });
 
         $form->saved(function (Form $form){
-            $img = str_replace('public/', '', $form->model()->image);
+            $fileName = basename($form->model()->image);
             $category = Category::find($form->model()->id);
-            $category->image = $img;
-            $category->thumbnail = $img;
+            $category->image = $fileName;
+            $category->thumbnail = $fileName;
             $category->slug = str_slug($category->name , '-');
             $category->update();
             return redirect(admin_base_path('auth/categories'));
         });
-
 
         return $form;
     }

@@ -14,6 +14,11 @@ class TestimonialController extends Controller
 {
     use HasResourceActions;
 
+    public function __construct()
+    {
+        $this->testimonialsDirectory = getDirectory('testimonials');
+    }
+
     /**
      * Index interface.
      *
@@ -86,7 +91,7 @@ class TestimonialController extends Controller
         $grid->description()->display(function($text) {
             return str_limit($text, 50, '...');
         });
-        $grid->image()->image('', 100,100);
+        $grid->image()->image($this->testimonialsDirectory['web_path'], 100,100);
         $grid->created_at('Created at');
         $grid->updated_at('Updated at');
 
@@ -116,10 +121,9 @@ class TestimonialController extends Controller
     {
         $show = new Show(Testimonial::findOrFail($id));
 
-        $show->id('Id');
         $show->name('Name');
         $show->description('Description');
-        $show->image()->image();
+        $show->image()->image($this->testimonialsDirectory['web_path']);
         $show->created_at('Created at');
         $show->updated_at('Updated at');
 
@@ -135,9 +139,9 @@ class TestimonialController extends Controller
     {
         $form = new Form(new Testimonial);
 
-        $form->text('name', 'User Name')->placeholder('User Name');
-        $form->textarea('description', 'Description')->placeholder('Description');
-        $form->image('image', 'Image')->placeholder('Upload Testimonial Image')->move('uploads/testimonials/')->uniqueName();
+        $form->text('name', 'User Name')->placeholder('User Name')->rules('required|max:30');
+        $form->textarea('description', 'Description')->placeholder('Description')->rules('required');
+        $form->image('image', 'Image')->placeholder('Upload Testimonial Image')->move('uploads/testimonials')->uniqueName()->rules('required|dimensions:min_width=200,min_height=200');
         $form->footer(function ($footer){
             // disable `View` checkbox
             $footer->disableViewCheck();
@@ -150,10 +154,10 @@ class TestimonialController extends Controller
         });
 
         $form->saved(function (Form $form){
-            $img = str_replace('public/', '', $form->model()->image);
+            $fileName = basename($form->model()->image);
             $testimonial = Testimonial::find($form->model()->id);
-            $testimonial->image = $img;
-            $testimonial->thumbnail = $img;
+            $testimonial->image = $fileName;
+            $testimonial->thumbnail = $fileName;
             $testimonial->update();
             return redirect(admin_base_path('auth/testimonials'));
         });
