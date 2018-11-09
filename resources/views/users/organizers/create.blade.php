@@ -50,16 +50,38 @@
                                             <div class="ccol-xs-12 col-sm-12 col-md-6">
                                                 <div class="form-group">
                                                     <label for="">About the organizer</label>
-                                                    <input class="form-control" placeholder="About the organizer" id="" name="descprition" required="" type="text">
+                                                    <input class="form-control" type="text" placeholder="About the organizer" name="description" required />
                                                     <span class="field-beffect"></span>
                                                     <div class="form-error description"></div>
-                                                    <div class="checkbox-feild-wrap">
-                                                        <input type="checkbox" id="organizing-events" name="is_allowed_on_event_page" value="1">
-                                                        <label for="organizing-events">Use this description on my event pages </label>
+                                                    <div class="form-group">
+                                                        <input type="checkbox" id="basic_checkbox_1" name="is_allowed_on_event_page" class="form-control" value="1">
+                                                        <label for="basic_checkbox_1">Use this description on my event pages </label>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
+
+                                        <div class="row">
+                                            <div class="col-xs-12 col-sm-12 col-md-6">
+                                                <div class="form-group">
+                                                    <label for="">Email</label>
+                                                    <input class="form-control" placeholder="Email Address" id="" name="email" required type="email">
+                                                    <span class="field-beffect"></span>
+                                                    <div class="form-error email"></div>
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-12 col-sm-12 col-md-6">
+                                                <div class="form-group organizer-pages-url">
+                                                    <label for="">Contact</label>
+                                                    <div id="organizer-edit-url-input">
+                                                        <input class="form-control" placeholder="202-555-0191" name="contact" required type="text">
+                                                        <span class="field-beffect"></span>
+                                                        <div class="form-error contact"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
                                         <div class="row">
                                             <div class="col-xs-12 col-sm-12 col-md-6">
                                                 <div class="form-group">
@@ -71,13 +93,11 @@
                                             </div>
                                             <div class="col-xs-12 col-sm-12 col-md-6">
                                                 <div class="form-group organizer-pages-url">
-                                                    <label for="">Organizer page URL
-                                                    </label>
+                                                    <label for="">Location</label>
                                                     <div id="organizer-edit-url-input">
-                                                        <input class="form-control" placeholder="http://"
-                                                               name="organizer_url" required="" type="text" value="">
+                                                        <input class="form-control" placeholder="City, Country" name="location" required type="text">
                                                         <span class="field-beffect"></span>
-                                                        <div class="form-error organizer_url"></div>
+                                                        <div class="form-error location"></div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -161,10 +181,28 @@
                                         <div class="upload-profile-box">
                                             <div class="upload-profile-btn-wrap btn btn-default">
                                                 <span>choose file</span>
-                                                <input type="file" name="thumbnail" class="upload-profile-btn rounded-border"/>
+                                                <input type="file" name="thumbnail" onchange="readURL(this)" data-type="profile" class="upload-profile-btn rounded-border"/>
                                             </div>
                                             <div class="upload-profile-remove-btn">
-                                                <button type="button" class="btn btn-default hidden remove-photo-btn">Remove</button>
+                                                <button type="button" class="btn btn-default hidden remove-photo-btn" onclick="removeImagePreview(this)" data-type="profile">Remove</button>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="upload-profile-wrap">
+                                        <div class="organizer-header-img">
+                                            <img style="width:100%" alt="Organizer's Header Image" src="{{asset('img/dummy.jpg')}}">
+                                        </div>
+                                        <p class="upload-profile-dis">
+                                            JPG, GIF or PNG no larger than 1MB. Square images look the best!
+                                        </p>
+                                        <div class="upload-profile-box">
+                                            <div class="upload-profile-btn-wrap btn btn-default">
+                                                <span>choose file</span>
+                                                <input type="file" name="image" onchange="readURL(this)" data-type="header" class="upload-profile-btn rounded-border"/>
+                                            </div>
+                                            <div class="upload-profile-remove-btn">
+                                                <button type="button" class="btn btn-default hidden remove-photo-btn" onclick="removeImagePreview(this)" data-type="header">Remove</button>
                                             </div>
                                         </div>
                                     </div>

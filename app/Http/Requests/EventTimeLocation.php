@@ -29,8 +29,8 @@ class EventTimeLocation extends FormRequest
             'longitude'                 =>          'required',
             'event_address'             =>          'required|string',
             'timezone'                  =>          'required',
-            'start_date'                =>          'before:end_date|required',
-            'end_date'                  =>          'after:start_date|required',
+            'event_start_date'          =>          'before:event_end_date|required',
+            'event_end_date'            =>          'after:event_start_date|required',
         ];
     }
 

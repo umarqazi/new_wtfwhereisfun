@@ -4,7 +4,7 @@
         <div id="wiloke_about-3" class="widget widget_about widget_author widget_text">
 
             <div class="widget_author__header">
-                <a href="https://listgo.wiloke.com/author/dianelucas/">
+                <a href="{{url('organizer/'.$event->organizer->slug)}}">
                     <div class="widget_author__avatar">
                         @if(!is_null($event->organizer) && !empty($event->organizer->thumbnail))
                             @php $organizerDirectory = getDirectory('organizers', $event->organizer->id); @endphp

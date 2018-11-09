@@ -42,6 +42,8 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('reset-password/{token}', 'MainController@resetPassword');
     Route::post('do-reset-password', 'MainController@doResetPassword');
 
+    Route::get('organizer/{slug}', 'OrganizerController@organizerProfile');
+
     Route::resource('blogs', 'BlogController');
 
     Route::group(['middleware' => ['auth']], function () {

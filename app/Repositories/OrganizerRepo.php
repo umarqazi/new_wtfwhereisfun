@@ -43,8 +43,10 @@ class OrganizerRepo
 
         $organizer->name                    =       $request->name;
         $organizer->description             =       $request->description;
+        $organizer->contact                 =       $request->contact;
+        $organizer->email                   =       $request->email;
+        $organizer->location                =       $request->location;
         $organizer->website                 =       $request->website;
-        $organizer->organizer_url           =       $request->organizer_url;
         $organizer->facebook                =       $request->facebook;
         $organizer->twitter                 =       $request->twitter;
         $organizer->instagram               =       $request->instagram;
@@ -57,6 +59,10 @@ class OrganizerRepo
 
         $user  = Auth::user();
         $user->organizers()->save($organizer);
+
+        $organizer->slug                    =       str_slug($organizer->name , '-').'-'.encrypt_id($organizer->id);
+        $organizer->save();
+
         return $organizer;
     }
 
@@ -70,8 +76,11 @@ class OrganizerRepo
         $organizer->name                    =       $request->name;
         $organizer->description             =       $request->description;
         $organizer->website                 =       $request->website;
-        $organizer->organizer_url           =       $request->organizer_url;
+        $organizer->contact                 =       $request->contact;
+        $organizer->email                   =       $request->email;
+        $organizer->location                =       $request->location;
         $organizer->is_allowed_on_event_page=       $request->is_allowed_on_event_page;
+        $organizer->slug                    =       str_slug($request->name , '-').'-'.encrypt_id($organizer->id);
 
         $organizer->save();
         return $organizer;
@@ -107,8 +116,17 @@ class OrganizerRepo
         return $organizer->thumbnail;
     }
 
-    public function updateProfileImage($file, $id){
-        return $this->organizerModel->where('id', $id)->update(['thumbnail' => $file]);
+    public function updateProfileImage($updateData, $id){
+        return $this->organizerModel->where('id', $id)->update($updateData);
+    }
+
+    public function getBySlug($slug){
+        return $this->organizerModel->where('slug', $slug)->first();
+    }
+
+    public function getOrganizerEvents($id){
+        $organizer = $this->getOrganizer($id);
+
     }
 
 }

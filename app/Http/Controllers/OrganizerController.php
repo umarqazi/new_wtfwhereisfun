@@ -27,7 +27,6 @@ class OrganizerController extends Controller
     protected $organizerImageService;
     protected $imageService;
 
-
     public function __construct(){
 
         $this->organizerService             = new OrganizerService();
@@ -187,5 +186,11 @@ class OrganizerController extends Controller
     {
         $this->imageService->deleteImage('organizers', $request->organizer_id);
         return back();
+    }
+
+    public function organizerProfile($slug){
+        $organizer = $this->organizerService->getOrganizerBySlug($slug);
+        $events    = $this->organizerService->getOrganizerEvents($organizer->id);
+        return view('users.organizers.profile')->with(['organizer' => $organizer, 'events' => $events, 'organizerDirectory' => getDirectory('organizers', $organizer->id)]);
     }
 }

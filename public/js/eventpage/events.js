@@ -736,10 +736,12 @@ function eventImageUpdate(fieldObj, type)
         img.src = URL.createObjectURL(file);
         img.onload = function() {
             if(type == 'header' && this.width <= 1600 && this.height <= 700){
-                showToaster('error', 'Image Width must be 1600px & Height must be 900px');
+                showToaster('error', 'Image Width must be 1600px & Height must be 700px');
+                $(this).val(fieldObj.value = null);
                 return false;
             }else if(type == 'gallery' && this.width <= 600 && this.height <= 600){
                 showToaster('error', 'Image Width must be 600px & Height must be 600px atleast');
+                $(this).val(fieldObj.value = null);
                 return false;
             }
 
