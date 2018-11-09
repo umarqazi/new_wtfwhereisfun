@@ -160,6 +160,8 @@
                                 <a href="{{$eventUrl}}" class="title h5">{{$event->title}}</a>
                                 @if(count($event->time_locations))
                                     <span class="sub-title">{{$event->time_locations->first()->location}}</span>
+                                @else
+                                    <span class="sub-title">No location has been disclosed yet</span>
                                 @endif
 
                                 <div class="swiper-container swiper-swiper-unique-id-0 initialized swiper-container-horizontal" id="swiper-unique-id-0">
@@ -175,6 +177,8 @@
                                                         </li>
                                                     </ul>
                                                 @endforeach
+                                            @elseif
+                                                <span>No images uploaded yet</span>
                                             @endif
                                         </div>
 
