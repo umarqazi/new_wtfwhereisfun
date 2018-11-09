@@ -177,7 +177,7 @@
                                                         </li>
                                                     </ul>
                                                 @endforeach
-                                            @elseif
+                                            @else
                                                 <span>No images uploaded yet</span>
                                             @endif
                                         </div>
