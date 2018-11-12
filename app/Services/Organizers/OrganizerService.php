@@ -4,6 +4,7 @@ namespace App\Services\Organizers;
 
 use App\Repositories\OrganizerRepo;
 use App\Services\BaseService;
+use App\Services\Events\EventListingService;
 use App\Services\IDBService;
 use Illuminate\Http\Response;
 use App\Services\ImageService;
@@ -13,17 +14,19 @@ class OrganizerService extends BaseService implements IDBService
     protected $organizerRepo;
     protected $imageService;
     protected $organizerImageService;
+    protected $eventListingService;
 
     public function __construct(){
         $this->organizerRepo            = new OrganizerRepo();
         $this->imageService             = new ImageService();
         $this->organizerImageService    = new OrganizerImageService();
+        $this->eventListingService      = new EventListingService();
     }
 
     public function create($request)
     {
         $organizer = $this->organizerRepo->store($request);
-        $response = $this->organizerImageService->uploadImage($request, 'organizers', $organizer->id);
+        $this->organizerImageService->uploadImage($request, 'organizers', $organizer->id);
         return $organizer;
     }
 
@@ -61,5 +64,15 @@ class OrganizerService extends BaseService implements IDBService
 
     public function profileColorsUpdate($request, $id){
         return $this->organizerRepo->profileColorsUpdate($request, $id);
+    }
+
+    public function getOrganizerBySlug($slug){
+        return $this->organizerRepo->getBySlug($slug);
+    }
+
+    public function getOrganizerEvents($organizerId){
+        $organizer = $this->getOrganizer($organizerId);
+        $events = $this->eventListingService->getAllEvents($organizer->vendor->id);
+        return $events;
     }
 }

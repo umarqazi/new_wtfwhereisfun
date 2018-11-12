@@ -587,9 +587,11 @@ function uploadFile(fieldObj)
 function showImage(src,target) {
     var fr=new FileReader();
     fr.onload = function(e) { target.src = this.result; };
-    src.addEventListener("change",function() {
-        fr.readAsDataURL(src.files[0]);
-    });
+    if(src){
+        src.addEventListener("change",function() {
+            fr.readAsDataURL(src.files[0]);
+        });
+    }
 }
 
 var image = document.getElementById("image");

@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Organizer extends Model
 {
+    protected $dates = ['created_at', 'updated_at'];
+
     protected $fillable = [
         'name', 'descprition', 'website', 'organizer_url', 'image', 'thumbnail', 'facebook',
         'twitter', 'instagram', 'google', 'timbler', 'linkedin', 'backgroud_color', 'text_color', 'is_allowed_on_event_page',
@@ -17,7 +19,7 @@ class Organizer extends Model
      */
     public function vendor()
     {
-        return $this->belongsTo('App\User');
+        return $this->belongsTo('App\User', 'user_id');
     }
 
     /**

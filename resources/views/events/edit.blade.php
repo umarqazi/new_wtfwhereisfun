@@ -317,7 +317,7 @@
                                                                     @endphp
                                                                     <div class="col-md-4">
                                                                         <div class="tooltipContainer">
-                                                                            <button type="button" class="remove-button {{$removeBtn}}" id="" onclick="removeEventImage(this, '{{$imgId}}')">
+                                                                            <button type="button" class="remove-button {{$removeBtn}}" onclick="removeEventImage(this, '{{$imgId}}')">
                                                                                 <i class="fa fa-trash"></i>
                                                                             </button>
                                                                             <label class="header-img {{$disableEvent}}">

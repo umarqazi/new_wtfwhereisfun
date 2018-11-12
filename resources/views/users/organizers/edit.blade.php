@@ -12,7 +12,7 @@
                     <div class="member-img">
                         <form id="organizers-profile-image" method="post" enctype="multipart/form-data">
                             <label>
-                                <input id="image" style="display: none" type="file" name="thumbnail" accept="image/*" onchange="organizerUploadFile(this)"/>
+                                <input id="image" style="display: none" type="file" name="thumbnail" accept="image/*" onchange="organizerUploadFile(this, 'profile')"/>
                                 <input type="hidden" name="id" value="{{$organizer->id}}"/>
                                 <div class="rounded-circle vendor-profile-image">
                                     @if(!empty($organizer->thumbnail))
@@ -46,6 +46,7 @@
                         <ul class="nav nav-pills">
                             <li class="active"><a data-toggle="pill" href="#profile">Profile</a></li>
                             <li><a data-toggle="pill" href="#social-links">Social Links</a></li>
+                            <li><a data-toggle="pill" href="#header-image">Header Image</a></li>
                             <li><a data-toggle="pill" href="#color-customizations">Color Customizations</a></li>
                         </ul>
                     </div>
@@ -65,8 +66,7 @@
                                         <div class="col-xs-12 col-sm-12 col-md-6">
                                             <div class="form-group">
                                                 <label for="">Organizer name</label>
-                                                <input type="text" class="form-control" placeholder="Organizer name" id=""
-                                                       name="name"  value="{{$organizer->name}}" required>
+                                                <input type="text" class="form-control" placeholder="Organizer's Name" name="name"  value="{{$organizer->name}}" required>
                                                 <span class="field-beffect"></span>
                                                 <div class="form-error name"></div>
                                             </div>
@@ -74,12 +74,32 @@
                                         <div class="ccol-xs-12 col-sm-12 col-md-6">
                                             <div class="form-group">
                                                 <label for="">About the organizer</label>
-                                                <input class="form-control" placeholder="About the organizer" value="{{$organizer->description}}" id="" name="description" required="" type="text">
+                                                <input class="form-control" placeholder="About the organizer" value="{{$organizer->description}}" name="description" required type="text">
                                                 <span class="field-beffect"></span>
                                                 <div class="form-error description"></div>
-                                                <div class="checkbox-feild-wrap">
-                                                    <input type="checkbox" id="organizing-events" value="{{$organizer->is_allowed_on_event_page}}" name="is_allowed_on_event_page" value="1">
-                                                    <label for="organizing-events">Use this description on my event pages </label>
+                                                <div class="form-group">
+                                                    <input class="form-control" type="checkbox" id="basic_checkbox_1" value="{{$organizer->is_allowed_on_event_page}}" name="is_allowed_on_event_page" @if($organizer->is_allowed_on_event_page == 1) checked @endif>
+                                                    <label for="basic_checkbox_1">Use this description on my event pages </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-xs-12 col-sm-12 col-md-6">
+                                            <div class="form-group">
+                                                <label for="">Email</label>
+                                                <input class="form-control" placeholder="Email" value="{{$organizer->email}}" name="email" required type="email">
+                                                <span class="field-beffect"></span>
+                                                <div class="form-error email"></div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-12 col-sm-12 col-md-6">
+                                            <div class="form-group organizer-pages-url">
+                                                <label for="">Contact</label>
+                                                <div id="organizer-edit-url-input">
+                                                    <input class="form-control" placeholder="202-555-0191" value="{{$organizer->contact}}" name="contact" required type="text">
+                                                    <span class="field-beffect"></span>
+                                                    <div class="form-error contact"></div>&nbsp;&nbsp;
                                                 </div>
                                             </div>
                                         </div>
@@ -88,16 +108,16 @@
                                         <div class="col-xs-12 col-sm-12 col-md-6">
                                             <div class="form-group">
                                                 <label for="">Website</label>
-                                                <input class="form-control" placeholder="Website" id="" value="{{$organizer->website}}" name="website" required type="text">
+                                                <input class="form-control" placeholder="Website" value="{{$organizer->website}}" name="website" required type="text">
                                                 <span class="field-beffect"></span>
                                                 <div class="form-error website"></div>
                                             </div>
                                         </div>
                                         <div class="col-xs-12 col-sm-12 col-md-6">
                                             <div class="form-group organizer-pages-url">
-                                                <label for="">Organizer page URL</label>
+                                                <label for="">Location</label>
                                                 <div id="organizer-edit-url-input">
-                                                    <input class="form-control" placeholder="http://" value="{{$organizer->organizer_url}}" name="organizer_url" required="" type="text">
+                                                    <input class="form-control" placeholder="City, Country" value="{{$organizer->location}}" name="location" required type="text">
                                                     <span class="field-beffect"></span>
                                                     <div class="form-error organizer_url"></div>&nbsp;&nbsp;
                                                 </div>
@@ -122,7 +142,7 @@
                                         <div class="col-xs-12 col-sm-12 col-md-6">
                                             <div class="form-group">
                                                 <label for="">Facebook page</label>
-                                                <input class="form-control" placeholder="http://facebook.com" id="" name="facebook" type="text" value="{{$organizer->facebook}}">
+                                                <input class="form-control" placeholder="http://facebook.com" name="facebook" type="text" value="{{$organizer->facebook}}">
                                                 <span class="field-beffect"></span>
                                                 <div class="form-error facebook"></div>
                                             </div>
@@ -138,7 +158,7 @@
                                         <div class="col-xs-12 col-sm-12 col-md-6">
                                             <div class="form-group">
                                                 <label for="">Google</label>
-                                                <input class="form-control" placeholder="http://google.com" id="" name="google" type="text" value="{{$organizer->google}}">
+                                                <input class="form-control" placeholder="http://google.com" name="google" type="text" value="{{$organizer->google}}">
                                                 <span class="field-beffect"></span>
                                                 <div class="form-error google"></div>
                                             </div>
@@ -171,6 +191,43 @@
                                     <input type="hidden" value="{{$organizerId}}" name="organizer_id">
                                     <button type="submit" class="btn btn-default organizer-btn rounded-border">Save</button>
                                 </form>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="header-image" class="tab-pane fade in">
+                        <div class="contc-detail-wrap">
+                            <div class="acnt-adrs-innertitle">
+                                <h4>Update Header Image</h4>
+                            </div>
+                            <div class="contc-detail-inner">
+                                <div class="header-image">
+
+                                    <div class="">
+                                        <div class="organizer-image">
+                                            @if(!empty($organizer->image))
+                                                @php
+                                                    $image = $directory['web_path'].$organizer->image;
+                                                    $removeClass = '';
+                                                @endphp
+                                            @else
+                                                @php
+                                                    $image = asset('img/dummy.jpg');
+                                                    $removeClass = 'hidden';
+                                                @endphp
+                                            @endif
+                                            <img src="{{$image}}" alt="header-image" id="organizer-header-image">
+                                        </div>
+                                        <form id="organizers-header-image" method="post">
+
+                                                <div class="upload-profile-btn-wrap btn btn-default">
+                                                    <span>choose file</span>
+                                                    <input type="file" name="image" onchange="organizerUploadFile(this, 'header')" data-type="header" id="organizer-header-image-input" class="upload-profile-btn rounded-border"/>
+                                                    <input type="hidden" name="id" value="{{$organizer->id}}"/>
+                                                </div>
+                                        </form>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>

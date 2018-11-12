@@ -105,7 +105,7 @@ class BlogController extends Controller
             // Sets the Name Filter
             $filter->like('title', 'Title');
 
-            // Sets the Slug Filter
+            // Sets the Description Filter
             $filter->like('description', 'Description');
         });
 

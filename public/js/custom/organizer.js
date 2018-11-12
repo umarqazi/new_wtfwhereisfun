@@ -36,7 +36,7 @@ $(document).ready(function($) {
                     $('#organizer-form')[0].reset();
                     $('#organizer-form .form-error').html('');
                     showToaster('success', resp.msg);
-                    setTimeout(function(){
+                    setTimeout(function () {
                         window.location.reload();
                     }, 2000);
                 } else {
@@ -57,6 +57,11 @@ $(document).ready(function($) {
             }
         });
     });
+
+    var image = document.getElementById("image");
+    var target = document.getElementById("target");
+    showImage(image, target);
+});
 
     /*****************************************************************************
      *************************Manage Organizer Script End *************************
@@ -213,15 +218,15 @@ $(document).ready(function($) {
      *************************Organizer Photo Script Start ************************
      ******************************************************************************/
 
-    $('body').on('change', '.upload-profile-btn', function () {
-        readURL(this);
-    });
-
-    $('body').on('click', '.remove-photo-btn', function () {
-        $('.upload-profile-img img').attr('src', base_url()+'/img/default-148.png');
-        $('.remove-photo-btn').addClass('hidden');
-    });
-});
+    function removeImagePreview(obj) {
+        if ($(obj).data('type') == 'profile') {
+            $(obj).closest('.upload-profile-wrap').find('img').attr('src', base_url() + '/img/default-148.png');
+        } else {
+            $(obj).closest('.upload-profile-wrap').find('img').attr('src', base_url() + '/img/dummy.jpg');
+        }
+        $(obj).closest('.upload-profile-wrap').find('.upload-profile-btn').val('');
+        $(obj).addClass('hidden');
+    }
 
     /*****************************************************************************
      *************************Organizer Photo Script End **************************
@@ -246,8 +251,8 @@ $(document).ready(function($) {
         if (input.files && input.files[0]) {
             var reader = new FileReader();
             reader.onload = function (e) {
-                $('.upload-profile-img img').attr('src', e.target.result );
-                $('.remove-photo-btn').removeClass('hidden');
+                $(input).closest('.upload-profile-wrap').find('img').attr('src', e.target.result);
+                $(input).parent().next('div').find('button').removeClass('hidden');
             }
             reader.readAsDataURL(input.files[0]);
         }
@@ -262,63 +267,76 @@ $(document).ready(function($) {
     }
 
 
-/*****************************************************************************
- ***************************Change Photo Script Start**************************
- ******************************************************************************/
-function organizerUploadFile(fieldObj)
-{
-    let file_name = fieldObj.value;
-    let split_extension = file_name.split(".");
-    let calculatedSize = fieldObj.files[0].size / (1024 * 1024);
-    let ext = ["png","jpg","jpeg","gif"];
-    if ($.inArray(split_extension[1].toLowerCase(), ext) == -1) {
-        $(this).val(fieldObj.value = null);
-        showToaster('error','You Can Upload Only .jpg, png, jpeg, gif Images !');
-        return false;
-    }
-    if (calculatedSize > 1) {
-        $(this).val(fieldObj.value = null);
-        showToaster('error','File size should be less then 1 MB !');
-        return false;
-    }
-    if ($.inArray(split_extension[1].toLowerCase(), ext) != -1 && calculatedSize < 1) {
-        var form_data = new FormData($('#organizers-profile-image')[0]);
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-        $.ajax({
-            url  : base_url() + "/organizers/upload-image",
-            type : "POST",
-            data : form_data,
-            dataType : "JSON",
-            cache: false,
-            contentType: false,
-            processData: false,
-            success: function(resp){
-                if(resp.type == "success"){
-                    $('#remove-form').find('button').removeClass('hidden');
-                }else{
-                    showToaster('error',resp.msg);
+    /*****************************************************************************
+     ***************************Change Photo Script Start**************************
+     ******************************************************************************/
+    function organizerUploadFile(fieldObj, type) {
+        let file_name = fieldObj.value;
+        let split_extension = file_name.split(".");
+        let calculatedSize = fieldObj.files[0].size / (1024 * 1024);
+        let ext = ["png", "jpg", "jpeg", "gif"];
+        if ($.inArray(split_extension[1].toLowerCase(), ext) == -1) {
+            $(this).val(fieldObj.value = null);
+            showToaster('error', 'You Can Upload Only .jpg, png, jpeg, gif Images !');
+            return false;
+        }
+        if (calculatedSize > 1) {
+            $(this).val(fieldObj.value = null);
+            showToaster('error', 'File size should be less then 1 MB !');
+            return false;
+        }
+        if ($.inArray(split_extension[1].toLowerCase(), ext) != -1 && calculatedSize < 1) {
+            if(type == "profile"){
+                var form_data = new FormData($('#organizers-profile-image')[0]);
+            }else{
+                var form_data = new FormData($('#organizers-header-image')[0]);
+                if (fieldObj.files && fieldObj.files[0]) {
+                    var reader = new FileReader();
+                    reader.onload = function (e) {
+                        $('#organizer-header-image').attr('src', e.target.result);
+                        // console.log($(fieldObj).parent('form'));
+                    }
+                    reader.readAsDataURL(fieldObj.files[0]);
                 }
-            },
-            error:function(error)
-            {
-
             }
-        });
+
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            $.ajax({
+                url: base_url() + "/organizers/upload-image",
+                type: "POST",
+                data: form_data,
+                dataType: "JSON",
+                cache: false,
+                contentType: false,
+                processData: false,
+                success: function (resp) {
+                    if (resp.type == "success") {
+                        if(type == 'profile'){
+                            $('#remove-form').find('button').removeClass('hidden');
+                        }
+                    } else {
+                        showToaster('error', resp.msg);
+                    }
+                },
+                error: function (error) {
+
+                }
+            });
+        }
     }
-}
 
-function showImage(src,target) {
-    var fr=new FileReader();
-    fr.onload = function(e) { target.src = this.result; };
-    src.addEventListener("change",function() {
-        fr.readAsDataURL(src.files[0]);
-    });
-}
-
-var image = document.getElementById("image");
-var target = document.getElementById("target");
-showImage(image,target);
+    function showImage(src, target) {
+        var fr = new FileReader();
+        fr.onload = function (e) {
+            target.src = this.result;
+        };
+        if(src){
+            src.addEventListener("change", function () {
+                fr.readAsDataURL(src.files[0]);
+            });
+        }
+    }

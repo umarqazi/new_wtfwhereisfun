@@ -26,8 +26,10 @@ class StoreOrganizer extends FormRequest
         return [
             'name'              =>  'sometimes|required|string|max:35',
             'descprition'       =>  'sometimes|required',
+            'email'             =>  'sometimes|required|email',
+            'location'          =>  'sometimes|required|string',
+            'contact'           =>  'sometimes|required',
             'website'           =>  'sometimes|required|url',
-            'organizer_url'     =>  'sometimes|required|string|url',
             'backgroud_color'   =>  'sometimes|required|string',
             'text_color'        =>  'sometimes|required|string'
         ];
@@ -41,8 +43,7 @@ class StoreOrganizer extends FormRequest
     public function messages()
     {
         return [
-            'website.url'        => 'Website url must starts from http:// or https://',
-            'organizer_url.url'  => 'Organizer url must starts from http:// or https://'
+            'website.url'        => 'Website url must starts from http:// or https://'
         ];
     }
 }

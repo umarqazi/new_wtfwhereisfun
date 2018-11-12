@@ -1,0 +1,28 @@
+.photo-item.organizer-event-image{
+    position: relative;
+    overflow: hidden;
+    height: 170px;
+}
+
+.photo-item.organizer-event-image img{
+    width: auto;
+    border-radius: 0;
+    max-width: inherit;
+    position: absolute;
+    left: 50%;
+    right: 0;
+    max-height: 170px;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.friends-harmonic li a img{
+    min-height: 100%;
+    object-fit: cover;
+}
+
+.top-header-thumb > img{
+    max-height: 400px;
+    object-fit: cover;
+}
+

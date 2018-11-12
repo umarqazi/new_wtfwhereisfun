@@ -14,3 +14,5 @@ yarn-error.log
 .env
 /readme.md
 .DS_Store
+/public/html-social-network/img/
+/public/html-social-network/svg-icons/

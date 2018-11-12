@@ -25,7 +25,7 @@ if (! function_exists('addNewTimeLocationRow')) {
                                     </span>
                                     <input autocomplete=\"off\" type=\"text\" class=\"form-control datepic\" name=\"event_start_date\" id=\"start_date\"/>
                                 </div>
-                                <div class=\"form-error start_date\"></div>
+                                <div class=\"form-error event_start_date\"></div>
                             </div>
                         </div>
                         <div class=\"col-sm-6 datepicker_row\" id=\"datetime_area\">
@@ -37,7 +37,7 @@ if (! function_exists('addNewTimeLocationRow')) {
                                     </span>
                                     <input autocomplete=\"off\" type=\"text\" class=\"form-control\" name=\"event_end_date\" id=\"end_date\"/>
                                 </div>
-                                <div class=\"form-error end_date\"></div>
+                                <div class=\"form-error event_end_date\"></div>
                             </div>
                         </div>
                         <div class=\"col-sm-6\">
