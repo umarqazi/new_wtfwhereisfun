@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\EventLayout;
 use App\Repositories\EventImageRepo;
+use App\Services\Events\EventOrderService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Config;
@@ -56,6 +57,7 @@ class EventController extends Controller
     protected $organizerService;
     protected $eventImageService;
     protected $eventHotDealService;
+    protected $eventOrderService;
 
     public function __construct()
     {
@@ -75,6 +77,7 @@ class EventController extends Controller
         $this->organizerService         = new OrganizerService();
         $this->eventImageService        = new EventImageService();
         $this->eventHotDealService      = new EventHotDealService();
+        $this->eventOrderService        = new EventOrderService();
     }
 
     /**
@@ -504,5 +507,14 @@ class EventController extends Controller
             'msg'       =>  '',
             'data'      =>  $response
         ]);
+    }
+
+    /**
+     * Get Event's Dashboard
+     * @param  \Illuminate\Http\ $id
+     */
+    public function dashboard($id){
+        $eventOrders = $this->eventOrderService->getEventOrders(decrypt_id($id));
+        return View('events.dashboard')->with(['orders' => $eventOrders, 'eventId' => $id, 'totalTicketsSold' => $eventOrders->sum('quantity')]);
     }
 }

@@ -179,6 +179,8 @@ return [
         Spatie\Permission\PermissionServiceProvider::class,
         /* Maps Package*/
         Cornford\Googlmapper\MapperServiceProvider::class,
+        /* Paypal Package */
+        Srmklive\PayPal\Providers\PayPalServiceProvider::class
 
     ],
 
@@ -230,6 +232,7 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'Alert' => UxWeb\SweetAlert\SweetAlert::class,
         'Mapper' => Cornford\Googlmapper\Facades\MapperFacade::class,
+        'PayPal' => Srmklive\PayPal\Facades\PayPal::class
 
     ],
 

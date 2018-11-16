@@ -115,5 +115,12 @@ class Event extends Model
         return $this->HasOne('App\EventHotDeal');
     }
 
+    /**
+     * Get Event Orders.
+     */
+    public function orders(){
+        return $this->HasMany('App\EventOrder');
+    }
+
 
 }

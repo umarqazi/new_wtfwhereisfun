@@ -1,0 +1,132 @@
+<!------ Include the above in your HEAD tag ---------->
+@extends('layouts.master')
+@section('title', "Checkout :: Where's the fun")
+@section('content')
+    <div class="container checkout-page">
+        <div class="row">
+            <form method="POST" name="checkout_form" id="checkout-form" onsubmit="completeCheckout(event, this)">
+                {{ csrf_field() }}
+                <div class="col-xs-9">
+                    <div class="panel panel-info">
+                        <div class="panel-heading">
+                            <div class="panel-title">
+                                <div class="row">
+                                    <div class="col-xs-6">
+                                        <h5><span class="glyphicon glyphicon-shopping-cart"></span> Shopping Cart</h5>
+                                    </div>
+                                    <div class="col-xs-6">
+                                        {{--<img src="{{asset('img/logo.png')}}">--}}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <table class="table cart-table">
+                                        <tr class="table-head">
+                                            <td>Image</td>
+                                            <td>Name</td>
+                                            <td>Detail</td>
+                                            <td>Time & Location</td>
+                                            <td>QTY</td>
+                                            <td>Price</td>
+                                        </tr>
+
+                                        <tr>
+                                            <td class="ticket-img"><img class="img-responsive" src="{{$directory['web_path'].$ticket->event->header_image}}"></td>
+                                            <td>{{$ticket->name}}<input type="hidden" name="ticket_id" value="{{encrypt_id($ticket->id)}}"></td>
+                                            <td class="ticket-detail"><p>{{$ticket->description}}</p></td>
+                                            <td>Time</td>
+                                            <td>
+                                                <div class="sp-quantity">
+                                                    <div class="sp-minus"> <a class="quantity-button" type="button"><i class="fa fa-minus"></i></a>
+                                                    </div>
+                                                    <div class="sp-input">
+                                                        <input type="text" class="quntity-input" value="1" name="quantity" />
+                                                    </div>
+                                                    <div class="sp-plus"> <a class="quantity-button" type="button"><i class="fa fa-plus"></i></a>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <input type="hidden" value="{{$ticket->price}}" id="ticket-price">
+                                                <strong>${{$ticket->price}}</strong>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="6"> <h4 class="text-right sub-total">Total <strong id="total-price">${{$ticket->price}}</strong></h4></td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="panel-footer">
+                            <div class="row">
+
+                                <div class="col-xs-8">
+                                    <h4 class="payment-method-title">Select Payment Method</h4>
+                                    <span>
+                                        <input name="payment_method" type="radio" id="radio_4" class="with-gap" value="paypal" required checked>
+                                        <label for="radio_4"><i class="fab fa-cc-paypal payment-card"></i></label>
+                                    </span>
+
+                                    <span>
+                                        <input name="payment_method" type="radio" id="radio_5" class="with-gap" value="stripe" required>
+                                        <label for="radio_5"><i class="fab fa-cc-stripe payment-card stripe-icon"></i></label>
+                                    </span>
+
+                                </div>
+
+                                <div class="col-xs-4">
+                                    <button type="submit" class="btn btn-success btn-block submit rounded-border">Checkout</button>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xs-3 user-details">
+                    <h4>Customer Details</h4>
+                    @if(Auth::user())
+                        <div class="logged-in-user-details">
+                            <p>
+                                <strong>Customer Name : </strong> <span>{{Auth::user()->first_name}}</span>
+                                <br>
+                                <strong>Email : </strong> <span>{{Auth::user()->email}}</span>
+                                <input name="user_status" type="hidden" value="logged_in">
+                            </p>
+                        </div>
+                    @else
+                        <div>
+                            <input name="user_status" type="radio" id="radio_6" value="old" class="with-gap" onchange="getUserForm(this)" checked required>
+                            <label for="radio_6">
+                                Already a User?
+                            </label>
+                        </div>
+
+                        <div>
+                            <input name="user_status" type="radio" id="radio_7" value="new" class="with-gap" onchange="getUserForm(this)" required>
+                            <label for="radio_7">
+                                Create New Account
+                            </label>
+                        </div>
+
+                        <div class="user-detail-form">
+                            <div class="form-group">
+                                <label for="email">Email address:</label>
+                                <input type="email" class="form-control" id="login-email" name="email" placeholder="Email Address" required >
+                            </div>
+                            <div class="form-error email"></div>
+                        </div>
+
+                    @endif
+                </div>
+            </form>
+        </div>
+    </div>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <script src="{{asset('js/custom/checkout.js')}}" type="text/javascript"></script>
+@endsection

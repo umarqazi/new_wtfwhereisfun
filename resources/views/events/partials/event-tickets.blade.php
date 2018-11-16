@@ -21,7 +21,15 @@
                             <td class="text-center"><span>{{$ticket->quantity}}</span></td>
                             <td class="text-center"><span>{{$ticket->type}}</span></td>
                             <td class="text-center"><button class="btn btn-info details" data-toggle="modal" data-target="#ticket-{{$ticket->id}}" type="button"><i class="fa fa-info-circle"></i></button></td>
-                            <td class="text-center"><a class="btn btn-info" href=""><i class="fa fa-shopping-cart"></i></a></td>
+                            <td class="text-center">
+                                <form method="post" action="{{url('checkout')}}">
+                                    {{ csrf_field() }}
+                                    <input type="hidden" name="ticket_id" value="{{$ticket->id}}">
+                                    <button type="submit" class="btn btn-info">
+                                        <i class="fa fa-shopping-cart"></i>
+                                    </button>
+                                </form>
+                            </td>
                         </tr>
 
                         <!-- Modal -->

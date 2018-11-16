@@ -35,6 +35,10 @@ class UserServices
         return $user->roles->pluck('name');
     }
 
+    public function getUserByEmail($email){
+        return $this->userRepo->getByEmail($email);
+    }
+
     public function verifyUser($token)
     {
         $verification_user = UserVerification::where('token', $token)->first();
