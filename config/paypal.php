@@ -6,13 +6,6 @@
 
 return [
     'mode'    => 'sandbox', // Can only be 'sandbox' Or 'live'. If empty or invalid, 'live' will be used.
-//    'sandbox' => [
-//        'username'    => env('PAYPAL_SANDBOX_API_USERNAME', 'haris.khan-facilitator_api1.gems.techverx.com'),
-//        'password'    => env('PAYPAL_SANDBOX_API_PASSWORD', 'T9RTHCMRN4G9QGHF'),
-//        'secret'      => env('PAYPAL_SANDBOX_API_SECRET', 'AZgHXgKCxuQlIem-JxM2Mt-VvNLTAJw.02hIKgylaIafxfMKW0pFPRQt'),
-//        'certificate' => env('PAYPAL_SANDBOX_API_CERTIFICATE', ''),
-//        'app_id'      => 'APP-80W284485P519543T', // Used for testing Adaptive Payments API in sandbox mode
-//    ],
     'sandbox' => [
         'username'    => env('PAYPAL_SANDBOX_API_USERNAME', 'jazib.javed-facilitator_api1.gems.techverx.com'),
         'password'    => env('PAYPAL_SANDBOX_API_PASSWORD', 'YHR9GUWR7KE8DEML'),
