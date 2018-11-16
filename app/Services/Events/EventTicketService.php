@@ -1,17 +1,23 @@
 <?php
 namespace App\Services\Events;
 
+use App\Repositories\EventOrderRepo;
 use App\Repositories\EventRepo;
+use App\Repositories\EventTicketRepo;
 use App\Services\BaseService;
 use App\Services\IDBService;
 use Illuminate\Http\Response;
 class EventTicketService extends BaseService
 {
     protected $eventRepo;
+    protected $eventTicketRepo;
+    protected $eventOrderRepo;
 
     public function __construct()
     {
-        $this->eventRepo   = new EventRepo();
+        $this->eventRepo        = new EventRepo;
+        $this->eventTicketRepo  = new EventTicketRepo;
+        $this->eventOrderRepo   = new EventOrderRepo;
     }
 
     public function getEventTickets($id){
@@ -42,5 +48,16 @@ class EventTicketService extends BaseService
         $this->eventRepo->deleteTicketPass($request);
     }
 
+    public function getTicketDetails($id){
+        return $this->eventTicketRepo->getTicketById($id);
+    }
+
+    public function get($id){
+        return $this->eventTicketRepo->getTicketById($id);
+    }
+
+    public function getUserTickets($userId){
+        return $this->eventOrderRepo->getUserTickets($userId);
+    }
 
 }

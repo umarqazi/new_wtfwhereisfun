@@ -21,6 +21,11 @@ class UserRepo
         $this->userModel = $userModel;
     }
 
+    public function getByEmail($email){
+        $user = $this->userModel->where('email', $email)->first();
+        return $user;
+    }
+
     public function updateProfile($request){
         $user = Auth::user();
 

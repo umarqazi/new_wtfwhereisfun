@@ -99,4 +99,12 @@ class User extends Authenticatable
     {
         return $this->hasMany('App\Event');
     }
+
+    /**
+     * Get User Orders
+     */
+    public function orders()
+    {
+        return $this->hasMany('App\EventOrder');
+    }
 }

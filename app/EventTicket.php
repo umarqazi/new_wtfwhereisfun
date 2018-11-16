@@ -27,4 +27,12 @@ class EventTicket extends Model
         return $this->hasMany('App\TicketPass', 'ticket_id');
     }
 
+    /**
+     * Get Ticket Orders
+     */
+    public function orders()
+    {
+        return $this->hasMany('App\EventOrder', 'ticket_id');
+    }
+
 }

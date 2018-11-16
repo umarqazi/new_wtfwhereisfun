@@ -46,6 +46,21 @@ Route::group(['middleware' => ['web']], function () {
 
     Route::resource('blogs', 'BlogController');
 
+    Route::post('checkout', 'PaymentController@checkout');
+    Route::post('validate-checkout', 'PaymentController@validateCheckout');
+    Route::post('checkout/proceed', 'PaymentController@completeCheckout');
+    Route::post('checkout/notify', 'PaymentController@notifyCheckout');
+    Route::get('checkout/success', 'PaymentController@successCheckout');
+    Route::get('checkout/cancel', 'PaymentController@cancelCheckout');
+    Route::post('checkout/stripe', 'PaymentController@stripeCheckout');
+
+    Route::prefix('events')->group(function () {
+        Route::get('hot-deals', 'EventController@getHotDealEvents');
+        Route::get('all', 'EventController@getAllLiveEvents');
+        Route::get('{id}', 'EventController@show');
+        Route::post('get-time-location', 'EventController@getTimeLocation');
+    });
+
     Route::group(['middleware' => ['auth']], function () {
         /*User Routes*/
 
@@ -62,6 +77,8 @@ Route::group(['middleware' => ['web']], function () {
         Route::post('get-country-states', 'AddressController@getCountryStates');
         Route::post('get-state-cities', 'AddressController@getStateCities');
 
+        Route::get('my-tickets',  'EventTicketController@myTickets');
+
         Route::group(['middleware' => ['role:vendor']], function () {
             Route::get('dashboard',  'UsersController@vendorDashboard');
 
@@ -70,6 +87,7 @@ Route::group(['middleware' => ['web']], function () {
 
             Route::post('get-event-sub-topics', 'EventController@getTopicSubTopics');
 
+            Route::get('events/{id}/dashboard', 'EventController@dashboard');
             Route::prefix('events')->group(function () {
 
                 Route::post('go-live', 'EventController@eventGoLive');
@@ -97,6 +115,7 @@ Route::group(['middleware' => ['web']], function () {
                 Route::post('make-hot-deal', 'EventController@makeHotDeal');
                 Route::post('remove-deal', 'EventController@removeHotDeal');
 
+
             });
 
             /*Organzier Routes*/
@@ -108,13 +127,6 @@ Route::group(['middleware' => ['web']], function () {
             Route::post('organizers/remove-image', 'OrganizerController@removeImage');
 
         });
-    });
-
-    Route::prefix('events')->group(function () {
-        Route::get('hot-deals', 'EventController@getHotDealEvents');
-        Route::get('all', 'EventController@getAllLiveEvents');
-        Route::get('{id}', 'EventController@show');
-        Route::post('get-time-location', 'EventController@getTimeLocation');
     });
 
 });

@@ -45,12 +45,13 @@
                                                 $liveEventId = encrypt_id($liveEvent->id);
                                             @endphp
                                             <ul class="actions-btns header-dropdown m-r--5">
-                                                <li class="action-list"><a class="btn" href="{{url('events/'.$liveEventId.'/edit')}}">Manage</a></li>
+                                                <li class="action-list"><a class="btn" href="{{url('events/'.$liveEventId.'/dashboard')}}">Manage</a></li>
                                                 <li class='dropdown action-list'>
                                                     <button href='javascript:void(0);' class='dropdown-toggle btn rounded-border' data-toggle='dropdown' role='button' aria-haspopup='true' aria-expanded='false'>
                                                         More <i class='zmdi zmdi-more-vert'></i>
                                                     </button>
                                                     <ul class='dropdown-menu pull-right'>
+                                                        <li><a href="{{url('events/'.$liveEventId.'/edit')}}">Edit Event</a></li>
                                                         @if($liveEvent->hot_deal()->exists())
                                                             <li><a href='javascript:void(0);' class='remove_hot' onclick='deleteHotDeal(this)' id="{{$liveEventId}}">Remove Deal</a></li>
                                                         @else
@@ -113,7 +114,10 @@
                                         <div class="info">
                                             <ul class="actions-btns header-dropdown m-r--5">
                                                 <li class="action-list">
-                                                    <a class="btn" href="{{url('events/'.encrypt_id($draftEvent->id).'/edit')}}">Manage</a>
+                                                    <a class="btn" href="{{url('events/'.encrypt_id($draftEvent->id).'/dashboard')}}">Manage</a>
+                                                </li>
+                                                <li class="action-list">
+                                                    <a class="btn" href="{{url('events/'.encrypt_id($draftEvent->id).'/edit')}}">Edit</a>
                                                 </li>
                                             </ul>
                                             <div class="event-title">
@@ -159,7 +163,10 @@
                                         <div class="info">
                                             <ul class="actions-btns header-dropdown m-r--5">
                                                 <li class="action-list">
-                                                    <a class="btn" href="{{url('events/'.encrypt_id($pastEvent->id).'/edit')}}">Manage</a>
+                                                    <a class="btn" href="{{url('events/'.encrypt_id($pastEvent->id).'/dashboard')}}">Manage</a>
+                                                </li>
+                                                <li class="action-list">
+                                                    <a class="btn" href="{{url('events/'.encrypt_id($draftEvent->id).'/edit')}}">Edit</a>
                                                 </li>
                                             </ul>
                                             <div class="event-title">
