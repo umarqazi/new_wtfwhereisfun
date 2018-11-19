@@ -6174,3 +6174,10 @@ i, cite, em, var, address, dfn {
    margin-left: 3px;
 }
 
+.hot-deal-text{
+   float : right;
+}
+
+.hot-deal-text strong{
+   color: #86C543;
+}

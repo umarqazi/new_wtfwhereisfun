@@ -44,10 +44,6 @@ class CheckoutService
         return $order;
     }
 
-    public function storeStripeOrder(){
-
-    }
-
     public function pay($orderDetails){
         $data  = $this->getCheckoutData(false, $orderDetails);
         $response = $this->paypalProvider->setExpressCheckout($data);
@@ -55,11 +51,19 @@ class CheckoutService
         return $response['paypal_link'];
     }
 
-    public function completeStripeProcess($data, $ticket){
+    public function completeStripeProcess($data, $ticket, $hotDeal){
+        $quantity = (int) $data['quantity'];
+        if($hotDeal['hotDeal']){
+            $discount = $ticket->price * $hotDeal['details']->discount/100;
+            $discount = $discount * $quantity;
+        }else{
+            $discount = 0;
+        }
+        $amount = $ticket->price * $quantity - $discount;
         $charge = $this->stripeProvider->charges()->create([
             'source'    => $data['stripeToken'],
             'currency'  => 'USD',
-            'amount'    => $ticket->price * (int) $data['quantity']
+            'amount'    => $amount
         ]);
         return $charge;
     }
@@ -99,23 +103,31 @@ class CheckoutService
             $data['subscription_desc'] = 'Monthly Subscription '.config('paypal.invoice_prefix').' #';
         } else {
             $data['items'] = [
-                [
-                    'name'  => $order->ticket->name,
-                    'price' => $order->ticket->price,
-                    'qty'   => $order->quantity
-                ],
             ];
-            $data['return_url'] = url('checkout/success');
         }
         $data['invoice_id'] = 'ORDER-'.$order->id.'-'.$order->ticket->id;
         $data['invoice_description'] = $order->ticket->description;
+        $data['return_url'] = url('checkout/success');
         $data['cancel_url'] = url('checkout/cancel');
-        $total = 0;
-        foreach ($data['items'] as $item) {
-            $total += $item['price'] * $item['qty'];
+        $total = $order->ticket->price * $order->quantity;
+        if($order->event->hot_deal()->exists()){
+            $discount = $order->ticket->price * $order->event->hot_deal->discount/100;
+            $discount = $discount * $order->quantity;
+            $total = $total - $discount;
         }
         $data['total'] = $total;
         return $data;
+    }
+
+    public function calculateDealPrice($hotDeal, $ticket, $qty){
+        if($hotDeal['hotDeal']){
+            $discount = $ticket->price * $hotDeal['details']->discount/100;
+            $discount = $discount * $qty;
+        }else{
+            $discount = 0;
+        }
+        $amount = $ticket->price * $qty - $discount;
+        return $amount * 100;
     }
 
 
