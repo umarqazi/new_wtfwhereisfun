@@ -39,7 +39,7 @@ class EventRepo
         $event->status                      =       0;
         $event->organizer_id                =       $request->organizer_id;
         $event->is_cancelled                =       0;
-        $event->is_approved                 =       0;
+        $event->is_approved                 =       1;
         $event->is_published                =       0;
 
         $event->save();
