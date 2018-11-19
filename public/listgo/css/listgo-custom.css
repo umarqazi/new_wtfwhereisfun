@@ -368,3 +368,7 @@ p .event-tag-name{
 .event-additional-description .location_map{
     margin-bottom: 30px;
 }
+
+.tickets_details .ticket-sold-out{
+    color : #f5af02;
+}
