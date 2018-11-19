@@ -30,6 +30,12 @@ class CheckoutRepo
             $order['payment_status']           =       $charge['status'];
         }
 
+        if($ticket->event->hot_deal()->exists()){
+            $order['is_deal_availed']      = 1;
+            $order['discount']             = $ticket->event->hot_deal->discount;
+            $order['hot_deal_id']          = $ticket->event->hot_deal->id;
+        }
+
         $newOrder = $this->eventOrderModel->create($order);
         return $newOrder;
     }
@@ -50,28 +56,15 @@ class CheckoutRepo
     }
 
     public function updateOrderOnSuccess($data, $type, $orderId = null){
-        if($type == 'paypal'){
-            $orderDetails = $this->eventOrderModel->where('paypal_token', $data['TOKEN'])->first();
+        $orderDetails = $this->eventOrderModel->where('paypal_token', $data['TOKEN'])->first();
 
-            $orderDetails->transaction_id           =       $data['PAYMENTINFO_0_TRANSACTIONID'];
-            $orderDetails->payment_gross            =       $data['PAYMENTINFO_0_AMT'];
-            $orderDetails->currency_code            =       $data['PAYMENTINFO_0_CURRENCYCODE'];
-            $orderDetails->payment_status           =       $data['PAYMENTINFO_0_PAYMENTSTATUS'];
+        $orderDetails->transaction_id           =       $data['PAYMENTINFO_0_TRANSACTIONID'];
+        $orderDetails->payment_gross            =       $data['PAYMENTINFO_0_AMT'];
+        $orderDetails->currency_code            =       $data['PAYMENTINFO_0_CURRENCYCODE'];
+        $orderDetails->payment_status           =       $data['PAYMENTINFO_0_PAYMENTSTATUS'];
 
-            $orderDetails->save();
-            return $orderDetails;
-        }else{
-            $orderDetails = $this->eventOrderModel->find($orderId);
-
-            $orderDetails->transaction_id           =       $data['id'];
-            $orderDetails->payment_gross            =       $data['amount']/100;
-            $orderDetails->currency_code            =       $data['currency'];
-            $orderDetails->payment_status           =       $data['status'];
-
-            $orderDetails->save();
-            return $orderDetails;
-        }
-
+        $orderDetails->save();
+        return $orderDetails;
     }
 
     public function updateOrderOnCancellation($orderId){

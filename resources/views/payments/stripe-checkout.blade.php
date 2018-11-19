@@ -15,7 +15,7 @@
                 <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
                         data-key="{{env('STRIPE_PUBLISHABLE_KEY', 'pk_test_kllUqSb2Dk8DG1r20FTr2nEg')}}"
                         data-description="{{$ticket->description}}"
-                        data-amount="{{$ticket->price * $orderDetails['quantity'] * 100}}"
+                        data-amount="{{$amount}}"
                         data-locale="auto"
                         data-image="{{asset('images/wtf-stripe.png')}}"
                         data-name="{{$ticket->name}}"

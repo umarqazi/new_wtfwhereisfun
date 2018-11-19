@@ -23,6 +23,14 @@ class EventHotDeal extends Model
      */
     public function event()
     {
-        return $this->belongsTo('App\Events');
+        return $this->belongsTo('App\Event');
+    }
+
+    /**
+     * Get Hot Deal Orders
+     */
+    public function orders()
+    {
+        return $this->HasMany('App\EventHotDeal', 'hot_deal_id');
     }
 }

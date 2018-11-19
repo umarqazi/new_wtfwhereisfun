@@ -19,7 +19,7 @@ class EventOrder extends Model
      * @var array
      */
     protected $fillable = [
-        'user_id', 'event_id', 'transaction_id', 'payment_gross', 'currency_code', 'payer_email', 'payment_status', 'ticket_id', 'quantity', 'ticket_price', 'paypal_token', 'payment_method'
+        'user_id', 'event_id', 'transaction_id', 'payment_gross', 'currency_code', 'payer_email', 'payment_status', 'ticket_id', 'quantity', 'ticket_price', 'paypal_token', 'payment_method', 'is_deal_availed', 'discount', 'hot_deal_id'
     ];
 
     /**
@@ -44,6 +44,14 @@ class EventOrder extends Model
     public function ticket()
     {
         return $this->BelongsTo('App\EventTicket');
+    }
+
+    /**
+     * Get Order Discount Details
+     */
+    public function hot_deal()
+    {
+        return $this->BelongsTo('App\EventHotDeal', 'hot_deal_id');
     }
 
 

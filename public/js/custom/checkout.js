@@ -17,7 +17,13 @@ $(".quantity-button").on("click", function () {
     }
 
     var price = $('#ticket-price').val();
-    var total = price * newVal;
+    var discount = 0;
+    if($('tr').hasClass('hot-deal')){
+        discount = $('#discount').val() * price / 100;
+        discount = discount * newVal;
+    }
+
+    var total = price * newVal - discount;
     $button.closest('.sp-quantity').find("input.quntity-input").attr('value', newVal);
     $('#total-price').text('$'+total);
 

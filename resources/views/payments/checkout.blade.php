@@ -15,7 +15,6 @@
                                         <h5><span class="glyphicon glyphicon-shopping-cart"></span> Shopping Cart</h5>
                                     </div>
                                     <div class="col-xs-6">
-                                        {{--<img src="{{asset('img/logo.png')}}">--}}
                                     </div>
                                 </div>
                             </div>
@@ -54,8 +53,27 @@
                                                 <strong>${{$ticket->price}}</strong>
                                             </td>
                                         </tr>
+                                        @if($eventHotDeal['hotDeal'])
+                                            <tr class="hot-deal">
+                                                <td colspan="6">
+                                                    <span class="text-right hot-deal-text" >Discount <strong id="hot-deal-value">{{$eventHotDeal['details']->discount}}%</strong></span>
+                                                    <input type="hidden" value="{{$eventHotDeal['details']->discount}}" id="discount">
+                                                </td>
+                                            </tr>
+                                        @endif
                                         <tr>
-                                            <td colspan="6"> <h4 class="text-right sub-total">Total <strong id="total-price">${{$ticket->price}}</strong></h4></td>
+                                            <td colspan="6">
+                                                <h4 class="text-right sub-total">Total
+                                                    @if($eventHotDeal['hotDeal'])
+                                                        @php
+                                                            $discount = $ticket->price * $eventHotDeal['details']->discount/100;
+                                                        @endphp
+                                                        <strong id="total-price">${{$ticket->price - $discount}}</strong>
+                                                    @else
+                                                        <strong id="total-price">${{$ticket->price}}</strong>
+                                                    @endif
+                                                </h4>
+                                            </td>
                                         </tr>
                                     </table>
                                 </div>

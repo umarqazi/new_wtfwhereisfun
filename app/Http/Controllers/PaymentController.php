@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\Checkout;
+use App\Services\Events\EventHotDealService;
 use App\Services\Events\EventTicketService;
 use App\Services\Payments\CheckoutService;
 use Illuminate\Http\Request;
@@ -11,17 +12,20 @@ class PaymentController extends Controller
 {
     protected $eventTicketService;
     protected $checkoutService;
+    protected $hotDealService;
 
     public function __construct()
     {
-        $this->eventTicketService  = new EventTicketService();
-        $this->checkoutService     = new CheckoutService();
+        $this->eventTicketService  = new EventTicketService;
+        $this->checkoutService     = new CheckoutService;
+        $this->hotDealService      = new EventHotDealService;
     }
 
     public function checkout(Request $request){
         $ticketDetails = $this->eventTicketService->getTicketDetails($request->ticket_id);
+        $hotDealDetail = $this->hotDealService->getHotDealDetails($ticketDetails->event->id);
         $directory = getDirectory('events', $ticketDetails->event->id);
-        return View('payments.checkout')->with(['ticket' => $ticketDetails, 'directory' => $directory]);
+        return View('payments.checkout')->with(['ticket' => $ticketDetails, 'directory' => $directory, 'eventHotDeal' => $hotDealDetail]);
     }
 
     public function validateCheckout(Checkout $request){
@@ -40,15 +44,18 @@ class PaymentController extends Controller
             $response   = $this->checkoutService->pay($order);
             return redirect($response);
         }else{
-            return View('payments.stripe-checkout')->with(['orderDetails' => $request->all(), 'ticket' => $ticket]);
+            $hotDeal = $this->hotDealService->getHotDealDetails($ticket->event->id);
+            $amount  = $this->checkoutService->calculateDealPrice($hotDeal, $ticket, $request->quantity);
+            return View('payments.stripe-checkout')->with(['orderDetails' => $request->all(), 'ticket' => $ticket, 'amount' => $amount]);
         }
     }
 
     public function stripeCheckout(Request $request){
         $userId     = $this->checkoutService->handleCheckoutUser($request);
         $ticket     = $this->eventTicketService->getTicketDetails(decrypt_id($request->ticket_id));
-        $charge     = $this->checkoutService->completeStripeProcess($request->all(), $ticket);
-        $response   = $this->checkoutService->storeOrder($request, $userId, $ticket, $charge);
+        $hotDeal    = $this->hotDealService->getHotDealDetails($ticket->event->id);
+        $charge     = $this->checkoutService->completeStripeProcess($request->all(), $ticket, $hotDeal);
+        $response   = $this->checkoutService->storeOrder($request->all(), $userId, $ticket, $charge);
         return View('payments.success')->with('orderDetails', $response);
     }
 

@@ -36,4 +36,8 @@ class EventHotDealRepo
         return false;
     }
 
+    public function checkIfDealExists($eventId){
+        return $this->hotdealModel->where('event_id', $eventId)->first();
+    }
+
 }

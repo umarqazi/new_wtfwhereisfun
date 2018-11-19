@@ -10,7 +10,7 @@ class EventHotDealService
 
     public function __construct()
     {
-        $this->eventHotDealRepo = new EventHotDealRepo();
+        $this->eventHotDealRepo = new EventHotDealRepo;
     }
 
     public function makeHotDeal($request){
@@ -23,5 +23,19 @@ class EventHotDealService
     public function removeHotDeal($id){
         $response = $this->eventHotDealRepo->removeHotDeal($id);
         return $response;
+    }
+
+    public function checkIfDealExists($eventId){
+        $response = $this->eventHotDealRepo->checkIfDealExists($eventId);
+        if(!empty($response)){
+            $hotDealDetails = ['hotDeal' => true, 'details' => $response];
+        }else{
+            $hotDealDetails = ['hotDeal' => false, 'details' => ''];
+        }
+        return $hotDealDetails;
+    }
+
+    public function getHotDealDetails($eventId){
+        return $this->checkIfDealExists($eventId);
     }
 }
