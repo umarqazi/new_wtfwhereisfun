@@ -54,6 +54,13 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('checkout/cancel', 'PaymentController@cancelCheckout');
     Route::post('checkout/stripe', 'PaymentController@stripeCheckout');
 
+    Route::prefix('events')->group(function () {
+        Route::get('hot-deals', 'EventController@getHotDealEvents');
+        Route::get('all', 'EventController@getAllLiveEvents');
+        Route::get('{id}', 'EventController@show');
+        Route::post('get-time-location', 'EventController@getTimeLocation');
+    });
+
     Route::group(['middleware' => ['auth']], function () {
         /*User Routes*/
 
@@ -120,13 +127,6 @@ Route::group(['middleware' => ['web']], function () {
             Route::post('organizers/remove-image', 'OrganizerController@removeImage');
 
         });
-    });
-
-    Route::prefix('events')->group(function () {
-        Route::get('hot-deals', 'EventController@getHotDealEvents');
-        Route::get('all', 'EventController@getAllLiveEvents');
-        Route::get('{id}', 'EventController@show');
-        Route::post('get-time-location', 'EventController@getTimeLocation');
     });
 
 });
