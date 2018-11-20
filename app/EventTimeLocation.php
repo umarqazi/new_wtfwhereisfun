@@ -44,4 +44,12 @@ class EventTimeLocation extends Model
     {
         return $this->belongsTo('App\Currency', 'transacted_currency_id');
     }
+
+    /**
+     * Get Time and location tickets
+     */
+    public function tickets()
+    {
+        return $this->HasMany('App\EventTicket', 'time_location_id');
+    }
 }

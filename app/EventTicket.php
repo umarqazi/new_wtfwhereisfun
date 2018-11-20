@@ -35,4 +35,12 @@ class EventTicket extends Model
         return $this->hasMany('App\EventOrder', 'ticket_id');
     }
 
+    /**
+     * Get Ticket Time and Location
+     */
+    public function time_location()
+    {
+        return $this->belongsTo('App\EventTimeLocation', 'time_location_id');
+    }
+
 }
