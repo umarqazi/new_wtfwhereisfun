@@ -33,7 +33,20 @@ class EventTicket extends FormRequest
             'selling_end'               =>          'after:selling_start|nullable',
             'request_type'              =>          'required|in:store,edit',
             'min_order'                 =>          'integer|nullable',
-            'max_order'                 =>          'integer|nullable'
+            'max_order'                 =>          'integer|nullable',
+            'time_location_id'          =>          'required'
+        ];
+    }
+
+    /**
+     * Get the error messages for the defined validation rules.
+     *
+     * @return array
+     */
+    public function messages()
+    {
+        return [
+            'time_location_id.required' => 'Please select one Time and Location',
         ];
     }
 }

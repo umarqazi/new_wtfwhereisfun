@@ -285,8 +285,7 @@ class EventController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function ticketUpdate(EventTicket $request){
-        $eventId = decrypt_id($request->event_id);
-        $response = $this->eventTicketService->updateEventTicket($request, $eventId);
+        $response = $this->eventTicketService->updateEventTicket($request, decrypt_id($request->event_id));
         return response()->json([
             'type'      =>  'success',
             'msg'       =>  'Event Ticket has been updated Successfully',
@@ -301,7 +300,8 @@ class EventController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function addNewTicket(Request $request){
-        $response = $this->eventTicketService->addNewTicket($request);
+        $locations = $this->eventLocationService->getEventLocations(decrypt_id($request->event_id));
+        $response  = $this->eventTicketService->addNewTicket($request, $locations);
         return response()->json([
             'type'      =>  'success',
             'msg'       =>  'New Ticket Added',

@@ -25,15 +25,15 @@ class EventTicketService extends BaseService
     }
 
     public function updateEventTicket($request, $eventId){
-        return $this->eventRepo->updateEventTicket($request, $eventId);
+        return $this->eventTicketRepo->updateEventTicket($request, $eventId);
     }
 
-    public function addNewTicket($request){
-        return addNewTicket($request);
+    public function addNewTicket($request, $locations){
+        return addNewTicket($request, $locations);
     }
 
     public function deleteTicket($request){
-        $this->eventRepo->deleteTicket($request);
+        $this->eventTicketRepo->deleteTicket($request);
     }
 
     public function addNewTicketPass($request){
@@ -41,11 +41,11 @@ class EventTicketService extends BaseService
     }
 
     public function updateEventTicketPass($request){
-        return $this->eventRepo->updateEventTicketPass($request);
+        return $this->eventTicketRepo->updateEventTicketPass($request);
     }
 
     public function deleteTicketPass($request){
-        $this->eventRepo->deleteTicketPass($request);
+        $this->eventTicketRepo->deleteTicketPass($request);
     }
 
     public function getTicketDetails($id){

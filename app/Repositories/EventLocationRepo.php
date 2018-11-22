@@ -43,4 +43,15 @@ class EventLocationRepo
     public function getTimeLocation($id){
         return $this->eventLocationModel->find($id);
     }
+
+    public function getLiveEventsByTime(){
+        $liveEvents = $this->eventLocationModel->todayEvents()->whereHas('event', function($query){
+            $query->
+        });
+
+//        ->whereHas('event', function($query){
+//            $query->where(['is_published' => 1, 'deleted_at' => null, 'is_approved' => 1])->where('is_cancelled', '!=', 1)->where('is_draft', '!=', 1);
+//        })
+        return $liveEvents->get();
+    }
 }

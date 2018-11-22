@@ -88,9 +88,9 @@
                                             <div class="description_details">
                                                 <ul class="clearfix">
                                                     <li><strong><i class="fa fa-ticket"></i>Ticket Status</strong></li>
-                                                    <li><span>{{ucfirst(trans($ticket->status))}}</span></li>
+                                                    <li><span>{{ucfirst($ticket->status)}}</span></li>
                                                     <li><strong><i class="fa fa-ticket"></i>Ticket Availability</strong></li>
-                                                    <li><span>{{ucfirst(trans($ticket->availability))}}</span></li>
+                                                    <li><span>{{ucfirst($ticket->availability)}}</span></li>
                                                 </ul>
                                             </div>
 

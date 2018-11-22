@@ -4,14 +4,17 @@ namespace App\Services\Events;
 use App\Services\BaseService;
 use App\Services\IService;
 use App\Repositories\EventRepo;
+use App\Repositories\EventLocationRepo;
 use Illuminate\Support\Facades\Auth;
 class EventListingService extends BaseService implements IService
 {
     protected $eventRepo;
+    protected $eventLocationRepo;
 
     public function __construct()
     {
-        $this->eventRepo = new EventRepo();
+        $this->eventRepo            = new EventRepo();
+        $this->eventLocationRepo    = new EventLocationRepo();
     }
 
     public function getLiveEvents($vendorId = null){
@@ -41,5 +44,9 @@ class EventListingService extends BaseService implements IService
 
     public function getHotDealEvents(){
         return $this->eventRepo->hotEvents();
+    }
+
+    public function liveEventsByTimeAndLocation(){
+        return $this->eventLocationRepo->getLiveEventsByTime();
     }
 }

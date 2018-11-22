@@ -104,8 +104,12 @@ if (! function_exists('addNewTimeLocationRow')) {
     }
 
     if (! function_exists('addNewTicket')) {
-        function addNewTicket($request)
+        function addNewTicket($request, $locations)
         {
+            $timeLocationHtml = '';
+            foreach($locations as $location){
+                $timeLocationHtml.= "<option value='$location->id'>".str_limit($location->location, 30). ' '.monthDateYearFromat($location->starting)."</option>";
+            }
             $html = "<div class=\"ticket-main-wrapper passmain_content\">
                         <div class=\"ticket-type\"><h4>"
                             .title_case($request->type).
@@ -150,6 +154,18 @@ if (! function_exists('addNewTimeLocationRow')) {
                                         </ol>
                                     </li>
                                 </ul>
+                                
+                                <ul class=\"listTable_row table_row  clearfix\">
+                                    <li>
+                                        <label>Ticket Time & Location</label>
+                                        <select class=\"form-control\" name=\"time_location_id\">
+                                            <option value=\"\" selected disabled>Select Time & Location</option>".
+                                            $timeLocationHtml
+                                        ."</select>
+                                        <div class=\"form-error time_location_id\"></div>
+                                    </li>
+                                </ul>
+                                    
                                 <div class=\"ticket-settings hidden\">
                                     <div class=\"form-group\">
                                         <label>Description</label>
