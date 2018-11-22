@@ -52,4 +52,19 @@ class EventTimeLocation extends Model
     {
         return $this->HasMany('App\EventTicket', 'time_location_id');
     }
+
+
+    /**
+     * Scope a query to get event tickets.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @param mixed $type
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeTodayEvents($query)
+    {
+        return $query->whereDate('starting', '=',  Carbon::today()->toDateString());
+    }
+
+
 }

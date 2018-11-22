@@ -91,6 +91,9 @@
                 </div>
                 <div class="landmarks-listings-wrap">
                     <div class="row">
+                        <div class="col-md-12">
+                            <h3>Today's Events</h3>
+                        </div>
                         <div @if(count($liveEvents) > 4) class="event-slider owl-carousel owl-theme" @endif>
                             @if(!empty($liveEvents))
                                 @foreach($liveEvents as $event)

@@ -23,7 +23,6 @@ use Illuminate\Support\Facades\Hash;
 use App\Mail\VerifyMail;
 use Illuminate\Support\Facades\Crypt;
 use Spatie\Permission\Traits\HasRoles;
-
 class MainController extends Controller
 {
     use HasRoles;
@@ -54,7 +53,8 @@ class MainController extends Controller
         $blogs = $this->blogServices->getAll();
         $testimonials = $this->testimonialServices->getAll();
         $categories = $this->categoryServices->getAll();
-        $liveEvents = $this->eventListingService->getLiveEvents();
+        $liveEvents = $this->eventListingService->liveEventsByTimeAndLocation();
+        dd($liveEvents);
         return view('front-end.public.landing-page')->with(['blogs' => $blogs, 'categories' => $categories, 'testimonials'
             => $testimonials, 'user' => $user, 'liveEvents' => $liveEvents, 'categoriesPath' => getDirectory('categories'), 'blogsPath' => getDirectory('blogs'), 'testimonialsPath' => getDirectory('testimonials')]);
     }

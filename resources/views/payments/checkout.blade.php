@@ -27,7 +27,9 @@
                                             <td>Image</td>
                                             <td>Name</td>
                                             <td>Detail</td>
-                                            <td>Time & Location</td>
+                                            <td>Location</td>
+                                            <td>Dates</td>
+                                            <td>Time</td>
                                             <td>QTY</td>
                                             <td>Price</td>
                                         </tr>
@@ -36,7 +38,9 @@
                                             <td class="ticket-img"><img class="img-responsive" src="{{$directory['web_path'].$ticket->event->header_image}}"></td>
                                             <td>{{$ticket->name}}<input type="hidden" name="ticket_id" value="{{encrypt_id($ticket->id)}}"></td>
                                             <td class="ticket-detail"><p>{{$ticket->description}}</p></td>
-                                            <td>Time</td>
+                                            <td>{{$ticket->time_location->location}}</td>
+                                            <td>{{$ticket->time_location->starting->format('D, M Y')}} - {{$ticket->time_location->ending->format('D, M Y')}}</td>
+                                            <td>{{$ticket->time_location->starting->format('g:i A')}} - {{$ticket->time_location->ending->format('g:i A')}}</td>
                                             <td>
                                                 <div class="sp-quantity">
                                                     <div class="sp-minus"> <a class="quantity-button" type="button"><i class="fa fa-minus"></i></a>
@@ -55,14 +59,14 @@
                                         </tr>
                                         @if($eventHotDeal['hotDeal'])
                                             <tr class="hot-deal">
-                                                <td colspan="6">
+                                                <td colspan="8">
                                                     <span class="text-right hot-deal-text" >Discount <strong id="hot-deal-value">{{$eventHotDeal['details']->discount}}%</strong></span>
                                                     <input type="hidden" value="{{$eventHotDeal['details']->discount}}" id="discount">
                                                 </td>
                                             </tr>
                                         @endif
                                         <tr>
-                                            <td colspan="6">
+                                            <td colspan="8">
                                                 <h4 class="text-right sub-total">Total
                                                     @if($eventHotDeal['hotDeal'])
                                                         @php
