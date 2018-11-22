@@ -94,75 +94,75 @@
                         <div class="col-md-12">
                             <h3>Today's Events</h3>
                         </div>
-                        <div @if(count($liveEvents) > 4) class="event-slider owl-carousel owl-theme" @endif>
-                            @if(!empty($liveEvents))
-                                @foreach($liveEvents as $event)
-                                    @if(count($liveEvents) > 4)
-                                        <div class="items">
-                                            @else
-                                                <div class="col-md-3">
-                                                    @endif
-                                                    <div class="card">
-                                                        <div class="card-inner">
-                                                            <div class="card-image">
-                                                                @php
-                                                                    $link = url('events/'.encrypt_id($event->id));
-                                                                @endphp
+                        {{--<div @if(count($liveEvents) > 4) class="event-slider owl-carousel owl-theme" @endif>--}}
+                            {{--@if(!empty($liveEvents))--}}
+                                {{--@foreach($liveEvents as $event)--}}
+                                    {{--@if(count($liveEvents) > 4)--}}
+                                        {{--<div class="items">--}}
+                                            {{--@else--}}
+                                                {{--<div class="col-md-3">--}}
+                                                    {{--@endif--}}
+                                                    {{--<div class="card">--}}
+                                                        {{--<div class="card-inner">--}}
+                                                            {{--<div class="card-image">--}}
+                                                                {{--@php--}}
+                                                                    {{--$link = url('events/'.encrypt_id($event->id));--}}
+                                                                {{--@endphp--}}
 
-                                                                @if(empty($event->header_image))
-                                                                    @php $img = asset('img/dummy.png') @endphp
-                                                                @else
-                                                                    @php
-                                                                        $directory = getDirectory('events', $event->id);
-                                                                        $img = $directory['web_path'].$event->header_image;
-                                                                    @endphp
-                                                                @endif
+                                                                {{--@if(empty($event->header_image))--}}
+                                                                    {{--@php $img = asset('img/dummy.png') @endphp--}}
+                                                                {{--@else--}}
+                                                                    {{--@php--}}
+                                                                        {{--$directory = getDirectory('events', $event->id);--}}
+                                                                        {{--$img = $directory['web_path'].$event->header_image;--}}
+                                                                    {{--@endphp--}}
+                                                                {{--@endif--}}
 
-                                                                <a href="{{$link}}" style="background-image: url({{$img}});" target="_blank">
-                                                                    <span><i class="fa fa-search"></i></span>
-                                                                </a>
+                                                                {{--<a href="{{$link}}" style="background-image: url({{$img}});" target="_blank">--}}
+                                                                    {{--<span><i class="fa fa-search"></i></span>--}}
+                                                                {{--</a>--}}
 
-                                                                <div class="card-actions">
-                                                                    <a href="#"><i class="fa fa-bookmark"></i> <span>Save</span></a>
-                                                                    <a href="#"><i class="fa fa-heart"></i> <span>Like</span></a>
-                                                                </div><!-- /.card-actions -->
+                                                                {{--<div class="card-actions">--}}
+                                                                    {{--<a href="#"><i class="fa fa-bookmark"></i> <span>Save</span></a>--}}
+                                                                    {{--<a href="#"><i class="fa fa-heart"></i> <span>Like</span></a>--}}
+                                                                {{--</div><!-- /.card-actions -->--}}
 
-                                                            </div><!-- /.card-image -->
+                                                            {{--</div><!-- /.card-image -->--}}
 
-                                                            <div class="card-content">
-                                                                <div class="event-organizer-thumbnail">
-                                                                    @if(empty($event->organizer->thumbnail))
-                                                                        @php $img = asset('img/default-148.png') @endphp
-                                                                    @else
-                                                                        @php
-                                                                            $directory = getDirectory('organizers', $event->organizer->id);
-                                                                            $img = $directory['web_path'].$event->organizer->thumbnail;
-                                                                        @endphp
-                                                                    @endif
-                                                                    <img src="{{$img}}" alt="Organizer Image">
-                                                                </div>
-                                                                @if(!empty($event->time_locations))
-                                                                    <div class="card-date">
-                                                                        <strong>{{$event->time_locations->first()->starting->day}}</strong>
-                                                                        <span>{{get_month($event->time_locations->first()->starting)}}</span>
-                                                                    </div><!-- /.card-date -->
-                                                                @endif
-                                                                <h3 class="card-title">
-                                                                    <a href="{{$link}}" target="_blank">{{$event->title}}</a>
-                                                                </h3>
+                                                            {{--<div class="card-content">--}}
+                                                                {{--<div class="event-organizer-thumbnail">--}}
+                                                                    {{--@if(empty($event->organizer->thumbnail))--}}
+                                                                        {{--@php $img = asset('img/default-148.png') @endphp--}}
+                                                                    {{--@else--}}
+                                                                        {{--@php--}}
+                                                                            {{--$directory = getDirectory('organizers', $event->organizer->id);--}}
+                                                                            {{--$img = $directory['web_path'].$event->organizer->thumbnail;--}}
+                                                                        {{--@endphp--}}
+                                                                    {{--@endif--}}
+                                                                    {{--<img src="{{$img}}" alt="Organizer Image">--}}
+                                                                {{--</div>--}}
+                                                                {{--@if(!empty($event->time_locations))--}}
+                                                                    {{--<div class="card-date">--}}
+                                                                        {{--<strong>{{$event->time_locations->first()->starting->day}}</strong>--}}
+                                                                        {{--<span>{{get_month($event->time_locations->first()->starting)}}</span>--}}
+                                                                    {{--</div><!-- /.card-date -->--}}
+                                                                {{--@endif--}}
+                                                                {{--<h3 class="card-title">--}}
+                                                                    {{--<a href="{{$link}}" target="_blank">{{$event->title}}</a>--}}
+                                                                {{--</h3>--}}
 
-                                                                <h4 class="card-subtitle">
-                                                                    <a href="{{$link}}" target="_blank">{{$event->time_locations->first()->location}}</a>
-                                                                </h4>
-                                                            </div><!-- /.card-content -->
-                                                        </div><!-- /.card-inner -->
-                                                    </div><!-- /.card -->
-                                                </div>
+                                                                {{--<h4 class="card-subtitle">--}}
+                                                                    {{--<a href="{{$link}}" target="_blank">{{$event->time_locations->first()->location}}</a>--}}
+                                                                {{--</h4>--}}
+                                                            {{--</div><!-- /.card-content -->--}}
+                                                        {{--</div><!-- /.card-inner -->--}}
+                                                    {{--</div><!-- /.card -->--}}
+                                                {{--</div>--}}
 
-                                                @endforeach
-                                            @endif
-                                        </div>
-                        </div>
+                                                {{--@endforeach--}}
+                                            {{--@endif--}}
+                                        {{--</div>--}}
+                        {{--</div>--}}
                         <div class="landmarks-listings-all">
                             <a href="{{url('events/all')}}" class="ldm-all btn">View All Listing <i class="fa fa-facebookrrow-circle-o-right"></i></a>
                         </div>

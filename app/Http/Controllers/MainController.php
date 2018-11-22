@@ -49,14 +49,13 @@ class MainController extends Controller
      */
     public function index()
     {
-        $user = Auth::user();
-        $blogs = $this->blogServices->getAll();
-        $testimonials = $this->testimonialServices->getAll();
-        $categories = $this->categoryServices->getAll();
-        $liveEvents = $this->eventListingService->liveEventsByTimeAndLocation();
-        dd($liveEvents);
+        $user           = Auth::user();
+        $blogs          = $this->blogServices->getAll();
+        $testimonials   = $this->testimonialServices->getAll();
+        $categories     = $this->categoryServices->getAll();
+        $todayEvents    = $this->eventListingService->todayEventsByTimeAndLocation();
         return view('front-end.public.landing-page')->with(['blogs' => $blogs, 'categories' => $categories, 'testimonials'
-            => $testimonials, 'user' => $user, 'liveEvents' => $liveEvents, 'categoriesPath' => getDirectory('categories'), 'blogsPath' => getDirectory('blogs'), 'testimonialsPath' => getDirectory('testimonials')]);
+            => $testimonials, 'user' => $user, 'todayEvents' => $todayEvents, 'categoriesPath' => getDirectory('categories'), 'blogsPath' => getDirectory('blogs'), 'testimonialsPath' => getDirectory('testimonials')]);
     }
 
     /**
