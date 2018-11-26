@@ -12,11 +12,15 @@ class EventOrderRepo
     }
 
     public function getUserTickets($userId){
-        return $this->orderModel->getUserOrders($userId)->recentCreatedAt()->get()->load(['event', 'ticket']);
+        return $this->orderModel->getUserOrders($userId)->getCompletedOrders()->recentCreatedAt()->get();
     }
 
     public function getEventOrders($eventId){
-        return $this->orderModel->getEventOrders($eventId)->recentCreatedAt()->get();
+        return $this->orderModel->getEventOrders($eventId)->getCompletedOrders()->recentCreatedAt()->get();
+    }
+
+    public function getTicketOrders($ticketId){
+        return $this->orderModel->getTicketOrders($ticketId)->getCompletedOrders()->get();
     }
 
 }

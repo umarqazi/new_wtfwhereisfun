@@ -320,6 +320,19 @@ if (! function_exists('addNewTimeLocationRow')) {
         }
     }
 
-
-
+    if (! function_exists('searchResultsDropdown')) {
+        function searchResultsDropdown($searchResults, $count)
+        {
+            $result = '';
+            foreach ($searchResults as $searchResult) {
+                $result .= "<li><a href='".url('events/'.$searchResult->event->encrypted_id.'/'.$searchResult->encrypted_id)."'>".$searchResult->event->title."<br><span><i class='fa fa-map-marker'></i>"."$searchResult->location</span></a></li>";
+            }
+            if($count > 0){
+                $result .= "<li><span>{$count} Results Found </span><input class='search-submit' type='submit' value='See All'></li>";
+            }else{
+                $result .= "<li>No Events Found</li>";
+            }
+            return $result;
+        }
+    }
 }

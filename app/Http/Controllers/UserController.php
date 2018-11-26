@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\PaymentInfo;
 use App\UserVerification;
+use Carbon\Carbon;
 use Encore\Admin\Controllers\ModelForm;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -26,6 +28,7 @@ use App\Services\UserEmailPreferenceService;
 use App\Services\UserPasswordService;
 use App\Services\UserImageService;
 use App\Services\ImageService;
+use App\Services\Events\EventFilterService;
 use App\Http\Requests\RegisterUser;
 use App\Http\Requests\UserProfile;
 use App\Http\Requests\UserContact;
@@ -34,7 +37,7 @@ use App\Http\Requests\UserOtherInformation;
 use App\Http\Requests\ChangePassword;
 use Illuminate\Http\File;
 
-class UsersController extends Controller
+class UserController extends Controller
 {
     protected $userServices;
     protected $userProfileService;
@@ -44,6 +47,7 @@ class UsersController extends Controller
     protected $userEmailPreferenceService;
     protected $userImageService;
     protected $imageService;
+    protected $eventFilterService;
 
     public function __construct()
     {
@@ -55,6 +59,7 @@ class UsersController extends Controller
         $this->userPasswordService        = new UserPasswordService();
         $this->userImageService           = new UserImageService();
         $this->imageService               = new ImageService();
+        $this->eventFilterService         = new EventFilterService();
     }
 
     /**
@@ -64,8 +69,13 @@ class UsersController extends Controller
      */
     public function vendorDashboard()
     {
-        $user = Auth::user();
-        return view('users.vendors.dashboard')->with('user', $user);
+        $user           = Auth::user();
+        $endDate        = Carbon::now();
+        $pastWeek       = $this->eventFilterService->getLastWeekEventDetails($endDate, $user->id);
+        $pastMonth      = $this->eventFilterService->getLastMonthEventDetails($endDate, $user->id);
+        $pastYear       = $this->eventFilterService->getLastYearEventDetails($endDate, $user->id);
+        return view('users.vendors.dashboard')->with(['user' => $user, 'pastWeek' => $pastWeek,
+            'pastMonth' => $pastMonth, 'pastYear' => $pastYear]);
     }
 
     /**
@@ -159,6 +169,21 @@ class UsersController extends Controller
     public function otherInformationUpdate(UserOtherInformation $request)
     {
         $response = $this->userProfileService->updateOtherInformation($request);
+        return response()->json([
+            'type'      =>      'success',
+            'msg'       =>      Config::get('constants.PROFILEINFO_SUCCESS'),
+            'data'      =>      $response
+        ]);
+    }
+
+    /**
+     * Update Payment Information in Vendor's Profile.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function paymentInfoUpdate(PaymentInfo $request)
+    {
+        $response = $this->userProfileService->updatePaymentInfo($request);
         return response()->json([
             'type'      =>      'success',
             'msg'       =>      Config::get('constants.PROFILEINFO_SUCCESS'),

@@ -121,23 +121,25 @@ class EventService extends BaseService implements IDBService
             $directory, 'eventTags' => $eventTags]);
     }
 
-    public function show($id){
-        $event_id       = decrypt_id($id);
-        $event          = $this->getByID($event_id);
-        $locations      = $this->eventLocationService->getEventLocations($event_id);
-        $tickets        = $this->eventTicketService->getEventTickets($event_id);
-        $tags           = $this->eventTagService->getEventTags($event_id);
-        $moreEvents     = $this->eventRepo->getMoreEvents($event->vendor->id, $event_id);
-        $directory      = getDirectory('events', $event_id);
-        if(!empty($locations)){
-            Mapper::map($locations->first()->latitude , $locations->first()->longitude);
+    public function show($id, $locationId){
+        $eventId        = decrypt_id($id);
+        $locationId     = decrypt_id($locationId);
+        $event          = $this->getByID($eventId);
+        $locations      = $this->eventLocationService->getEventLocations($eventId);
+        $eventLocation  = $this->eventLocationService->getTimeLocation($locationId);
+        $tickets        = $this->eventTicketService->getTicketsByLocation($locationId);
+        $tags           = $this->eventTagService->getEventTags($eventId);
+        $moreEvents     = $this->eventRepo->getMoreEvents($event->vendor->id, $eventId);
+        $directory      = getDirectory('events', $eventId);
+        if(!empty($eventLocation)){
+            Mapper::map($eventLocation->latitude , $eventLocation->longitude);
         }
         if(empty($event->event_layout_id)){
             $layout     = 'layout-1';
         }else{
             $layout         = $event->layout->name;
         }
-        return (['event' => $event, 'layout' => $layout, 'eventId' => $id, 'locations' => $locations, 'tickets' => $tickets, 'directory' => $directory, 'moreEvents' => $moreEvents, 'tags' => $tags ]);
+        return (['event' => $event, 'layout' => $layout, 'eventId' => $id, 'locations' => $locations, 'eventLocation' => $eventLocation, 'tickets' => $tickets, 'directory' => $directory, 'moreEvents' => $moreEvents, 'tags' => $tags ]);
     }
 
     public function goLive($request){

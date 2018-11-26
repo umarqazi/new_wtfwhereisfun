@@ -41,7 +41,7 @@
                             </div>
                         </div>
                         <p class="login-link">
-                            <a class="btn btn-success rounded-border" href="{{url('events/'.encrypt_id($orderDetails->event->id))}}">Go Back to Event Page</a>
+                            <a class="btn btn-success rounded-border" href="{{url('events/'.$orderDetails->event->encrypted_id.'/'.$orderDetails->ticket->time_location->encrypted_id)}}">Go Back to Event Page</a>
                         </p>
                     </div>
                 </div>

@@ -27,56 +27,63 @@
             <div class="account-subscribe">
                 <span class="followers"><a href="https://listgo.wiloke.com/info/?mode=followers&amp;user=10"><span class="count">1</span> Followers</a></span>
             </div>
-            <div class="widget_author__content">
-                <ul class="widget_author__address">
-                    @if(!empty($event->contact))
-                        <li>
-                            <i class="fa fa-envelope"></i>
-                            <a href="#">{{$event->contact}}</a>
-                        </li>
-                    @endif
 
-                    @if(!empty($event->organizer->organizer_url))
-                        <li>
-                            <i class="fa fa-globe"></i>
-                            <a href="{{$event->organizer->organizer_url}}" target="_blank">{{$event->organizer->organizer_url}}</a>
-                        </li>
+            @if(!empty($event->organizer->facebook) || !empty($event->organizer->twitter) || !empty($event->organizer->google) || !empty($event->organizer->timbler) || !empty($event->organizer->instagram) || !empty($event->organizer->linkedin) || !empty($event->contact) || !empty($event->organizer->organizer_url))
+                <div class="widget_author__content">
+                    @if(!empty($event->contact) || !empty($event->organizer->organizer_url))
+                        <ul class="widget_author__address">
+                            @if(!empty($event->contact))
+                                <li>
+                                    <i class="fa fa-envelope"></i>
+                                    <a href="#">{{$event->contact}}</a>
+                                </li>
+                            @endif
+
+                            @if(!empty($event->organizer->organizer_url))
+                                <li>
+                                    <i class="fa fa-globe"></i>
+                                    <a href="{{$event->organizer->organizer_url}}" target="_blank">{{$event->organizer->organizer_url}}</a>
+                                </li>
+                            @endif
+                        </ul>
                     @endif
-                </ul>
-                <div class="widget_author__social">
-                    @if(!empty($event->organizer->facebook))<a href="{{$event->organizer->facebook}}" target="_blank"><i class="fa fa-facebook"></i></a> @endif
-                    @if(!empty($event->organizer->twitter))<a href="{{$event->organizer->twitter}}" target="_blank"><i class="fa fa-twitter"></i></a> @endif
-                    @if(!empty($event->organizer->google))<a
-                            href="{{$event->organizer->google}}" target="_blank"><i class="fa fa-google-plus"></i></a> @endif
-                    @if(!empty($event->organizer->timbler))<a href="{{$event->organizer->timbler}}" target="_blank"><i class="fa fa-tumblr"></i></a> @endif
-                    @if(!empty($event->organizer->instagram))<a href="{{$event->organizer->instagram}}" target="_blank"><i class="fa fa-instagram"></i></a> @endif
-                    @if(!empty($event->organizer->linkedin))<a href="{{$event->organizer->linkedin}}" target="_blank"><i class="fa fa-linkedin"></i></a> @endif
+                    @if(!empty($event->organizer->facebook) || !empty($event->organizer->twitter) || !empty($event->organizer->google) || !empty($event->organizer->timbler) || !empty($event->organizer->instagram) || !empty($event->organizer->linkedin))
+                        <div class="widget_author__social">
+                            @if(!empty($event->organizer->facebook))<a href="{{$event->organizer->facebook}}" target="_blank"><i class="fa fa-facebook"></i></a> @endif
+                            @if(!empty($event->organizer->twitter))<a href="{{$event->organizer->twitter}}" target="_blank"><i class="fa fa-twitter"></i></a> @endif
+                            @if(!empty($event->organizer->google))<a href="{{$event->organizer->google}}" target="_blank"><i class="fa fa-google-plus"></i></a> @endif
+                            @if(!empty($event->organizer->timbler))<a href="{{$event->organizer->timbler}}" target="_blank"><i class="fa fa-tumblr"></i></a> @endif
+                            @if(!empty($event->organizer->instagram))<a href="{{$event->organizer->instagram}}" target="_blank"><i class="fa fa-instagram"></i></a> @endif
+                            @if(!empty($event->organizer->linkedin))<a href="{{$event->organizer->linkedin}}" target="_blank"><i class="fa fa-linkedin"></i></a> @endif
+                        </div>
+                    @endif
+                    @if(!empty($event->organizer->organizer_url))
+                        <div class="widget_author__link">
+                            <a href="{{$event->organizer->website}}" target="_blank">Visit Website</a>
+                        </div>
+                    @endif
                 </div>
-                @if(!empty($event->organizer->organizer_url))
-                    <div class="widget_author__link">
-                        <a href="{{$event->organizer->website}}" target="_blank">Visit Website</a>
-                    </div>
-                @endif
-            </div>
+            @endif
         </div>
 
 
         <div id="wiloke_price_segment-5" class="widget widget wiloke_price_segment time-location">
             <h4 class="widget_title"><i class="fa fa-map-marker"></i><span class="active"></span>Time & Locations</h4>
-            <select class="select-time-location" name="location_id" onchange="getTimeLocation(this)">
-                @if(!empty($locations))
-                    @foreach($locations as $key => $location)
-                        <option value="{{encrypt_id($location->id)}}" @if($key == 0) selected @endif>
-                            {{$location->starting->format('Y-m-d g:i A')}} - {{$location->ending->format('Y-m-d g:i A')}}
-                        </option>
-                    @endforeach
-                @else
-                    <option>No time has entered</option>
-                @endif
-            </select>
-            <meta name="csrf-token" content="{{ csrf_token() }}">
+            <div class="organizer-dropdown">
+                <span class="active">{{$eventLocation->starting->format('Y-m-d g:i A')}} - {{$eventLocation->ending->format('Y-m-d g:i A')}}<i class="fa fa-chevron-down"></i></span>
+                <ul class="list" style="display: none;">
+                    @if(!empty($locations))
+                        @foreach($locations as $key => $location)
+                            @if($location->id != $eventLocation->id )
+                                <li><a href="{{url('events/'.$eventId.'/'.encrypt_id($location->id))}}">{{$location->starting->format('Y-m-d g:i A')}} - {{$location->ending->format('Y-m-d g:i A')}}</a></li>
+                            @endif
+                        @endforeach
+                    @else
+                        <li class="active">No time has entered</li>
+                    @endif
+                </ul>
+            </div>
         </div>
-
 
 
         @if(!empty($event->referral_code))

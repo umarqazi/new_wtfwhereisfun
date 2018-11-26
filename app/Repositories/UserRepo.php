@@ -99,6 +99,14 @@ class UserRepo
         return $user;
     }
 
+    public function updatePaymentInfo($request){
+        $user = Auth::user();
+        $user->payment_method     =   $request->payment_method;
+        $user->payment_email      =   $request->payment_email;
+        $user->save();
+        return $user;
+    }
+
     public function deleteImage($id){
         $user = $this->userModel->where('id', $id)->first();
         $this->userModel->where('id', $id)->update(['profile_thumbnail' => '']);

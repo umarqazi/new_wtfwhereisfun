@@ -129,9 +129,9 @@ class EventController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($id, $locationId)
     {
-        $response = $this->eventService->show($id);
+        $response = $this->eventService->show($id, $locationId);
         return view('events.layouts.'.$response['layout'])->with($response);
     }
 
@@ -440,13 +440,33 @@ class EventController extends Controller
     }
 
     /**
-     * Get Vendor Events
+     * Get All Live Events
      *
      * @return \Illuminate\Http\Response
      */
     public function getAllLiveEvents(){
         $liveEvents = $this->eventListingService->getLiveEvents();
         return view('front-end.events.index')->with('liveEvents', $liveEvents);
+    }
+
+    /**
+     * Get Today's Events
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function getTodaysEvents(){
+        $locationEvents = $this->eventListingService->todayEventsByTimeAndLocation();
+        return view('front-end.events.index')->with('locationEvents', $locationEvents);
+    }
+
+    /**
+     * Get Future Events
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function getFutureEvents(){
+        $locationEvents = $this->eventListingService->futureEventsByTimeAndLocation();
+        return view('front-end.events.index')->with('locationEvents', $locationEvents);
     }
 
     /**
@@ -501,7 +521,7 @@ class EventController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function getTimeLocation(Request $request){
-        $response = $this->eventLocationService->getTimeLocation($request);
+        $response = $this->eventLocationService->getTimeLocation(decrypt_id($request->location_id));
         return response()->json([
             'type'      =>  'success',
             'msg'       =>  '',

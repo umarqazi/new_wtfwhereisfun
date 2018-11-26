@@ -1,22 +1,17 @@
 @extends('layouts.master')
-@if(Route::current()->getName() == 'today-events')
-    @section('title', "Today's Events :: Where's the fun")
-@else
-    @section('title', "Future Events :: Where's the fun")
-@endif
+@section('title', "Search Events:: Where's the fun")
 @section('content')
     <div class="container">
         <div class="main-top-padding">
             <div class="public-event-listing">
                 <div class="row">
                     <div class="col-md-12">
-                        @if(Route::current()->getName() == 'today-events')
-                            <h3 class="event-listing-heading">Today's Events</h3>
-                        @else
-                            <h3 class="event-listing-heading">Future Events</h3>
+                        <h3 class="event-listing-heading">Search Results</h3>
+                        @if($count > 0)
+                            <p>{{$count}} Events Found</p>
                         @endif
                     </div>
-                    @if(!empty($locationEvents))
+                    @if(count($locationEvents))
                         @foreach($locationEvents as $location)
                             <div class="col-md-3">
                                 <div class="card">
@@ -76,7 +71,7 @@
                     @else
                         <div class="col-md-12">
                             <div class="no-events">
-                                <h4>No Events Yet</h4>
+                                <h4>No Events Found</h4>
                             </div>
                         </div>
                     @endif

@@ -49,4 +49,10 @@ class EventListingService extends BaseService implements IService
     public function todayEventsByTimeAndLocation(){
         return $this->eventLocationRepo->getTodayEventsByTime();
     }
+
+    public function futureEventsByTimeAndLocation(){
+        return $this->eventLocationRepo->getFutureEventsByTime();
+    }
+
+
 }

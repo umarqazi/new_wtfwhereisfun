@@ -21,12 +21,23 @@
                     <div class="col-lg-8 col-md-12 left-box">
                         <div class="card single-blog-post">
                             <div class="img-holder">
-                                <div class="img-post"><img class="img-blog" src="{{$blog->image}}" alt="Awesome Image"></div>
+                                <div class="img-post">
+                                    @if(!empty($blog->image))
+                                        @php
+                                            $img = $blog->directory.$blog->image;
+                                        @endphp
+                                    @else
+                                        @php
+                                            $img = asset('img/dummy.jpg');
+                                        @endphp
+                                    @endif
+                                    <img class="img-blog" src="{{$img}}" alt="Awesome Image">
+                                </div>
                                 <div class="date-box"><span>{{$blog->created_at->day}}</span><br>{{get_month($blog->created_at)}}</div>
                             </div>
                             <div class="body">
                                 <h3 class="m-t-20"><a href="#">{{$blog->title}}</a></h3>
-                                <p>{{$blog->description}}</p>
+                                <p>{!!$blog->description!!}</p>
                             </div>
                         </div>
                     </div>

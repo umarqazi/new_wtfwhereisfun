@@ -20,9 +20,9 @@ Route::get('/home', 'HomeController@index')->name('home');
 //Route::get('/admin/dashboard', 'AdminController@index')->name('Admin Dashboard');
 
 
-//Route::get('profile',  'UsersController@profile')->name('profile');
-//Route::get('edit-profile',  'UsersController@edit')->name('edit profile');
-//Route::patch('update-profile', 'UsersController@update');
+//Route::get('profile',  'UserController@profile')->name('profile');
+//Route::get('edit-profile',  'UserController@edit')->name('edit profile');
+//Route::patch('update-profile', 'UserController@update');
 //->name('update profile');
 Route::group(['middleware' => ['web']], function () {
     Route::get('login', 'MainController@index')->name('login');
@@ -46,9 +46,11 @@ Route::group(['middleware' => ['web']], function () {
 
     Route::resource('blogs', 'BlogController');
 
+    Route::get('email', 'PaymentController@email');
+
     Route::post('checkout', 'PaymentController@checkout');
     Route::post('validate-checkout', 'PaymentController@validateCheckout');
-    Route::post('checkout/proceed', 'PaymentController@completeCheckout');
+    Route::post('checkout/proceed', 'PaymentController@stripeCheckout');
     Route::post('checkout/notify', 'PaymentController@notifyCheckout');
     Route::get('checkout/success', 'PaymentController@successCheckout');
     Route::get('checkout/cancel', 'PaymentController@cancelCheckout');
@@ -57,15 +59,15 @@ Route::group(['middleware' => ['web']], function () {
     Route::group(['middleware' => ['auth']], function () {
         /*User Routes*/
 
-        Route::get('profile', 'UsersController@edit');
-        Route::post('update-profile', 'UsersController@profileUpdate');
-        Route::post('update-contact', 'UsersController@contactUpdate');
-        Route::post('update-address', 'UsersController@addressUpdate');
-        Route::post('update-email-preference', 'UsersController@emailPreferenceUpdate');
-        Route::post('update-password', 'UsersController@passwordUpdate');
-        Route::post('update-other-info', 'UsersController@otherInformationUpdate');
-        Route::post('upload-image',  'UsersController@uploadImage');
-        Route::delete('remove-image', 'UsersController@removeImage');
+        Route::get('profile', 'UserController@edit');
+        Route::post('update-profile', 'UserController@profileUpdate');
+        Route::post('update-contact', 'UserController@contactUpdate');
+        Route::post('update-address', 'UserController@addressUpdate');
+        Route::post('update-email-preference', 'UserController@emailPreferenceUpdate');
+        Route::post('update-password', 'UserController@passwordUpdate');
+        Route::post('update-other-info', 'UserController@otherInformationUpdate');
+        Route::post('upload-image',  'UserController@uploadImage');
+        Route::delete('remove-image', 'UserController@removeImage');
 
         Route::post('get-country-states', 'AddressController@getCountryStates');
         Route::post('get-state-cities', 'AddressController@getStateCities');
@@ -73,7 +75,9 @@ Route::group(['middleware' => ['web']], function () {
         Route::get('my-tickets',  'EventTicketController@myTickets');
 
         Route::group(['middleware' => ['role:vendor']], function () {
-            Route::get('dashboard',  'UsersController@vendorDashboard');
+            Route::get('dashboard',  'UserController@vendorDashboard');
+
+            Route::post('update-payment-info', 'UserController@paymentInfoUpdate');
 
             Route::resource('events', 'EventController');
             Route::get('my-events', 'EventController@getMyEvents');
@@ -124,10 +128,13 @@ Route::group(['middleware' => ['web']], function () {
 
     Route::prefix('events')->group(function () {
         Route::get('hot-deals', 'EventController@getHotDealEvents');
-        Route::get('all', 'EventController@getAllLiveEvents');
-        Route::get('{id}', 'EventController@show')->name('showById');
+        Route::get('today-events/all', 'EventController@getTodaysEvents')->name('today-events');
+        Route::get('future-events/all', 'EventController@getFutureEvents')->name('future-events');
+        Route::get('{id}/{locationId}', 'EventController@show')->name('showById');
         Route::post('get-time-location', 'EventController@getTimeLocation');
     });
+
+    Route::post('search-events', 'MainController@searchEvents');
 
 });
 

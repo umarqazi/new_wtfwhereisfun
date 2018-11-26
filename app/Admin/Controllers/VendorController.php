@@ -89,8 +89,10 @@ class VendorController extends Controller
         $grid->last_name('Last name');
         $grid->username('Username');
         $grid->email('Email');
-        $grid->phone('Phone');
-        $grid->mobile('Mobile');
+        $grid->payment_method('Payment Method')->display(function ($method){
+            return ucfirst($method);
+        });
+        $grid->payment_email('Payment Email');
         $grid->is_verified('Status')->display(function($status){
             if($status == 1){
                 return '<span class="label label-success">Verified</span>';
@@ -144,6 +146,10 @@ class VendorController extends Controller
         $show->last_name('Last name');
         $show->username('Username');
         $show->email('Email');
+        $show->payment_method('Payment Method')->display(function ($method){
+            return ucfirst($method);
+        });
+        $show->payment_email('Payment Email');
         $show->prefix('Prefix');
         $show->suffix('Suffix');
         $show->phone('Phone');

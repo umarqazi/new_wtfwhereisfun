@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\Checkout;
 use App\Services\Events\EventHotDealService;
 use App\Services\Events\EventTicketService;
+use App\Services\MailService;
 use App\Services\Payments\CheckoutService;
 use Illuminate\Http\Request;
 use Srmklive\PayPal\Services\ExpressCheckout;
@@ -13,12 +14,14 @@ class PaymentController extends Controller
     protected $eventTicketService;
     protected $checkoutService;
     protected $hotDealService;
+    protected $mailService;
 
     public function __construct()
     {
         $this->eventTicketService  = new EventTicketService;
         $this->checkoutService     = new CheckoutService;
         $this->hotDealService      = new EventHotDealService;
+        $this->mailService         = new MailService;
     }
 
     public function checkout(Request $request){
@@ -54,9 +57,11 @@ class PaymentController extends Controller
         $userId     = $this->checkoutService->handleCheckoutUser($request);
         $ticket     = $this->eventTicketService->getTicketDetails(decrypt_id($request->ticket_id));
         $hotDeal    = $this->hotDealService->getHotDealDetails($ticket->event->id);
-        $charge     = $this->checkoutService->completeStripeProcess($request->all(), $ticket, $hotDeal);
-        $response   = $this->checkoutService->storeOrder($request->all(), $userId, $ticket, $charge);
-        return View('payments.success')->with('orderDetails', $response);
+        $amount     = $this->checkoutService->calculateDealPrice($hotDeal, $ticket, $request->quantity);
+        $charge     = $this->checkoutService->completeStripeProcess($request->all(), $amount);
+        $order      = $this->checkoutService->storeOrder($request->all(), $userId, $ticket, $charge);
+        $this->mailService->ticketNotification($order);
+        return View('payments.success')->with('orderDetails', $order);
     }
 
     public function notifyCheckout(Request $request){
@@ -81,6 +86,10 @@ class PaymentController extends Controller
     public function cancelCheckout(Request $request){
         $this->checkoutService->cancelOrder($request['token']);
         return redirect(url()->previous());
+    }
+
+    public function email(){
+        return View('emails.ticket-purchased');
     }
 
 }

@@ -1,20 +1,14 @@
-$(document).ready(function(){
-    $('.event-filters .button-bar').click(function(e){
-        var days = $(this).attr('id');
-        var object = $(this);
-        $.ajax({
-            url: base_url() + "event-stats",
-            type: "POST",
-            data: {days: days},
-            dataType: "JSON",
-            success: function (response) {
-                $('.event-filters .button-bar.active').removeClass('active');
-                object.addClass('active');
-                $('.total-events .number').text(response.total_events)
-                $('.total-earnings .number').text(response.total_earning)
-
-            }
-        });
-    });
-
-});
+function changeEventReports(obj, id){
+    $('.event-button-bar').find('.active').removeClass('active');
+    $('.event-button-bar').find('#'+id).addClass('active');
+    if(id == 7){
+        $('.total-events-count').text($('#weekCount').val());
+        $('.total-earnings-sum').text($('#weekEarning').val());
+    }else if(id == 30){
+        $('.total-events-count').text($('#monthCount').val());
+        $('.total-earnings-sum').text($('#monthEarning').val());
+    }else{
+        $('.total-events-count').text($('#yearCount').val());
+        $('.total-earnings-sum').text($('#yearEarning').val());
+    }
+}
