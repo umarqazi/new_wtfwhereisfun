@@ -19,4 +19,10 @@ class EventOrderRepo
         return $this->orderModel->getEventOrders($eventId)->recentCreatedAt()->get();
     }
 
+    public function getEventByOrderId($id){
+//        dd('adeeel');
+//        return $this->orderModel->getEventByOrderId($id)->get();
+        return EventOrder::find($id);
+    }
+
 }

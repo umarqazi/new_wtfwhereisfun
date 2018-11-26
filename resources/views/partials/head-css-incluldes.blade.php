@@ -42,4 +42,8 @@
     <!-- Responsive Style -->
     <link href="{{asset('css/responsive.css')}}" rel="stylesheet" type="text/css">
 
+    <!-- dispute  Style -->
+    <link href="{{asset('css/dispute.css')}}" rel="stylesheet" type="text/css">
+
+
 </head>

@@ -53,7 +53,18 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('checkout/success', 'PaymentController@successCheckout');
     Route::get('checkout/cancel', 'PaymentController@cancelCheckout');
     Route::post('checkout/stripe', 'PaymentController@stripeCheckout');
+//
 
+    Route::prefix('events')->group(function () {
+        Route::get('hot-deals', 'EventController@getHotDealEvents');
+        Route::get('all', 'EventController@getAllLiveEvents');
+        Route::get('{id}', 'EventController@show')->name('showById');
+        Route::post('get-time-location', 'EventController@getTimeLocation');
+    });
+
+//    Route::get('/ticket-dispute/{id}', 'UsersController@edit');
+
+//
     Route::group(['middleware' => ['auth']], function () {
         /*User Routes*/
 
@@ -71,6 +82,15 @@ Route::group(['middleware' => ['web']], function () {
         Route::post('get-state-cities', 'AddressController@getStateCities');
 
         Route::get('my-tickets',  'EventTicketController@myTickets');
+        Route::get('/disputes/', 'DisputeController@index');
+        Route::get('/disputes/{id}', 'DisputeController@show');
+        Route::get('/ticket-dispute/{id}', 'DisputeController@create');
+        Route::post('/submit-dispute', 'DisputeController@store');
+        Route::post('/dispute-reply', 'DisputeController@reply');
+
+        Route::get('/complaints', 'DisputeController@showComplaints');
+//        Route::get('/disputes/{id}', 'DisputeController@show');
+        Route::post('/close-dispute', 'DisputeController@closeComplaints');
 
         Route::group(['middleware' => ['role:vendor']], function () {
             Route::get('dashboard',  'UsersController@vendorDashboard');
@@ -122,12 +142,12 @@ Route::group(['middleware' => ['web']], function () {
         });
     });
 
-    Route::prefix('events')->group(function () {
-        Route::get('hot-deals', 'EventController@getHotDealEvents');
-        Route::get('all', 'EventController@getAllLiveEvents');
-        Route::get('{id}', 'EventController@show')->name('showById');
-        Route::post('get-time-location', 'EventController@getTimeLocation');
-    });
+//    Route::prefix('events')->group(function () {
+//        Route::get('hot-deals', 'EventController@getHotDealEvents');
+//        Route::get('all', 'EventController@getAllLiveEvents');
+//        Route::get('{id}', 'EventController@show')->name('showById');
+//        Route::post('get-time-location', 'EventController@getTimeLocation');
+//    });
 
 });
 

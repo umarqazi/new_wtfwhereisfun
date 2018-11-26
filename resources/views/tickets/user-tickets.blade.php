@@ -56,6 +56,7 @@
                                         <span class="ticket-time">Start Date Time</span><br>
                                         <span>Amount Paid : <strong>${{$order->payment_gross}}</strong></span><br>
                                         <span>Bought at : <strong>{{monthDateYearFromat($order->created_at)}}</strong></span><br>
+                                        <a href="{{url('ticket-dispute/'.encrypt_id($order->id))}}" class="btn rounded-border" >Dispute</a>
                                     </div>
                                 </div>
                             </div>

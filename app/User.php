@@ -93,6 +93,14 @@ class User extends Authenticatable
     }
 
     /**
+     * Get user Disputes replies
+     */
+    public function dispute_replies()
+    {
+        return $this->hasMany('App\Dispute_replies');
+    }
+
+    /**
      * Get Vendor Events
      */
     public function events()
