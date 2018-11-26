@@ -54,6 +54,17 @@ class EventOrder extends Model
         return $this->BelongsTo('App\EventHotDeal', 'hot_deal_id');
     }
 
+    /**
+     * Scope a query to get completed orders.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @param mixed $type
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeGetCompletedOrders($query)
+    {
+        return $query->whereIn('payment_status', ['Completed', 'succeeded']);
+    }
 
     /**
      * Scope a query to get user tickets.
@@ -64,7 +75,7 @@ class EventOrder extends Model
      */
     public function scopeGetUserOrders($query, $userId)
     {
-        return $query->whereIn('payment_status', ['Completed', 'succeeded'])->where('user_id', $userId);
+        return $query->where('user_id', $userId);
     }
 
     /**
@@ -76,7 +87,23 @@ class EventOrder extends Model
      */
     public function scopeGetEventOrders($query, $eventId)
     {
-        return $query->whereIn('payment_status', ['Completed', 'succeeded'])->where('event_id', $eventId);
+        return $query->where('event_id', $eventId);
+    }
+
+    /**
+     * Scope a query to get ticket orders.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @param mixed $type
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeGetTicketOrders($query, $ticketId)
+    {
+        if(gettype($ticketId) == 'array'){
+            return $query->whereIn('ticket_id', $ticketId);
+        }else{
+            return $query->where('ticket_id', $ticketId);
+        }
     }
 
     /**

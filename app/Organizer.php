@@ -15,6 +15,35 @@ class Organizer extends Model
     ];
 
     /**
+     * The attributes that appended to the model
+     *
+     * @var array
+     */
+    protected $appends = ['directory', 'encrypted_id'];
+
+    /**
+     * Get Encrypted Id of the model instance
+     *
+     * @var array
+     */
+    public function getEncryptedIdAttribute()
+    {
+        return encrypt_id($this->id);
+    }
+
+    /**
+     * Get Directory of the model instance
+     *
+     * @var array
+     */
+    public function getDirectoryAttribute()
+    {
+        $directory = getDirectory('organizers', $this->id);
+        return $directory['web_path'];
+    }
+
+
+    /**
      * Get Organizer Vendor.
      */
     public function vendor()

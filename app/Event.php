@@ -19,6 +19,34 @@ class Event extends Model
     ];
 
     /**
+     * The attributes that appended to the model
+     *
+     * @var array
+     */
+    protected $appends = ['directory', 'encrypted_id'];
+
+    /**
+     * Get Encrypted Id of the model instance
+     *
+     * @var array
+     */
+    public function getEncryptedIdAttribute()
+    {
+        return encrypt_id($this->id);
+    }
+
+    /**
+     * Get Directory of the model instance
+     *
+     * @var array
+     */
+    public function getDirectoryAttribute()
+    {
+        $directory = getDirectory('events', $this->id);
+        return $directory['web_path'];
+    }
+
+    /**
      * Get Events Vendor
      */
     public function vendor()
@@ -122,5 +150,58 @@ class Event extends Model
         return $this->HasMany('App\EventOrder');
     }
 
+    /**
+     * Scope a query to get Future Events.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @param mixed $type
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopePublishedEvents($query, $userId = null)
+    {
+        $where = $query->where(['is_published' => 1, 'deleted_at' => null, 'is_approved' => 1])->where('is_cancelled', '!=', 1)->where('is_draft', '!=', 1);
+
+        if($userId != null){
+            $where = $where->where('user_id', $userId);
+        }
+
+        return $where;
+    }
+
+    /**
+     * Scope a query to get Title Keyword Search.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @param mixed $type
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeSearchByTitle($query, $title)
+    {
+        return $query->where('title', 'like', '%'.$title.'%');
+    }
+
+    /**
+     * Scope a query to get Description Keyword Search.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @param mixed $type
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeSearchByDescription($query, $description)
+    {
+        return $query->orWhere('description', 'like', '%'.$description.'%');
+    }
+
+    /**
+     * Scope a query to get Description Keyword Search.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @param mixed $type
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopePublicAccess($query)
+    {
+        return $query->where('access', 'public');
+    }
 
 }

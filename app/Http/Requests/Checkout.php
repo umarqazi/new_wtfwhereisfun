@@ -28,7 +28,6 @@ class Checkout extends FormRequest
         $rules['user_status']   = 'required';
         $rules['quantity']      = 'required|integer';
         $rules['ticket_id']     = 'required';
-        $rules['payment_method']= 'required';
 
         if(!Auth::user()){
             if($this->input('user_status') == 'old'){

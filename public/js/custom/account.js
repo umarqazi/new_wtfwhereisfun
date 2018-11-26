@@ -521,6 +521,63 @@ $(document).ready(function($) {
      *************************Update Profile Script End ***************************
      ******************************************************************************/
 
+
+
+    /*****************************************************************************
+     ***************************Update Payment Information Script Start************************
+     ******************************************************************************/
+
+    $("#user-payment-info").submit(function(event) {
+        event.preventDefault();
+        var form_data = new FormData($('#user-payment-info')[0]);
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        $.ajax({
+            url  : base_url() + "/update-payment-info",
+            type : "POST",
+            data : form_data,
+            dataType : "JSON",
+            cache: false,
+            contentType: false,
+            processData: false,
+            beforeSend:function(){
+                $('#user-payment-info .profile-btn').attr('disabled',true).text('Loading....');
+                $('#user-payment-info .form-error').html('');
+            },
+            success: function(resp){
+                if(resp.type == "success"){
+                    showToaster('success',resp.msg);
+                }
+                else{
+                    showToaster('error',resp.msg);
+                }
+                $('#user-payment-info .profile-btn').attr('disabled',false).text('Save');
+            },
+            error:function(response)
+            {
+                var respObj = response.responseJSON;
+                showToaster('error', respObj.message);
+                errors = respObj.errors;
+                var keys   = Object.keys(errors);
+                var count  = keys.length;
+                for (var i = 0; i < count; i++)
+                {
+                    $('.'+keys[i]).html(errors[keys[i]]).focus();
+                }
+                $('#user-payment-info .profile-btn').attr('disabled',false).text('Save');
+            }
+        });
+    });
+
+
+    /*****************************************************************************
+     *************************Update Payment Information Script End ***************************
+     ******************************************************************************/
+
+
     /*****************************************************************************
      *************************Social Connect Script Start *************************
      ******************************************************************************/

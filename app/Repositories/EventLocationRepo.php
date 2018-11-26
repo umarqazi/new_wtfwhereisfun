@@ -6,10 +6,12 @@ use Carbon\Carbon;
 class EventLocationRepo
 {
     protected $eventLocationModel;
+    protected $eventModel;
 
     public function __construct()
     {
-        $this->eventLocationModel        =       new EventTimeLocation;
+        $this->eventLocationModel        = new EventTimeLocation;
+        $this->eventModel                = new Event;
     }
 
     public function updateTimeLocation($request, $eventId){
@@ -46,8 +48,50 @@ class EventLocationRepo
 
     public function getTodayEventsByTime(){
         $liveEvents = $this->eventLocationModel->todayEvents()->whereHas('event', function($query){
-            $query->where(['is_published' => 1, 'deleted_at' => null, 'is_approved' => 1])->where('is_cancelled', '!=', 1)->where('is_draft', '!=', 1);
+            $query->publishedEvents($userId = null);
         });
         return $liveEvents->get();
+    }
+
+    public function getFutureEventsByTime(){
+        $futureEvents = $this->eventLocationModel->futureEvents()->whereHas('event', function($query){
+            $query->publishedEvents($userId = null);
+        });
+        return $futureEvents->get();
+    }
+
+    public function getPastEvents($start, $end, $userId){
+        $eventLocations = $this->eventLocationModel->where('starting', '>=', $start)->where('ending', '<=', $end)->whereHas('event', function($query) use ($userId){
+            $query->publishedEvents($userId);
+        });
+        return $eventLocations;
+    }
+
+    public function search($data){
+        if(isset($data['search_events'])){
+            $locationWise = $this->eventLocationModel->todayEvents()->searchByLocation($data['location'])->whereHas('event', function($query) use ($data){
+                $query->publishedEvents()->searchByTitle($data['search_events'])->searchByDescription($data['search_events'])->publicAccess();
+            })->get();
+        }else{
+            $locationWise = $this->eventLocationModel->todayEvents()->searchByLocation($data['location'])->whereHas('event', function($query){
+                $query->publishedEvents()->publicAccess();
+            })->get();
+        }
+
+        $collection = [];
+        if(isset($data['search_events'])){
+            $eventWise = $this->eventModel->publishedEvents()->publicAccess()->searchByTitle($data['search_events'])->searchByDescription($data['search_events'])->whereHas('time_locations', function($query){
+                $query->todayEvents();
+            })->get();
+            if(count($eventWise)) {
+                foreach ($eventWise as $event) {
+                    foreach ($event->time_locations as $time) {
+                        array_push($collection, $time);
+                    }
+                }
+            }
+        }
+        $searchResults = $locationWise->merge($collection);
+        return $searchResults;
     }
 }

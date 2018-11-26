@@ -8,10 +8,29 @@ class EventTimeLocation extends Model
 {
     protected $dates = ['created_at', 'updated_at', 'starting', 'ending'];
 
+    protected $with = ['event'];
+
     protected $fillable = [
         'event_id', 'location', 'address', 'display_currency', 'transacted_currency', 'longitude', 'latitude', 'starting',
         'ending', 'timezone_id'
     ];
+
+    /**
+     * The attributes that appended to the model
+     *
+     * @var array
+     */
+    protected $appends = ['encrypted_id'];
+
+    /**
+     * Get Encrypted Id of the model instance
+     *
+     * @var array
+     */
+    public function getEncryptedIdAttribute()
+    {
+        return encrypt_id($this->id);
+    }
 
     /**
      * Get Event
@@ -55,7 +74,7 @@ class EventTimeLocation extends Model
 
 
     /**
-     * Scope a query to get event tickets.
+     * Scope a query to get Today's Events.
      *
      * @param \Illuminate\Database\Eloquent\Builder $query
      * @param mixed $type
@@ -63,7 +82,31 @@ class EventTimeLocation extends Model
      */
     public function scopeTodayEvents($query)
     {
-        return $query->whereDate('starting', '=',  Carbon::today()->toDateString());
+        return $query->whereDate('starting', '=',  Carbon::today()->toDateString())->orWhere('ending', '>=', Carbon::today()->toDateString());
+    }
+
+    /**
+     * Scope a query to get Future Events.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @param mixed $type
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeFutureEvents($query)
+    {
+        return $query->whereDate('starting', '>=',  Carbon::today()->addDay()->toDateString())->orWhere('ending', '>=', Carbon::today()->addDay());
+    }
+
+    /**
+     * Scope a query to Search By Location
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @param mixed $type
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeSearchByLocation($query, $location)
+    {
+        return $query->where('location', 'like', '%'.$location.'%');
     }
 
 

@@ -51,15 +51,15 @@ class CheckoutService
         return $response['paypal_link'];
     }
 
-    public function completeStripeProcess($data, $ticket, $hotDeal){
-        $quantity = (int) $data['quantity'];
-        if($hotDeal['hotDeal']){
-            $discount = $ticket->price * $hotDeal['details']->discount/100;
-            $discount = $discount * $quantity;
-        }else{
-            $discount = 0;
-        }
-        $amount = $ticket->price * $quantity - $discount;
+    public function completeStripeProcess($data, $amount){
+//        $quantity = (int) $data['quantity'];
+//        if($hotDeal['hotDeal']){
+//            $discount = $ticket->price * $hotDeal['details']->discount/100;
+//            $discount = $discount * $quantity;
+//        }else{
+//            $discount = 0;
+//        }
+//        $amount = $ticket->price * $quantity - $discount;
         $charge = $this->stripeProvider->charges()->create([
             'source'    => $data['stripeToken'],
             'currency'  => 'USD',
@@ -127,7 +127,7 @@ class CheckoutService
             $discount = 0;
         }
         $amount = $ticket->price * $qty - $discount;
-        return $amount * 100;
+        return $amount;
     }
 
 

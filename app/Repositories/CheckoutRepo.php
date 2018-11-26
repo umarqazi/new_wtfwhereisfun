@@ -20,15 +20,12 @@ class CheckoutRepo
             'ticket_id'     =>      $ticket->id,
             'quantity'      =>      $qty,
             'ticket_price'  =>      $ticket->price,
-            'payment_method'=>      $orderDetails['payment_method']
+            'payment_method'=>      'stripe',
+            'transaction_id'=>      $charge['id'],
+            'payment_gross' =>      $charge['amount']/100,
+            'currency_code' =>      $charge['currency'],
+            'payment_status'=>       $charge['status']
         ];
-
-        if($orderDetails['payment_method'] == 'stripe'){
-            $order['transaction_id']           =       $charge['id'];
-            $order['payment_gross']            =       $charge['amount']/100;
-            $order['currency_code']            =       $charge['currency'];
-            $order['payment_status']           =       $charge['status'];
-        }
 
         if($ticket->event->hot_deal()->exists()){
             $order['is_deal_availed']      = 1;

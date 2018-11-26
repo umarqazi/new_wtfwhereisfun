@@ -25,4 +25,10 @@ class UserProfileService
         return $response;
     }
 
+    public function updatePaymentInfo($request){
+        $response = $this->userRepo->updatePaymentInfo($request);
+        return $response;
+    }
+
+
 }

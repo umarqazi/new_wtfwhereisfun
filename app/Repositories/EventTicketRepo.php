@@ -60,4 +60,12 @@ class EventTicketRepo
         $eventTicketPass = TicketPass::destroy($request->pass_id);
     }
 
+    public function getTicketsByLocation($locationId){
+        if(gettype($locationId) == 'array'){
+            return $this->ticketModel->whereIn('time_location_id', $locationId)->get();
+        }else{
+            return $this->ticketModel->where('time_location_id', $locationId)->get();
+        }
+    }
+
 }
