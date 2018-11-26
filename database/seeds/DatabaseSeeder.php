@@ -36,10 +36,10 @@ class DatabaseSeeder extends Seeder
         $this->call(ContentTableSeeder::class);
 
         // Seed the Testimonials
-        $this->call(TestimonialsTableSeeder::class);
+//        $this->call(TestimonialsTableSeeder::class);
 
         // Seed the Blogs
-        $this->call(BlogsTableSeeder::class);
+//        $this->call(BlogsTableSeeder::class);
 
         // Seed the Roles
         $this->call(RolesTableSeeder::class);
