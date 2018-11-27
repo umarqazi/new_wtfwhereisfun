@@ -1,0 +1,163 @@
+.custom-margin-top{
+    padding-top: 120px;
+}
+
+.dispute-listing{
+    margin-bottom: 10px;
+    padding: 15px;
+}
+
+.dispute-listing .img-holder img{
+    margin-bottom: 10px;
+}
+
+.dispute-listing .img-holder img{
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+}
+
+.dispute-listing .img-holder p{
+    font-weight: 500;
+    color: #000;
+    margin-bottom: 0px;
+}
+
+.dispute-listing .dispute-detail{
+    border-bottom: #eee solid 1px;
+    padding: 10px 0px;
+}
+
+.dispute-listing .dispute-detail h2{
+    font-size: 26px;
+    color: #0dc143;
+}
+
+.dispute-listing .dispute-detail p{
+    color: #0e0e0e;
+    margin-bottom: 0px;
+    font-size: 16px;
+}
+.dispute-listing .date{
+    text-align: right;
+    font-size: 15px;
+    padding-top: 10px;
+    color: #0e0e0e;
+}
+
+
+.eventListing{
+    background-color: white;
+    padding: 24px;
+    box-shadow: 0 0 8px 0 rgba(0, 0, 0, .1);
+    border-radius: 6px;
+    margin-bottom: 30px;
+}
+
+.eventListing .img-wrapper{
+    display: inline-block;
+    vertical-align: top;
+    width: 64px;
+    text-align: center;
+}
+
+.eventListing .img-wrapper span{
+    margin-top: 5px;
+    font-weight:600;
+    font-size: 13px;
+    display: inline-block;
+}
+
+.eventListing .img-holder{
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    text-align: center;
+}
+
+.eventListing .img-holder img{
+    max-width: 100%;
+}
+
+.eventListing .info{
+    display: inline-block;
+    vertical-align: top;
+    padding-left: 15px;
+    width: calc(100% - 68px);
+}
+
+.eventListing .info .event-title{
+    color: #37393E;
+    font-size: 20px;
+    font-weight: 500;
+    line-height: normal;
+}
+
+.eventListing .info .event-title a{
+    color: #37393E;
+}
+
+.eventListing .info p, .eventListing .info h2, .eventListing .info h3, .eventListing .info h4, .eventListing .info h5, .eventListing .info h6   {
+    margin-top: 5px;
+    font-size: 14px;
+    color: #6F7881;
+    margin-bottom: 0;
+}
+
+.eventListing .leftSide{
+    display: inline-block;
+    width: calc(100% - 229px);
+}
+
+.eventListing .date{
+    color: #6F7881;
+}
+
+.eventListing .info p i{
+    padding-right: 5px;
+}
+
+.eventListing .info p.green{
+    color : #6FB426 !important;
+}
+
+.eventListing .info .actions-btns{
+    float: right;
+    max-width: 250px;
+    text-align: right;
+}
+
+.eventListing .info .actions-btns .action-list:not(:first-child){
+    margin-left: 5px;
+}
+
+.eventListing .info .actions-btns .action-list button{
+    padding : 7px 15px;
+    border-radius : 5px;
+    margin: 3px 0;
+}
+
+.eventListing .info .actions-btns .action-list{
+    display:inline-block;
+}
+
+.dispute_listing_parent .img-holder img{
+    height: auto;
+}
+
+.eventListing.dispute_listing_parent .leftSide{
+    width: calc(100% - 270px);
+}
+
+.eventListing.dispute_listing_parent .info .actions-btns{
+    max-width: 286px;
+}
+
+.eventListing.dispute_listing_parent .actions-btns .action-list a{
+    padding:0px;
+}
+/*unread message*/
+.unread{
+    background-color: #80808014;
+}

@@ -23,4 +23,10 @@ class EventOrderRepo
         return $this->orderModel->getTicketOrders($ticketId)->getCompletedOrders()->get();
     }
 
+    public function getEventByOrderId($id){
+//        dd('adeeel');
+//        return $this->orderModel->getEventByOrderId($id)->get();
+        return EventOrder::find($id);
+    }
+
 }

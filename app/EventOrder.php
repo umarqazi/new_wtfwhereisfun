@@ -46,6 +46,11 @@ class EventOrder extends Model
         return $this->BelongsTo('App\EventTicket');
     }
 
+    public function disputes()
+    {
+        return $this->hasMany('App\Dispute');
+    }
+
     /**
      * Get Order Discount Details
      */

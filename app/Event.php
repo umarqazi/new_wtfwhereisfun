@@ -151,7 +151,13 @@ class Event extends Model
     }
 
     /**
-     * Scope a query to get Future Events.
+     * Get Event Orders.
+     */
+    public function disputes(){
+        return $this->HasMany('App\Dispute');
+    }
+
+     /* Scope a query to get Future Events.
      *
      * @param \Illuminate\Database\Eloquent\Builder $query
      * @param mixed $type
