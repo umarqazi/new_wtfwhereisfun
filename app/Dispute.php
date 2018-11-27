@@ -23,4 +23,9 @@ class Dispute extends Model
         return $this->belongsTo('App\EventOrder');
     }
 
+    public function event()
+    {
+        return $this->belongsTo('App\Event');
+    }
+
 }

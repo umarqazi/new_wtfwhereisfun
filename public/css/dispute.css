@@ -157,3 +157,7 @@
 .eventListing.dispute_listing_parent .actions-btns .action-list a{
     padding:0px;
 }
+/*unread message*/
+.unread{
+    background-color: #80808014;
+}

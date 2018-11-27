@@ -32,6 +32,7 @@ class TicketDisputeRepo
         $dispute->event_order_id = $request['order_id'];
         $dispute->subject = $request['subject'];
         $dispute->message = $request['message'];
+        $dispute->seen_by_user = 1;
         $dispute->save();
 
         return $dispute;
@@ -70,8 +71,38 @@ class TicketDisputeRepo
         $disputeReply->message = $request['reply'];
         $disputeReply->user_id = $user->id;
         $disputeReply->dispute_id = $request['dispute_id'];
-        return  $disputeReply->save();
+        $disputeReply->save();
+        return  $disputeReply;
 
+    }
+
+    public function getVendor($dispute)
+    {
+        return $dispute->event->vendor->email;
+    }
+
+    public function changeSeenStatus($user,$dispute_details){
+        $dispute = Dispute::find($dispute_details->id);
+        if($user->hasRole('vendor')){
+            $dispute->seen_by_vendor = 1;
+        }else{
+            $dispute->seen_by_user = 1;
+        }
+
+        $dispute->update();
+    }
+
+    public function changeReplySeenStatus($dispute_id){
+        $user = Auth::user();
+        $dispute = Dispute::find($dispute_id);
+        if($user->hasRole('vendor')){
+            $dispute->seen_by_vendor = 1;
+            $dispute->seen_by_user = 0;
+        }else{
+            $dispute->seen_by_user = 1;
+            $dispute->seen_by_vendor = 0;
+        }
+        $dispute->update();
     }
 
 }

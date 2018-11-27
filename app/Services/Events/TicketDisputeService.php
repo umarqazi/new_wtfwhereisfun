@@ -15,10 +15,12 @@
  */
 
 namespace App\Services\Events;
+use App\DisputeReply;
 use App\Services\BaseService;
 use App\Services\IService;
 use App\Repositories\TicketDisputeRepo;
-
+use App\Mail\DisputeReplyMail;
+use Mail;
 
 class TicketDisputeService extends BaseService implements IService
 {
@@ -61,5 +63,27 @@ class TicketDisputeService extends BaseService implements IService
         return $this->disputeRepo->reply($request);
     }
 
+    public function getVendor($dispute)
+    {
+       return $this->disputeRepo->getVendor($dispute);
+    }
+
+    public function sendEmailNotification($reply){
+        if($reply->user->hasRole('vendor')){
+            $email = $reply->dispute->user->email;
+            Mail::to($email)->send(new DisputeReplyMail($reply));
+        }else{
+            $email = $reply->dispute->event->vendor->email;
+            Mail::to($email)->send(new DisputeReplyMail($reply));
+        }
+    }
+
+    public function changeSeenStatus($user,$dispute_details){
+       return $this->disputeRepo->changeSeenStatus($user,$dispute_details);
+    }
+
+    public function changeReplySeenStatus($dispute_id){
+        return $this->disputeRepo->changeReplySeenStatus($dispute_id);
+    }
 
 }

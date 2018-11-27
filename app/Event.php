@@ -122,5 +122,12 @@ class Event extends Model
         return $this->HasMany('App\EventOrder');
     }
 
+    /**
+     * Get Event Orders.
+     */
+    public function disputes(){
+        return $this->HasMany('App\Dispute');
+    }
+
 
 }

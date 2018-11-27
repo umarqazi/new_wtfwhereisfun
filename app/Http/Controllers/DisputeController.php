@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\SaveDisputeRequest;
+use App\Mail\NewDispute;
 use App\Services\Events\EventListingService;
 use App\Services\Events\EventOrderService;
 use App\Services\Events\EventService;
@@ -10,6 +11,7 @@ use App\Services\Events\TicketDisputeService;
 use Illuminate\Http\Request;
 use App\Services\Events\EventTicketService;
 use Illuminate\Support\Facades\Auth;
+use Mail;
 
 class DisputeController extends Controller
 {
@@ -31,7 +33,6 @@ class DisputeController extends Controller
     public function index(){
         $user = Auth::user();
         $user_disputes = $this->ticketDisputeService->getByUserId($user->id);
-//        dd($user_disputes);
         return view('tickets.disputeList')->with('user_disputes',$user_disputes);
     }
 
@@ -44,16 +45,23 @@ class DisputeController extends Controller
 
     public function store(SaveDisputeRequest $request){
         $user = Auth::user();
-        $this->ticketDisputeService->store($request->all(),$user->id);
+        $dispute = $this->ticketDisputeService->store($request->all(),$user->id);
+        $vendor = $this->ticketDisputeService->getVendor($dispute);
+
+        Mail::to($user->email)->send(new NewDispute($dispute));
+        Mail::to($vendor)->send(new NewDispute($dispute));
+
         return redirect('/my-tickets');
     }
 
     public function show($id){
+        $user = Auth::user();
         $id = decrypt_id($id);
         $dispute_details = $this->ticketDisputeService->getById($id);
-//        dd($dispute_details);
         $event_details = $this->eventService->getByID($dispute_details->event_id);
-//        dd($dispute_details);
+        $this->ticketDisputeService->changeSeenStatus($user,$dispute_details);
+
+
         return view('tickets.disputeDetail')->with(['event_details' => $event_details, 'dispute_details' => $dispute_details]);
     }
 
@@ -74,7 +82,9 @@ class DisputeController extends Controller
 
     public function reply(Request $request)
     {
-        $this->ticketDisputeService->disputeReply($request->all());
+        $reply =  $this->ticketDisputeService->disputeReply($request->all());
+        $this->ticketDisputeService->changeReplySeenStatus($reply->dispute_id);
+        $this->ticketDisputeService->sendEmailNotification($reply);
         return redirect('/disputes/'.encrypt_id($request->dispute_id));
     }
 

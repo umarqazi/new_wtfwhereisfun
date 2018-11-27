@@ -24,6 +24,8 @@ class CreateDisputesTable extends Migration
             $table->string('subject');
             $table->text('message');
             $table->boolean('is_closed')->default(0);
+            $table->boolean('seen_by_vendor')->default(0);
+            $table->boolean('seen_by_user')->default(0);
             $table->dateTime('closed_at')->nullable();
             $table->timestamps();
         });

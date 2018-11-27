@@ -8,7 +8,7 @@
                     <div id="home" class="tab-pane fade in active">
                         <div id="home_tab">
                             @foreach($user_disputes as $dispute)
-                                <div class="eventListing dispute_listing_parent">
+                                <div class="eventListing dispute_listing_parent @if(!$dispute->seen_by_user)unread @endif">
                                     <div class="m-r-20 fromAvtar">
                                         <div class="img-wrapper">
                                             <div class="img-holder">
