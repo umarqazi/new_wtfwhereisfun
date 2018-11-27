@@ -44,6 +44,18 @@
         </div>
     @endif
 
+    <div class="time_location">
+        <h5>Time & Location</h5>
+        <p>
+            <i class="fa fa-map-marker"></i> {{$eventLocation->location}}
+        </p>
+        <p>
+            <i class="fa fa-calendar"></i> {{$eventLocation->starting->format('d, M Y')}} - {{$eventLocation->ending->format('d, M Y')}}</p>
+        <p>
+            <i class="fa fa-clock-o"></i> {{$eventLocation->starting->format('g:i A')}}  - {{$eventLocation->ending->format('g:i A')}}
+        </p>
+    </div>
+
     @if(!empty($event->additional_message))
         <div class="addtional-msg">
             <h5>Additional Message</h5>

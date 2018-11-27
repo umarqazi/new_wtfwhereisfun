@@ -49,6 +49,9 @@
                             <li><a data-toggle="pill" href="#email">Email Preferences</a></li>
                             <li><a data-toggle="pill" href="#other">Other Information</a></li>
                             <li><a data-toggle="pill" href="#change-password">Change Password</a></li>
+                            @if(Auth::user()->hasRole('vendor'))
+                                <li><a data-toggle="pill" href="#payment-info">Payment Information</a></li>
+                            @endif
                         </ul>
                     </div>
                 </div>
@@ -62,6 +65,9 @@
                     @include('users.vendors.partials.email-detail')
                     @include('users.vendors.partials.other-detail')
                     @include('users.vendors.partials.password-detail')
+                    @if(Auth::user()->hasRole('vendor'))
+                        @include('users.vendors.partials.payment-info')
+                    @endif
                 </div>
             </div>
 

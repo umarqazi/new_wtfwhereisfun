@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\App;
 use Illuminate\Http\Request;
 use Validator;
 use Alert;
@@ -16,6 +17,8 @@ use App\Services\CategoryService;
 use App\Services\TestimonialService;
 use App\Services\ContentService;
 use App\Services\Events\EventListingService;
+use App\Services\Events\EventTimeLocationService;
+use App\Services\Events\EventFilterService;
 use Illuminate\Http\Response;
 use App\UserVerification;
 use App\Http\Requests\RegisterUser;
@@ -32,6 +35,8 @@ class MainController extends Controller
     protected $categoryServices;
     protected $contentService;
     protected $eventListingService;
+    protected $eventLocationService;
+    protected $eventFilterService;
 
     public function __construct()
     {
@@ -41,6 +46,8 @@ class MainController extends Controller
         $this->categoryServices     = new CategoryService;
         $this->contentService       = new ContentService;
         $this->eventListingService  = new EventListingService;
+        $this->eventLocationService = new EventTimeLocationService;
+        $this->eventFilterService   = new EventFilterService;
     }
     /**
      * Show the application's landing Page.
@@ -54,8 +61,32 @@ class MainController extends Controller
         $testimonials   = $this->testimonialServices->getAll();
         $categories     = $this->categoryServices->getAll();
         $todayEvents    = $this->eventListingService->todayEventsByTimeAndLocation();
+        $futureEvents   = $this->eventListingService->futureEventsByTimeAndLocation();
+        $loadLocations  = $this->eventLocationService->getTodayEventsMapMarkers($todayEvents);
+        $city           = $this->eventLocationService->getUserLocation();
         return view('front-end.public.landing-page')->with(['blogs' => $blogs, 'categories' => $categories, 'testimonials'
-            => $testimonials, 'user' => $user, 'todayEvents' => $todayEvents, 'categoriesPath' => getDirectory('categories'), 'blogsPath' => getDirectory('blogs'), 'testimonialsPath' => getDirectory('testimonials')]);
+            => $testimonials, 'user' => $user, 'todayEvents' => $todayEvents, 'futureEvents' => $futureEvents,
+            'categoriesPath' => getDirectory('categories'), 'testimonialsPath' => getDirectory('testimonials'),
+            'map' => $loadLocations, 'city' => $city]);
+    }
+
+    /**
+     * Show the search results
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function searchEvents(Request $request)
+    {
+        $response = $this->eventFilterService->searchEvents($request->all());
+        if ($request->has('type')){
+            return response()->json([
+                'type' => 'success',
+                'msg'  =>    '',
+                'data' => ['searchResults' => $response['results'], 'count' => $response['count']]
+            ]);
+        }else{
+            return View('front-end.events.events-search')->with(['locationEvents' => $response['results'], 'count' => $response['count'] ]);
+        }
     }
 
     /**

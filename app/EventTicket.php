@@ -11,6 +11,8 @@ class EventTicket extends Model
         'min_order', 'max_order', 'release_ticket', 'availability', 'type'
     ];
 
+    protected $with = ['time_location'];
+
     /**
      * Get Event
      */

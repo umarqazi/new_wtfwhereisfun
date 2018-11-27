@@ -60,4 +60,8 @@ class EventTicketService extends BaseService
         return $this->eventOrderRepo->getUserTickets($userId);
     }
 
+    public function getTicketsByLocation($locationId){
+        return $this->eventTicketRepo->getTicketsByLocation($locationId);
+    }
+
 }

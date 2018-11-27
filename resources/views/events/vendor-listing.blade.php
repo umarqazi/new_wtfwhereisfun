@@ -166,7 +166,7 @@
                                                     <a class="btn" href="{{url('events/'.encrypt_id($pastEvent->id).'/dashboard')}}">Manage</a>
                                                 </li>
                                                 <li class="action-list">
-                                                    <a class="btn" href="{{url('events/'.encrypt_id($draftEvent->id).'/edit')}}">Edit</a>
+                                                    <a class="btn" href="{{url('events/'.encrypt_id($pastEvent->id).'/edit')}}">Edit</a>
                                                 </li>
                                             </ul>
                                             <div class="event-title">

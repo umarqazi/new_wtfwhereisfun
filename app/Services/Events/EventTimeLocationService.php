@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Services\Events;
-
+use Illuminate\Support\Facades\App;
 use App\Repositories\EventLocationRepo;
 use App\Services\BaseService;
 use App\Services\IDBService;
@@ -53,8 +53,45 @@ class EventTimeLocationService extends BaseService
         }
     }
 
-    public function getTimeLocation($request){
-        $locationId = decrypt_id($request->location_id);
+    public function getTimeLocation($locationId){
         return $this->eventLocationRepo->getTimeLocation($locationId);
+    }
+
+    public function getTodayEventsMapMarkers($locations){
+        Mapper::map(39.8283, 98.5795);
+        if(count($locations)){
+            foreach($locations as $key => $location){
+                if(!empty($location->event->header_image)){
+                    $headerImg = $location->event->directory.$location->event->header_image;
+                }else{
+                    $headerImg = asset('img/dummy.png');
+                }
+                $link = route('showById', ['id' => encrypt_id($location->event->id), 'locationId' => encrypt_id($location->id)]);
+                $date = $location->starting->format('D, M d').' - '.$location->ending->format('D, M d');
+                $time = $location->starting->format('g:i A').' - '.$location->ending->format('g:i A');
+                $informationWindow = "<div class=\"map-event-details\">
+                                <div class=\"event-image\">
+                                    <img src=\"{$headerImg}\" width=\"200\" height=\"200\">
+                                </div>
+                                <div class=\"event-info\">
+                                    <h4><a href=\"{$link}\">{$location->event->title}</a></h4>
+                                    <p><i class=\"fa fa-map-marker green\"></i> {$location->location}</p>
+                                    <p><i class=\"fa fa-calendar green\"></i> {$date}</p>
+                                    <p><i class=\"fa fa-clock-o green\"></i> {$time}</p>
+                                </div>
+                            </div>";
+                Mapper::informationWindow($location->latitude, $location->longitude, $informationWindow);
+            }
+        }
+    }
+
+    public function getUserLocation(){
+        if (App::environment('local')) {
+            $ip = '202.166.174.53';
+        }else{
+            $ip = \Request::ip();
+        }
+        $details = json_decode(file_get_contents("http://ipinfo.io/{$ip}"));
+        return $details->city;
     }
 }

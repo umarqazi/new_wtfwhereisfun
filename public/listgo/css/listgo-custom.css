@@ -372,3 +372,7 @@ p .event-tag-name{
 .tickets_details .ticket-sold-out{
     color : #f5af02;
 }
+
+.time_location p i{
+    color: #6FB426;
+}
