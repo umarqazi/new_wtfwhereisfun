@@ -60,8 +60,6 @@ class DisputeController extends Controller
         $dispute_details = $this->ticketDisputeService->getById($id);
         $event_details = $this->eventService->getByID($dispute_details->event_id);
         $this->ticketDisputeService->changeSeenStatus($user,$dispute_details);
-
-
         return view('tickets.disputeDetail')->with(['event_details' => $event_details, 'dispute_details' => $dispute_details]);
     }
 

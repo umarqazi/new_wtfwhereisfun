@@ -7,8 +7,12 @@
                 <div class="panel panel-default">
                     <div class="dispute-listing">
                         <div class="img-holder">
-                            <img src="{{asset('images/contact_list-profile2.jpg')}}">
-                            <p>Sorav</p>
+                            @if(!empty($dispute_details->user->directory.$dispute_details->user->profile_thumbnail))
+                            <img src="{{$dispute_details->user->directory.$dispute_details->user->profile_thumbnail}}">
+                            @else
+                                <img src="{{asset('img/dummy.jpg')}}">
+                            <p>{{$dispute_details->user->first_name}}</p>
+                            @endif
                         </div>
                         <div class="dispute-detail">
                             <h2>Event Title</h2>
