@@ -8,6 +8,8 @@ class Dispute extends Model
 {
     protected $fillable = ['user_id', 'event_id', 'event_order_id', 'subject', 'message', 'is_closed', 'closed_at'];
     protected $with = ['dispute_replies','user'];
+
+
     public function dispute_replies()
     {
         return $this->hasMany('App\DisputeReply');
