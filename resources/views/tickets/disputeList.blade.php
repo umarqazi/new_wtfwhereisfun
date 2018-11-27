@@ -12,8 +12,13 @@
                                     <div class="m-r-20 fromAvtar">
                                         <div class="img-wrapper">
                                             <div class="img-holder">
-                                                <img class="rounded" src="{{asset('images/form-dashboard-profile.jpg')}}" alt="">
+                                                @if(!empty($dispute->user->directory.$dispute->user->profile_thumbnail))
+                                                <img class="rounded" src="{{$dispute->user->directory.$dispute->user->profile_thumbnail}}" alt="">
+                                                    @else
+                                                    <img src="{{asset('img/dummy.jpg')}}">
+                                                @endif
                                             </div>
+                                            <p>{{$dispute->user->first_name}}</p>
                                         </div>
                                         <div class="info">
                                             <ul class="actions-btns header-dropdown m-r--5">
