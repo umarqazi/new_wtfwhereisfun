@@ -15,7 +15,7 @@
                                                 @if(!empty($dispute->user->directory.$dispute->user->profile_thumbnail))
                                                 <img class="rounded" src="{{$dispute->user->directory.$dispute->user->profile_thumbnail}}" alt="">
                                                     @else
-                                                    <img src="{{asset('img/dummy.jpg')}}">
+                                                    <img src="{{asset('img/default-148.png')}}">
                                                 @endif
                                             </div>
                                             <p>{{$dispute->user->first_name}}</p>

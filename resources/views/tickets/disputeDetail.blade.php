@@ -10,7 +10,7 @@
                             @if(!empty($dispute_details->user->directory.$dispute_details->user->profile_thumbnail))
                             <img src="{{$dispute_details->user->directory.$dispute_details->user->profile_thumbnail}}">
                             @else
-                                <img src="{{asset('img/dummy.jpg')}}">
+                                <img src="{{asset('img/default-148.png')}}">
                             <p>{{$dispute_details->user->first_name}}</p>
                             @endif
                         </div>
