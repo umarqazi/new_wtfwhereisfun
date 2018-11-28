@@ -12,7 +12,7 @@
                         <div class="member-img tickets_profile">
                             @if(!empty($user->profile_thumbnail))
                                 @php
-                                    $img = $directory['web_path'].$user->profile_thumbnail;
+                                    $img = $directory.$user->profile_thumbnail;
                                 @endphp
                             @else
                                 @php

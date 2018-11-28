@@ -151,7 +151,7 @@ class Event extends Model
     }
 
     /**
-     * Scope a query to get Future Events.
+     * Scope a query to get Published Events.
      *
      * @param \Illuminate\Database\Eloquent\Builder $query
      * @param mixed $type
@@ -167,6 +167,43 @@ class Event extends Model
 
         return $where;
     }
+
+    /**
+     * Scope a query to get Draft Events.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @param mixed $type
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeDraftEvents($query, $userId)
+    {
+        $where = $query->where('is_draft', '=', 1);
+
+        if($userId != null){
+            $where = $where->where('user_id', $userId);
+        }
+
+        return $where;
+    }
+
+    /**
+     * Scope a query to get All Events.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @param mixed $type
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeAllEvents($query, $userId)
+    {
+        $where = $query->where('deleted_at', null);
+
+        if($userId != null){
+            $where = $where->where('user_id', $userId);
+        }
+
+        return $where;
+    }
+
 
     /**
      * Scope a query to get Title Keyword Search.

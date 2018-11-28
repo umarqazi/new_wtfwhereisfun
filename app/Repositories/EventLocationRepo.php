@@ -46,20 +46,50 @@ class EventLocationRepo
         return $this->eventLocationModel->find($id);
     }
 
-    public function getTodayEventsByTime(){
-        $liveEvents = $this->eventLocationModel->todayEvents()->whereHas('event', function($query){
-            $query->publishedEvents($userId = null);
+    public function getAllEventsByTime($vendorId){
+        $allEvents = $this->eventLocationModel->whereHas('event', function($query) use ($vendorId){
+            $query->allEvents($vendorId);
+        });
+        return $allEvents->get();
+    }
+
+    public function getAllPublishedEventsByTimeAndLocation($vendorId){
+        $allEvents = $this->eventLocationModel->whereHas('event', function($query) use ($vendorId){
+            $query->publishedEvents($vendorId);
+        });
+        return $allEvents->get();
+    }
+
+    public function getTodayEventsByTime($vendorId){
+        $liveEvents = $this->eventLocationModel->todayEvents()->whereHas('event', function($query) use ($vendorId){
+            $query->publishedEvents($vendorId);
         });
         return $liveEvents->get();
     }
 
-    public function getFutureEventsByTime(){
-        $futureEvents = $this->eventLocationModel->futureEvents()->whereHas('event', function($query){
-            $query->publishedEvents($userId = null);
+    public function getFutureEventsByTime($vendorId){
+        $futureEvents = $this->eventLocationModel->futureEvents()->whereHas('event', function($query) use($vendorId){
+            $query->publishedEvents($vendorId);
         });
         return $futureEvents->get();
     }
 
+    public function getDraftEventsByTime($vendorId){
+        $draftEvents = $this->eventLocationModel->whereHas('event', function($query) use($vendorId){
+            $query->draftEvents($vendorId);
+        });
+        return $draftEvents->get();
+    }
+
+    //Vendor Listing
+    public function getPastEventsByTime($vendorId){
+        $pastEvents = $this->eventLocationModel->PastEvents()->whereHas('event', function($query) use ($vendorId){
+            $query->publishedEvents($vendorId);
+        })->get();
+        return $pastEvents;
+    }
+
+    //Vendor Dashboard Filters
     public function getPastEvents($start, $end, $userId){
         $eventLocations = $this->eventLocationModel->where('starting', '>=', $start)->where('ending', '<=', $end)->whereHas('event', function($query) use ($userId){
             $query->publishedEvents($userId);

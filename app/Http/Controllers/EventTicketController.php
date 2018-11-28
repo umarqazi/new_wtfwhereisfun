@@ -17,6 +17,6 @@ class EventTicketController extends Controller
     public function myTickets(){
         $user = Auth::user();
         $tickets = $this->eventTicketService->getUserTickets($user->id);
-        return View('tickets.user-tickets')->with(['orders' => $tickets, 'user' => $user, 'directory' => getDirectory('vendors', $user->id)]);
+        return View('tickets.user-tickets')->with(['orders' => $tickets, 'user' => $user, 'directory' => $user->directory]);
     }
 }

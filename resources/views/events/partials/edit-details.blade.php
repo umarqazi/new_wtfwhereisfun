@@ -8,14 +8,14 @@
                 <div class="form_bg_box basicInformationWrapper">
                     <h4>Basic information</h4>
                     <div class="form-group">
-                        <label>What is your event called? </label>
+                        <label>What is your event called? <span class="required-field">*</span></label>
                         <span class="label_cap text-right char_limit">0/75</span>
                         <input type="text" class="form-control" placeholder="Make it a short and
                                         catchy title" name="title" value="{{$event->title}}" id="event_title" required="" maxlength="75">
                         <div class="form-error title"></div>
                     </div>
                     <div class="form-group">
-                        <label for="description"> Description </label>
+                        <label for="description"> Description <span class="required-field">*</span></label>
                         <span class="label_cap">This description will appear on the event listing page.</span>
                         <textarea class="" id="description" name="description">{{$event->description}}</textarea>
                         <div class="form-error description"></div>
@@ -25,7 +25,7 @@
                             @if(empty($event->contact))
                                 <a href="JavaScript:void(0);" class="contact_toogle"> <i class="fa fa-plus"></i> Add contact details</a>
                             @endif
-                            <div class="contact_append">
+                            <div class="contact_append" @if(!empty($event->contact)) style="display:block" @endif>
                                 <label>Contact details</label>
                                 <span class="label_cap">Your contact information is kept private and shown only to attendees who book a ticket.</span>
                                 <input type="text" class="form-control" placeholder="Enter an email address or phone number"
@@ -99,7 +99,7 @@
                     </div>
 
                     <div class="form-group Refund_Policy">
-                        <label> Select an Organizer</label>
+                        <label> Select an Organizer <span class="required-field">*</span></label>
                         <select class="form-control" name="organizer_id" required>
                             <option value="" disabled="" @if(is_null($event->organizer)){{'selected'}}@endif>Select Organizer</option>
                             @foreach($organizers as $organizer)
@@ -107,6 +107,7 @@
                                         value="{{$organizer->id}}">{{$organizer->name}}</option>
                             @endforeach
                         </select>
+                        <div class="form-error organizer_id"></div>
                     </div>
 
                     <div class="form-group">

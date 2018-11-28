@@ -1,6 +1,7 @@
 <?php
 namespace App\Repositories;
 
+use Carbon\Carbon;
 use App\EventTicket;
 class EventTicketRepo
 {
@@ -22,12 +23,15 @@ class EventTicketRepo
         }else{
             $eventTicket = EventTicket::find($request->ticket_id);
         }
+        $startDate = Carbon::parse($request->selling_start);
+        $endDate   = Carbon::parse($request->selling_end);
+
         $eventTicket->name                    =       $request->name;
         $eventTicket->quantity                =       $request->quantity;
         $eventTicket->price                   =       $request->price;
         $eventTicket->description             =       $request->description;
-        $eventTicket->selling_start           =       $request->selling_start;
-        $eventTicket->selling_end             =       $request->selling_end;
+        $eventTicket->selling_start           =       $startDate->format('Y-m-d H:i:s');
+        $eventTicket->selling_end             =       $endDate->format('Y-m-d H:i:s');
         $eventTicket->status                  =       $request->status;
         $eventTicket->min_order               =       $request->min_order;
         $eventTicket->max_order               =       $request->max_order;

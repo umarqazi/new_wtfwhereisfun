@@ -7,10 +7,10 @@
                 <a href="javascript:void(0)" onclick="window.history.back()" class=" pull-right btn btn-raised btn-default waves-effect back-button1">Back</a>
                 <h2>Manage Events</h2>
                 <ul class="nav nav-tabs eventsTabs">
-                    <li class="active"><a data-toggle="tab" href="#home">LIVE {{count($liveEvents)}}</a></li>
-                    <li><a data-toggle="tab" href="#menu1">DRAFT {{count($draftEvents)}}</a></li>
-                    <li><a data-toggle="tab" href="#menu2">PAST {{count($pastEvents)}}</a></li>
-                    <li><a data-toggle="tab" href="#menu3">All {{count($allEvents)}}</a></li>
+                    <li class="active"><a data-toggle="tab" href="#home">LIVE {{count($liveEventLocations)}}</a></li>
+                    <li><a data-toggle="tab" href="#menu1">DRAFT {{count($draftEventLocations)}}</a></li>
+                    <li><a data-toggle="tab" href="#menu2">PAST {{count($pastEventLocations)}}</a></li>
+                    <li><a data-toggle="tab" href="#menu3">All {{count($allEventLocations)}}</a></li>
                 </ul>
 
                 <div class="eventsSearch">
@@ -24,14 +24,13 @@
                 <div class="tab-content">
                     <div id="home" class="tab-pane fade in active">
                         <div id="home_tab">
-                            @if(count($liveEvents))
-                                @foreach($liveEvents as $liveEvent)
+                            @if(count($liveEventLocations))
+                                @foreach($liveEventLocations as $location)
                                     <div class="eventListing">
                                         <div class="img-holder">
-                                            @if(!empty($liveEvent->header_image))
+                                            @if(!empty($location->event->header_image))
                                                 @php
-                                                    $directory = getDirectory('events', $liveEvent->id);
-                                                    $img = $directory['web_path'].$liveEvent->header_image;
+                                                    $img = $location->event->directory.$location->event->header_image;
                                                 @endphp
                                             @else
                                                 @php
@@ -40,47 +39,45 @@
                                             @endif
                                             <img src="{{$img}}">
                                         </div>
+                                        @php
+                                            $encryptedId = $location->event->encrypted_id;
+                                        @endphp
                                         <div class="info">
-                                            @php
-                                                $liveEventId = encrypt_id($liveEvent->id);
-                                            @endphp
                                             <ul class="actions-btns header-dropdown m-r--5">
-                                                <li class="action-list"><a class="btn" href="{{url('events/'.$liveEventId.'/dashboard')}}">Manage</a></li>
+                                                <li class="action-list"><a class="btn" href="{{url('events/'.$encryptedId.'/dashboard')}}">Manage</a></li>
                                                 <li class='dropdown action-list'>
                                                     <button href='javascript:void(0);' class='dropdown-toggle btn rounded-border' data-toggle='dropdown' role='button' aria-haspopup='true' aria-expanded='false'>
                                                         More <i class='zmdi zmdi-more-vert'></i>
                                                     </button>
                                                     <ul class='dropdown-menu pull-right'>
-                                                        <li><a href="{{url('events/'.$liveEventId.'/edit')}}">Edit Event</a></li>
-                                                        @if($liveEvent->hot_deal()->exists())
-                                                            <li><a href='javascript:void(0);' class='remove_hot' onclick='deleteHotDeal(this)' id="{{$liveEventId}}">Remove Deal</a></li>
+                                                        <li><a href="{{url('events/'.$encryptedId.'/edit')}}">Edit Event</a></li>
+                                                        @if($location->event->hot_deal()->exists())
+                                                            <li><a href='javascript:void(0);' class='remove_hot' onclick='deleteHotDeal(this)' id="{{$encryptedId}}">Remove Deal</a></li>
                                                         @else
-                                                            <li><a href='javascript:void(0);' onclick='createHotDeal(this)' id="{{$liveEventId}}">Make Hot Deal</a></li>
+                                                            <li><a href='javascript:void(0);' onclick='createHotDeal(this)' id="{{$encryptedId}}">Make Hot Deal</a></li>
                                                         @endif
                                                     </ul>
                                                 </li>
                                             </ul>
                                             <div class="event-title">
-                                                <a href="{{url('events/'.$liveEventId)}}">{{$liveEvent->title}}</a>
+                                                <a href="{{url('events/'.$encryptedId.'/'.$location->encrypted_id)}}">{{$location->event->title}}</a>
                                             </div>
-                                            @if(count($liveEvent->time_locations))
-                                                <p>
-                                                    <i class="fa fa-calendar"></i> {{$liveEvent->time_locations->first()->starting->format('D, M Y')}} - {{$liveEvent->time_locations->first()->ending->format('D, M Y')}}</p>
-                                                <p>
-                                                    <i class="fa fa-clock-o"></i> {{$liveEvent->time_locations->first()->starting->format('g:i A')}}  - {{$liveEvent->time_locations->first()->ending->format('g:i A')}}
-                                                </p>
-                                                <p><i class="fa fa-map-marker"></i>
-                                                    {{$liveEvent->time_locations->first()->location}}
-                                                </p>
-                                            @endif
-                                            @if($liveEvent->hot_deal()->exists())
+                                            <p>
+                                                <i class="fa fa-calendar"></i> {{$location->starting->format('D, d M Y')}} - {{$location->ending->format('D, d M Y')}}</p>
+                                            <p>
+                                                <i class="fa fa-clock-o"></i> {{$location->starting->format('g:i A')}}  - {{$location->ending->format('g:i A')}}
+                                            </p>
+                                            <p><i class="fa fa-map-marker"></i>
+                                                {{$location->location}}
+                                            </p>
+                                            @if($location->event->hot_deal()->exists())
                                                 <div class="tooltipContainer hotDeal">
                                                     <i class="fa fa-tag"></i> Hot Deal
                                                     <div class="customToolTip">
                                                         <p>
-                                                            <strong>Starts At : </strong><span>{{$liveEvent->hot_deal->start_time->format('D, M Y g:i A')}}</span><br>
-                                                            <strong>Ends At : </strong><span>{{$liveEvent->hot_deal->end_time->format('D, M Y g:i A')}}</span><br>
-                                                            <strong>Discount : </strong><span>{{$liveEvent->hot_deal->discount}}%</span>
+                                                            <strong>Starts At : </strong><span>{{$location->event->hot_deal->start_time->format('D, M Y g:i A')}}</span><br>
+                                                            <strong>Ends At : </strong><span>{{$location->event->hot_deal->end_time->format('D, M Y g:i A')}}</span><br>
+                                                            <strong>Discount : </strong><span>{{$location->event->hot_deal->discount}}%</span>
                                                         </p>
                                                     </div>
                                                 </div>
@@ -95,14 +92,13 @@
 
                     <div id="menu1" class="tab-pane fade">
                         <div id="menu_draft">
-                            @if(count($draftEvents))
-                                @foreach($draftEvents as $draftEvent)
+                            @if(count($draftEventLocations))
+                                @foreach($draftEventLocations as $location)
                                     <div class="eventListing">
                                         <div class="img-holder">
-                                            @if(!empty($draftEvent->header_image))
+                                            @if(!empty($location->event->header_image))
                                                 @php
-                                                    $directory = getDirectory('events', $draftEvent->id);
-                                                    $img = $directory['web_path'].$draftEvent->header_image;
+                                                    $img = $location->event->directory.$location->event->header_image;
                                                 @endphp
                                             @else
                                                 @php
@@ -111,29 +107,32 @@
                                             @endif
                                             <img src="{{$img}}">
                                         </div>
+                                        @php
+                                            $encryptedId = $location->event->encrypted_id;
+                                        @endphp
                                         <div class="info">
                                             <ul class="actions-btns header-dropdown m-r--5">
                                                 <li class="action-list">
-                                                    <a class="btn" href="{{url('events/'.encrypt_id($draftEvent->id).'/dashboard')}}">Manage</a>
+                                                    <a class="btn" href="{{url('events/'.$encryptedId.'/dashboard')}}">Manage</a>
                                                 </li>
                                                 <li class="action-list">
-                                                    <a class="btn" href="{{url('events/'.encrypt_id($draftEvent->id).'/edit')}}">Edit</a>
+                                                    <a class="btn" href="{{url('events/'.$encryptedId.'/edit')}}">Edit</a>
                                                 </li>
                                             </ul>
                                             <div class="event-title">
-                                                <a href="{{url('events/'.encrypt_id($draftEvent->id))}}">{{$draftEvent->title}}</a>
+                                                <a href="{{url('events/'.$encryptedId.'/'.$location->encrypted_id)}}">{{$location->event->title}}</a>
                                             </div>
-                                            @if(empty($draftEvent->time_locations))
-                                                <p>
-                                                    <i class="fa fa-calendar"></i> {{$draftEvent->time_locations->first()->starting->format('D, M Y')}} - {{$draftEvent->time_locations->first()->ending->format('D, M Y')}}
-                                                </p>
-                                                <p>
-                                                    <i class="fa fa-clock-o"></i> {{$draftEvent->time_locations->first()->starting->format('g:i A')}}  - {{$draftEvent->time_locations->first()->ending->format('g:i A')}}
-                                                </p>
-                                                <p><i class="fa fa-map-marker"></i>
-                                                    {{$draftEvent->time_locations->first()->location}}
-                                                </p>
-                                            @endif
+
+                                            <p>
+                                                <i class="fa fa-calendar"></i> {{$location->starting->format('D, d M Y')}} - {{$location->ending->format('D, d M Y')}}
+                                            </p>
+                                            <p>
+                                                <i class="fa fa-clock-o"></i> {{$location->starting->format('g:i A')}}  - {{$location->ending->format('g:i A')}}
+                                            </p>
+                                            <p><i class="fa fa-map-marker"></i>
+                                                {{$location->location}}
+                                            </p>
+
                                             <p class="yellows"><i class="fa fa-circle"></i>Draft</p>
                                         </div>
                                     </div>
@@ -144,14 +143,13 @@
                     </div>
                     <div id="menu2" class="tab-pane fade">
                         <div id="menu_past">
-                            @if(count($pastEvents))
-                                @foreach($pastEvents as $pastEvent)
+                            @if(count($pastEventLocations))
+                                @foreach($pastEventLocations as $location)
                                     <div class="eventListing">
                                         <div class="img-holder">
-                                            @if(!empty($pastEvent->header_image))
+                                            @if(!empty($location->event->header_image))
                                                 @php
-                                                    $directory = getDirectory('events', $pastEvent->id);
-                                                    $img = $directory['web_path'].$pastEvent->header_image;
+                                                    $img = $location->event->directory.$location->event->header_image;
                                                 @endphp
                                             @else
                                                 @php
@@ -160,28 +158,29 @@
                                             @endif
                                             <img src="{{$img}}">
                                         </div>
+                                        @php
+                                            $encryptedId = $location->event->encrypted_id;
+                                        @endphp
                                         <div class="info">
                                             <ul class="actions-btns header-dropdown m-r--5">
                                                 <li class="action-list">
-                                                    <a class="btn" href="{{url('events/'.encrypt_id($pastEvent->id).'/dashboard')}}">Manage</a>
+                                                    <a class="btn" href="{{url('events/'.$encryptedId.'/dashboard')}}">Manage</a>
                                                 </li>
                                                 <li class="action-list">
-                                                    <a class="btn" href="{{url('events/'.encrypt_id($pastEvent->id).'/edit')}}">Edit</a>
+                                                    <a class="btn" href="{{url('events/'.$encryptedId.'/edit')}}">Edit</a>
                                                 </li>
                                             </ul>
                                             <div class="event-title">
-                                                <a href="{{url('events/'.encrypt_id($pastEvent->id))}}">{{$pastEvent->title}}</a>
+                                                <a href="{{url('events/'.$encryptedId.'/'.$location->encrypted_id)}}">{{$location->event->title}}</a>
                                             </div>
-                                            @if(count($pastEvent->time_locations))
-                                                <p>
-                                                    <i class="fa fa-calendar"></i> {{$pastEvent->time_locations->first()->starting->format('D, M Y')}} - {{$pastEvent->time_locations->first()->ending->format('D, M Y')}}</p>
-                                                <p>
-                                                    <i class="fa fa-clock-o"></i> {{$pastEvent->time_locations->first()->starting->format('g:i A')}}  - {{$pastEvent->time_locations->first()->ending->format('g:i A')}}
-                                                </p>
-                                                <p><i class="fa fa-map-marker"></i>
-                                                    {{$pastEvent->time_locations->first()->location}}
-                                                </p>
-                                            @endif
+                                            <p>
+                                                <i class="fa fa-calendar"></i> {{$location->starting->format('D, d M Y')}} - {{$location->ending->format('D, d M Y')}}</p>
+                                            <p>
+                                                <i class="fa fa-clock-o"></i> {{$location->starting->format('g:i A')}}  - {{$location->ending->format('g:i A')}}
+                                            </p>
+                                            <p><i class="fa fa-map-marker"></i>
+                                                {{$location->location}}
+                                            </p>
                                             <p class="yellows"><i class="fa fa-circle"></i>Past</p>
                                         </div>
                                     </div>
@@ -192,14 +191,13 @@
 
                     <div id="menu3" class="tab-pane fade">
                         <div id="menu_past">
-                            @if(count($allEvents))
-                                @foreach($allEvents as $event)
+                            @if(count($allEventLocations))
+                                @foreach($allEventLocations as $location)
                                     <div class="eventListing">
                                         <div class="img-holder">
-                                            @if(!empty($event->header_image))
+                                            @if(!empty($location->event->header_image))
                                                 @php
-                                                    $directory = getDirectory('events', $event->id);
-                                                    $img = $directory['web_path'].$event->header_image;
+                                                    $img = $location->event->directory.$location->event->header_image;
                                                 @endphp
                                             @else
                                                 @php
@@ -208,25 +206,26 @@
                                             @endif
                                             <img src="{{$img}}">
                                         </div>
+                                        @php
+                                            $encryptedId = $location->event->encrypted_id;
+                                        @endphp
                                         <div class="info">
                                             <ul class="actions-btns header-dropdown m-r--5">
                                                 <li class="action-list">
-                                                    <a class="btn" href="{{url('events/'.encrypt_id($event->id).'/edit')}}">Manage</a>
+                                                    <a class="btn" href="{{url('events/'.$encryptedId.'/edit')}}">Manage</a>
                                                 </li>
                                             </ul>
                                             <div class="event-title">
-                                                <a href="{{url('events/'.encrypt_id($event->id))}}">{{$event->title}}</a>
+                                                <a href="{{url('events/'.$encryptedId.'/'.$location->encrypted_id)}}">{{$location->event->title}}</a>
                                             </div>
-                                            @if(count($event->time_locations))
-                                                <p>
-                                                    <i class="fa fa-calendar"></i> {{$event->time_locations->first()->starting->format('D, M Y')}} - {{$event->time_locations->first()->ending->format('D, M Y')}}</p>
-                                                <p>
-                                                    <i class="fa fa-clock-o"></i> {{$event->time_locations->first()->starting->format('g:i A')}}  - {{$event->time_locations->first()->ending->format('g:i A')}}
-                                                </p>
-                                                <p><i class="fa fa-map-marker"></i>
-                                                    {{$event->time_locations->first()->location}}
-                                                </p>
-                                            @endif
+                                            <p>
+                                                <i class="fa fa-calendar"></i> {{$location->starting->format('D, d M Y')}} - {{$location->ending->format('D, d M Y')}}</p>
+                                            <p>
+                                                <i class="fa fa-clock-o"></i> {{$location->starting->format('g:i A')}}  - {{$location->ending->format('g:i A')}}
+                                            </p>
+                                            <p><i class="fa fa-map-marker"></i>
+                                                {{$location->location}}
+                                            </p>
                                         </div>
                                     </div>
                                 @endforeach

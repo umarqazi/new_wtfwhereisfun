@@ -81,8 +81,8 @@ class EventRepo
         $event  = Event::find($id);
 
         $event->event_topic_id              =       $request->event_topic;
-        $event->category_id                 =       $request->event_type;
-        $event->event_type_id               =       $request->category;
+        $event->category_id                 =       $request->category;
+        $event->event_type_id               =       $request->event_type;;
 
         $event->save();
         return $event;
@@ -129,7 +129,6 @@ class EventRepo
 
     public function allEvents($vendorId){
         $allEvents = $this->eventModel->where('deleted_at', null);
-
         if(!is_null($vendorId)){
             $allEvents->where('user_id', $vendorId);
         }
@@ -137,7 +136,7 @@ class EventRepo
     }
 
     public function getMoreEvents($vendor, $event){
-        return $this->eventModel->where('user_id', $vendor)->where('id','!=', $event)->orderBy('created_at', 'desc')->limit(2)->get();
+        return $this->eventModel->where('id','!=', $event)->publishedEvents($vendor)->orderBy('created_at', 'desc')->limit(2)->get();
     }
 
     public function goLive($id){

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\EventLayout;
+use App\Http\Requests\EventTopic;
 use App\Repositories\EventImageRepo;
 use App\Services\Events\EventOrderService;
 use Illuminate\Http\Request;
@@ -220,7 +221,7 @@ class EventController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function topicsUpdate(Request $request){
+    public function topicsUpdate(EventTopic $request){
         $eventId = decrypt_id($request->event_id);
         $response = $this->eventTopicService->updateTopics($request, $eventId);
         return response()->json([
@@ -435,8 +436,12 @@ class EventController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function getMyEvents(){
-        $response = $this->eventListingService->getVendorEvents();
-        return view('events.vendor-listing')->with($response);
+        $vendorId       = Auth::user()->id;
+        $liveEvents     = $this->eventListingService->getTodayEventsByTimeAndLocation($vendorId);
+        $pastEvents     = $this->eventListingService->getPastEventsByTimeAndLocation($vendorId);
+        $draftEvents    = $this->eventListingService->getDraftEventsByTimeAndLocation($vendorId);
+        $allEvents      = $this->eventListingService->getAllEventsByTimeAndLocation($vendorId);
+        return view('events.vendor-listing')->with(['draftEventLocations' => $draftEvents, 'liveEventLocations' => $liveEvents, 'pastEventLocations' => $pastEvents, 'allEventLocations' => $allEvents]);
     }
 
     /**
@@ -455,7 +460,7 @@ class EventController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function getTodaysEvents(){
-        $locationEvents = $this->eventListingService->todayEventsByTimeAndLocation();
+        $locationEvents = $this->eventListingService->getTodayEventsByTimeAndLocation();
         return view('front-end.events.index')->with('locationEvents', $locationEvents);
     }
 
@@ -465,7 +470,7 @@ class EventController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function getFutureEvents(){
-        $locationEvents = $this->eventListingService->futureEventsByTimeAndLocation();
+        $locationEvents = $this->eventListingService->getFutureEventsByTimeAndLocation();
         return view('front-end.events.index')->with('locationEvents', $locationEvents);
     }
 

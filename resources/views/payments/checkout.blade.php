@@ -107,16 +107,6 @@
                                         <!-- Used to display form errors. -->
                                         <div id="card-errors" role="alert"></div>
                                     </div>
-                                    {{--<h4 class="payment-method-title">Select Payment Method</h4>--}}
-                                    {{--<span>--}}
-                                        {{--<input name="payment_method" type="radio" id="radio_4" class="with-gap" value="paypal" required checked>--}}
-                                        {{--<label for="radio_4"><i class="fab fa-cc-paypal payment-card"></i></label>--}}
-                                    {{--</span>--}}
-
-                                    {{--<span>--}}
-                                        {{--<input name="payment_method" type="radio" id="radio_5" class="with-gap" value="stripe" required>--}}
-                                        {{--<label for="radio_5"><i class="fab fa-cc-stripe payment-card stripe-icon"></i></label>--}}
-                                    {{--</span>--}}
 
                                 </div>
 
@@ -169,5 +159,8 @@
         </div>
     </div>
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    <script>
+        var qtyleft = {{$ticketQuantityLeft}};
+    </script>
     <script src="{{asset('js/custom/checkout.js')}}" type="text/javascript"></script>
 @endsection

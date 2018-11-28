@@ -15,6 +15,7 @@
     <link rel="stylesheet" type="text/css" href="{{asset('html-social-network/Bootstrap/dist/css/bootstrap-grid.css')}}">
 
     <!-- Main Styles CSS -->
+    <link rel="stylesheet" type="text/css" href="{{asset('css/custom-style.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('html-social-network/css/main.min.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('html-social-network/css/fonts.min.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('html-social-network/css/organizer-profile-custom.css')}}">
@@ -133,75 +134,55 @@
 
             <div class="row">
 
-                @foreach($events as $event)
-                    <div class="photo-album-item-wrap col-3-width">
-                        <div class="photo-album-item" data-mh="album-item" style="height: 417.547px;">
-                            <div class="photo-item organizer-event-image">
-                                @if(!empty($event->header_image))
+                @foreach($eventLocations as $location)
+                    <div class="col-md-4">
+                        <div class="card">
+                            <div class="card-inner">
+                                <div class="card-image">
                                     @php
-                                        $src = getDirectory('events', $event->id);
-                                        $headerImage = $src['web_path'].$event->header_image;
+                                        $link = route('showById', ['id' => $location->event->encrypted_id, 'locationId' => $location->encrypted_id ]);
                                     @endphp
-                                @else
-                                    @php $headerImage = asset('img/dummy.jpg'); @endphp
-                                @endif
 
-                                <img src="{{url($headerImage)}}" alt="photo">
-                                <div class="overlay overlay-dark"></div>
-                                <a href="#" class="more"><svg class="olymp-three-dots-icon"><use xlink:href="#olymp-three-dots-icon"></use></svg></a>
-                                <a href="#" class="post-add-icon">
-                                    <svg class="olymp-heart-icon"><use xlink:href="#olymp-heart-icon"></use></svg>
-                                </a>
-                                <a href="#" data-toggle="modal" data-target="#open-photo-popup-v2" class="  full-block"></a>
-                            </div>
+                                    @if(empty($location->event->header_image))
+                                        @php $img = asset('img/dummy.png') @endphp
+                                    @else
+                                        @php
+                                            $img = $location->event->directory.$location->event->header_image;
+                                        @endphp
+                                    @endif
 
-                            <div class="content">
-                                @php $eventUrl = url('events/'.encrypt_id($event->id)); @endphp
-                                <a href="{{$eventUrl}}" class="title h5">{{$event->title}}</a>
-                                @if(count($event->time_locations))
-                                    <span class="sub-title">{{$event->time_locations->first()->location}}</span>
-                                @else
-                                    <span class="sub-title">No location has been disclosed yet</span>
-                                @endif
+                                    <a href="{{$link}}" style="background-image: url({{$img}});" target="_blank">
+                                        <span><i class="fa fa-search"></i></span>
+                                    </a>
 
-                                <div class="swiper-container swiper-swiper-unique-id-0 initialized swiper-container-horizontal" id="swiper-unique-id-0">
-                                    <div class="swiper-wrapper" style="width: 836px; transform: translate3d(-209px, 0px, 0px); transition-duration: 0ms;">
-                                        <div class="swiper-slide swiper-slide-active" data-swiper-slide-index="0" style="width: 209px;">
-                                            @if(count($event->images))
-                                                @foreach($event->images as $img)
-                                                    <ul class="friends-harmonic">
-                                                        <li>
-                                                            <a href="#">
-                                                                <img src="{{url($src['web_path'].$img->name)}}" alt="friend">
-                                                            </a>
-                                                        </li>
-                                                    </ul>
-                                                @endforeach
-                                            @else
-                                                <span>No images uploaded yet</span>
-                                            @endif
-                                        </div>
+                                </div><!-- /.card-image -->
 
-                                        <div class="swiper-slide swiper-slide-next swiper-slide-duplicate-prev" data-swiper-slide-index="1" style="width: 209px;">
-                                            <div class="friend-count" data-swiper-parallax="-500" style="transform: translate3d(500px, 0px, 0px); transition-duration: 0ms;">
-                                                <a href="{{$eventUrl}}" class="friend-count-item">
-                                                    <div class="h6">{{$event->tickets->count()}}</div>
-                                                    <div class="title">Tickets</div>
-                                                </a>
-                                                <a href="{{$eventUrl}}" class="friend-count-item">
-                                                    <div class="h6">{{$event->time_locations->count()}}</div>
-                                                    <div class="title">Time & Locations</div>
-                                                </a>
-                                            </div>
-                                        </div>
+                                <div class="card-content">
+                                    <div class="event-organizer-thumbnail">
+                                        @if(empty($location->event->organizer->thumbnail))
+                                            @php $img = asset('img/default-148.png') @endphp
+                                        @else
+                                            @php
+                                                $img = $location->event->organizer->directory.$location->event->organizer->thumbnail;
+                                            @endphp
+                                        @endif
+                                        <img src="{{$img}}" alt="Organizer Image">
                                     </div>
+                                    <div class="card-date">
+                                        <strong>{{$location->starting->day}}</strong>
+                                        <span>{{get_month($location->starting)}}</span>
+                                    </div><!-- /.card-date -->
+                                    <h3 class="card-title">
+                                        <a href="{{$link}}" target="_blank">{{$location->event->title}}</a>
+                                    </h3>
 
-                                    <!-- If we need pagination -->
-                                    <div class="swiper-pagination pagination-swiper-unique-id-0 swiper-pagination-clickable swiper-pagination-bullets"><span class="swiper-pagination-bullet swiper-pagination-bullet-active"></span><span class="swiper-pagination-bullet"></span></div>
-                                </div>
-                            </div>
-
-                        </div>
+                                    <h4 class="card-subtitle date-location">
+                                        <p><a href="{{$link}}" target="_blank"><i class="fa fa-calendar green"></i> {{$location->starting->format('D, M d')}} - {{$location->ending->format('D, M d')}}</a></p>
+                                        <p><a href="{{$link}}" target="_blank"><i class="fa fa-map-marker green"></i> {{$location->location}}</a></p>
+                                    </h4>
+                                </div><!-- /.card-content -->
+                            </div><!-- /.card-inner -->
+                        </div><!-- /.card -->
                     </div>
                 @endforeach
 

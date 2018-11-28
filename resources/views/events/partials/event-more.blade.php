@@ -5,11 +5,16 @@
             @foreach($moreEvents as $moreEvent)
                 <div class="col-sm-6 col-md-6">
                     <div class="listing_related-item">
-                        <a href="{{url('events/'.encrypt_id($moreEvent->id))}}">
-                            @php
-                                $directory = getDirectory('events', $moreEvent->id);
-                                $image     = $directory['web_path'].$moreEvent->header_image;
-                            @endphp
+                        <a href="{{url('events/'.$moreEvent->encrypted_id.'/'.$moreEvent->time_locations->first()->encryped_id)}}">
+                            @if(!empty($moreEvent->header_image))
+                                @php
+                                    $image     = $moreEvent->directory.$moreEvent->header_image;
+                                @endphp
+                            @else
+                                @php
+                                    $image     = asset('img/dummy.jpg');
+                                @endphp
+                            @endif
                             <div class="listing_related-item__media" style="background-image: url({{$image}})">
                                 <img src="{{$image}}" alt="{{$moreEvent->title}}">
                             </div>
