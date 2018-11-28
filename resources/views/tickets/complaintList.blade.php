@@ -43,7 +43,7 @@
                                                 </div>
                                                 <p>{!! $dispute->message !!}</p>
                                             </div>
-                                            <div class="date pull-right">2018-11-22 06:30:03</div>
+                                            <div class="date pull-right">{{$dispute->updated_at}}</div>
                                         </div>
                                     </div>
                                 </div>
