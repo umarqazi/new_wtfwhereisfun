@@ -46,6 +46,11 @@ class EventLocationRepo
         return $this->eventLocationModel->find($id);
     }
 
+    public function getLocationEvent($locationId){
+        $location = $this->eventLocationModel->find($locationId);
+        return $location->event;
+    }
+
     public function getAllEventsByTime($vendorId){
         $allEvents = $this->eventLocationModel->whereHas('event', function($query) use ($vendorId){
             $query->allEvents($vendorId);

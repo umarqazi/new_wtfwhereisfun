@@ -6093,7 +6093,7 @@ i, cite, em, var, address, dfn {
 .ticket-content .event-ticket-details{
    display: inline-block;
    vertical-align: middle;
-   width: calc(100% - 175px);
+   width: calc(100% - 265px);
    padding-left: 12px;
 }
 
@@ -6165,11 +6165,11 @@ i, cite, em, var, address, dfn {
 }
 
 .ticket-content .event-image img{
-   height: 130px;
+   height: 170px;
    object-fit: cover;
 }
 
-.recent_orders_listing span.payment-method, .my-tickets span.ticket-time{
+.recent_orders_listing span.payment-method{
    border-left : 1px solid #000;
    padding-left: 5px;
    margin-left: 3px;
@@ -6403,4 +6403,70 @@ i, cite, em, var, address, dfn {
 
 .required-field{
    color : red;
+}
+
+.page_wrapper{
+   padding-top: 80px;
+}
+
+section.content{
+   width: auto;
+   margin-top: 0;
+}
+
+.page_wrapper #leftsidebar{
+   top: 80px;
+}
+
+.event-dashboard-block{
+   display: block;
+   padding: 15px 15px;
+}
+
+.event-dashboard-block .clm_left{
+   display: inline-block;
+   vertical-align: middle;
+   width: 70%;
+}
+
+.event-dashboard-block .clm_right{
+   display: inline-block;
+   vertical-align: middle;
+   width: 27%;
+   text-align: right;
+}
+
+.event-dashboard-block .title{
+   font-weight: 600;
+}
+
+.event-dashboard-block p{
+   margin-bottom: 0px;
+}
+
+.event-dashboard-block h2{
+   font-size: 22px;
+   margin: 0px 0px 10px 0px;
+}
+
+.event_tabs{
+   background-color: #86C543;
+   text-align: center;
+}
+
+.event_tabs li{
+   display: inline-block;
+   list-style:none;
+   color: #fff;
+}
+
+.event_tabs li a{
+   color: #fff;
+   display: inline-block;
+   padding: 12px;
+}
+
+.badge-primary{
+   color: #fff;
+   background-color: #86C543;
 }

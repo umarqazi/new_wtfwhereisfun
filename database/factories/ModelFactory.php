@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Hash;
 $factory->define(App\Testimonial::class, function (Faker $faker) {
 
     return [
-        'name'                  => $faker->firstName($gender = null | 'male' | 'female'),
+        'name'                  => $faker->firstName(),
         'description'           => $faker->text($maxNbChars = 250),
         'image'                 => $faker->imageUrl(640, 480, 'business', true),
         'thumbnail'             => $faker->imageUrl(100, 100, 'business', true),
@@ -19,7 +19,7 @@ $factory->define(App\Testimonial::class, function (Faker $faker) {
 
 $factory->define(App\Blog::class, function (Faker $faker) {
     return [
-        'title'                 => $faker->firstName($gender = null | 'male' | 'female'),
+        'title'                 => $faker->firstName(),
         'description'           => $faker->text($maxNbChars = 250),
         'image'                 => $faker->imageUrl(640, 480, 'business', true),
         'thumbnail'             => $faker->imageUrl(100, 100, 'business', true),
@@ -32,7 +32,7 @@ $factory->define(App\Blog::class, function (Faker $faker) {
 $factory->define(App\User::class, function (Faker $faker) {
     static $email;
     return [
-        'first_name'            => $faker->firstName($gender = null | 'male' | 'female'),
+        'first_name'            => $faker->firstName(),
         'last_name'             => $faker->lastName,
         'email'                 => $email ?: preg_replace('/@example\..*/', '@wtf.com', $faker->unique()->safeEmail),
         'password'              => $password = Hash::make('12345678'),

@@ -15,9 +15,12 @@ class EventOrderService
         return $this->eventOrderRepo->getEventOrders($eventId);
     }
 
+    public function getEventByOrderId($id){
+        return $this->eventOrderRepo->getEventByOrderId($id);
+    }
+
     public function getOrderByTickets($ticketId){
         return $this->eventOrderRepo->getTicketOrders($ticketId);
     }
-
 
 }

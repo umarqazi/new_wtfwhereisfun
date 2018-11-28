@@ -1,6 +1,8 @@
 <?php
 
 namespace App\Services\Events;
+use App\Services\Events\EventRevenueService;
+use App\Services\Events\EventOrderService;
 use Illuminate\Support\Facades\App;
 use App\Repositories\EventLocationRepo;
 use App\Services\BaseService;
@@ -11,10 +13,14 @@ use View;
 class EventTimeLocationService extends BaseService
 {
     protected $eventLocationRepo;
+    protected $eventRevenueService;
+    protected $eventOrderService;
 
     public function __construct()
     {
         $this->eventLocationRepo    = new EventLocationRepo;
+        $this->eventRevenueService  = new EventRevenueService;
+        $this->eventOrderService    = new EventOrderService;
     }
 
     public function updateTimeLocation($request, $eventId){
@@ -94,5 +100,9 @@ class EventTimeLocationService extends BaseService
         $details = json_decode(file_get_contents("http://ipinfo.io/{$ip}"));
         $latlng = explode(",",$details->loc);
         return ['city' => $details->city, 'lat' => $latlng[0], 'lng' => $latlng[1]];
+    }
+
+    public function getLocationEvent($locationId){
+        return $this->eventLocationRepo->getLocationEvent($locationId);
     }
 }

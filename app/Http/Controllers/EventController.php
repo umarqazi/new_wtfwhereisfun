@@ -6,6 +6,7 @@ use App\Http\Requests\EventLayout;
 use App\Http\Requests\EventTopic;
 use App\Repositories\EventImageRepo;
 use App\Services\Events\EventOrderService;
+use App\Services\Events\EventRevenueService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Config;
@@ -59,6 +60,7 @@ class EventController extends Controller
     protected $eventImageService;
     protected $eventHotDealService;
     protected $eventOrderService;
+    protected $eventRevenueService;
 
     public function __construct()
     {
@@ -79,6 +81,7 @@ class EventController extends Controller
         $this->eventImageService        = new EventImageService();
         $this->eventHotDealService      = new EventHotDealService();
         $this->eventOrderService        = new EventOrderService();
+        $this->eventRevenueService      = new EventRevenueService();
     }
 
     /**
@@ -538,8 +541,13 @@ class EventController extends Controller
      * Get Event's Dashboard
      * @param  \Illuminate\Http\ $id
      */
-    public function dashboard($id){
-        $eventOrders = $this->eventOrderService->getEventOrders(decrypt_id($id));
-        return View('events.dashboard')->with(['orders' => $eventOrders, 'eventId' => $id, 'totalTicketsSold' => $eventOrders->sum('quantity')]);
+    public function dashboard($locationId){
+        $locationId = decrypt_id($locationId);
+        $event = $this->eventLocationService->getLocationEvent($locationId);
+        $location = $this->eventLocationService->getTimeLocation($locationId);
+        $totalRevenue   =   $this->eventRevenueService->getTotalRevenueByLocation($locationId);
+//        $eventOrders = $this->eventOrderService->getEventOrders(decrypt_id($locationId));
+//        return View('events.dashboard')->with(['orders' => $eventOrders, 'eventId' => $id, 'totalTicketsSold' => $eventOrders->sum('quantity')]);
+        return View('events.dashboard')->with(['event' => $event, 'location' => $location, 'totalRevenue' => $totalRevenue ]);
     }
 }

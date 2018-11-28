@@ -44,7 +44,7 @@
                                         @endphp
                                         <div class="info">
                                             <ul class="actions-btns header-dropdown m-r--5">
-                                                <li class="action-list"><a class="btn" href="{{url('events/'.$encryptedId.'/dashboard')}}">Manage</a></li>
+                                                <li class="action-list"><a class="btn" href="{{url('events/'.$location->encrypted_id.'/dashboard')}}">Manage</a></li>
                                                 <li class='dropdown action-list'>
                                                     <button href='javascript:void(0);' class='dropdown-toggle btn rounded-border' data-toggle='dropdown' role='button' aria-haspopup='true' aria-expanded='false'>
                                                         More <i class='zmdi zmdi-more-vert'></i>

@@ -27,6 +27,38 @@ class User extends Authenticatable
     ];
 
     /**
+     * The attributes that appended to the model
+     *
+     * @var array
+     */
+    protected $appends = ['directory', 'encrypted_id'];
+
+    /**
+     * Get Encrypted Id of the model instance
+     *
+     * @var array
+     */
+    public function getEncryptedIdAttribute()
+    {
+        return encrypt_id($this->id);
+    }
+
+    /**
+     * Get Directory of the model instance
+     *
+     * @var array
+     */
+    public function getDirectoryAttribute()
+    {
+        if($this->hasRole('vendor')){
+            $directory = getDirectory('vendors', $this->id);
+        }else{
+            $directory = getDirectory('customers', $this->id);
+        }
+        return $directory['web_path'];
+    }
+
+    /**
      * The attributes that should be hidden for arrays.
      *
      * @var array
@@ -90,6 +122,14 @@ class User extends Authenticatable
     public function disputes()
     {
         return $this->hasMany('App\Dispute');
+    }
+
+    /**
+     * Get user Disputes replies
+     */
+    public function dispute_replies()
+    {
+        return $this->hasMany('App\Dispute_replies');
     }
 
     /**
