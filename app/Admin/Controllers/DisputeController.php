@@ -4,8 +4,9 @@ namespace App\Admin\Controllers;
 
 use App\Dispute;
 use App\Http\Controllers\Controller;
+use App\Services\Events\EventService;
+use App\Services\Events\TicketDisputeService;
 use Encore\Admin\Controllers\HasResourceActions;
-use Encore\Admin\Form;
 use Encore\Admin\Grid;
 use Encore\Admin\Layout\Content;
 use Encore\Admin\Show;
@@ -20,6 +21,15 @@ class DisputeController extends Controller
      * @param Content $content
      * @return Content
      */
+
+    protected $eventService;
+    protected $ticketDisputeService;
+
+    public function __construct()
+    {
+        $this->eventService = new EventService;
+        $this->ticketDisputeService = new TicketDisputeService();
+    }
     public function index(Content $content)
     {
         return $content
@@ -35,41 +45,19 @@ class DisputeController extends Controller
      * @param Content $content
      * @return Content
      */
-    public function show($id, Content $content)
+    public function show(Content $content, $id)
     {
         return $content
-            ->header('Detail')
+            ->header('Index')
             ->description('description')
-            ->body($this->detail($id));
+            ->body($this->show_detail($id));
     }
 
-    /**
-     * Edit interface.
-     *
-     * @param mixed $id
-     * @param Content $content
-     * @return Content
-     */
-    public function edit($id, Content $content)
-    {
-        return $content
-            ->header('Edit')
-            ->description('description')
-            ->body($this->form()->edit($id));
-    }
+    public function show_detail($id){
+        $dispute_details = $this->ticketDisputeService->getById($id);
+        $event_details = $this->eventService->getByID($dispute_details->event_id);
+        return view('admin..dashboard.disputeDetail')->with(['event_details' => $event_details, 'dispute_details' => $dispute_details]);
 
-    /**
-     * Create interface.
-     *
-     * @param Content $content
-     * @return Content
-     */
-    public function create(Content $content)
-    {
-        return $content
-            ->header('Create')
-            ->description('description')
-            ->body($this->form());
     }
 
     /**
@@ -111,6 +99,7 @@ class DisputeController extends Controller
             $filter->disableIdFilter();
 
             // Add a column filter
+            $filter->like('event.title', 'Event');
             $filter->like('subject', 'Subject');
 
         });
@@ -125,13 +114,9 @@ class DisputeController extends Controller
      */
     protected function detail($id)
     {
-        $show = new Show(Dispute::findOrFail($id));
-
-//        return Admin::grid(Dispute_replies::class, function (Grid $grid) {
-//            dd($show);
+            $show = new Show(Dispute::findOrFail($id));
             $show->user()->first_name('User First Name');
             $show->user()->last_name('User Last Name');
-
             $show->event()->title('Event Title');
             $show->subject('Subject');
             $show->message('Message');
@@ -139,36 +124,23 @@ class DisputeController extends Controller
             $show->closed_at('Closed at');
             $show->created_at('Created at');
             $show->updated_at('Updated at');
-//            $show->dispute_replies()->display(function ($replies) {
-//                $count = count($replies);
-//                return "<span class='label label-warning'>{$count}</span>";
-//            });
-//        });
-
-
-
+            $show->dispute_replies('Replies', function ($replies) {
+                $replies->disableCreateButton();
+                $replies->actions(function ($actions) {
+                    $actions->disableDelete();
+                    $actions->disableEdit();
+                    $actions->disableView();
+                });
+                $replies->disableFilter();
+                $replies->disableRowSelector();
+                $replies->disableActions();
+                $replies->disableExport();
+                $replies->disablePagination();
+                $replies->message()->display(function ($message){
+                    return '<div class="row"><div class="col-md-12">'.$message .'</div></div>';
+                });
+            });
         return $show;
     }
 
-    /**
-     * Make a form builder.
-     *
-     * @return Form
-     */
-    protected function form()
-    {
-        $form = new Form(new Dispute);
-
-        $form->number('user_id', 'User id');
-        $form->number('event_id', 'Event id');
-        $form->number('event_order_id', 'Event order id');
-        $form->text('subject', 'Subject');
-        $form->textarea('message', 'Message');
-        $form->switch('is_closed', 'Is closed');
-        $form->switch('seen_by_vendor', 'Seen by vendor');
-        $form->switch('seen_by_user', 'Seen by user');
-        $form->datetime('closed_at', 'Closed at')->default(date('Y-m-d H:i:s'));
-
-        return $form;
-    }
 }
