@@ -535,6 +535,7 @@ class EventController extends Controller
      */
     public function dashboard($id){
         $eventOrders = $this->eventOrderService->getEventOrders(decrypt_id($id));
-        return View('events.dashboard')->with(['orders' => $eventOrders, 'eventId' => $id, 'totalTicketsSold' => $eventOrders->sum('quantity')]);
+        $eventOrganizer = $this->eventService->getByID(decrypt_id($id))->organizer;
+        return View('events.dashboard')->with(['orders' => $eventOrders, 'eventId' => $id, 'eventOrganizer' => $eventOrganizer ,'totalTicketsSold' => $eventOrders->sum('quantity')]);
     }
 }

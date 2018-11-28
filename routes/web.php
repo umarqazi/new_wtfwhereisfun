@@ -136,6 +136,7 @@ Route::group(['middleware' => ['web']], function () {
             });
 
             /*Organzier Routes*/
+            Route::post('change-orgranizer-url', 'OrganizerController@changeOrganizerUrl');
             Route::resource('organizers', 'OrganizerController');
             Route::post('organizers/update-profile', 'OrganizerController@profileUpdate');
             Route::post('organizers/update-social-links', 'OrganizerController@socialLinksUpdate');

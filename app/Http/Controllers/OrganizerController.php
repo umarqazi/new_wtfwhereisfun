@@ -193,4 +193,15 @@ class OrganizerController extends Controller
         $events    = $this->organizerService->getOrganizerEvents($organizer->id);
         return view('users.organizers.profile')->with(['organizer' => $organizer, 'events' => $events, 'organizerDirectory' => getDirectory('organizers', $organizer->id)]);
     }
+
+    public function changeOrganizerUrl(Request $request){
+
+        $organizer_detail = $this->organizerService->getOrganizer($request->id);
+        $organizer = $this->organizerService->updateOrganizerUrl($organizer_detail,$request);
+
+        return response()->json([
+            'organizer_url' => $organizer['organizer_url'],
+            'slug' => $organizer['slug'],
+        ]);
+    }
 }

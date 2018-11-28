@@ -74,7 +74,34 @@
                     <div><p>No Orders Yet</p></div>
                 @endif
             </div>
-        </div>
-    </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="event-oraganizer">
+                        <h1>Your Links</h1>
+                        <p><strong>Your Organizer URL: </strong>
+                            @if(!$eventOrganizer->organizer_url)
+                            <a href="{{ url('/') }}{{'/organizer/'.$eventOrganizer->slug}}" id="old-url">{{ url('/') }}{{'/organizer/'.$eventOrganizer->slug}}</a>
+                            @else
+                                <a href="{{url('/')}}/organizer/{{$eventOrganizer->organizer_url}}" id="old-url">{{url('/')}}/organizer/{{$eventOrganizer->organizer_url}}</a>
+                            @endif
 
+                            <input type="hidden" name="organizer_id" value="{{$eventOrganizer->id}}">
+                            <input type="hidden" name="base_url" value="{{url('/')}}">
+                            <strong>  - [ <a href="javascript:void(0)" data-toggle="collapse" data-target="#changeOrganizer-url">Change</a> ]</strong>
+                        </p>
+                        <div id="changeOrganizer-url" class="collapse">
+                            <p>Create your own Personalized Organizer URL for ABC Company.</p>
+                            @if(!$eventOrganizer->organizer_url)
+                                <strong class="pre_url">{{url('/')}}/organizer/</strong><input type="text" id="organizer_url" name="organizer_url" placeholder="helloWorld" />
+                            @else
+                                <strong class="pre_url">{{url('/')}}/organizer/</strong><input type="text" id="organizer_url" name="organizer_url" value="@php echo substr($eventOrganizer->organizer_url, 0, strpos($eventOrganizer->organizer_url, '-')); @endphp" placeholder="helloWorld" /><strong>-{{$eventOrganizer->encrypted_id}}</strong>
+                            @endif
+                                <button type="button" class="btn btn-save-organizer-url">Save</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <meta name="csrf-token" content="{{ csrf_token() }}">
+    </div>
+    <script src="{{asset('js/organizer.js')}}"></script>
 @endsection

@@ -75,4 +75,9 @@ class OrganizerService extends BaseService implements IDBService
         $events = $this->eventListingService->getAllEvents($organizer->vendor->id);
         return $events;
     }
+
+    public function updateOrganizerUrl($organizer,$request){
+      return  $this->organizerRepo->updateOrganizerUrl($organizer,$request);
+    }
+
 }

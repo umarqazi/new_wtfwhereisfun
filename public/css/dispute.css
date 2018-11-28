@@ -162,3 +162,12 @@
 .unread{
     background-color: #80808014;
 }
+
+
+/* Event Organzier UR: change*/
+
+.btn-save-organizer-url{
+    padding: 7px 15px;
+    border-radius: 5px;
+    margin: 3px 0;
+}
