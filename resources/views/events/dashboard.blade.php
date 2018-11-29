@@ -8,51 +8,6 @@
             @include('events.partials.event-dashboard-top-details')
             <div class="container-fluid">
                 <div class="row clearfix">
-                    <div class="col-lg-3 col-md-6 col-sm-12 text-center">
-                        <div class="card tasks_report">
-                            <div class="body">
-                                <input type="text" class="knob dial1" value="66" data-width="90" data-height="90" data-thickness="0.2" data-fgColor="#00ced1" readonly>
-                                <h6 class="m-t-20">Satisfaction Rate</h6>
-                                <small class="displayblock">47% Average <i class="zmdi zmdi-trending-up"></i></small>
-                                <div class="sparkline m-t-30" data-type="bar" data-width="97%" data-height="30px" data-bar-Width="2" data-bar-Spacing="5" data-bar-Color="#00ced1">5,8,3,4,8,9,7,2,9,5</div>
-                                <span class="badge badge-primary">Coming Soon</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6 col-sm-12 text-center">
-                        <div class="card tasks_report">
-                            <div class="body">
-                                <input type="text" class="knob dial2" value="26" data-width="90" data-height="90" data-thickness="0.2" data-fgColor="#ffa07a" readonly>
-                                <h6 class="m-t-20">Orders Panding</h6>
-                                <small class="displayblock">13% Average <i class="zmdi zmdi-trending-down"></i></small>
-                                <div class="sparkline m-t-30" data-type="bar" data-width="97%" data-height="30px" data-bar-Width="2" data-bar-Spacing="5" data-bar-Color="#ffa07a">9,5,1,5,4,8,7,6,3,4</div>
-                                <span class="badge badge-primary">Coming Soon</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6 col-sm-12 text-center">
-                        <div class="card tasks_report">
-                            <div class="body">
-                                <input type="text" class="knob dial3" value="76" data-width="90" data-height="90" data-thickness="0.2" data-fgColor="#8fbc8f" readonly>
-                                <h6 class="m-t-20">Productivity Goal</h6>
-                                <small class="displayblock">75% Average <i class="zmdi zmdi-trending-up"></i></small>
-                                <div class="sparkline m-t-30" data-type="bar" data-width="97%" data-height="30px" data-bar-Width="2" data-bar-Spacing="5" data-bar-Color="#8fbc8f">6,4,9,8,6,5,4,5,3,2</div>
-                                <span class="badge badge-primary">Coming Soon</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6 col-sm-12 text-center">
-                        <div class="card tasks_report">
-                            <div class="body">
-                                <input type="text" class="knob dial4" value="{{$totalRevenue['revenuePercentage']}}" data-width="90" data-height="90" data-thickness="0.2" data-fgColor="#00adef" readonly>
-                                <h6 class="m-t-20">Total Revenue</h6>
-                                <small class="displayblock">{{$totalRevenue['revenuePercentage']}}% Tickets Sold <i class="zmdi zmdi-trending-up"></i></small>
-                                <div class="sparkline m-t-30" data-type="bar" data-width="97%" data-height="30px" data-bar-Width="2" data-bar-Spacing="5" data-bar-Color="#00adef">3,5,7,9,5,1,4,5,6,8</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row clearfix">
                     <div class="col-lg-6 col-md-6 col-sm-12">
                         <div class="card">
                             <h2>Revenue Report</h2>
@@ -77,7 +32,7 @@
                     <div class="col-lg-6 col-md-6 col-sm-12 text-center">
                         <div class="card tasks_report">
                             <div class="body">
-                                <input type="text" class="knob dial4" value="{{$totalRevenue['revenuePercentage']}}" data-width="90" data-height="90" data-thickness="0.2" data-fgColor="#00adef" readonly>
+                                <input type="text" class="knob total-revenue" value="{{$totalRevenue['revenuePercentage']}}" data-width="90" data-height="90" data-thickness="0.2" data-fgColor="#00adef" readonly>
                                 <h6 class="m-t-20">Total Revenue</h6>
                                 <small class="displayblock">{{$totalRevenue['revenuePercentage']}}% Tickets Sold <i class="zmdi zmdi-trending-up"></i></small>
                                 <div class="sparkline m-t-30" data-type="bar" data-width="97%" data-height="30px" data-bar-Width="2" data-bar-Spacing="5" data-bar-Color="#00adef">3,5,7,9,5,1,4,5,6,8</div>
@@ -506,11 +461,11 @@
                     </div>
                 </div>
 
-                <div class="row clearfix">
+                <div class="row clearfix event-dashboard-footer">
                     <div class="col-lg-12">
                         <div class="card">
                             <div class="body">
-                                <p class="m-b-0">© 2017 Nexa Admin by <a href="http://thememakker.com/" target="black">ThemeMakker</a> </p>
+                                <p class="m-b-0"><a href="http://thememakker.com/" target="black">Copyright © Wiloke.com •Tel: +98-76543210</a> </p>
                             </div>
                         </div>
                     </div>
@@ -519,5 +474,10 @@
 
         </section>
     </div>
+
     <script src="{{asset('js/organizer.js')}}"></script>
+    <script>
+        $(".total-revenue").knob();
+    </script>
+
 @endsection

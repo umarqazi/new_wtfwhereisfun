@@ -153,12 +153,12 @@
 
                                                     @endforeach
                                                 @endif
+
                                             </div>
-                                            <div class="col-md-12">
-                                                <div class="landmarks-listings-all pull-right">
-                                                    <a href="{{route('today-events')}}" class="ldm-all">View All <i class="fa fa-facebookrrow-circle-o-right"></i></a>
-                                                </div>
+                                            <div class="landmarks-listings-all view_all_btn pull-right">
+                                                <a href="{{route('today-events')}}" class="ldm-all">View All <i class="fa fa-facebookrrow-circle-o-right"></i></a>
                                             </div>
+
                             </div>
                         </div>
 
@@ -226,11 +226,11 @@
                                                     @endforeach
                                                 @endif
                                             </div>
-                                            <div class="col-md-12">
-                                                <div class="landmarks-listings-all pull-right">
-                                                    <a href="{{route('future-events')}}" class="ldm-all">View All<i class="fa fa-facebookrrow-circle-o-right"></i></a>
-                                                </div>
+
+                                            <div class="landmarks-listings-all pull-right view_all_btn">
+                                                <a href="{{route('future-events')}}" class="ldm-all">View All<i class="fa fa-facebookrrow-circle-o-right"></i></a>
                                             </div>
+
                             </div>
                         </div>
 

@@ -636,6 +636,7 @@ ul.main-menu > li:hover .custom-dropdown-menu{
 .explore-search-form{
    padding: 35px 60px 30px 60px;
    background-color: rgba(33,33,34,.4);
+   border-radius: 5px;
 }
 .explore-search-form label{
    margin-bottom: 7px;
@@ -3858,6 +3859,14 @@ button.btn.btn-default.btn-lg.scnd-part {
     padding-top: 0px;
     padding-left: 0px;
 }
+
+.view_all_btn{
+   margin-top: -33px;
+}
+
+
+
+
 .about li.conatct{
    padding-left: 10px;
 }
@@ -3959,6 +3968,11 @@ button.btn.btn-default.btn-lg.scnd-part {
    .row.third {
     text-align: center;
 }
+
+   .explore-search-form{
+      padding: 20px 15px;
+   }
+
 .row{
     margin-left: 0;
     margin-right:0;
@@ -5246,6 +5260,7 @@ ul.table_row > li{
    display: inline-block;
    width: 30%;
    padding-right: 20px;
+   vertical-align: middle;
 }
 .action_list li{
    display: inline-block;
@@ -5255,6 +5270,10 @@ ul.table_row > li{
 }
 .action_list li a{
    color: #666;
+}
+
+#location_map > div{
+   width: 100% !important;
 }
 .pass-details .pass-name{
    width : 70%!important;
@@ -6474,4 +6493,8 @@ section.content{
 .badge-primary{
    color: #fff;
    background-color: #86C543;
+}
+
+.event-dashboard-footer .card{
+   background : #000;
 }
