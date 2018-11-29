@@ -28,14 +28,18 @@ $('.event-slider').owlCarousel({
     nav: true,
     navText: ["<i class='fa fa-angle-left'></i>","<i class='fa fa-angle-right'></i>"],
     responsive:{
-        1200:{
-            items:4
-        },
-        1024:{
-            items:3
+        0:{
+            items:1,
+            nav:true
         },
         600:{
-            items:1
+            items:2,
+            nav:false
+        },
+        1000:{
+            items:4,
+            nav:true,
+            loop:false
         }
     }
 });

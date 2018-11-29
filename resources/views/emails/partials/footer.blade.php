@@ -40,7 +40,7 @@
                                                     </tr>
                                                     <tr>
                                                         <td class="footerText centerText" align="center" valign="middle" style="font-family:'Open Sans',Arial,Helvetica,sans-serif;color:#939393;font-size:14px;line-height:22px;font-weight:400;letter-spacing:0px;padding:0;padding-bottom:30px;">
-                                                            If you have any quetions please contact us <a href="#" style="color:#939393;text-decoration:underline" target="_blank">admin@wtf.com</a>
+                                                            If you have any quetions please contact us <a href="#" style="color:#939393;text-decoration:underline" target="_blank">admin@stubguys.com</a>
                                                         </td>
                                                     </tr>
                                                 </table>

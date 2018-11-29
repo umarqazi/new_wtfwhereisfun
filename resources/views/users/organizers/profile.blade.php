@@ -33,54 +33,6 @@
 </head>
 <body>
 
-<header class="header header-responsive" id="site-header-responsive">
-
-    <div class="header-content-wrapper">
-        <ul class="nav nav-tabs mobile-app-tabs" role="tablist">
-            <li class="nav-item">
-                <a class="nav-link" data-toggle="tab" href="#request" role="tab">
-                    <div class="control-icon has-items">
-                        <svg class="olymp-happy-face-icon"><use xlink:href="svg-icons/sprites/icons.svg#olymp-happy-face-icon"></use></svg>
-                        <div class="label-avatar bg-blue">6</div>
-                    </div>
-                </a>
-            </li>
-
-            <li class="nav-item">
-                <a class="nav-link" data-toggle="tab" href="#chat" role="tab">
-                    <div class="control-icon has-items">
-                        <svg class="olymp-chat---messages-icon"><use xlink:href="svg-icons/sprites/icons.svg#olymp-chat---messages-icon"></use></svg>
-                        <div class="label-avatar bg-purple">2</div>
-                    </div>
-                </a>
-            </li>
-
-            <li class="nav-item">
-                <a class="nav-link" data-toggle="tab" href="#notification" role="tab">
-                    <div class="control-icon has-items">
-                        <svg class="olymp-thunder-icon"><use xlink:href="svg-icons/sprites/icons.svg#olymp-thunder-icon"></use></svg>
-                        <div class="label-avatar bg-primary">8</div>
-                    </div>
-                </a>
-            </li>
-
-            <li class="nav-item">
-                <a class="nav-link" data-toggle="tab" href="#search" role="tab">
-                    <svg class="olymp-magnifying-glass-icon"><use xlink:href="svg-icons/sprites/icons.svg#olymp-magnifying-glass-icon"></use></svg>
-                    <svg class="olymp-close-icon"><use xlink:href="svg-icons/sprites/icons.svg#olymp-close-icon"></use></svg>
-                </a>
-            </li>
-        </ul>
-    </div>
-
-    <!-- Tab panes -->
-
-</header>
-
-<!-- ... end Responsive Header-BP -->
-
-
-
 <div class="container">
     <div class="row">
         <div class="col col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">

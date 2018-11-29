@@ -376,3 +376,28 @@ p .event-tag-name{
 .time_location p i{
     color: #6FB426;
 }
+
+.modal{
+    z-index: 9999;
+}
+
+.listing-single-wrap7 .listing-single{
+    margin-top: -160px;
+}
+
+
+.listing-single.event-layout-tabs{
+    position: initial;
+
+}
+
+
+@media screen and (max-width: 991px) {
+    .listing-single-wrap7 .listing-single{
+        margin-top: 15px;
+    }
+
+    .listing-single__wrap-header7{
+        padding: 0px 15px;
+    }
+}
