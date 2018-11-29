@@ -35,7 +35,11 @@
             <li> <a href="javascript:void(0);" class="menu-toggle"><i class="zmdi zmdi-shopping-cart"></i><span>Marketing Automation</span> </a>
                 <ul class="ml-menu">
                     <li> <a href="javascript:void(0)">Social Post</a></li>
-                    <li> <a href="javascript:void(0)">Add to Facebook</a></li>
+                    <li>
+                        <a href='https://www.facebook.com/sharer/sharer.php?u={{url('/')}}/events/{{$event->encrypted_id}}/{{$location->encrypted_id}}&display=popup' target="_blank">
+                            Add to Facebook
+                        </a>
+                    </li>
                     <li> <a href="javascript:void(0)">Email Marketing</a></li>
                     <li> <a href="javascript:void(0)">Event Blog Post</a></li>
                     <li> <a href="javascript:void(0)">Contacts</a></li>
