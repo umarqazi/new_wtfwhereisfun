@@ -98,6 +98,18 @@ class EventTimeLocation extends Model
     }
 
     /**
+     * Scope a query to get Past Events.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @param mixed $type
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopePastEvents($query)
+    {
+        return $query->where('ending', '<', Carbon::today());
+    }
+
+    /**
      * Scope a query to Search By Location
      *
      * @param \Illuminate\Database\Eloquent\Builder $query

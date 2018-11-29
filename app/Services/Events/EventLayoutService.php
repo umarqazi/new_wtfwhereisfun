@@ -30,6 +30,6 @@ class EventLayoutService  extends BaseService implements IService
         }else{
             $updateData = ['event_layout_id' => $request->event_layout ];
         }
-        $this->eventLayoutRepo->updateEventLayout($updateData, $id);
+        return $this->eventLayoutRepo->updateEventLayout($updateData, $id);
     }
 }

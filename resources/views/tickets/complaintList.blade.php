@@ -12,10 +12,10 @@
                                     <div class="m-r-20 fromAvtar">
                                         <div class="img-wrapper">
                                             <div class="img-holder">
-                                                @if(!empty($dispute->user->directory.$dispute->user->profile_thumbnail))
-                                                <img class="rounded" src="{{$dispute->user->directory.$dispute->user->profile_thumbnail}}" alt="">
+                                                @if(!empty($dispute->user->profile_thumbnail))
+                                                    <img class="rounded" src="{{$dispute->user->directory.$dispute->user->profile_thumbnail}}" alt="">
                                                 @else
-                                                 <img src="{{asset('img/dummy.jpg')}}">
+                                                    <img src="{{asset('img/default-148.png')}}">
                                                 @endif
                                             </div>
                                             <p>{{$dispute->user->first_name}}</p>
@@ -43,7 +43,7 @@
                                                 </div>
                                                 <p>{!! $dispute->message !!}</p>
                                             </div>
-                                            <div class="date pull-right">2018-11-22 06:30:03</div>
+                                            <div class="date pull-right">{{$dispute->created_at}}</div>
                                         </div>
                                     </div>
                                 </div>

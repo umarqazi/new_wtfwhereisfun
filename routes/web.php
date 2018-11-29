@@ -55,7 +55,6 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('checkout/success', 'PaymentController@successCheckout');
     Route::get('checkout/cancel', 'PaymentController@cancelCheckout');
     Route::post('checkout/stripe', 'PaymentController@stripeCheckout');
-//
 
     Route::prefix('events')->group(function () {
         Route::get('hot-deals', 'EventController@getHotDealEvents');
@@ -64,9 +63,6 @@ Route::group(['middleware' => ['web']], function () {
         Route::post('get-time-location', 'EventController@getTimeLocation');
     });
 
-//    Route::get('/ticket-dispute/{id}', 'UsersController@edit');
-
-//
     Route::group(['middleware' => ['auth']], function () {
         /*User Routes*/
 
@@ -91,7 +87,6 @@ Route::group(['middleware' => ['web']], function () {
         Route::post('/dispute-reply', 'DisputeController@reply');
 
         Route::get('/complaints', 'DisputeController@showComplaints');
-//        Route::get('/disputes/{id}', 'DisputeController@show');
         Route::post('/close-dispute', 'DisputeController@closeComplaints');
 
         Route::group(['middleware' => ['role:vendor']], function () {
@@ -104,7 +99,9 @@ Route::group(['middleware' => ['web']], function () {
 
             Route::post('get-event-sub-topics', 'EventController@getTopicSubTopics');
 
-            Route::get('events/{id}/dashboard', 'EventController@dashboard');
+            Route::get('events/{locationId}/dashboard', 'EventController@dashboard');
+            Route::get('events/{locationId}/dashboard/orders', 'EventController@dashboardOrders');
+
             Route::prefix('events')->group(function () {
 
                 Route::post('go-live', 'EventController@eventGoLive');

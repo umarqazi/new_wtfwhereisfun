@@ -12,29 +12,29 @@
                                     <div class="m-r-20 fromAvtar">
                                         <div class="img-wrapper">
                                             <div class="img-holder">
-                                                @if(!empty($dispute->user->directory.$dispute->user->profile_thumbnail))
-                                                <img class="rounded" src="{{$dispute->user->directory.$dispute->user->profile_thumbnail}}" alt="">
-                                                    @else
-                                                    <img src="{{asset('img/dummy.jpg')}}">
+                                                @if(!empty($dispute->user->profile_thumbnail))
+                                                    <img class="rounded" src="{{$dispute->user->directory.$dispute->user->profile_thumbnail}}" alt="">
+                                                @else
+                                                    <img src="{{asset('img/default-148.png')}}">
                                                 @endif
                                             </div>
                                             <p>{{$dispute->user->first_name}}</p>
                                         </div>
                                         <div class="info">
-                                            <ul class="actions-btns header-dropdown m-r--5">
-                                                {{--<li class="action-list"><a href="http://wtf.localhost/dispute/show/1"><button class="btn">View</button></a></li>--}}
-                                                <li class="action-list"><a href="{{url('/disputes/'.encrypt_id($dispute->id))}}"><button class="btn">View</button></a></li>
-                                                @if($dispute->is_closed)
-                                                    <li class="action-list"><button class="btn">Closed</button></li>
-                                                @endif
-                                            </ul>
                                             <div class="leftSide">
                                                 <div class="event-title">
                                                     <a href="http://wtf.localhost/dispute/show/1">{{$dispute->subject}}</a>
                                                 </div>
                                                 <p>{!! $dispute->message !!}</p>
                                             </div>
-                                            <div class="date"><strong> 2018-11-22 06:30:03 </strong></div>
+                                            <ul class="actions-btns header-dropdown m-r--5">
+                                                <li class="action-list"><a href="{{url('/disputes/'.encrypt_id($dispute->id))}}"><button class="btn">View</button></a></li>
+                                                @if($dispute->is_closed)
+                                                    <li class="action-list"><button class="btn">Closed</button></li><br>
+                                                @endif
+                                                <div class="date"><strong> {{$dispute->created_at}}</strong></div>
+                                            </ul>
+
                                         </div>
                                     </div>
                                 </div>

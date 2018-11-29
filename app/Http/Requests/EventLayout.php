@@ -23,10 +23,17 @@ class EventLayout extends FormRequest
      */
     public function rules()
     {
-        return [
-            'event_layout'      => 'required|integer',
-            'header_image'      => 'required|image|dimensions:min_width=1600,min_height=700',
-        ];
+        $rules = [];
+
+        $rules['event_layout']  =  'required|integer';
+
+        if(empty($this->input('header_image_exist'))){
+            $rules['header_image']  =  'required|image|dimensions:min_width=1600,min_height=700';
+        }else{
+            $rules['header_image']  =  'image|dimensions:min_width=1600,min_height=700';
+        }
+
+        return $rules;
     }
 
     /**

@@ -149,7 +149,7 @@ class EventService extends BaseService implements IDBService
             return ['type' => 'error', 'msg' => 'Please upload Header Image before going Live', 'data' => $event];
         }else{
             $event = $this->eventRepo->goLive($eventId);
-            return ['type' => 'success', 'msg' => 'Your request has be forwarded, Your event will be live after Admin Approval', 'data' => $event];
+            return ['type' => 'success', 'msg' => 'Congratulations! Your Event has gone Live', 'data' => $event];
         }
     }
 }

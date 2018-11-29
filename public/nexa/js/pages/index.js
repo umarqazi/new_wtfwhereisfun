@@ -156,7 +156,7 @@ $({animatedVal: 0}).animate({animatedVal: 88}, {
     duration: 3500,
     easing: "swing", 
     step: function() { 
-        $(".dial4").val(Math.ceil(this.animatedVal)).trigger("change"); 
+        $(".dial4").val(Math.ceil(this.animatedVal)).trigger("change");
     }
 });
 

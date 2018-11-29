@@ -11,6 +11,9 @@
                             <div class="listings">
                                 <form method="post" id="event-layout" onsubmit="updateEventLayout(this)" enctype="multipart/form-data">
                                     <div class="row layout-listing">
+                                        <div class="col-md-12">
+                                            <h4>Select Event Layout <span class="required-field">*</span></h4>
+                                        </div>
                                         <input type="hidden" id="event_layout_id" name="event_layout" value="{{$event->event_layout_id}}">
                                         <input type="hidden" id="" name="event_id" value="{{$eventId}}">
                                         @php $asset = asset('img'); @endphp
@@ -37,6 +40,7 @@
                                                 $toolClass   =  'hidden';
                                                 $header_image=  $directory['web_path'].$event->header_image;
                                             @endphp
+                                            <input type="hidden" name="header_image_exist" id="header_image_exist" value="{{$event->header_image}}">
                                         @else
                                             @php
                                                 $browseClass = 'show-block';
@@ -44,7 +48,11 @@
                                                 $toolClass   =  '';
                                                 $header_image=  '';
                                             @endphp
+                                            <input type="hidden" name="header_image_exist" value="" id="header_image_exist">
                                         @endif
+                                        <div class="col-md-12">
+                                            <h4>Upload Event Image <span class="required-field">*</span></h4>
+                                        </div>
                                         <div class="col-md-12">
                                             <div class="tooltipContainer">
                                                 <div class="customToolTip">
@@ -131,7 +139,12 @@
                                         <div class="applybutton_right">
                                             <button type="button" onclick="addNewImage('{{$eventId}}')" class="btn btn-default rounded-border"><i class="fa fa-plus"></i> Add More Images</button>
                                             <button type="submit" class="btn btn-default btn-save rounded-border">Save Draft</button>
-                                            <a href="{{url('events/'.$eventId)}}" target="_blank" class="btn btn-default btn-save rounded-border">Preview</a>
+                                            @if(count($locations) > 0)
+                                                <a href="{{url('events/'.$eventId.'/'.$locations->first()->encrypted_id)}}" target="_blank" id="event-preview-button" class="btn btn-default btn-save rounded-border">Preview</a>
+                                            @else
+                                                <a href="#" id="event-preview-button" target="_blank" class="btn btn-default btn-save rounded-border">Preview</a>
+                                            @endif
+
 
                                         </div>
                                     </div>

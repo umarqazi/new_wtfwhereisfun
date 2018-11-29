@@ -3,9 +3,13 @@ $(".quantity-button").on("click", function () {
     var oldValue = $button.closest('.sp-quantity').find("input.quntity-input").val();
 
     var get_button = $button.hasClass('fa-plus');
-
     if (get_button) {
-        var newVal = parseFloat(oldValue) + 1;
+        if(oldValue < qtyleft){
+            var newVal = parseFloat(oldValue) + 1;
+        }else{
+            showToaster('error', 'We have only '+qtyleft+' tickets left');
+            return;
+        }
     } else {
         // Don't allow decrementing below zero
         if (oldValue > 1) {
@@ -60,6 +64,7 @@ function getUserForm(obj){
 
 function completeCheckout(event, obj){
     event.preventDefault();
+    $('.submit').attr('disabled', true).text('Loading....');
     var stripeResult;
     stripe.createToken(card).then(function(result) {
         if (result.error) {

@@ -96,6 +96,14 @@ $(document).ready(function($) {
         });
     });
 
+    $('#event-topics').on('keyup keypress', function(e) {
+        var keyCode = e.keyCode || e.which;
+        if (keyCode === 13) {
+            e.preventDefault();
+            return false;
+        }
+    });
+
     $("#event-topics").submit(function(event) {
         event.preventDefault();
         var form_data = new FormData($('#event-topics')[0]);
@@ -134,7 +142,7 @@ $(document).ready(function($) {
                 var count  = keys.length;
                 for (var i = 0; i < count; i++)
                 {
-                    $('#event-create .'+keys[i]).html(errors[keys[i]]).focus();
+                    $('#event-topics .'+keys[i]).html(errors[keys[i]]).focus();
                 }
                 $('#event-topics .btn-save').attr('disabled',false).text('Next');
             }
@@ -294,12 +302,13 @@ function deleteTicket(event, obj){
             success: function(response)
             {
                 if(response.type == "success"){
-                    formElement.closest('.ticket-main-wrapper').remove();
                     showToaster('success', 'Ticket Deleted Successfully');
                 }
             }
         });
     }
+
+    formElement.closest('.ticket-main-wrapper').remove();
 }
 
 /*****************************************************************************
@@ -473,6 +482,7 @@ function updateEventLayout(obj){
         },
         success: function(response){
             if(response.type == "success"){
+                $('#event-layout #header_image_exist').attr('value', response.data.header_image);
                 showToaster('success',response.msg);
             }
             else{
@@ -515,22 +525,26 @@ $(document).ready(function(){
     $('.unlisted_toogle').click(function(){
         $(".social-buttons-toggle").css('display','block');
         $('#event_show').val('unlisted');
+        $('.public_toggle').removeClass('active');
+        $('.unlisted_toogle').addClass('active');
     });
 
     $('.public_toggle').click(function(){
         $(".social-buttons-toggle").css('display','none');
         $('#event_show').val('public');
+        $('.unlisted_toogle').removeClass('active');
+        $('.public_toggle').addClass('active');
     });
 
     $('#datetimepicker1,#datetimepicker2').datetimepicker({
         useCurrent: false,
         format:'YYYY-MM-DD hh:mm A',
         allowInputToggle: true,
-        minDate: moment(),
+        minDate: 0
 
     });
 
-    $(document).on('click',".datepicker1, .datepicker2", function(e){
+    $(document).on('click',".datepicker1,.datepicker2", function(e){
         //bind to all instances of class "date".
         $(this).datetimepicker({
             useCurrent: false,

@@ -12,7 +12,7 @@
                         <div class="member-img tickets_profile">
                             @if(!empty($user->profile_thumbnail))
                                 @php
-                                    $img = $directory['web_path'].$user->profile_thumbnail;
+                                    $img = $directory.$user->profile_thumbnail;
                                 @endphp
                             @else
                                 @php
@@ -52,12 +52,13 @@
                                     <div class="event-ticket-details">
                                         <h4><a href="{{url('events/'.encrypt_id($order->event->id))}}">{{$order->event->title}}</a></h4>
                                         <strong class="ticket-name">Ticket Name : {{$order->ticket->name}}</strong><br>
-                                        <span class="ticket-location">Location</span>
-                                        <span class="ticket-time">Start Date Time</span><br>
+                                        <span class="ticket-location"><i class="fa fa-map-marker green"></i> {{$order->ticket->time_location->location}}</span><br>
+                                        <span class="ticket-date"><i class="fa fa-calendar green"></i> {{monthDateYearFromat($order->ticket->time_location->starting)}} - {{monthDateYearFromat($order->ticket->time_location->ending)}}</span><br>
+                                        <span class="ticket-time"><i class="fa fa-clock green"></i> {{$order->ticket->time_location->starting->format('g:i A')}} - {{$order->ticket->time_location->ending->format('g:i A')}}</span><br>
                                         <span>Amount Paid : <strong>${{$order->payment_gross}}</strong></span><br>
                                         <span>Bought at : <strong>{{monthDateYearFromat($order->created_at)}}</strong></span><br>
-                                        <a href="{{url('ticket-dispute/'.encrypt_id($order->id))}}" class="btn rounded-border" >Dispute</a>
                                     </div>
+                                    <a href="{{url('ticket-dispute/'.encrypt_id($order->id))}}" class="btn btn-sm rounded-border pull-right" >Dispute</a>
                                 </div>
                             </div>
                         @endforeach

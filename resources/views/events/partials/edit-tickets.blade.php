@@ -30,19 +30,31 @@
                                     <ul class="listTable_row table_row  clearfix">
                                         <li>
                                             <input type="hidden" name="type" value="{{$ticket->type}}">
-                                            <label>Ticket Name</label>
+                                            <label>Ticket Name <span class="required-field">*</span></label>
                                             <input type="text" class="form-control" placeholder="e.g General Admission" name="name" value="{{$ticket->name}}">
                                             <div class="form-error name"></div>
                                         </li>
                                         <li>
-                                            <label>Ticket Quantity</label>
+                                            <label>Ticket Quantity <span class="required-field">*</span></label>
                                             <input type="number" class="form-control qty-a" placeholder="Unlimited" name="quantity" value="{{$ticket->quantity}}">
                                             <div class="form-error quantity"></div>
                                         </li>
                                         <li>
-                                            <label>Ticket Price</label>
+                                            <label>Ticket Price <span class="required-field">*</span></label>
                                             <input type="number" class="form-control" placeholder="Cost" name="price" value="{{$ticket->price}}">
                                             <div class="form-error price"></div>
+                                        </li>
+                                        <li>
+                                            <label>Ticket Time & Location <span class="required-field">*</span></label>
+                                            <select class="form-control" name="time_location_id">
+                                                <option value="" @if(is_null($ticket->time_location)){{'selected'}}@endif disabled>Select Time & Location</option>
+                                                @foreach($locations as $location)
+                                                    <option value="{{$location->id}}"
+                                                    @if($ticket->time_location_id == $location->id){{'selected'}}@endif>{{str_limit($location->location, 30). ' '.monthDateYearFromat($location->starting)}}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+                                            <div class="form-error time_location_id"></div>
                                         </li>
 
                                         <li>
@@ -65,20 +77,7 @@
                                                 </li>
                                             </ol>
                                         </li>
-                                    </ul>
-                                    <ul class="listTable_row table_row  clearfix">
-                                        <li>
-                                            <label>Ticket Time & Location</label>
-                                            <select class="form-control" name="time_location_id">
-                                                <option value="" @if(is_null($ticket->time_location)){{'selected'}}@endif disabled>Select Time & Location</option>
-                                                @foreach($locations as $location)
-                                                    <option value="{{$location->id}}"
-                                                        @if($ticket->time_location_id == $location->id){{'selected'}}@endif>{{str_limit($location->location, 30). ' '.monthDateYearFromat($location->starting)}}
-                                                    </option>
-                                                @endforeach
-                                            </select>
-                                            <div class="form-error time_location_id"></div>
-                                        </li>
+
                                     </ul>
 
                                     <div class="ticket-settings hidden">
@@ -87,26 +86,26 @@
                                             <textarea class="form-control" placeholder="Additional ticket info" name="description">{{$ticket->description}}</textarea>
                                             <div class="form-error description"></div>
                                         </div>
-                                        <div class="row datepicker_row">
-                                            <div class="col-sm-6">
+                                        <div class="row">
+                                            <div class="col-sm-6 datepicker_row">
                                                 <div class="form-group">
                                                     <span>Ticket sale starts</span>
-                                                    <div class="input-group date datepicker1">
-                                                                        <span class="input-group-addon">
-                                                                          <span class="glyphicon glyphicon-calendar"></span>
-                                                                        </span>
+                                                    <div class="input-group date datepicker1" id="datetimepicker1">
+                                                        <span class="input-group-addon">
+                                                            <span class="glyphicon glyphicon-calendar"></span>
+                                                        </span>
                                                         <input type="text" class="form-control" name="selling_start" value="{{$ticket->selling_start}}"/>
                                                     </div>
                                                     <div class="form-error selling_start"></div>
                                                 </div>
                                             </div>
-                                            <div class="col-sm-6">
+                                            <div class="col-sm-6 datepicker_row">
                                                 <div class="form-group">
                                                     <span>Ticket sale ends</span>
-                                                    <div class="input-group date datepicker2" id="datetimepicker2">
-                                                                        <span class="input-group-addon">
-                                                                          <span class="glyphicon glyphicon-calendar"></span>
-                                                                        </span>
+                                                    <div class="input-group date datepicker2" id="datetimepicker1">
+                                                        <span class="input-group-addon">
+                                                            <span class="glyphicon glyphicon-calendar"></span>
+                                                        </span>
                                                         <input type="text" class="form-control" name="selling_end" value="{{$ticket->selling_end}}"/>
                                                     </div>
                                                     <div class="form-error selling_end"></div>

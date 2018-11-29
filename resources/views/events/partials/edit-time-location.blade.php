@@ -12,12 +12,12 @@
                             <form method="get" onsubmit="eventLocationForm(event, this)" id="event-form-{{$location->id}}">
                                 <div class="col-sm-6 datepicker_row" id="datetime_area">
                                     <div class="form-group">
-                                        <label>Event Start Date</label>
-                                        <div class="input-group date datepicker1" id="datetimepicker1">
+                                        <label>Event Start Date <span class="required-field">*</span></label>
+                                        <div class="input-group datetimepicker1" id="datetimepicker1">
                                             <span class="input-group-addon">
                                                 <span class="glyphicon glyphicon-calendar"></span>
                                             </span>
-                                            <input type="text" class="form-control datepic" value="{{$location->starting}}" name="event_start_date" />
+                                            <input type="text" class="form-control" value="{{$location->starting->format('Y-m-d g:i A')}}" name="event_start_date" />
                                         </div>
                                         <div class="form-error event_start_date"></div>
                                     </div>
@@ -25,12 +25,12 @@
 
                                 <div class="col-sm-6 datepicker_row" id="datetime_area">
                                     <div class="form-group">
-                                        <label>Event End Date</label>
-                                        <div class="input-group date datepicker2" id="datetimepicker2">
+                                        <label>Event End Date <span class="required-field">*</span></label>
+                                        <div class="input-group datetimepicker1" id="datetimepicker1">
                                             <span class="input-group-addon">
                                                 <span class="glyphicon glyphicon-calendar"></span>
                                             </span>
-                                            <input type="text" class="form-control" value="{{$location->ending}}" name="event_end_date" />
+                                            <input type="text" class="form-control" value="{{$location->ending->format('Y-m-d g:i A')}}" name="event_end_date" />
                                         </div>
                                         <div class="form-error event_end_date"></div>
                                     </div>
@@ -38,7 +38,7 @@
 
                                 <div class="col-sm-6">
                                     <div class="form-group">
-                                        <label>Event location</label>
+                                        <label>Event location <span class="required-field">*</span></label>
                                         <input type="text" class="form-control event_location-serach" value="{{$location->location}}" placeholder="Enter your event's location" name="event_location" id="event_location_{{$countLocations - $key}}" onkeyup="searchLocation(event, this)" >
                                         <input type="hidden" name="latitude" id="event_lat" value="{{$location->longitude}}">
                                         <input type="hidden" name="longitude" id="event_lng" value="{{$location->longitude}}">
@@ -47,7 +47,7 @@
                                         <div class="form-error longitude"></div>
                                     </div>
                                     <div class="form-group">
-                                        <label>Address </label>
+                                        <label>Address <span class="required-field">*</span></label>
                                         <input type="text" class="form-control event_location-serach" id="event_address" placeholder="Enter your event's address" value="{{$location->address}}" name="event_address">
                                     </div>
                                     <div class="display-currency-section">
@@ -75,7 +75,7 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label>Timezones</label>
+                                        <label>Timezones <span class="required-field">*</span></label>
                                         <select name="timezone" >
                                             <option disabled value="" @if(is_null($location->timezone)){{"selected"}}@endif>Select Timezone</option>
                                             @foreach($timeZones as $timeZone)
@@ -111,20 +111,20 @@
                         <form type="post" onsubmit="eventLocationForm(event, this)" id="event-save-location">
                             <div class="col-sm-6 datepicker_row" id="datetime_area">
                                 <div class="form-group">
-                                    <label>Event Start Date</label>
-                                    <div class="input-group date datepicker1" id="datetimepicker1">
+                                    <label>Event Start Date <span class="required-field">*</span></label>
+                                    <div class="input-group datetimepicker1" id="datetimepicker1">
                                         <span class="input-group-addon">
                                             <span class="glyphicon glyphicon-calendar"></span>
                                         </span>
-                                        <input autocomplete="off" type="text" class="form-control datepic" name="event_start_date" id="start_date"/>
+                                        <input autocomplete="off" type="text" class="form-control" name="event_start_date" id="start_date"/>
                                     </div>
                                     <div class="form-error event_start_date"></div>
                                 </div>
                             </div>
                             <div class="col-sm-6 datepicker_row" id="datetime_area">
                                 <div class="form-group">
-                                    <label>Event End Date</label>
-                                    <div class="input-group date datepicker2" id="datetimepicker2">
+                                    <label>Event End Date <span class="required-field">*</span></label>
+                                    <div class="input-group datetimepicker1" id="datetimepicker2">
                                         <span class="input-group-addon">
                                             <span class="glyphicon glyphicon-calendar"></span>
                                         </span>
@@ -135,7 +135,7 @@
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label>Event location</label>
+                                    <label>Event location <span class="required-field">*</span></label>
                                     <input type="text" onkeyup="searchLocation(event, this)" class="form-control event_location-serach event_location" placeholder="Enter your event's location" name="event_location" id="event_location">
                                     <input type="hidden" name="latitude" id="event_lat">
                                     <input type="hidden" name="longitude" id="event_lng">
@@ -144,7 +144,7 @@
                                     <div class="form-error longitude"></div>
                                 </div>
                                 <div class="form-group">
-                                    <label>Address </label>
+                                    <label>Address <span class="required-field">*</span></label>
                                     <input type="text" id="event_address" class="form-control event_address event_location-serach" placeholder="Enter your event's address" name="event_address">
                                     <div class="form-error event_address"></div>
                                 </div>
@@ -169,7 +169,7 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label>Timezones</label>
+                                    <label>Timezones <span class="required-field">*</span></label>
                                     <select name="timezone">
                                         <option disabled value="" selected>Select Timezone</option>
                                         @foreach($timeZones as $timeZone)

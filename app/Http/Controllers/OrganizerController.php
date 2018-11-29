@@ -189,8 +189,8 @@ class OrganizerController extends Controller
     }
 
     public function organizerProfile($slug){
-        $organizer = $this->organizerService->getOrganizerBySlug($slug);
-        $events    = $this->organizerService->getOrganizerEvents($organizer->id);
-        return view('users.organizers.profile')->with(['organizer' => $organizer, 'events' => $events, 'organizerDirectory' => getDirectory('organizers', $organizer->id)]);
+        $organizer         = $this->organizerService->getOrganizerBySlug($slug);
+        $eventLocations    = $this->organizerService->getOrganizerEvents($organizer->id);
+        return view('users.organizers.profile')->with(['organizer' => $organizer, 'eventLocations' => $eventLocations, 'organizerDirectory' => getDirectory('organizers', $organizer->id)]);
     }
 }

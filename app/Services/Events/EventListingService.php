@@ -46,13 +46,28 @@ class EventListingService extends BaseService implements IService
         return $this->eventRepo->hotEvents();
     }
 
-    public function todayEventsByTimeAndLocation(){
-        return $this->eventLocationRepo->getTodayEventsByTime();
+    public function getTodayEventsByTimeAndLocation($vendorId = null){
+        return $this->eventLocationRepo->getTodayEventsByTime($vendorId);
     }
 
-    public function futureEventsByTimeAndLocation(){
-        return $this->eventLocationRepo->getFutureEventsByTime();
+    public function getFutureEventsByTimeAndLocation($vendorId = null){
+        return $this->eventLocationRepo->getFutureEventsByTime($vendorId);
     }
 
+    public function getPastEventsByTimeAndLocation($vendorId = null){
+        return $this->eventLocationRepo->getPastEventsByTime($vendorId);
+    }
+
+    public function getDraftEventsByTimeAndLocation($vendorId = null){
+        return $this->eventLocationRepo->getDraftEventsByTime($vendorId);
+    }
+
+    public function getAllPublishedEventsByTimeAndLocation($vendorId = null){
+        return $this->eventLocationRepo->getAllPublishedEventsByTimeAndLocation($vendorId);
+    }
+
+    public function getAllEventsByTimeAndLocation($vendorId = null){
+        return $this->eventLocationRepo->getAllEventsByTime($vendorId);
+    }
 
 }

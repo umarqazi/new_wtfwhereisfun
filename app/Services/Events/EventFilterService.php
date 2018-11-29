@@ -64,6 +64,4 @@ class EventFilterService
         return $response;
     }
 
-
-
 }

@@ -60,14 +60,14 @@ class MainController extends Controller
         $blogs          = $this->blogServices->getAll();
         $testimonials   = $this->testimonialServices->getAll();
         $categories     = $this->categoryServices->getAll();
-        $todayEvents    = $this->eventListingService->todayEventsByTimeAndLocation();
-        $futureEvents   = $this->eventListingService->futureEventsByTimeAndLocation();
-        $loadLocations  = $this->eventLocationService->getTodayEventsMapMarkers($todayEvents);
-        $city           = $this->eventLocationService->getUserLocation();
+        $todayEvents    = $this->eventListingService->getTodayEventsByTimeAndLocation();
+        $futureEvents   = $this->eventListingService->getFutureEventsByTimeAndLocation();
+        $location       = $this->eventLocationService->getUserLocation();
+        $loadLocations  = $this->eventLocationService->getTodayEventsMapMarkers($todayEvents, $location['lat'], $location['lng']);
         return view('front-end.public.landing-page')->with(['blogs' => $blogs, 'categories' => $categories, 'testimonials'
             => $testimonials, 'user' => $user, 'todayEvents' => $todayEvents, 'futureEvents' => $futureEvents,
             'categoriesPath' => getDirectory('categories'), 'testimonialsPath' => getDirectory('testimonials'),
-            'map' => $loadLocations, 'city' => $city]);
+            'map' => $loadLocations, 'city' => $location['city']]);
     }
 
     /**
