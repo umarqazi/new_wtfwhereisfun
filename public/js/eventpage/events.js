@@ -461,7 +461,7 @@ function selectLayout(obj){
 /*****************************************************************************
  *************************Update Event Layout**************************
  ******************************************************************************/
-function updateEventLayout(obj){
+function updateEventLayout(event, obj){
     event.preventDefault();
     var formData = new FormData($(obj)[0]);
     $.ajaxSetup({
@@ -617,8 +617,12 @@ function eventLocationForm(event, obj, type){
             else{
                 showToaster('error',response.msg);
             }
-            $(obj).find('.time-location-id').attr('value', response.data.id);
+            $(obj).find('.time-location-id').attr('value', response.data.timeLocation.id);
             $(obj).find('.request-type').attr('value', 'update');
+            console.log(response.data.count);
+            if(response.data.count == 1){
+                $('#event-preview-button').attr('href', response.data.link).removeAttr('onclick');
+            }
         },
         error:function(response)
         {
@@ -983,3 +987,8 @@ function deleteHotDeal(obj){
 /*****************************************************************************
  *************************End Delete Event Hot Deal*****************************
  ******************************************************************************/
+
+
+function locationError(){
+    sweetAlert('Error', 'Please create an Event Location first');
+}

@@ -21,7 +21,15 @@ class EventTimeLocationService extends BaseService
     }
 
     public function updateTimeLocation($request, $eventId){
-        return $this->eventLocationRepo->updateTimeLocation($request, $eventId);
+        $timeLocation = $this->eventLocationRepo->updateTimeLocation($request, $eventId);
+        $event = $timeLocation->event;
+        $count = count($event->time_locations);
+        if($count == 1){
+            $link = route('showById', ['id' => $event->encrypted_id, 'locationId' => $timeLocation->encrypted_id ]);
+            return ['timeLocation' => $timeLocation, 'count' => $count, 'link' => $link];
+        }else{
+            return ['timeLocation' => $timeLocation, 'count' => $count];
+        }
     }
 
     public function searchLocation($request){

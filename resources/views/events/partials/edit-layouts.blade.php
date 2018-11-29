@@ -9,7 +9,7 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="listings">
-                                <form method="post" id="event-layout" onsubmit="updateEventLayout(this)" enctype="multipart/form-data">
+                                <form method="post" id="event-layout" onsubmit="updateEventLayout(event, this)" enctype="multipart/form-data">
                                     <div class="row layout-listing">
                                         <div class="col-md-12">
                                             <h4>Select Event Layout <span class="required-field">*</span></h4>
@@ -142,7 +142,7 @@
                                             @if(count($locations) > 0)
                                                 <a href="{{url('events/'.$eventId.'/'.$locations->first()->encrypted_id)}}" target="_blank" id="event-preview-button" class="btn btn-default btn-save rounded-border">Preview</a>
                                             @else
-                                                <a href="#" id="event-preview-button" target="_blank" class="btn btn-default btn-save rounded-border">Preview</a>
+                                                <a href="javascript:void(0)" id="event-preview-button" target="_blank" onclick="locationError()" class="btn btn-default btn-save rounded-border">Preview</a>
                                             @endif
 
 

@@ -384,6 +384,7 @@ class EventController extends Controller
      */
     public function eventLayoutUpdate(EventLayout $request){
         $response   = $this->eventLayoutService->updateEventLayout($request);
+        $response   = $this->eventLayoutService->updateEventLayout($request);
         return response()->json([
             'type'      =>  'success',
             'msg'       =>  'Event Layout Updated',
