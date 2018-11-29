@@ -136,7 +136,7 @@ class EventRepo
     }
 
     public function getMoreEvents($vendor, $event){
-        return $this->eventModel->where('id','!=', $event)->publishedEvents($vendor)->orderBy('created_at', 'desc')->limit(2)->get();
+        return $this->eventModel->where('id','!=', $event)->publishedEvents($vendor)->orderBy('created_at', 'desc')->has('time_locations')->limit(2)->get();
     }
 
     public function goLive($id){
