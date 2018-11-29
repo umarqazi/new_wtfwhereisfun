@@ -29,7 +29,7 @@
                                                     <tr>
                                                         <td align="center" valign="middle">
                                                             <a href="{{url('/')}}" style="text-decoration:none;border:0">
-                                                                <img src="{{asset('images/logo/wtf-logo.png')}}" alt="#" border="0" width="100" style="display:block;border:0;width:100px;padding:0;padding-bottom:30px;">
+                                                                <img src="{{asset('img/logos/logo-icon.png')}}" alt="#" border="0" width="100" style="display:block;border:0;width:100px;padding:0;padding-bottom:30px;">
                                                             </a>
                                                         </td>
                                                     </tr>

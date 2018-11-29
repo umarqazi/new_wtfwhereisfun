@@ -12,7 +12,7 @@
                         <!-- Tab panes -->
                         <div class="tab-content">
                             <div role="tabpanel" class="tab-pane active" id="sign-in">
-                                <p class="text-center"><img src="{{asset('/images/logo/wtf-logo.png')}}"></p>
+                                <p class="text-center"><img src="{{asset('img/logos/logo-icon.png')}}" alt="Logo"></p>
                                 <ul class="nav nav-tabs text-center custom-tabs" role="tablist">
                                     <li role="presentation" class="active"><a href="#sign-in" aria-controls="sign-in" role="tab" data-toggle="tab">Sign In</a></li>
                                 </ul>
@@ -69,6 +69,7 @@
 
             <div class="modal-body">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <p class="text-center"><img src="{{asset('img/logos/logo-icon.png')}}" alt="Logo"></p>
                 <div class="signup-signin-wrap">
                     <ul class="nav nav-tabs text-center" role="tablist">
                         <li role="presentation" class="active"><a href="#sign-in" aria-controls="sign-in" role="tab" data-toggle="tab">Sign Up</a></li>

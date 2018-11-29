@@ -384,7 +384,7 @@ header#header{
    margin-top: 0;
 }
 .header-logo img {
-   width: 406px; 
+   width: 160px;
 }
 
 
@@ -1166,6 +1166,11 @@ ul.main-menu > li:hover .custom-dropdown-menu{
    background-color: #eee;
    padding: 70px 0px;
 }
+
+.signup-signin-wrap img, #signup img{
+   width : 100px;
+}
+
 .signup-signin-wrap{
    width: 100%;
    max-width: 400px;
