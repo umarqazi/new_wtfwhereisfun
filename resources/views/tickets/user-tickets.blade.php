@@ -50,7 +50,7 @@
                                         <img src="{{$img}}" alt="profile-image" id="target" width="200" height="200">
                                     </div>
                                     <div class="event-ticket-details">
-                                        <h4><a href="{{url('events/'.encrypt_id($order->event->id))}}">{{$order->event->title}}</a></h4>
+                                        <h4><a href="{{route('showById', ['id' => $order->event->encrypted_id, 'locationId' => $order->ticket->time_location->encrypted_id ])}}">{{$order->event->title}}</a></h4>
                                         <strong class="ticket-name">Ticket Name : {{$order->ticket->name}}</strong><br>
                                         <span class="ticket-location"><i class="fa fa-map-marker green"></i> {{$order->ticket->time_location->location}}</span><br>
                                         <span class="ticket-date"><i class="fa fa-calendar green"></i> {{monthDateYearFromat($order->ticket->time_location->starting)}} - {{monthDateYearFromat($order->ticket->time_location->ending)}}</span><br>

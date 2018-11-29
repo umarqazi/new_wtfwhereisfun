@@ -11,19 +11,8 @@
 |
 */
 
-//Auth::routes();
-
 Route::get('/home', 'HomeController@index')->name('home');
 
-//Route::get('/admin', 'AdminController@login')->name('Admin Login');
-//Route::post('/admin/authenticate', 'AdminController@authenticate')->name('Admin Authentication');
-//Route::get('/admin/dashboard', 'AdminController@index')->name('Admin Dashboard');
-
-
-//Route::get('profile',  'UserController@profile')->name('profile');
-//Route::get('edit-profile',  'UserController@edit')->name('edit profile');
-//Route::patch('update-profile', 'UserController@update');
-//->name('update profile');
 Route::group(['middleware' => ['web']], function () {
     Route::get('login', 'MainController@index')->name('login');
     Route::get('/', 'MainController@index');
@@ -55,13 +44,6 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('checkout/success', 'PaymentController@successCheckout');
     Route::get('checkout/cancel', 'PaymentController@cancelCheckout');
     Route::post('checkout/stripe', 'PaymentController@stripeCheckout');
-
-    Route::prefix('events')->group(function () {
-        Route::get('hot-deals', 'EventController@getHotDealEvents');
-        Route::get('all', 'EventController@getAllLiveEvents');
-        Route::get('{id}', 'EventController@show')->name('showById');
-        Route::post('get-time-location', 'EventController@getTimeLocation');
-    });
 
     Route::group(['middleware' => ['auth']], function () {
         /*User Routes*/

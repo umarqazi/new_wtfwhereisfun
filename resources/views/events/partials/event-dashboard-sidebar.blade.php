@@ -2,14 +2,18 @@
     <!-- User Info -->
     <div class="user-info">
         <div class="image">
-            <img src="{{asset('img/default-148.png')}}" width="48" height="48" alt="User" />
+            @if(!empty($event->vendor->profile_thumbnail))
+                <img src="{{$event->vendor->directory.$event->vendor->profile_thumbnail}}" width="48" height="48" alt="User" />
+            @else
+                <img src="{{asset('img/default-148.png')}}" width="48" height="48" alt="User" />
+            @endif
         </div>
     </div>
     <!-- #User Info -->
     <!-- Menu -->
     <div class="menu">
         <ul class="list">
-            <li class="active open"> <a href="javascript:void(0);"><span>Event Dashboard</span></a>
+            <li class="active open"> <a href="{{url('events/'.$location->encrypted_id.'/dashboard')}}"><span>Event Dashboard</span></a>
             </li>
             <li> <a href="javascript:void(0);" class="menu-toggle"><i class="zmdi zmdi-shopping-cart"></i><span>Payment</span> </a>
                 <ul class="ml-menu">
