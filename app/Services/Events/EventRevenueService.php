@@ -20,8 +20,12 @@ class EventRevenueService
         $totalQty           = $location->tickets->sum('quantity');
         $ticketIds          = $location->tickets->pluck('id')->toArray();
         $orders             = $this->eventOrderService->getOrderByTickets($ticketIds);
-        $soldQty            = $orders->sum('quantity');
-        $revenuePercentage  = $soldQty/$totalQty * 100;
+        if(count($orders) > 0){
+            $soldQty            = $orders->sum('quantity');
+            $revenuePercentage  = $soldQty/$totalQty * 100;
+        }else{
+            $revenuePercentage  = 0;
+        }
         return ['revenuePercentage' => $revenuePercentage, 'totalRevenue' => $orders->sum('payment_gross'), 'orders' => $orders, 'count' => $orders->count()];
     }
 

@@ -121,5 +121,16 @@ class EventTimeLocation extends Model
         return $query->where('location', 'like', '%'.$location.'%');
     }
 
+    /**
+     * Scope a query to get recent Event Locations by Created At.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @param mixed $type
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeRecentCreatedAt($query)
+    {
+        return $query->orderBy('created_at', 'desc');
+    }
 
 }

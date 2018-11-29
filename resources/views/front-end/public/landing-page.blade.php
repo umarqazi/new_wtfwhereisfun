@@ -60,7 +60,7 @@
                     </div><!-- /.circle-logo-col -->
                     <div class="circle-logo-col cl-item-3">
                         <div class="circle-logo">
-                            <div class="circle-logo-img"><img src="{{asset('images/circle-logo.png')}}" alt="Circle
+                            <div class="circle-logo-img"><img src="{{asset('img/logos/logo-icon.png')}}" alt="Circle
                         Logo"></div>
                         </div>
                     </div><!-- /.circle-logo-col -->
