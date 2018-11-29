@@ -36,13 +36,13 @@
                                     <div class="form_bg_box basicInformationWrapper">
                                         <h4>Basic information</h4>
                                         <div class="form-group">
-                                            <label>What is your event called? </label>
+                                            <label>What is your event called? <span class="required-field">*</span></label>
                                             <span class="label_cap text-right char_limit">0/75</span>
                                             <input type="text" class="form-control" placeholder="Make it a short and catchy title" name="title" id="event_title" required="" maxlength="75">
                                             <div class="form-error title"></div>
                                         </div>
                                         <div class="form-group">
-                                            <label for="description"> Description </label>
+                                            <label for="description"> Description <span class="required-field">*</span></label>
                                             <span class="label_cap">This description will appear on the event listing page.</span>
                                             <textarea class="" id="description" name="description"></textarea>
                                             <div class="form-error description"></div>
@@ -121,7 +121,7 @@
                                         </div>
 
                                         <div class="form-group Refund_Policy">
-                                            <label> Select an Organizer</label>
+                                            <label> Select an Organizer <span class="required-field">*</span></label>
                                             <select class="form-control" name="organizer_id" required>
                                                 <option disabled selected>Select Organizers</option>
                                                 @foreach($organizers as $organizer)

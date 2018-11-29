@@ -25,10 +25,11 @@ class PaymentController extends Controller
     }
 
     public function checkout(Request $request){
-        $ticketDetails = $this->eventTicketService->getTicketDetails($request->ticket_id);
-        $hotDealDetail = $this->hotDealService->getHotDealDetails($ticketDetails->event->id);
+        $ticketDetails      = $this->eventTicketService->getTicketDetails($request->ticket_id);
+        $ticketQuantityLeft = $this->eventTicketService->getRemainingQty($ticketDetails->id);
+        $hotDealDetail      = $this->hotDealService->getHotDealDetails($ticketDetails->event->id);
         $directory = getDirectory('events', $ticketDetails->event->id);
-        return View('payments.checkout')->with(['ticket' => $ticketDetails, 'directory' => $directory, 'eventHotDeal' => $hotDealDetail]);
+        return View('payments.checkout')->with(['ticket' => $ticketDetails, 'directory' => $directory, 'eventHotDeal' => $hotDealDetail, 'ticketQuantityLeft' => $ticketQuantityLeft]);
     }
 
     public function validateCheckout(Checkout $request){

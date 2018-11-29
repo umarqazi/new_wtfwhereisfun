@@ -21,5 +21,6 @@ class EventLayoutRepo
 
     public function updateEventLayout($data, $id){
         $this->eventModel->where('id', $id)->update($data);
+        return $this->eventModel->find($id);
     }
 }

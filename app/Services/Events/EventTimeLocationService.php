@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Services\Events;
+use App\Services\Events\EventOrderService;
 use Illuminate\Support\Facades\App;
 use App\Repositories\EventLocationRepo;
 use App\Services\BaseService;
@@ -11,10 +12,12 @@ use View;
 class EventTimeLocationService extends BaseService
 {
     protected $eventLocationRepo;
+    protected $eventOrderService;
 
     public function __construct()
     {
         $this->eventLocationRepo    = new EventLocationRepo;
+        $this->eventOrderService    = new EventOrderService;
     }
 
     public function updateTimeLocation($request, $eventId){
@@ -57,8 +60,8 @@ class EventTimeLocationService extends BaseService
         return $this->eventLocationRepo->getTimeLocation($locationId);
     }
 
-    public function getTodayEventsMapMarkers($locations){
-        Mapper::map(39.8283, 98.5795);
+    public function getTodayEventsMapMarkers($locations, $lat, $lng){
+        Mapper::map($lat, $lng);
         if(count($locations)){
             foreach($locations as $key => $location){
                 if(!empty($location->event->header_image)){
@@ -92,6 +95,11 @@ class EventTimeLocationService extends BaseService
             $ip = \Request::ip();
         }
         $details = json_decode(file_get_contents("http://ipinfo.io/{$ip}"));
-        return $details->city;
+        $latlng = explode(",",$details->loc);
+        return ['city' => $details->city, 'lat' => $latlng[0], 'lng' => $latlng[1]];
+    }
+
+    public function getLocationEvent($locationId){
+        return $this->eventLocationRepo->getLocationEvent($locationId);
     }
 }

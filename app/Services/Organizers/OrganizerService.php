@@ -72,7 +72,7 @@ class OrganizerService extends BaseService implements IDBService
 
     public function getOrganizerEvents($organizerId){
         $organizer = $this->getOrganizer($organizerId);
-        $events = $this->eventListingService->getAllEvents($organizer->vendor->id);
+        $events = $this->eventListingService->getAllPublishedEventsByTimeAndLocation($organizer->vendor->id);
         return $events;
     }
 

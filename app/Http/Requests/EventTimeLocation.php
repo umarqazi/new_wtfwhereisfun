@@ -44,6 +44,7 @@ class EventTimeLocation extends FormRequest
         return [
             'start_date.before'     => 'Start Date must be smaller than End Date',
             'end_date.after'        => 'End Date must be smaller than Start Date.',
+            'latitude.required'     => 'Please select location from Search Results',
         ];
     }
 }

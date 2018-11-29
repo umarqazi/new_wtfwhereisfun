@@ -16,8 +16,8 @@ class EventTagRepo
     }
 
     public function store($request, $event){
+        $this->deleteExistingTags($event);
         if($request->has('event_tags') && !empty($request->event_tags)){
-            $this->deleteExistingTags($event);
             foreach($request->event_tags as $tagName){
                 $tag = new EventTag;
                 $tag->name      = $tagName;

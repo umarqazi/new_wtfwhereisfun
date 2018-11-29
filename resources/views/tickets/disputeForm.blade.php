@@ -36,14 +36,11 @@
                                 <h2>Message</h2>
                                 <textarea class="form-control" id="message" required name="message"></textarea>
                             </div>
-                            {{--<div class="dispute-detail">--}}
-                                <button type="submit" class="btn rounded-border pull-right">
-                                    Submit
-                                </button>
-                            {{--</div>--}}
+                            <button type="submit" class="btn rounded-border">
+                                Submit
+                            </button>
                         </form>
                     </div>
-                    {{--<div class="date">2018: 1222 i99</div>--}}
                 </div>
             </div>
         </div>

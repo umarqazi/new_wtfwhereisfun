@@ -18,8 +18,8 @@ if (! function_exists('addNewTimeLocationRow')) {
                     <form type=\"post\" onsubmit=\"eventLocationForm(event, this)\" id=\"event-save-location\">
                         <div class=\"col-sm-6 datepicker_row\" id=\"datetime_area\">
                             <div class=\"form-group\">
-                                <label>Event Start Date</label>
-                                <div class=\"input-group date datepicker1\" id=\"datetimepicker1\">
+                                <label>Event Start Date <span class=\"required-field\">*</span></label>
+                                <div class=\"input-group datepicker1\" id=\"datetimepicker1\">
                                     <span class=\"input-group-addon\">
                                         <span class=\"glyphicon glyphicon-calendar\"></span>
                                     </span>
@@ -30,8 +30,8 @@ if (! function_exists('addNewTimeLocationRow')) {
                         </div>
                         <div class=\"col-sm-6 datepicker_row\" id=\"datetime_area\">
                             <div class=\"form-group\">
-                                <label>Event End Date</label>
-                                <div class=\"input-group date datepicker2\" id=\"datetimepicker2\">
+                                <label>Event End Date <span class=\"required-field\">*</span></label>
+                                <div class=\"input-group datepicker1\" id=\"datetimepicker2\">
                                     <span class=\"input-group-addon\">
                                         <span class=\"glyphicon glyphicon-calendar\"></span>
                                     </span>
@@ -42,7 +42,7 @@ if (! function_exists('addNewTimeLocationRow')) {
                         </div>
                         <div class=\"col-sm-6\">
                             <div class=\"form-group\">
-                                <label>Event location</label>
+                                <label>Event location <span class=\"required-field\">*</span></label>
                                 <input type=\"text\" onkeyup=\"searchLocation(event, this)\"
                                        class=\"form-control event_location-serach event_location\" placeholder=\"Enter your event's location\" name=\"event_location\" id=\"event_location_{$elementId}\">
                                 <input type=\"hidden\" name=\"latitude\" id=\"event_lat\">
@@ -52,7 +52,7 @@ if (! function_exists('addNewTimeLocationRow')) {
                                 <div class=\"form-error latitude\"></div>
                             </div>
                             <div class=\"form-group\">
-                                <label>Address </label>
+                                <label>Address <span class=\"required-field\">*</span></label>
                                 <input type=\"text\" class=\"form-control event_address event_location-serach\" placeholder=\"Enter your event's address\" name=\"event_address\" id=\"event_address\">
                                 <div class=\"form-error event_address\"></div>
                             </div>
@@ -73,7 +73,7 @@ if (! function_exists('addNewTimeLocationRow')) {
                                 </div>
                             </div>
                             <div class=\"form-group\">
-                                <label>Timezones</label>
+                                <label>Timezones <span class=\"required-field\">*</span></label>
                                 <select name=\"timezone\">
                                     <option disabled value=\"\" selected>Select Timezone</option>"
                                     .$timeZonesOptions.
@@ -119,20 +119,28 @@ if (! function_exists('addNewTimeLocationRow')) {
                                 <ul class=\"listTable_row table_row  clearfix\">
                                     <li>
                                         <input type=\"hidden\" name=\"type\" value=\"{$request->type}\">
-                                        <label>Ticket Name</label>
+                                        <label>Ticket Name <span class=\"required-field\">*</span></label>
                                         <input type=\"text\" class=\"form-control\" placeholder=\"e.g General Admission\" name=\"name\">
                                         <div class=\"form-error name\"></div>
                                     </li>
                                     <li>
-                                        <label>Ticket Quantity</label>
+                                        <label>Ticket Quantity <span class=\"required-field\">*</span></label>
                                         <input type=\"number\" class=\"form-control qty-a\" placeholder=\"Unlimited\" name=\"quantity\" >
                                         <div class=\"form-error quantity\"></div>
                                     </li>
                                     <li>
-                                        <label>Ticket Price</label>
+                                        <label>Ticket Price <span class=\"required-field\">*</span></label>
                                         <input type=\"number\" class=\"form-control\" placeholder=\"Cost\" name=\"price\">
                                         <div class=\"form-error price\"></div>
-                                    </li>                                    
+                                    </li>       
+                                    <li>
+                                        <label>Ticket Time & Location <span class=\"required-field\">*</span></label>
+                                        <select class=\"form-control\" name=\"time_location_id\">
+                                            <option value=\"\" selected disabled>Select Time & Location</option>".
+                                            $timeLocationHtml
+                                            ."</select>
+                                        <div class=\"form-error time_location_id\"></div>
+                                    </li>                             
                                     <li>                                      
                                         <ol class=\"action_list\">
                                             <li>
@@ -153,18 +161,7 @@ if (! function_exists('addNewTimeLocationRow')) {
                                             </li>
                                         </ol>
                                     </li>
-                                </ul>
-                                
-                                <ul class=\"listTable_row table_row  clearfix\">
-                                    <li>
-                                        <label>Ticket Time & Location</label>
-                                        <select class=\"form-control\" name=\"time_location_id\">
-                                            <option value=\"\" selected disabled>Select Time & Location</option>".
-                                            $timeLocationHtml
-                                        ."</select>
-                                        <div class=\"form-error time_location_id\"></div>
-                                    </li>
-                                </ul>
+                                </ul>                                                           
                                     
                                 <div class=\"ticket-settings hidden\">
                                     <div class=\"form-group\">
@@ -325,7 +322,7 @@ if (! function_exists('addNewTimeLocationRow')) {
         {
             $result = '';
             foreach ($searchResults as $searchResult) {
-                $result .= "<li><a href='".url('events/'.$searchResult->event->encrypted_id.'/'.$searchResult->encrypted_id)."'>".$searchResult->event->title."<br><span><i class='fa fa-map-marker'></i>"."$searchResult->location</span></a></li>";
+                $result .= "<li><a href='".url('events/'.$searchResult->event->encrypted_id.'/'.$searchResult->encrypted_id)."'><h4>".$searchResult->event->title."</h4><span><i class='fa fa-map-marker'></i>"." $searchResult->location</span></a></li>";
             }
             if($count > 0){
                 $result .= "<li><span>{$count} Results Found </span><input class='search-submit' type='submit' value='See All'></li>";

@@ -12,10 +12,10 @@
                                     <div class="m-r-20 fromAvtar">
                                         <div class="img-wrapper">
                                             <div class="img-holder">
-                                                @if(!empty($dispute->user->directory.$dispute->user->profile_thumbnail))
-                                                <img class="rounded" src="{{$dispute->user->directory.$dispute->user->profile_thumbnail}}" alt="">
+                                                @if(!empty($dispute->user->profile_thumbnail))
+                                                    <img class="rounded" src="{{$dispute->user->directory.$dispute->user->profile_thumbnail}}" alt="">
                                                 @else
-                                                 <img src="{{asset('img/default-148.png')}}">
+                                                    <img src="{{asset('img/default-148.png')}}">
                                                 @endif
                                             </div>
                                             <p>{{$dispute->user->first_name}}</p>
@@ -43,7 +43,9 @@
                                                 </div>
                                                 <p>{!! $dispute->message !!}</p>
                                             </div>
-                                            <div class="date pull-right">{{$dispute->updated_at}}</div>
+                                            <div class="date pull-right">
+                                                <p><strong>Last Updated : </strong>{{monthDateYearFromat($dispute->updated_at)}}</p>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

@@ -64,4 +64,17 @@ class EventTicketService extends BaseService
         return $this->eventTicketRepo->getTicketsByLocation($locationId);
     }
 
+    public function getRemainingQty($ticketId){
+        $ticketOrders = $this->eventOrderRepo->getTicketOrders($ticketId);
+        $ticket       = $this->getTicketDetails($ticketId);
+        if(count($ticketOrders) > 0){
+            $soldQty      = $ticketOrders->sum('quantity');
+            $qtyLeft      = $ticket->quantity - $soldQty;
+        }else{
+            $qtyLeft      = $ticket->quantity;
+        }
+        return $qtyLeft;
+
+    }
+
 }

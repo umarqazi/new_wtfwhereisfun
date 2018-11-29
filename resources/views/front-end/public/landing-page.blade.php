@@ -35,21 +35,6 @@
                                         <button class="search_btn" type="submit" id="search-button">Search</button>
                                     </div>
                                 </div>
-                                {{--<div class="es-field es-field-adress">--}}
-                                    {{--<label>Location</label>--}}
-                                    {{--<input type="text" placeholder="Location" name="" class="input">--}}
-                                {{--</div>--}}
-                                {{--<div class="es-field es-field-location">--}}
-                                    {{--<label>Event date from</label>--}}
-                                    {{--<input type="text" placeholder="Event date from" name="" class="input">--}}
-                                {{--</div>--}}
-                                {{--<div class="es-field es-field-location">--}}
-                                    {{--<label>Event date to</label>--}}
-                                    {{--<input type="text" placeholder="Event date to" name="" class="input">--}}
-                                {{--</div>--}}
-                                {{--<div class="es-field es-field-btn">--}}
-                                    {{--<input type="submit" name="" value="View events" class="btn submit">--}}
-                                {{--</div>--}}
                             </div><!-- /.es-field-wrap -->
                         </form>
                     </div>
@@ -109,154 +94,146 @@
                     <div class="row">
                         <div class="col-md-12">
                             <h3><span class="green">Today's</span> Events</h3>
-                        </div>
-                        <div @if(count($todayEvents) > 4) class="event-slider owl-carousel owl-theme" @endif>
-                            @if(!empty($todayEvents))
-                                @foreach($todayEvents as $location)
-                                    @if(count($todayEvents) > 4)
-                                        <div class="item">
-                                    @else
-                                        <div class="col-md-3">
-                                    @endif
-                                            <div class="card">
-                                                <div class="card-inner">
-                                                    <div class="card-image">
-                                                        @php
-                                                            $link = route('showById', ['id' => $location->event->encrypted_id, 'locationId' => $location->encrypted_id ]);
-                                                        @endphp
-
-                                                        @if(empty($location->event->header_image))
-                                                            @php $img = asset('img/dummy.png') @endphp
-                                                        @else
-                                                            @php
-                                                                $img = $location->event->directory.$location->event->header_image;
-                                                            @endphp
+                            <div @if(count($todayEvents) > 4) class="event-slider owl-carousel owl-theme" @endif>
+                                @if(!empty($todayEvents))
+                                    @foreach($todayEvents as $location)
+                                        @if(count($todayEvents) > 4)
+                                            <div class="item">
+                                                @else
+                                                    <div class="col-md-3">
                                                         @endif
+                                                        <div class="card">
+                                                            <div class="card-inner">
+                                                                <div class="card-image">
+                                                                    @php
+                                                                        $link = route('showById', ['id' => $location->event->encrypted_id, 'locationId' => $location->encrypted_id ]);
+                                                                    @endphp
 
-                                                        <a href="{{$link}}" style="background-image: url({{$img}});" target="_blank">
-                                                            <span><i class="fa fa-search"></i></span>
-                                                        </a>
+                                                                    @if(empty($location->event->header_image))
+                                                                        @php $img = asset('img/dummy.png') @endphp
+                                                                    @else
+                                                                        @php
+                                                                            $img = $location->event->directory.$location->event->header_image;
+                                                                        @endphp
+                                                                    @endif
 
-                                                        <div class="card-actions">
-                                                            <a href="#"><i class="fa fa-bookmark"></i> <span>Save</span></a>
-                                                            <a href="#"><i class="fa fa-heart"></i> <span>Like</span></a>
-                                                        </div><!-- /.card-actions -->
+                                                                    <a href="{{$link}}" style="background-image: url({{$img}});" target="_blank">
+                                                                        <span><i class="fa fa-search"></i></span>
+                                                                    </a>
 
-                                                    </div><!-- /.card-image -->
+                                                                </div><!-- /.card-image -->
 
-                                                    <div class="card-content">
-                                                        <div class="event-organizer-thumbnail">
-                                                            @if(empty($location->event->organizer->thumbnail))
-                                                                @php $img = asset('img/default-148.png') @endphp
-                                                            @else
-                                                                @php
-                                                                    $img = $location->event->organizer->directory.$location->event->organizer->thumbnail;
-                                                                @endphp
-                                                            @endif
-                                                            <img src="{{$img}}" alt="Organizer Image">
-                                                        </div>
-                                                        <div class="card-date">
-                                                            <strong>{{$location->starting->day}}</strong>
-                                                            <span>{{get_month($location->starting)}}</span>
-                                                        </div><!-- /.card-date -->
-                                                        <h3 class="card-title">
-                                                            <a href="{{$link}}" target="_blank">{{$location->event->title}}</a>
-                                                        </h3>
+                                                                <div class="card-content">
+                                                                    <div class="event-organizer-thumbnail">
+                                                                        @if(empty($location->event->organizer->thumbnail))
+                                                                            @php $img = asset('img/default-148.png') @endphp
+                                                                        @else
+                                                                            @php
+                                                                                $img = $location->event->organizer->directory.$location->event->organizer->thumbnail;
+                                                                            @endphp
+                                                                        @endif
+                                                                        <img src="{{$img}}" alt="Organizer Image">
+                                                                    </div>
+                                                                    <div class="card-date">
+                                                                        <strong>{{$location->starting->day}}</strong>
+                                                                        <span>{{get_month($location->starting)}}</span>
+                                                                    </div><!-- /.card-date -->
+                                                                    <h3 class="card-title">
+                                                                        <a href="{{$link}}" target="_blank">{{$location->event->title}}</a>
+                                                                    </h3>
 
-                                                        <h4 class="card-subtitle date-location">
-                                                            <p><a href="{{$link}}" target="_blank"><i class="fa fa-calendar green"></i> {{$location->starting->format('D, M d')}} - {{$location->ending->format('D, M d')}}</a></p>
-                                                            <p><a href="{{$link}}" target="_blank"><i class="fa fa-map-marker green"></i> {{$location->location}}</a></p>
-                                                        </h4>
-                                                    </div><!-- /.card-content -->
-                                                </div><!-- /.card-inner -->
-                                            </div><!-- /.card -->
-                                        </div>
+                                                                    <h4 class="card-subtitle date-location">
+                                                                        <p><a href="{{$link}}" target="_blank"><i class="fa fa-calendar green"></i> {{$location->starting->format('D, M d')}} - {{$location->ending->format('D, M d')}}</a></p>
+                                                                        <p><a href="{{$link}}" target="_blank"><i class="fa fa-map-marker green"></i> {{$location->location}}</a></p>
+                                                                    </h4>
+                                                                </div><!-- /.card-content -->
+                                                            </div><!-- /.card-inner -->
+                                                        </div><!-- /.card -->
+                                                    </div>
 
-                                @endforeach
-                            @endif
-                        </div>
-                        <div class="col-md-12">
-                            <div class="landmarks-listings-all">
-                                <a href="{{route('today-events')}}" class="ldm-all btn">View All Listing <i class="fa fa-facebookrrow-circle-o-right"></i></a>
+                                                    @endforeach
+                                                @endif
+                                            </div>
+                                            <div class="col-md-12">
+                                                <div class="landmarks-listings-all">
+                                                    <a href="{{route('today-events')}}" class="ldm-all btn">View All Listing <i class="fa fa-facebookrrow-circle-o-right"></i></a>
+                                                </div>
+                                            </div>
                             </div>
                         </div>
-                    </div>
+
 
                     <div class="row">
                         <div class="col-md-12">
                             <h3><span class="green">Future</span> Events</h3>
-                        </div>
-                        <div @if(count($futureEvents) > 4) class="event-slider owl-carousel owl-theme" @endif>
-                            @if(!empty($futureEvents))
-                                @foreach($futureEvents as $location)
-                                    @if(count($futureEvents) > 4)
-                                        <div class="items">
-                                            @else
-                                                <div class="col-md-3">
-                                                    @endif
-                                                    <div class="card">
-                                                        <div class="card-inner">
-                                                            <div class="card-image">
-                                                                @php
-                                                                    $link = route('showById', ['id' => $location->event->encrypted_id, 'locationId' => $location->encrypted_id ]);
-                                                                @endphp
-
-                                                                @if(empty($location->event->header_image))
-                                                                    @php $img = asset('img/dummy.png') @endphp
-                                                                @else
+                            <div @if(count($futureEvents) > 4) class="event-slider owl-carousel owl-theme" @endif>
+                                @if(!empty($futureEvents))
+                                    @foreach($futureEvents as $location)
+                                        @if(count($futureEvents) > 4)
+                                            <div class="items">
+                                                @else
+                                                    <div class="col-md-3">
+                                                        @endif
+                                                        <div class="card">
+                                                            <div class="card-inner">
+                                                                <div class="card-image">
                                                                     @php
-                                                                        $img = $location->event->directory.$location->event->header_image;
+                                                                        $link = route('showById', ['id' => $location->event->encrypted_id, 'locationId' => $location->encrypted_id ]);
                                                                     @endphp
-                                                                @endif
 
-                                                                <a href="{{$link}}" style="background-image: url({{$img}});" target="_blank">
-                                                                    <span><i class="fa fa-search"></i></span>
-                                                                </a>
-
-                                                                <div class="card-actions">
-                                                                    <a href="#"><i class="fa fa-bookmark"></i> <span>Save</span></a>
-                                                                    <a href="#"><i class="fa fa-heart"></i> <span>Like</span></a>
-                                                                </div><!-- /.card-actions -->
-
-                                                            </div><!-- /.card-image -->
-
-                                                            <div class="card-content">
-                                                                <div class="event-organizer-thumbnail">
-                                                                    @if(empty($location->event->organizer->thumbnail))
-                                                                        @php $img = asset('img/default-148.png') @endphp
+                                                                    @if(empty($location->event->header_image))
+                                                                        @php $img = asset('img/dummy.png') @endphp
                                                                     @else
                                                                         @php
-                                                                            $img = $location->event->organizer->directory.$location->event->organizer->thumbnail;
+                                                                            $img = $location->event->directory.$location->event->header_image;
                                                                         @endphp
                                                                     @endif
-                                                                    <img src="{{$img}}" alt="Organizer Image">
-                                                                </div>
-                                                                <div class="card-date">
-                                                                    <strong>{{$location->starting->day}}</strong>
-                                                                    <span>{{get_month($location->starting)}}</span>
-                                                                </div><!-- /.card-date -->
-                                                                <h3 class="card-title">
-                                                                    <a href="{{$link}}" target="_blank">{{$location->event->title}}</a>
-                                                                </h3>
 
-                                                                <h4 class="card-subtitle date-location">
-                                                                    <p><a href="{{$link}}" target="_blank"><i class="fa fa-calendar green"></i> {{$location->starting->format('D, M d')}} - {{$location->ending->format('D, M d')}}</a></p>
-                                                                    <p><a href="{{$link}}" target="_blank"><i class="fa fa-map-marker green"></i> {{$location->location}}</a></p>
-                                                                </h4>
-                                                            </div><!-- /.card-content -->
-                                                        </div><!-- /.card-inner -->
-                                                    </div><!-- /.card -->
-                                                </div>
+                                                                    <a href="{{$link}}" style="background-image: url({{$img}});" target="_blank">
+                                                                        <span><i class="fa fa-search"></i></span>
+                                                                    </a>
 
-                                                @endforeach
-                                            @endif
-                                        </div>
-                                        <div class="col-md-12">
-                                            <div class="landmarks-listings-all">
-                                                <a href="{{route('future-events')}}" class="ldm-all btn">View All Listing <i class="fa fa-facebookrrow-circle-o-right"></i></a>
+                                                                </div><!-- /.card-image -->
+
+                                                                <div class="card-content">
+                                                                    <div class="event-organizer-thumbnail">
+                                                                        @if(empty($location->event->organizer->thumbnail))
+                                                                            @php $img = asset('img/default-148.png') @endphp
+                                                                        @else
+                                                                            @php
+                                                                                $img = $location->event->organizer->directory.$location->event->organizer->thumbnail;
+                                                                            @endphp
+                                                                        @endif
+                                                                        <img src="{{$img}}" alt="Organizer Image">
+                                                                    </div>
+                                                                    <div class="card-date">
+                                                                        <strong>{{$location->starting->day}}</strong>
+                                                                        <span>{{get_month($location->starting)}}</span>
+                                                                    </div><!-- /.card-date -->
+                                                                    <h3 class="card-title">
+                                                                        <a href="{{$link}}" target="_blank">{{$location->event->title}}</a>
+                                                                    </h3>
+
+                                                                    <h4 class="card-subtitle date-location">
+                                                                        <p><a href="{{$link}}" target="_blank"><i class="fa fa-calendar green"></i> {{$location->starting->format('D, M d')}} - {{$location->ending->format('D, M d')}}</a></p>
+                                                                        <p><a href="{{$link}}" target="_blank"><i class="fa fa-map-marker green"></i> {{$location->location}}</a></p>
+                                                                    </h4>
+                                                                </div><!-- /.card-content -->
+                                                            </div><!-- /.card-inner -->
+                                                        </div><!-- /.card -->
+                                                    </div>
+
+                                                    @endforeach
+                                                @endif
                                             </div>
-                                        </div>
+                                            <div class="col-md-12">
+                                                <div class="landmarks-listings-all">
+                                                    <a href="{{route('future-events')}}" class="ldm-all btn">View All Listing <i class="fa fa-facebookrrow-circle-o-right"></i></a>
+                                                </div>
+                                            </div>
+                            </div>
                         </div>
+
                 </div>
             </div>
         </section><!-- /.landmarks-listings-section -->
@@ -293,7 +270,7 @@
         </section>
         <section class="section home-map-section">
             <div class="home-map-wrap">
-                <div class="map" id="map" style="width: 100%; height: 500px;">
+                <div class="map" id="event-map" style="width: 100%; height: 500px;">
                     {!! Mapper::render() !!}
                 </div>
             </div>
