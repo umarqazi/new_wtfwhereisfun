@@ -7,6 +7,7 @@ use App\Http\Requests\EventTopic;
 use App\Repositories\EventImageRepo;
 use App\Services\Events\EventOrderService;
 use App\Services\Events\EventRevenueService;
+use App\Services\Events\TicketDisputeService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Config;
@@ -61,6 +62,7 @@ class EventController extends Controller
     protected $eventHotDealService;
     protected $eventOrderService;
     protected $eventRevenueService;
+    protected $disputeService;
 
     public function __construct()
     {
@@ -82,6 +84,7 @@ class EventController extends Controller
         $this->eventHotDealService      = new EventHotDealService();
         $this->eventOrderService        = new EventOrderService();
         $this->eventRevenueService      = new EventRevenueService();
+        $this->disputeService           = new TicketDisputeService();
     }
 
     /**
@@ -539,15 +542,33 @@ class EventController extends Controller
 
     /**
      * Get Event's Dashboard
-     * @param  \Illuminate\Http\ $id
+     * @param  \Illuminate\Http\ $locationId
      */
     public function dashboard($locationId){
         $locationId = decrypt_id($locationId);
         $event = $this->eventLocationService->getLocationEvent($locationId);
         $location = $this->eventLocationService->getTimeLocation($locationId);
         $totalRevenue   =   $this->eventRevenueService->getTotalRevenueByLocation($locationId);
+        $weekRevenue    =   $this->eventRevenueService->getWeekRevenueByLocation($locationId);
+        $monthRevenue    =   $this->eventRevenueService->getMonthRevenueByLocation($locationId);
+        $orderIds = $totalRevenue['orders']->pluck('id')->toArray();
+        $disputes = $this->disputeService->getByOrderId($orderIds);
+
 //        $eventOrders = $this->eventOrderService->getEventOrders(decrypt_id($locationId));
 //        return View('events.dashboard')->with(['orders' => $eventOrders, 'eventId' => $id, 'totalTicketsSold' => $eventOrders->sum('quantity')]);
-        return View('events.dashboard')->with(['event' => $event, 'location' => $location, 'totalRevenue' => $totalRevenue ]);
+        return View('events.dashboard')->with(['event' => $event, 'location' => $location, 'totalRevenue' => $totalRevenue,
+            'weekRevenue' => $weekRevenue, 'monthRevenue' => $monthRevenue, 'disputes' => $disputes, 'activity' => $totalRevenue['orders'] ]);
+    }
+
+    /**
+     * Get Events Dashboard's Orders
+     * @param  \Illuminate\Http\ $locationId
+     */
+    public function dashboardOrders($locationId){
+        $locationId = decrypt_id($locationId);
+        $event = $this->eventLocationService->getLocationEvent($locationId);
+        $location = $this->eventLocationService->getTimeLocation($locationId);
+        $totalRevenue   =   $this->eventRevenueService->getTotalRevenueByLocation($locationId);
+        return View('events.dashboard-orders')->with(['event' => $event, 'location' => $location, 'totalRevenue' => $totalRevenue]);
     }
 }

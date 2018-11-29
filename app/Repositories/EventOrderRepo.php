@@ -20,11 +20,19 @@ class EventOrderRepo
     }
 
     public function getTicketOrders($ticketId){
-        return $this->orderModel->getTicketOrders($ticketId)->getCompletedOrders()->get();
+        return $this->orderModel->getTicketOrders($ticketId)->getCompletedOrders()->recentCreatedAt()->get();
     }
 
     public function getEventByOrderId($id){
         return EventOrder::find($id);
+    }
+
+    public function getWeekOrderByTickets($ticketId){
+        return $this->orderModel->getWeeklyTicketOrders($ticketId)->getCompletedOrders()->get();
+    }
+
+    public function getMonthOrderByTickets($ticketId){
+        return $this->orderModel->getMonthlyTicketOrders($ticketId)->getCompletedOrders()->get();
     }
 
 }

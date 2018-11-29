@@ -5,40 +5,7 @@
     <div class="page_wrapper">
         @include('events.partials.event-dashboard-sidebar')
         <section class="content home">
-            <div class="event-dashboard-block">
-                <div class="clm_left">
-                    <h2>{{$event->title}}</h2>
-                    <p>{!! str_limit($event->description, 60, '...') !!}</p>
-                    <p>
-                        <i class="fa fa-calendar green"></i> {{$location->starting->format('D, d M Y')}} - {{$location->ending->format('D, d M Y')}}</p>
-                    <p>
-                        <i class="fa fa-clock-o green"></i> {{$location->starting->format('g:i A')}}  - {{$location->ending->format('g:i A')}}
-                    </p>
-                    <p><i class="fa fa-map-marker green"></i>
-                        {{$location->location}}
-                    </p>
-                </div>
-                @php
-                    $eventLink = route('showById', ['id' => $event->encrypted_id, 'locationId' => $location->encrypted_id ]);
-                @endphp
-                <div class="clm_right">
-                    <a class="btn btn-sm rounded-border" href="{{$eventLink}}">View Event</a>
-                </div>
-            </div>
-
-            <div class="event_tabs rounded-border">
-                <li>
-                    <a href="{{url('events/'.$event->encrypted_id.'/edit')}}" target="_blank">EDIT</a>
-                </li>
-                <li>
-                    <a href="{{$eventLink}}" target="_blank">DESIGN</a>
-                </li>
-                <li>
-                    <a href="javascript:void(0);" target="_blank">MANAGE</a>
-                </li>
-            </div>
-
-
+            @include('events.partials.event-dashboard-top-details')
             <div class="container-fluid">
                 <div class="row clearfix">
                     <div class="col-lg-3 col-md-6 col-sm-12 text-center">
@@ -77,9 +44,9 @@
                     <div class="col-lg-3 col-md-6 col-sm-12 text-center">
                         <div class="card tasks_report">
                             <div class="body">
-                                <input type="text" class="knob dial4" value="88" data-width="90" data-height="90" data-thickness="0.2" data-fgColor="#00adef" readonly>
+                                <input type="text" class="knob dial4" value="{{$totalRevenue['revenuePercentage']}}" data-width="90" data-height="90" data-thickness="0.2" data-fgColor="#00adef" readonly>
                                 <h6 class="m-t-20">Total Revenue</h6>
-                                <small class="displayblock">54% Average <i class="zmdi zmdi-trending-up"></i></small>
+                                <small class="displayblock">{{$totalRevenue['revenuePercentage']}}% Tickets Sold <i class="zmdi zmdi-trending-up"></i></small>
                                 <div class="sparkline m-t-30" data-type="bar" data-width="97%" data-height="30px" data-bar-Width="2" data-bar-Spacing="5" data-bar-Color="#00adef">3,5,7,9,5,1,4,5,6,8</div>
                             </div>
                         </div>
@@ -88,22 +55,16 @@
                 <div class="row clearfix">
                     <div class="col-lg-6 col-md-6 col-sm-12">
                         <div class="card">
-                            <div class="header">
-                                <h2>Sales <small>Description text here...</small></h2>
-                            </div>
+                            <h2>Revenue Report</h2>
                             <div class="body">
                                 <div class="row">
                                     <div class="col-4">
-                                        <h4 class="m-b-0">256</h4>
-                                        <p class="text-muted">This Week <small class="m-l-10"><i class="zmdi zmdi-caret-up text-success"></i>18%</small></p>
+                                        <h4 class="m-b-0">${{$weekRevenue['totalRevenue']}}</h4>
+                                        <p class="text-muted">This Week <small class="m-l-10">(Total Orders : {{$weekRevenue['count']}})</small></p>
                                     </div>
                                     <div class="col-4">
-                                        <h4 class="m-b-0">621</h4>
-                                        <p class="text-muted">This Month <small class="m-l-10"><i class="zmdi zmdi-caret-up text-success"></i>8%</small></p>
-                                    </div>
-                                    <div class="col-4">
-                                        <h4 class="m-b-0">981</h4>
-                                        <p class="text-muted">Average<small class="m-l-10"><i class="zmdi zmdi-caret-up text-success"></i>5%</small></p>
+                                        <h4 class="m-b-0">${{$monthRevenue['totalRevenue']}}</h4>
+                                        <p class="text-muted">This Month <small class="m-l-10">(Total Orders : {{$monthRevenue['count']}})</small></p>
                                     </div>
                                 </div>
                             </div>
@@ -113,31 +74,14 @@
                                  data-fill-Color="#fcefcb"> 1,2,3,1,4,3,6,4,4,1 </div>
                         </div>
                     </div>
-                    <div class="col-lg-6 col-md-6 col-sm-12">
-                        <div class="card ">
-                            <div class="header">
-                                <h2>Earnings <small>Description text here...</small></h2>
-                            </div>
+                    <div class="col-lg-6 col-md-6 col-sm-12 text-center">
+                        <div class="card tasks_report">
                             <div class="body">
-                                <div class="row">
-                                    <div class="col-4">
-                                        <h4 class="m-b-0">256</h4>
-                                        <p class="text-muted">This Week <small class="m-l-10"><i class="zmdi zmdi-caret-up text-success"></i>18%</small></p>
-                                    </div>
-                                    <div class="col-4">
-                                        <h4 class="m-b-0">621</h4>
-                                        <p class="text-muted">This Month <small class="m-l-10"><i class="zmdi zmdi-caret-up text-success"></i>8%</small></p>
-                                    </div>
-                                    <div class="col-4">
-                                        <h4 class="m-b-0">981</h4>
-                                        <p class="text-muted">Average<small class="m-l-10"><i class="zmdi zmdi-caret-up text-success"></i>5%</small></p>
-                                    </div>
-                                </div>
+                                <input type="text" class="knob dial4" value="{{$totalRevenue['revenuePercentage']}}" data-width="90" data-height="90" data-thickness="0.2" data-fgColor="#00adef" readonly>
+                                <h6 class="m-t-20">Total Revenue</h6>
+                                <small class="displayblock">{{$totalRevenue['revenuePercentage']}}% Tickets Sold <i class="zmdi zmdi-trending-up"></i></small>
+                                <div class="sparkline m-t-30" data-type="bar" data-width="97%" data-height="30px" data-bar-Width="2" data-bar-Spacing="5" data-bar-Color="#00adef">3,5,7,9,5,1,4,5,6,8</div>
                             </div>
-                            <div class="sparkline" data-type="line" data-spot-Radius="0" data-highlight-Spot-Color="rgb(63, 81, 181)" data-highlight-Line-Color="#222"
-                                 data-min-Spot-Color="rgb(233, 30, 99)" data-max-Spot-Color="rgb(120, 184, 62)" data-spot-Color="rgb(63, 81, 181, 0.7)"
-                                 data-offset="90" data-width="100%" data-height="50px" data-line-Width="0" data-line-Color="rgba(63, 81, 181, 0)"
-                                 data-fill-Color="#e5ddf5"> 1,3,5,4,2,5,4,6,3,1 </div>
                         </div>
                     </div>
                 </div>
@@ -146,68 +90,34 @@
                         <div class="card ">
                             <div class="header">
                                 <h2>Recent Messages</h2>
-                                <ul class="header-dropdown m-r--5">
-                                    <li class="dropdown"> <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> <i class="zmdi zmdi-more-vert"></i> </a>
-                                        <ul class="dropdown-menu slideUp ">
-                                            <li><a href="javascript:void(0);" class=" waves-effect waves-block">Action</a></li>
-                                            <li><a href="javascript:void(0);" class=" waves-effect waves-block">Another action</a></li>
-                                            <li><a href="javascript:void(0);" class=" waves-effect waves-block">Something else</a></li>
-                                        </ul>
-                                    </li>
-                                </ul>
                             </div>
                             <div class="body">
                                 <ul class="inbox-widget list-unstyled clearfix">
-                                    <li class="inbox-inner"> <a href="javascript:void(0);">
-                                            <div class="inbox-item">
-                                                <div class="inbox-img"> <img src="assets/images/xs/avatar3.jpg" alt=""> </div>
-                                                <div class="inbox-item-info">
-                                                    <p class="author">John Doe</p>
-                                                    <p class="inbox-message">Lorem Ipsum is simply dummy text of the been the industry's</p>
-                                                    <p class="inbox-date">12:34 PM</p>
+                                    @foreach($disputes as $dispute)
+                                        <li class="inbox-inner">
+                                            <a href="{{url('disputes/'.$dispute->encrypted_id)}}">
+                                                <div class="inbox-item">
+                                                    <div class="inbox-img">
+                                                        @if(!empty($dispute->user->profile_thumbnail))
+                                                            @php
+                                                                $img = $dispute->user->directory.$dispute->user->profile_thumbnail;
+                                                            @endphp
+                                                        @else
+                                                            @php
+                                                                $img = asset('img/default-148.png');
+                                                            @endphp
+                                                        @endif
+                                                        <img src="{{$img}}" alt="User Image">
+                                                    </div>
+                                                    <div class="inbox-item-info">
+                                                        <p class="author">{{$dispute->user->first_name}} {{$dispute->user->last_name}}</p>
+                                                        <p class="inbox-message">{!! str_limit($dispute->message, 25, '...') !!}</p>
+                                                        <p class="inbox-date">{{monthDateYearFromat($dispute->created_at)}}</p>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        </a> </li>
-                                    <li class="inbox-inner"> <a href="javascript:void(0);">
-                                            <div class="inbox-item">
-                                                <div class="inbox-img"> <img src="assets/images/xs/avatar2.jpg" alt=""> </div>
-                                                <div class="inbox-item-info">
-                                                    <p class="author">Scarlett</p>
-                                                    <p class="inbox-message">Lorem Ipsum is simply dummyLorem Ipsum has been the industry's</p>
-                                                    <p class="inbox-date">10:34 AM</p>
-                                                </div>
-                                            </div>
-                                        </a> </li>
-                                    <li class="inbox-inner"> <a href="javascript:void(0);">
-                                            <div class="inbox-item">
-                                                <div class="inbox-img"> <img src="assets/images/xs/avatar4.jpg" alt=""> </div>
-                                                <div class="inbox-item-info">
-                                                    <p class="author">Elizabeth</p>
-                                                    <p class="inbox-message">text of the printing and  has been the industry's</p>
-                                                    <p class="inbox-date">15:34 PM</p>
-                                                </div>
-                                            </div>
-                                        </a> </li>
-                                    <li class="inbox-inner"> <a href="javascript:void(0);">
-                                            <div class="inbox-item">
-                                                <div class="inbox-img"> <img src="assets/images/xs/avatar5.jpg" alt=""> </div>
-                                                <div class="inbox-item-info">
-                                                    <p class="author">Nicholas</p>
-                                                    <p class="inbox-message">simply dummy text of the printing and typesetting industry's</p>
-                                                    <p class="inbox-date">11:10 AM</p>
-                                                </div>
-                                            </div>
-                                        </a> </li>
-                                    <li class="inbox-inner"> <a href="javascript:void(0);">
-                                            <div class="inbox-item">
-                                                <div class="inbox-img"> <img src="assets/images/xs/avatar1.jpg" alt=""> </div>
-                                                <div class="inbox-item-info">
-                                                    <p class="author">Cameron</p>
-                                                    <p class="inbox-message">text of the industry. Lorem Ipsum has been the industry's</p>
-                                                    <p class="inbox-date">18:45 PM</p>
-                                                </div>
-                                            </div>
-                                        </a> </li>
+                                            </a>
+                                        </li>
+                                    @endforeach
                                 </ul>
                             </div>
                         </div>
@@ -216,72 +126,65 @@
                         <div class="card activities">
                             <div class="header">
                                 <h2>Activities</h2>
-                                <ul class="header-dropdown m-r--5">
-                                    <li class="dropdown"> <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> <i class="zmdi zmdi-more-vert"></i> </a>
-                                        <ul class="dropdown-menu slideUp ">
-                                            <li><a href="javascript:void(0);" class=" waves-effect waves-block">Action</a></li>
-                                            <li><a href="javascript:void(0);" class=" waves-effect waves-block">Another action</a></li>
-                                            <li><a href="javascript:void(0);" class=" waves-effect waves-block">Something else</a></li>
-                                        </ul>
-                                    </li>
-                                </ul>
                             </div>
                             <div class="body">
                                 <div class="streamline b-l b-accent">
-                                    <div class="sl-item">
-                                        <div class="sl-content">
-                                            <div class="text-muted-dk">Just now</div>
-                                            <p>Finished task <a href="" class="text-info">#features 4</a>.</p>
+                                    @foreach($activity as $order)
+                                        <div class="sl-item">
+                                            <div class="sl-content">
+                                                <div class="text-muted-dk">{{monthDateYearFromat($order->created_at)}}</div>
+                                                <p><a href="" class="text-info">Order placed by {{$order->user->first_name}} on {{$order->ticket->name}}</a></p>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="sl-item b-info">
-                                        <div class="sl-content">
-                                            <div class="text-muted-dk">11:30</div>
-                                            <p><a href="">@Jessi</a> retwit your post</p>
-                                        </div>
-                                    </div>
-                                    <div class="sl-item b-primary b-l">
-                                        <div class="sl-content">
-                                            <div class="text-muted-dk">10:30</div>
-                                            <p>Call to customer <a href="" class="text-info">Jacob</a> and discuss the detail.</p>
-                                        </div>
-                                    </div>
-                                    <div class="sl-item b-warning">
-                                        <div class="sl-content">
-                                            <div class="text-muted-dk">3 days ago</div>
-                                            <p><a href="" class="text-info">Jessi</a> commented your post.</p>
-                                        </div>
-                                    </div>
-                                    <div class="sl-item b-primary b-l">
-                                        <div class="sl-content">
-                                            <div class="text-muted-dk">10:30</div>
-                                            <p>Call to customer <a href="" class="text-info">Jacob</a> and discuss the detail.</p>
-                                        </div>
-                                    </div>
-                                    <div class="sl-item b-primary b-l">
-                                        <div class="sl-content">
-                                            <div class="text-muted-dk">10:30</div>
-                                            <p>Call to customer <a href="" class="text-info">Jacob</a> and discuss the detail.</p>
-                                        </div>
-                                    </div>
-                                    <div class="sl-item b-warning">
-                                        <div class="sl-content">
-                                            <div class="text-muted-dk">3 days ago</div>
-                                            <p><a href="" class="text-info">Jessi</a> commented your post.</p>
-                                        </div>
-                                    </div>
-                                    <div class="sl-item b-primary b-l">
-                                        <div class="sl-content">
-                                            <div class="text-muted-dk">10:30</div>
-                                            <p>Call to customer <a href="" class="text-info">Jacob</a> and discuss the detail.</p>
-                                        </div>
-                                    </div>
-                                    <div class="sl-item b-primary b-l">
-                                        <div class="sl-content">
-                                            <div class="text-muted-dk">10:30</div>
-                                            <p>Call to customer <a href="" class="text-info">Jacob</a> and discuss the detail.</p>
-                                        </div>
-                                    </div>
+                                    @endforeach
+                                    {{--<div class="sl-item b-info">--}}
+                                        {{--<div class="sl-content">--}}
+                                            {{--<div class="text-muted-dk">11:30</div>--}}
+                                            {{--<p><a href="">@Jessi</a> retwit your post</p>--}}
+                                        {{--</div>--}}
+                                    {{--</div>--}}
+                                    {{--<div class="sl-item b-primary b-l">--}}
+                                        {{--<div class="sl-content">--}}
+                                            {{--<div class="text-muted-dk">10:30</div>--}}
+                                            {{--<p>Call to customer <a href="" class="text-info">Jacob</a> and discuss the detail.</p>--}}
+                                        {{--</div>--}}
+                                    {{--</div>--}}
+                                    {{--<div class="sl-item b-warning">--}}
+                                        {{--<div class="sl-content">--}}
+                                            {{--<div class="text-muted-dk">3 days ago</div>--}}
+                                            {{--<p><a href="" class="text-info">Jessi</a> commented your post.</p>--}}
+                                        {{--</div>--}}
+                                    {{--</div>--}}
+                                    {{--<div class="sl-item b-primary b-l">--}}
+                                        {{--<div class="sl-content">--}}
+                                            {{--<div class="text-muted-dk">10:30</div>--}}
+                                            {{--<p>Call to customer <a href="" class="text-info">Jacob</a> and discuss the detail.</p>--}}
+                                        {{--</div>--}}
+                                    {{--</div>--}}
+                                    {{--<div class="sl-item b-primary b-l">--}}
+                                        {{--<div class="sl-content">--}}
+                                            {{--<div class="text-muted-dk">10:30</div>--}}
+                                            {{--<p>Call to customer <a href="" class="text-info">Jacob</a> and discuss the detail.</p>--}}
+                                        {{--</div>--}}
+                                    {{--</div>--}}
+                                    {{--<div class="sl-item b-warning">--}}
+                                        {{--<div class="sl-content">--}}
+                                            {{--<div class="text-muted-dk">3 days ago</div>--}}
+                                            {{--<p><a href="" class="text-info">Jessi</a> commented your post.</p>--}}
+                                        {{--</div>--}}
+                                    {{--</div>--}}
+                                    {{--<div class="sl-item b-primary b-l">--}}
+                                        {{--<div class="sl-content">--}}
+                                            {{--<div class="text-muted-dk">10:30</div>--}}
+                                            {{--<p>Call to customer <a href="" class="text-info">Jacob</a> and discuss the detail.</p>--}}
+                                        {{--</div>--}}
+                                    {{--</div>--}}
+                                    {{--<div class="sl-item b-primary b-l">--}}
+                                        {{--<div class="sl-content">--}}
+                                            {{--<div class="text-muted-dk">10:30</div>--}}
+                                            {{--<p>Call to customer <a href="" class="text-info">Jacob</a> and discuss the detail.</p>--}}
+                                        {{--</div>--}}
+                                    {{--</div>--}}
                                 </div>
                             </div>
                         </div>

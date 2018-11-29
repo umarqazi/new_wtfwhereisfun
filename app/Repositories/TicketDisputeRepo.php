@@ -51,7 +51,11 @@ class TicketDisputeRepo
 
     public function getByOrderId($id)
     {
-       return  Dispute::where('event_order_id', $id)->get();
+        if(gettype($id) == 'array'){
+            return  Dispute::whereIn('event_order_id', $id)->recentCreatedAt()->get();
+        }else{
+            return  Dispute::where('event_order_id', $id)->recentCreatedAt()->get();
+        }
     }
 
     public function getVendorDisputes($eventIds){

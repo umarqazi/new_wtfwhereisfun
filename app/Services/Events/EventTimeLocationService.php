@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Services\Events;
-use App\Services\Events\EventRevenueService;
 use App\Services\Events\EventOrderService;
 use Illuminate\Support\Facades\App;
 use App\Repositories\EventLocationRepo;
@@ -13,13 +12,11 @@ use View;
 class EventTimeLocationService extends BaseService
 {
     protected $eventLocationRepo;
-    protected $eventRevenueService;
     protected $eventOrderService;
 
     public function __construct()
     {
         $this->eventLocationRepo    = new EventLocationRepo;
-        $this->eventRevenueService  = new EventRevenueService;
         $this->eventOrderService    = new EventOrderService;
     }
 

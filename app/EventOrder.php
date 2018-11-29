@@ -3,7 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-
+use Carbon\Carbon;
 class EventOrder extends Model
 {
     /**
@@ -109,6 +109,42 @@ class EventOrder extends Model
         }else{
             return $query->where('ticket_id', $ticketId);
         }
+    }
+
+    /**
+     * Scope a query to get weekly ticket orders.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @param mixed $type
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeGetWeeklyTicketOrders($query, $ticketId)
+    {
+        if(gettype($ticketId) == 'array'){
+            $query = $query->whereIn('ticket_id', $ticketId);
+        }else{
+            $query = $query->where('ticket_id', $ticketId);
+        }
+
+        $query->whereDate('created_at', '>=', Carbon::today()->subWeek());
+    }
+
+    /**
+     * Scope a query to get monthly ticket orders.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @param mixed $type
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeGetMonthlyTicketOrders($query, $ticketId)
+    {
+        if(gettype($ticketId) == 'array'){
+            $query = $query->whereIn('ticket_id', $ticketId);
+        }else{
+            $query = $query->where('ticket_id', $ticketId);
+        }
+
+        $query->whereDate('created_at', '>=', Carbon::today()->subMonth());
     }
 
     /**

@@ -100,6 +100,7 @@ Route::group(['middleware' => ['web']], function () {
             Route::post('get-event-sub-topics', 'EventController@getTopicSubTopics');
 
             Route::get('events/{locationId}/dashboard', 'EventController@dashboard');
+            Route::get('events/{locationId}/dashboard/orders', 'EventController@dashboardOrders');
 
             Route::prefix('events')->group(function () {
 

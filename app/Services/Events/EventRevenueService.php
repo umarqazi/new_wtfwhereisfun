@@ -22,7 +22,23 @@ class EventRevenueService
         $orders             = $this->eventOrderService->getOrderByTickets($ticketIds);
         $soldQty            = $orders->sum('quantity');
         $revenuePercentage  = $soldQty/$totalQty * 100;
-        return ['revenuePercentage' => $revenuePercentage, 'totalRevenue' => $orders->sum('payment_gross')];
+        return ['revenuePercentage' => $revenuePercentage, 'totalRevenue' => $orders->sum('payment_gross'), 'orders' => $orders, 'count' => $orders->count()];
     }
+
+    public function getWeekRevenueByLocation($locationId){
+        $location           = $this->eventLocationService->getTimeLocation($locationId);
+        $ticketIds          = $location->tickets->pluck('id')->toArray();
+        $orders             = $this->eventOrderService->getWeekOrderByTickets($ticketIds);
+        return ['totalRevenue' => $orders->sum('payment_gross'), 'orders' => $orders, 'count' => $orders->count()];
+    }
+
+    public function getMonthRevenueByLocation($locationId){
+        $location           = $this->eventLocationService->getTimeLocation($locationId);
+        $ticketIds          = $location->tickets->pluck('id')->toArray();
+        $orders             = $this->eventOrderService->getMonthOrderByTickets($ticketIds);
+        return ['totalRevenue' => $orders->sum('payment_gross'), 'orders' => $orders, 'count' => $orders->count()];
+    }
+
+
 
 }

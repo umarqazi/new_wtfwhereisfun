@@ -23,4 +23,13 @@ class EventOrderService
         return $this->eventOrderRepo->getTicketOrders($ticketId);
     }
 
+    public function getWeekOrderByTickets($ticketId){
+        return $this->eventOrderRepo->getWeekOrderByTickets($ticketId);
+    }
+
+    public function getMonthOrderByTickets($ticketId){
+        return $this->eventOrderRepo->getMonthOrderByTickets($ticketId);
+    }
+
+
 }
