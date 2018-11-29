@@ -43,7 +43,9 @@
                                                 </div>
                                                 <p>{!! $dispute->message !!}</p>
                                             </div>
-                                            <div class="date pull-right">{{$dispute->created_at}}</div>
+                                            <div class="date pull-right">
+                                                <p><strong>Last Updated : </strong>{{monthDateYearFromat($dispute->updated_at)}}</p>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

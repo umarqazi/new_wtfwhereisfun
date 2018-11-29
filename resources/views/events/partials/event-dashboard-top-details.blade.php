@@ -18,15 +18,4 @@
         <a class="btn btn-sm rounded-border" href="{{$eventLink}}">View Event</a>
     </div>
 </div>
-
-<div class="event_tabs rounded-border">
-    <li>
-        <a href="{{url('events/'.$event->encrypted_id.'/edit')}}" target="_blank">EDIT</a>
-    </li>
-    <li>
-        <a href="{{$eventLink}}" target="_blank">DESIGN</a>
-    </li>
-    <li>
-        <a href="javascript:void(0);" target="_blank">MANAGE</a>
-    </li>
-</div>
+<hr>

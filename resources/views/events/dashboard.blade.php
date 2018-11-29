@@ -137,54 +137,6 @@
                                             </div>
                                         </div>
                                     @endforeach
-                                    {{--<div class="sl-item b-info">--}}
-                                        {{--<div class="sl-content">--}}
-                                            {{--<div class="text-muted-dk">11:30</div>--}}
-                                            {{--<p><a href="">@Jessi</a> retwit your post</p>--}}
-                                        {{--</div>--}}
-                                    {{--</div>--}}
-                                    {{--<div class="sl-item b-primary b-l">--}}
-                                        {{--<div class="sl-content">--}}
-                                            {{--<div class="text-muted-dk">10:30</div>--}}
-                                            {{--<p>Call to customer <a href="" class="text-info">Jacob</a> and discuss the detail.</p>--}}
-                                        {{--</div>--}}
-                                    {{--</div>--}}
-                                    {{--<div class="sl-item b-warning">--}}
-                                        {{--<div class="sl-content">--}}
-                                            {{--<div class="text-muted-dk">3 days ago</div>--}}
-                                            {{--<p><a href="" class="text-info">Jessi</a> commented your post.</p>--}}
-                                        {{--</div>--}}
-                                    {{--</div>--}}
-                                    {{--<div class="sl-item b-primary b-l">--}}
-                                        {{--<div class="sl-content">--}}
-                                            {{--<div class="text-muted-dk">10:30</div>--}}
-                                            {{--<p>Call to customer <a href="" class="text-info">Jacob</a> and discuss the detail.</p>--}}
-                                        {{--</div>--}}
-                                    {{--</div>--}}
-                                    {{--<div class="sl-item b-primary b-l">--}}
-                                        {{--<div class="sl-content">--}}
-                                            {{--<div class="text-muted-dk">10:30</div>--}}
-                                            {{--<p>Call to customer <a href="" class="text-info">Jacob</a> and discuss the detail.</p>--}}
-                                        {{--</div>--}}
-                                    {{--</div>--}}
-                                    {{--<div class="sl-item b-warning">--}}
-                                        {{--<div class="sl-content">--}}
-                                            {{--<div class="text-muted-dk">3 days ago</div>--}}
-                                            {{--<p><a href="" class="text-info">Jessi</a> commented your post.</p>--}}
-                                        {{--</div>--}}
-                                    {{--</div>--}}
-                                    {{--<div class="sl-item b-primary b-l">--}}
-                                        {{--<div class="sl-content">--}}
-                                            {{--<div class="text-muted-dk">10:30</div>--}}
-                                            {{--<p>Call to customer <a href="" class="text-info">Jacob</a> and discuss the detail.</p>--}}
-                                        {{--</div>--}}
-                                    {{--</div>--}}
-                                    {{--<div class="sl-item b-primary b-l">--}}
-                                        {{--<div class="sl-content">--}}
-                                            {{--<div class="text-muted-dk">10:30</div>--}}
-                                            {{--<p>Call to customer <a href="" class="text-info">Jacob</a> and discuss the detail.</p>--}}
-                                        {{--</div>--}}
-                                    {{--</div>--}}
                                 </div>
                             </div>
                         </div>
@@ -300,6 +252,40 @@
                         </div>
                     </div>
                 </div>
+
+                <div class="row clearfix">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="body">
+                                <div class="event-oraganizer">
+                                    <h1>Your Links</h1>
+                                    <p><strong>Your Organizer URL: </strong>
+                                        @if(!$eventOrganizer->organizer_url)
+                                            <a href="{{ url('/') }}{{'/organizer/'.$eventOrganizer->slug}}" id="old-url">{{ url('/') }}{{'/organizer/'.$eventOrganizer->slug}}</a>
+                                        @else
+                                            <a href="{{url('/')}}/organizer/{{$eventOrganizer->organizer_url}}" id="old-url">{{url('/')}}/organizer/{{$eventOrganizer->organizer_url}}</a>
+                                        @endif
+
+                                        <input type="hidden" name="organizer_id" value="{{$eventOrganizer->id}}">
+                                        <input type="hidden" name="base_url" value="{{url('/')}}">
+                                        <strong>  - [ <a href="javascript:void(0)" data-toggle="collapse" data-target="#changeOrganizer-url">Change</a> ]</strong>
+                                    </p>
+                                    <div id="changeOrganizer-url" class="collapse">
+                                        <p>Create your own Personalized Organizer URL for ABC Company.</p>
+                                        @if(!$eventOrganizer->organizer_url)
+                                            <strong class="pre_url">{{url('/')}}/organizer/</strong><input type="text" id="organizer_url" name="organizer_url" placeholder="helloWorld" />
+                                        @else
+                                            <strong class="pre_url">{{url('/')}}/organizer/</strong><input type="text" id="organizer_url" name="organizer_url" value="@php echo substr($eventOrganizer->organizer_url, 0, strpos($eventOrganizer->organizer_url, '-')); @endphp" placeholder="helloWorld" /><strong>-{{$eventOrganizer->encrypted_id}}</strong>
+                                        @endif
+                                        <button type="button" class="btn btn-save-organizer-url">Save</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <meta name="csrf-token" content="{{ csrf_token() }}">
+
                 <div class="row clearfix">
                     <div class="col-lg-9 col-md-8">
                         <div class="card product-report">
@@ -530,6 +516,8 @@
                     </div>
                 </div>
             </div>
+
         </section>
     </div>
+    <script src="{{asset('js/organizer.js')}}"></script>
 @endsection

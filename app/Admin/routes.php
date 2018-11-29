@@ -21,6 +21,8 @@ Route::group([
         $router->resource('blogs', 'BlogController');
         $router->resource('contents', 'ContentPageController');
         $router->resource('events', 'EventController');
+        $router->get('disputes', 'DisputeController@index');
+        $router->get('disputes/{id}', 'DisputeController@show');
 
         Route::prefix('events')->group(function (Router $router) {
             $router->get('approve/{id}', 'EventController@approveEvent');

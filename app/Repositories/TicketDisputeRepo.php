@@ -17,6 +17,7 @@
 namespace App\Repositories;
 use App\Dispute;
 use App\DisputeReply;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 
 
@@ -65,6 +66,7 @@ class TicketDisputeRepo
     public function closeDispute($dispute){
        $dispute = Dispute::find($dispute);
        $dispute->is_closed = 1;
+       $dispute->closed_at = Carbon::now();
        return $dispute->save();
     }
 

@@ -27,14 +27,14 @@
                                                 </div>
                                                 <p>{!! $dispute->message !!}</p>
                                             </div>
+
                                             <ul class="actions-btns header-dropdown m-r--5">
                                                 <li class="action-list"><a href="{{url('/disputes/'.encrypt_id($dispute->id))}}"><button class="btn">View</button></a></li>
                                                 @if($dispute->is_closed)
                                                     <li class="action-list"><button class="btn">Closed</button></li><br>
                                                 @endif
-                                                <div class="date"><strong> {{$dispute->created_at}}</strong></div>
+                                                <div class="date"><strong>Last Updated : </strong>{{monthDateYearFromat($dispute->updated_at)}}</div>
                                             </ul>
-
                                         </div>
                                     </div>
                                 </div>

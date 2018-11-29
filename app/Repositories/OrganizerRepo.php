@@ -121,12 +121,19 @@ class OrganizerRepo
     }
 
     public function getBySlug($slug){
-        return $this->organizerModel->where('slug', $slug)->first();
+        return $this->organizerModel->where('slug', $slug)->orWhere('organizer_url', $slug)->first();
     }
 
     public function getOrganizerEvents($id){
         $organizer = $this->getOrganizer($id);
 
+    }
+
+    public function updateOrganizerUrl($organizer,$request){
+        $organizer = Organizer::find($organizer->id);
+        $organizer->organizer_url = $request->url.'-'.$organizer->encrypted_id;
+        $organizer->update();
+        return $organizer;
     }
 
 }

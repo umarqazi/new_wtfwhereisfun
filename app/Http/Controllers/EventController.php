@@ -542,7 +542,7 @@ class EventController extends Controller
 
     /**
      * Get Event's Dashboard
-     * @param  \Illuminate\Http\ $locationId
+     * @param  \Illuminate\Http\ $id
      */
     public function dashboard($locationId){
         $locationId = decrypt_id($locationId);
@@ -553,11 +553,9 @@ class EventController extends Controller
         $monthRevenue    =   $this->eventRevenueService->getMonthRevenueByLocation($locationId);
         $orderIds = $totalRevenue['orders']->pluck('id')->toArray();
         $disputes = $this->disputeService->getByOrderId($orderIds);
-
-//        $eventOrders = $this->eventOrderService->getEventOrders(decrypt_id($locationId));
-//        return View('events.dashboard')->with(['orders' => $eventOrders, 'eventId' => $id, 'totalTicketsSold' => $eventOrders->sum('quantity')]);
+        $eventOrganizer = $event->organizer;
         return View('events.dashboard')->with(['event' => $event, 'location' => $location, 'totalRevenue' => $totalRevenue,
-            'weekRevenue' => $weekRevenue, 'monthRevenue' => $monthRevenue, 'disputes' => $disputes, 'activity' => $totalRevenue['orders'] ]);
+            'weekRevenue' => $weekRevenue, 'monthRevenue' => $monthRevenue, 'disputes' => $disputes, 'activity' => $totalRevenue['orders'], 'eventOrganizer' => $eventOrganizer ]);
     }
 
     /**
