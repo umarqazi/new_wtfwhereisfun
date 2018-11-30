@@ -41,7 +41,7 @@
                 </div>
             </div>
             <div class="recent_orders_listing">
-                @if(!empty($totalRevenue['orders']))
+                @if(count($totalRevenue['orders']))
                     @foreach($totalRevenue['orders'] as $order)
                         <div class="ticket-content">
                             <div class="date">
@@ -82,7 +82,11 @@
                         </div>
                     @endforeach
                 @else
-                    <div><p>No Orders Yet</p></div>
+                    <div>
+                        <p>
+                            <strong>No Orders on this Event!</strong>
+                        </p>
+                    </div>
                 @endif
             </div>
         </section>

@@ -115,9 +115,6 @@
                                     </div>
                                     <div class="">
                                         <button type="submit" class="btn btn-default signup-btn">Sign up</button>
-                                        {{--<a href="javascript:void(0);" onclick="fbLogin()" class="btn btn-default facebook-btn">Connect with Facebook</a>--}}
-                                        {{--<a class="btn  btn-default google-btn" href="{{url('hauth/login/Google')}}">Connect with Google</a>--}}
-                                        {{--<a class="btn  btn-default linkedin-btn" href="{{url('hauth/login/LinkedIn')}}">Connect with Linkedin</a>--}}
                                     </div>
                                 </form>
                             </div>
@@ -149,9 +146,6 @@
                                     </div>
                                     <div class="">
                                         <button type="submit" class="btn btn-default signup-btn">Sign up</button>
-                                        {{--<a href="javascript:void(0);" onclick="fbLogin()" class="btn btn-default facebook-btn">Connect with Facebook</a>--}}
-                                        {{--<a class="btn  btn-default google-btn" href="{{url('hauth/login/Google')}}">Connect with Google</a>--}}
-                                        {{--<a class="btn  btn-default linkedin-btn" href="{{url('hauth/login/LinkedIn')}}">Connect with Linkedin</a>--}}
                                     </div>
                                 </form>
                             </div>
