@@ -1,5 +1,5 @@
 @extends('layouts.master')
-@section('title', "Where's the fun")
+@section('title', "StubGuys")
 <!-- ______________________ Start Banner __________________ -->
 @section('content')
     <div class="explore-search-section">
@@ -65,7 +65,7 @@
                         </div>
                     </div><!-- /.circle-logo-col -->
                     <div class="circle-logo-col cl-item-4">
-                        <a href="{{url('events/hot-deals')}}">
+                        <a href="{{url('event/hot-deals')}}">
                             <div class="circle-logo">
                                 <div class="circle-logo-name">Hot Deals</div>
                             </div>

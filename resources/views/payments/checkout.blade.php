@@ -7,7 +7,7 @@
         <div class="row">
             <form method="POST" name="checkout_form" id="checkout-form" onsubmit="completeCheckout(event, this)" action="{{url('checkout/proceed')}}">
                 {{ csrf_field() }}
-                <div class="col-xs-9">
+                <div class="col-md-9">
                     <div class="panel panel-info">
                         <div class="panel-heading">
                             <div class="panel-title">
@@ -23,64 +23,66 @@
                         <div class="panel-body">
                             <div class="row">
                                 <div class="col-sm-12">
-                                    <table class="table cart-table">
-                                        <tr class="table-head">
-                                            <td>Image</td>
-                                            <td>Name</td>
-                                            <td>Detail</td>
-                                            <td>Location</td>
-                                            <td>Dates</td>
-                                            <td>Time</td>
-                                            <td>QTY</td>
-                                            <td>Price</td>
-                                        </tr>
+                                    <div class="table-responsive">
+                                        <table class="table cart-table">
+                                            <tr class="table-head">
+                                                <td>Image</td>
+                                                <td>Name</td>
+                                                <td>Detail</td>
+                                                <td>Location</td>
+                                                <td>Dates</td>
+                                                <td>Time</td>
+                                                <td>QTY</td>
+                                                <td>Price</td>
+                                            </tr>
 
-                                        <tr>
-                                            <td class="ticket-img"><img class="img-responsive" src="{{$directory['web_path'].$ticket->event->header_image}}"></td>
-                                            <td>{{$ticket->name}}<input type="hidden" name="ticket_id" value="{{encrypt_id($ticket->id)}}"></td>
-                                            <td class="ticket-detail"><p>{{$ticket->description}}</p></td>
-                                            <td>{{$ticket->time_location->location}}</td>
-                                            <td>{{$ticket->time_location->starting->format('D, M Y')}} - {{$ticket->time_location->ending->format('D, M Y')}}</td>
-                                            <td>{{$ticket->time_location->starting->format('g:i A')}} - {{$ticket->time_location->ending->format('g:i A')}}</td>
-                                            <td>
-                                                <div class="sp-quantity">
-                                                    <div class="sp-minus"> <a class="quantity-button" type="button"><i class="fa fa-minus"></i></a>
+                                            <tr>
+                                                <td class="ticket-img"><img class="img-responsive" src="{{$directory['web_path'].$ticket->event->header_image}}"></td>
+                                                <td>{{$ticket->name}}<input type="hidden" name="ticket_id" value="{{encrypt_id($ticket->id)}}"></td>
+                                                <td class="ticket-detail"><p>{{$ticket->description}}</p></td>
+                                                <td>{{$ticket->time_location->location}}</td>
+                                                <td>{{$ticket->time_location->starting->format('D, M Y')}} - {{$ticket->time_location->ending->format('D, M Y')}}</td>
+                                                <td>{{$ticket->time_location->starting->format('g:i A')}} - {{$ticket->time_location->ending->format('g:i A')}}</td>
+                                                <td>
+                                                    <div class="sp-quantity">
+                                                        <div class="sp-minus"> <a class="quantity-button" type="button"><i class="fa fa-minus"></i></a>
+                                                        </div>
+                                                        <div class="sp-input">
+                                                            <input type="text" class="quntity-input" value="1" name="quantity" />
+                                                        </div>
+                                                        <div class="sp-plus"> <a class="quantity-button" type="button"><i class="fa fa-plus"></i></a>
+                                                        </div>
                                                     </div>
-                                                    <div class="sp-input">
-                                                        <input type="text" class="quntity-input" value="1" name="quantity" />
-                                                    </div>
-                                                    <div class="sp-plus"> <a class="quantity-button" type="button"><i class="fa fa-plus"></i></a>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <input type="hidden" value="{{$ticket->price}}" id="ticket-price">
-                                                <strong>${{$ticket->price}}</strong>
-                                            </td>
-                                        </tr>
-                                        @if($eventHotDeal['hotDeal'])
-                                            <tr class="hot-deal">
-                                                <td colspan="8">
-                                                    <span class="text-right hot-deal-text" >Discount <strong id="hot-deal-value">{{$eventHotDeal['details']->discount}}%</strong></span>
-                                                    <input type="hidden" value="{{$eventHotDeal['details']->discount}}" id="discount">
+                                                </td>
+                                                <td>
+                                                    <input type="hidden" value="{{$ticket->price}}" id="ticket-price">
+                                                    <strong>${{$ticket->price}}</strong>
                                                 </td>
                                             </tr>
-                                        @endif
-                                        <tr>
-                                            <td colspan="8">
-                                                <h4 class="text-right sub-total">Total
-                                                    @if($eventHotDeal['hotDeal'])
-                                                        @php
-                                                            $discount = $ticket->price * $eventHotDeal['details']->discount/100;
-                                                        @endphp
-                                                        <strong id="total-price">${{$ticket->price - $discount}}</strong>
-                                                    @else
-                                                        <strong id="total-price">${{$ticket->price}}</strong>
-                                                    @endif
-                                                </h4>
-                                            </td>
-                                        </tr>
-                                    </table>
+                                            @if($eventHotDeal['hotDeal'])
+                                                <tr class="hot-deal">
+                                                    <td colspan="8">
+                                                        <span class="text-right hot-deal-text" >Discount <strong id="hot-deal-value">{{$eventHotDeal['details']->discount}}%</strong></span>
+                                                        <input type="hidden" value="{{$eventHotDeal['details']->discount}}" id="discount">
+                                                    </td>
+                                                </tr>
+                                            @endif
+                                            <tr>
+                                                <td colspan="8">
+                                                    <h4 class="text-right sub-total">Total
+                                                        @if($eventHotDeal['hotDeal'])
+                                                            @php
+                                                                $discount = $ticket->price * $eventHotDeal['details']->discount/100;
+                                                            @endphp
+                                                            <strong id="total-price">${{$ticket->price - $discount}}</strong>
+                                                        @else
+                                                            <strong id="total-price">${{$ticket->price}}</strong>
+                                                        @endif
+                                                    </h4>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>
                                 </div>
                             </div>
 
@@ -119,41 +121,43 @@
                     </div>
                 </div>
 
-                <div class="col-xs-3 user-details">
-                    <h4>Customer Details</h4>
-                    @if(Auth::user())
-                        <div class="logged-in-user-details">
-                            <p>
-                                <strong>Customer Name : </strong> <span>{{Auth::user()->first_name}}</span>
-                                <br>
-                                <strong>Email : </strong> <span>{{Auth::user()->email}}</span>
-                                <input name="user_status" type="hidden" value="logged_in">
-                            </p>
-                        </div>
-                    @else
-                        <div>
-                            <input name="user_status" type="radio" id="radio_6" value="old" class="with-gap" onchange="getUserForm(this)" checked required>
-                            <label for="radio_6">
-                                Already a User?
-                            </label>
-                        </div>
-
-                        <div>
-                            <input name="user_status" type="radio" id="radio_7" value="new" class="with-gap" onchange="getUserForm(this)" required>
-                            <label for="radio_7">
-                                Create New Account
-                            </label>
-                        </div>
-
-                        <div class="user-detail-form">
-                            <div class="form-group">
-                                <label for="email">Email address:</label>
-                                <input type="email" class="form-control" id="login-email" name="email" placeholder="Email Address" required >
+                <div class="col-md-3">
+                    <div class="user-details">
+                        <h4>Customer Details</h4>
+                        @if(Auth::user())
+                            <div class="logged-in-user-details">
+                                <p>
+                                    <strong>Customer Name : </strong> <span>{{Auth::user()->first_name}}</span>
+                                    <br>
+                                    <strong>Email : </strong> <span>{{Auth::user()->email}}</span>
+                                    <input name="user_status" type="hidden" value="logged_in">
+                                </p>
                             </div>
-                            <div class="form-error email"></div>
-                        </div>
+                        @else
+                            <div>
+                                <input name="user_status" type="radio" id="radio_6" value="old" class="with-gap" onchange="getUserForm(this)" checked required>
+                                <label for="radio_6">
+                                    Already a User?
+                                </label>
+                            </div>
 
-                    @endif
+                            <div>
+                                <input name="user_status" type="radio" id="radio_7" value="new" class="with-gap" onchange="getUserForm(this)" required>
+                                <label for="radio_7">
+                                    Create New Account
+                                </label>
+                            </div>
+
+                            <div class="user-detail-form">
+                                <div class="form-group">
+                                    <label for="email">Email address:</label>
+                                    <input type="email" class="form-control" id="login-email" name="email" placeholder="Email Address" required >
+                                </div>
+                                <div class="form-error email"></div>
+                            </div>
+
+                        @endif
+                    </div>
                 </div>
             </form>
         </div>

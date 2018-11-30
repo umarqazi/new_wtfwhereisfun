@@ -27,7 +27,8 @@
                 </div>
 
                 <div class="col-md-8">
-                    @if(!empty($orders))
+                    @if(count($orders))
+                        <h3>My Tickets</h3>
                         @foreach($orders as $order)
                             <div class="ticket-content">
                                 <div class="date">

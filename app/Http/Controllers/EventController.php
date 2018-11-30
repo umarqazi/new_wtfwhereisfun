@@ -546,14 +546,14 @@ class EventController extends Controller
      * @param  \Illuminate\Http\ $id
      */
     public function dashboard($locationId){
-        $locationId = decrypt_id($locationId);
-        $event = $this->eventLocationService->getLocationEvent($locationId);
-        $location = $this->eventLocationService->getTimeLocation($locationId);
+        $locationId     = decrypt_id($locationId);
+        $event          = $this->eventLocationService->getLocationEvent($locationId);
+        $location       = $this->eventLocationService->getTimeLocation($locationId);
         $totalRevenue   =   $this->eventRevenueService->getTotalRevenueByLocation($locationId);
         $weekRevenue    =   $this->eventRevenueService->getWeekRevenueByLocation($locationId);
-        $monthRevenue    =   $this->eventRevenueService->getMonthRevenueByLocation($locationId);
-        $orderIds = $totalRevenue['orders']->pluck('id')->toArray();
-        $disputes = $this->disputeService->getByOrderId($orderIds);
+        $monthRevenue   =   $this->eventRevenueService->getMonthRevenueByLocation($locationId);
+        $orderIds       = $totalRevenue['orders']->pluck('id')->toArray();
+        $disputes       = $this->disputeService->getByOrderId($orderIds);
         $eventOrganizer = $event->organizer;
         return View('events.dashboard')->with(['event' => $event, 'location' => $location, 'totalRevenue' => $totalRevenue,
             'weekRevenue' => $weekRevenue, 'monthRevenue' => $monthRevenue, 'disputes' => $disputes, 'activity' => $totalRevenue['orders'], 'eventOrganizer' => $eventOrganizer ]);
@@ -564,9 +564,9 @@ class EventController extends Controller
      * @param  \Illuminate\Http\ $locationId
      */
     public function dashboardOrders($locationId){
-        $locationId = decrypt_id($locationId);
-        $event = $this->eventLocationService->getLocationEvent($locationId);
-        $location = $this->eventLocationService->getTimeLocation($locationId);
+        $locationId     = decrypt_id($locationId);
+        $event          = $this->eventLocationService->getLocationEvent($locationId);
+        $location       = $this->eventLocationService->getTimeLocation($locationId);
         $totalRevenue   =   $this->eventRevenueService->getTotalRevenueByLocation($locationId);
         return View('events.dashboard-orders')->with(['event' => $event, 'location' => $location, 'totalRevenue' => $totalRevenue]);
     }

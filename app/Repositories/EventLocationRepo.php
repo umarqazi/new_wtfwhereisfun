@@ -102,6 +102,14 @@ class EventLocationRepo
         return $eventLocations;
     }
 
+    public function hotEvents(){
+        $vendorId = null;
+        $hotDeals = $this->eventLocationModel->todayEvents()->whereHas('event', function($query) use ($vendorId){
+            $query->publishedEvents($vendorId)->has('hot_deal');
+        })->get();
+        return $hotDeals;
+    }
+
     public function search($data){
         if(isset($data['search_events'])){
             $locationWise = $this->eventLocationModel->todayEvents()->searchByLocation($data['location'])->whereHas('event', function($query) use ($data){

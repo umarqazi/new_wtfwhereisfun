@@ -18,17 +18,16 @@
                     <div class="main-menu-wrap clearfi">
                         <i class="fa fa-times closeMenu"></i>
                         <ul class="main-menu landing-page-menu">
-                            <li><a href="#"> Features</a></li>
-                            <li><a href="#">Customers</a></li>
-                            <li><a href="#">Pricing</a></li>
+                            {{--<li><a href="#"> Features</a></li>--}}
+                            {{--<li><a href="#">Customers</a></li>--}}
+                            {{--<li><a href="#">Pricing</a></li>--}}
                             <li><a href="#">Find Events</a></li>
-                            <li><a href="#">Host Events</a></li>
+                            <li><a href="{{url('events/create')}}">Host Events</a></li>
                             @if (Auth::check())
                                 @php $user = Auth::user() @endphp
                                 @if(!empty($user->profile_thumbnail))
                                     @php
-                                        $directory = getDirectory('vendors', $user->id);
-                                        $image = $directory['web_path'].$user->profile_thumbnail;
+                                        $image = $user->directory.$user->profile_thumbnail;
                                     @endphp
                                 @else
                                     @php
@@ -90,13 +89,12 @@
                     <div class="main-menu-wrap clearfi">
                         <ul class="main-menu">
                             <li><a href="#">Find Events</a></li>
-                            <li><a href="#">Host Events</a></li>
+                            <li><a href="{{url('events/create')}}">Host Events</a></li>
                             @if (Auth::check())
                                 @php $user = Auth::user() @endphp
                                 @if(!empty($user->profile_thumbnail))
                                     @php
-                                        $directory = getDirectory('vendors', $user->id);
-                                        $image = $directory['web_path'].$user->profile_thumbnail;
+                                        $image = $user->directory.$user->profile_thumbnail;
                                     @endphp
                                 @else
                                     @php

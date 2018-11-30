@@ -10,15 +10,18 @@ use Encore\Admin\Grid;
 use Encore\Admin\Layout\Content;
 use Encore\Admin\Show;
 use App\Services\Events\EventTimeLocationService;
+use App\Services\Events\EventRevenueService;
 class EventLocationController extends Controller
 {
     use HasResourceActions;
 
     protected $eventLocationService;
+    protected $eventRevenueService;
 
     public function __construct()
     {
-
+        $this->eventLocationService = new EventTimeLocationService;
+        $this->eventRevenueService  = new EventRevenueService;
     }
 
     /**
@@ -121,10 +124,22 @@ class EventLocationController extends Controller
             $previewUrl = route('showById', ['id' => $actions->row->event->encrypted_id, 'locationId' => $actions->row->encrypted_id ]);
             $previewBtn = '<a href="'.$previewUrl.'" class="btn btn-success" target="_blank" style="margin-right: 3px">Preview</a>';
             $ordersUrl =  'event/location/'.$actions->getkey().'/orders';
-            $orderBtn = '<a href="'.$ordersUrl.'" class="btn btn-primary" target="_blank" style="margin-right: 3px">View Report</a>';
+            $orderBtn = '<a href="'.$ordersUrl.'" class="btn btn-primary" target="_blank" style="margin-top: 3px">View Report</a>';
             // prepend an action.
             $actions->prepend($previewBtn.$approval.$orderBtn);
         });
+
+        $grid->filter(function ($filter) {
+            // Remove the default id filter
+            $filter->disableIdFilter();
+
+            // Sets the User Name Filter
+            $filter->like('location', 'Event Location');
+
+            // Sets the User Name Filter
+            $filter->like('event.title', 'Event Title');
+        });
+
 
         $grid->disableRowSelector();
         $grid->disableExport();
@@ -184,6 +199,9 @@ class EventLocationController extends Controller
     }
 
     protected function getLocationOrders($id){
-
+        $event = $this->eventLocationService->getLocationEvent($id);
+        $location = $this->eventLocationService->getTimeLocation($id);
+        $totalRevenue   =   $this->eventRevenueService->getTotalRevenueByLocation($id);
+        return View('events.dashboard-orders')->with(['event' => $event, 'location' => $location, 'totalRevenue' => $totalRevenue]);
     }
 }

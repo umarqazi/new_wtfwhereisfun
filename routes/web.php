@@ -45,6 +45,8 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('checkout/cancel', 'PaymentController@cancelCheckout');
     Route::post('checkout/stripe', 'PaymentController@stripeCheckout');
 
+    Route::get('event/hot-deals', 'EventController@getHotDealEvents');
+
     Route::group(['middleware' => ['auth']], function () {
         /*User Routes*/
 
@@ -62,14 +64,11 @@ Route::group(['middleware' => ['web']], function () {
         Route::post('get-state-cities', 'AddressController@getStateCities');
 
         Route::get('my-tickets',  'EventTicketController@myTickets');
-        Route::get('/disputes/', 'DisputeController@index');
-        Route::get('/disputes/{id}', 'DisputeController@show');
+        Route::get('disputes', 'DisputeController@index');
+        Route::get('disputes/{id}', 'DisputeController@show');
         Route::get('/ticket-dispute/{id}', 'DisputeController@create');
         Route::post('/submit-dispute', 'DisputeController@store');
         Route::post('/dispute-reply', 'DisputeController@reply');
-
-        Route::get('/complaints', 'DisputeController@showComplaints');
-        Route::post('/close-dispute', 'DisputeController@closeComplaints');
 
         Route::group(['middleware' => ['role:vendor']], function () {
             Route::get('dashboard',  'UserController@vendorDashboard');
@@ -114,6 +113,11 @@ Route::group(['middleware' => ['web']], function () {
 
             });
 
+
+            /*Complaint Routes */
+            Route::get('complaints', 'DisputeController@showComplaints');
+            Route::post('/close-dispute', 'DisputeController@closeComplaints');
+
             /*Organzier Routes*/
             Route::post('change-orgranizer-url', 'OrganizerController@changeOrganizerUrl');
             Route::resource('organizers', 'OrganizerController');
@@ -127,7 +131,6 @@ Route::group(['middleware' => ['web']], function () {
     });
 
     Route::prefix('events')->group(function () {
-        Route::get('hot-deals', 'EventController@getHotDealEvents');
         Route::get('today-events/all', 'EventController@getTodaysEvents')->name('today-events');
         Route::get('future-events/all', 'EventController@getFutureEvents')->name('future-events');
         Route::get('{id}/{locationId}', 'EventController@show')->name('showById');

@@ -6010,8 +6010,7 @@ i, cite, em, var, address, dfn {
 .checkout-page .user-details{
    border : 1px solid #AFAFAD;
    border-radius : 5px;
-   padding-top : 20px;
-   padding-bottom : 20px;
+   padding : 20px;
 }
 .user-details h4{
    margin-top : 0!important;
@@ -6499,3 +6498,13 @@ section.content{
    background : #000;
 }
 
+.admin-view .content{
+   margin-left: 0;
+   padding: 0px 15px;
+}
+
+.event-dashboard .event-dashboard-block{
+   background: #fbfbfb;
+   border: solid 1px #eee;
+   margin-top: 20px;
+}

@@ -1,10 +1,11 @@
 @extends('layouts.event-dashboard')
-@section('title', "My Tickets :: Where's the fun")
+@section('title', "My Tickets :: StubGuys")
 @section('content')
-
-    <div class="page_wrapper">
-        @include('events.partials.event-dashboard-sidebar')
-        <section class="content home">
+    <div class="page_wrapper event-dashboard @if(strpos(url()->current(),'admin') == true) admin-view @endif">
+        @if(strpos(url()->current(),'admin') == false)
+            @include('events.partials.event-dashboard-sidebar')
+        @endif
+        <section class="content home ">
             @include('events.partials.event-dashboard-top-details')
 
             <h1>Recent Orders</h1>
@@ -73,6 +74,9 @@
                                     <span class="payment-status">Payment Status : <strong>Completed</strong></span>
                                     <span class="payment-method">Payment Method : <strong>{{ucfirst($order->payment_method)}}</strong></span><br>
                                     <span>Bought at : <strong>{{monthDateYearFromat($order->created_at)}}</strong></span><br>
+                                    @if(strpos(url()->current(),'admin') == true)
+                                        <span>Vendor : <strong>{{($order->event->vendor->first_name)}} {{($order->event->vendor->last_name)}}</strong></span><br>
+                                    @endif
                                 </div>
                             </div>
                         </div>

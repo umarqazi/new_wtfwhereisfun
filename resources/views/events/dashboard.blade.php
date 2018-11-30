@@ -1,8 +1,8 @@
 @extends('layouts.event-dashboard')
-@section('title', "My Tickets :: Where's the fun")
+@section('title', "Event Dashboard :: StubGuys")
 @section('content')
 
-    <div class="page_wrapper">
+    <div class="page_wrapper event-dashboard">
         @include('events.partials.event-dashboard-sidebar')
         <section class="content home">
             @include('events.partials.event-dashboard-top-details')
