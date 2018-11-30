@@ -388,7 +388,12 @@ p .event-tag-name{
 
 .listing-single.event-layout-tabs{
     position: initial;
+}
 
+
+.tab.tab--2.listing-single__tab .tab__nav{
+    position: relative;
+    z-index: 8;
 }
 
 

@@ -22,7 +22,7 @@ return [
     | `img` tag, eg '<img src="http://logo-url" alt="Admin logo">'.
     |
     */
-    'logo' => "<b>Where's The Fun</b> admin",
+    'logo' => "<b>StubGuys</b>",
 
     /*
     |--------------------------------------------------------------------------
@@ -34,7 +34,7 @@ return [
     | '<img src="http://logo-url" alt="Admin logo">'.
     |
     */
-    'logo-mini' => '<b>WTF</b>',
+    'logo-mini' => '<b>SG</b>',
 
     /*
     |--------------------------------------------------------------------------

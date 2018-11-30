@@ -26,7 +26,7 @@
 <div class="login-box">
     <div class="login-logo">
         <a href="{{ admin_base_path('/') }}">
-            <img src="{{asset('images/logo/wtf-logo.png')}}" >
+            <img src="{{asset('img/logos/stub-logo.png')}}" width="200">
         </a>
     </div>
     <!-- /.login-logo -->
