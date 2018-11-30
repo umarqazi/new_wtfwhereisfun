@@ -254,7 +254,7 @@
                     <div class="modal-body">
                         <div class="form-group">
                             <label for="email">Discount</label>
-                            <input type="number" class="form-control" id="" name="discount" placeholder="Discount in Percentage" required="">
+                            <input type="number" class="form-control" id="" name="discount" placeholder="Discount in Percentage" required="" min="1" max="100">
                         </div>
                         <div class="form-group">
                             <label for="pwd">Hours</label>

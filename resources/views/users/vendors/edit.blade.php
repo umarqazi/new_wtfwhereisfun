@@ -16,7 +16,7 @@
                                 <div class="rounded-circle vendor-profile-image">
                                     @if(!empty($user->profile_thumbnail))
                                         @php
-                                            $image = $directory['web_path'].$user->profile_thumbnail;
+                                            $image = $user->directory.$user->profile_thumbnail;
                                             $removeClass = '';
                                         @endphp
                                     @else

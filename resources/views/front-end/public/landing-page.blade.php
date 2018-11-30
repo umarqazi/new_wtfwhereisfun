@@ -1,5 +1,5 @@
 @extends('layouts.master')
-@section('title', "Where's the fun")
+@section('title', "StubGuys")
 <!-- ______________________ Start Banner __________________ -->
 @section('content')
     <div class="explore-search-section">
@@ -60,12 +60,12 @@
                     </div><!-- /.circle-logo-col -->
                     <div class="circle-logo-col cl-item-3">
                         <div class="circle-logo">
-                            <div class="circle-logo-img"><img src="{{asset('images/circle-logo.png')}}" alt="Circle
+                            <div class="circle-logo-img"><img src="{{asset('img/logos/logo-icon.png')}}" alt="Circle
                         Logo"></div>
                         </div>
                     </div><!-- /.circle-logo-col -->
                     <div class="circle-logo-col cl-item-4">
-                        <a href="{{url('events/hot-deals')}}">
+                        <a href="{{url('event/hot-deals')}}">
                             <div class="circle-logo">
                                 <div class="circle-logo-name">Hot Deals</div>
                             </div>
@@ -153,12 +153,12 @@
 
                                                     @endforeach
                                                 @endif
+
                                             </div>
-                                            <div class="col-md-12">
-                                                <div class="landmarks-listings-all">
-                                                    <a href="{{route('today-events')}}" class="ldm-all btn">View All Listing <i class="fa fa-facebookrrow-circle-o-right"></i></a>
-                                                </div>
+                                            <div class="landmarks-listings-all view_all_btn pull-right">
+                                                <a href="{{route('today-events')}}" class="ldm-all">View All <i class="fa fa-facebookrrow-circle-o-right"></i></a>
                                             </div>
+
                             </div>
                         </div>
 
@@ -226,11 +226,11 @@
                                                     @endforeach
                                                 @endif
                                             </div>
-                                            <div class="col-md-12">
-                                                <div class="landmarks-listings-all">
-                                                    <a href="{{route('future-events')}}" class="ldm-all btn">View All Listing <i class="fa fa-facebookrrow-circle-o-right"></i></a>
-                                                </div>
+
+                                            <div class="landmarks-listings-all pull-right view_all_btn">
+                                                <a href="{{route('future-events')}}" class="ldm-all">View All<i class="fa fa-facebookrrow-circle-o-right"></i></a>
                                             </div>
+
                             </div>
                         </div>
 

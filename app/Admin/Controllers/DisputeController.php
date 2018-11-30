@@ -76,9 +76,9 @@ class DisputeController extends Controller
         $grid->is_closed('Status')->display(function ($is_closed) {
             if($is_closed == 1)
             {
-                return "<span>Closed</span>";
+                return '<span class="label label-success">Closed</span>';
             }else{
-                return "<span>Open</span>";
+                return '<span class="label label-primary">Open</span>';
             }
 
         });
@@ -92,7 +92,7 @@ class DisputeController extends Controller
             $actions->disableDelete();
             $actions->disableEdit();
         });
-
+        $grid->disableExport();
         $grid->filter(function($filter){
 
             // Remove the default id filter

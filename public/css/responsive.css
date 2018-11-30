@@ -25,11 +25,15 @@
 
 @media all and (max-width: 1199px) {
 	.header-logo img {
-		width: 306px;
+		width: 140px;
 	}
 
 	ul.main-menu > li > a{
 		line-height: 35px;
+	}
+
+	.user-details{
+		margin-bottom: 30px;
 	}
 }
 
@@ -219,7 +223,7 @@
    /*krishna css*/
 
    .header-logo img{
-   	max-width: 288px;
+   	max-width: 130px;
    }
 
    .header-social ul li a{
@@ -273,7 +277,7 @@
     padding: 5px;
 }
 	.header-logo img {
-		max-width: 234px;
+		max-width: 120px;
 	}
 
 	.ex-cities-title-wrap .ex-cities-title{

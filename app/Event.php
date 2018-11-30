@@ -248,4 +248,16 @@ class Event extends Model
         return $query->where('access', 'public');
     }
 
+    /**
+     * Scope a query to get recent Events by Created At.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @param mixed $type
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeRecentCreatedAt($query)
+    {
+        return $query->orderBy('created_at', 'desc');
+    }
+
 }

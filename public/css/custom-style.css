@@ -384,7 +384,7 @@ header#header{
    margin-top: 0;
 }
 .header-logo img {
-   width: 406px; 
+   width: 160px;
 }
 
 
@@ -636,6 +636,7 @@ ul.main-menu > li:hover .custom-dropdown-menu{
 .explore-search-form{
    padding: 35px 60px 30px 60px;
    background-color: rgba(33,33,34,.4);
+   border-radius: 5px;
 }
 .explore-search-form label{
    margin-bottom: 7px;
@@ -1166,6 +1167,11 @@ ul.main-menu > li:hover .custom-dropdown-menu{
    background-color: #eee;
    padding: 70px 0px;
 }
+
+.signup-signin-wrap img, #signup img{
+   width : 100px;
+}
+
 .signup-signin-wrap{
    width: 100%;
    max-width: 400px;
@@ -3853,6 +3859,14 @@ button.btn.btn-default.btn-lg.scnd-part {
     padding-top: 0px;
     padding-left: 0px;
 }
+
+.view_all_btn{
+   margin-top: -33px;
+}
+
+
+
+
 .about li.conatct{
    padding-left: 10px;
 }
@@ -3954,6 +3968,11 @@ button.btn.btn-default.btn-lg.scnd-part {
    .row.third {
     text-align: center;
 }
+
+   .explore-search-form{
+      padding: 20px 15px;
+   }
+
 .row{
     margin-left: 0;
     margin-right:0;
@@ -5241,6 +5260,7 @@ ul.table_row > li{
    display: inline-block;
    width: 30%;
    padding-right: 20px;
+   vertical-align: middle;
 }
 .action_list li{
    display: inline-block;
@@ -5250,6 +5270,10 @@ ul.table_row > li{
 }
 .action_list li a{
    color: #666;
+}
+
+#location_map > div{
+   width: 100% !important;
 }
 .pass-details .pass-name{
    width : 70%!important;
@@ -5986,8 +6010,7 @@ i, cite, em, var, address, dfn {
 .checkout-page .user-details{
    border : 1px solid #AFAFAD;
    border-radius : 5px;
-   padding-top : 20px;
-   padding-bottom : 20px;
+   padding : 20px;
 }
 .user-details h4{
    margin-top : 0!important;
@@ -6469,4 +6492,19 @@ section.content{
 .badge-primary{
    color: #fff;
    background-color: #86C543;
+}
+
+.event-dashboard-footer .card{
+   background : #000;
+}
+
+.admin-view .content{
+   margin-left: 0;
+   padding: 0px 15px;
+}
+
+.event-dashboard .event-dashboard-block{
+   background: #fbfbfb;
+   border: solid 1px #eee;
+   margin-top: 20px;
 }

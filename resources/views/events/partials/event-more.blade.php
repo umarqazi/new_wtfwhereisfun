@@ -5,7 +5,7 @@
             @foreach($moreEvents as $moreEvent)
                 <div class="col-sm-6 col-md-6">
                     <div class="listing_related-item">
-                        <a href="{{url('events/'.$moreEvent->encrypted_id.'/'.$moreEvent->time_locations->first()->encryped_id)}}">
+                        <a href="{{route('showById', ['id' => $moreEvent->encrypted_id, 'locationId' => $moreEvent->time_locations->first()->encrypted_id ])}}">
                             @if(!empty($moreEvent->header_image))
                                 @php
                                     $image     = $moreEvent->directory.$moreEvent->header_image;

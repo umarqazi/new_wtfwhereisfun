@@ -2,10 +2,10 @@
     <!-- User Info -->
     <div class="user-info">
         <div class="image">
-            @if(!empty($event->vendor->profile_thumbnail))
-                <img src="{{$event->vendor->directory.$event->vendor->profile_thumbnail}}" width="48" height="48" alt="User" />
+            @if(!empty($event->header_image))
+                <img src="{{$event->directory.$event->header_image}}" width="48" height="48" alt="Event" style="height:50px;" />
             @else
-                <img src="{{asset('img/default-148.png')}}" width="48" height="48" alt="User" />
+                <img src="{{asset('img/default-148.png')}}" width="48" height="48" alt="Event" style="height:50px;"/>
             @endif
         </div>
     </div>

@@ -20,9 +20,10 @@ Route::group([
         $router->resource('event-topics', 'EventTopicController');
         $router->resource('blogs', 'BlogController');
         $router->resource('contents', 'ContentPageController');
-        $router->resource('events', 'EventController');
-        $router->get('disputes', 'DisputeController@index');
-        $router->get('disputes/{id}', 'DisputeController@show');
+        $router->resource('events', 'EventLocationController');
+        $router->resource('disputes', 'DisputeController')->only(['index', 'show']);
+
+        $router->get('event/location/{id}/orders', 'EventLocationController@getLocationOrders');
 
         Route::prefix('events')->group(function (Router $router) {
             $router->get('approve/{id}', 'EventController@approveEvent');

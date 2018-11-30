@@ -21,7 +21,8 @@ class AdminMenuSeeder extends Seeder
             array( 'parent_id' => '0', 'order' => '6', 'title' => 'Event Topics', 'icon' => 'fa-pencil', 'uri' => 'auth/event-topics' , 'created_at' => Carbon::now()->format('Y-m-d H:i:s'), 'updated_at' => Carbon::now()->format('Y-m-d H:i:s')),
             array( 'parent_id' => '0', 'order' => '7', 'title' => 'Blogs', 'icon' => 'fa-bold', 'uri' => 'auth/blogs' , 'created_at' => Carbon::now()->format('Y-m-d H:i:s'), 'updated_at' => Carbon::now()->format('Y-m-d H:i:s')),
             array( 'parent_id' => '0', 'order' => '8', 'title' => 'Content', 'icon' => 'fa-file-text', 'uri' => 'auth/contents' , 'created_at' => Carbon::now()->format('Y-m-d H:i:s'), 'updated_at' => Carbon::now()->format('Y-m-d H:i:s')),
-            array( 'parent_id' => '0', 'order' => '9', 'title' => 'Testimonials', 'icon' => 'fa-comment', 'uri' => 'auth/testimonials' , 'created_at' => Carbon::now()->format('Y-m-d H:i:s'), 'updated_at' => Carbon::now()->format('Y-m-d H:i:s'))
+            array( 'parent_id' => '0', 'order' => '9', 'title' => 'Testimonials', 'icon' => 'fa-comment', 'uri' => 'auth/testimonials' , 'created_at' => Carbon::now()->format('Y-m-d H:i:s'), 'updated_at' => Carbon::now()->format('Y-m-d H:i:s')),
+            array( 'parent_id' => '0', 'order' => '10', 'title' => 'Disputes', 'icon' => 'fa-comments-o', 'uri' => 'auth/disputes' , 'created_at' => Carbon::now()->format('Y-m-d H:i:s'), 'updated_at' => Carbon::now()->format('Y-m-d H:i:s'))
         );
         DB::table('admin_menu')->insert($adminMenu);
     }
