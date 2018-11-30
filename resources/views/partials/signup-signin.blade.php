@@ -32,21 +32,19 @@
                                             <input type="password" class="form-control prevent-copy-paste"
                                                    name="password" id="login-pwd" placeholder="Password" required="">
                                         </div>
-                                        <div class="checkbox-feild-wrap">
-                                            <input type="checkbox" id="basic_checkbox_20" class="form-control"
-                                                   name="remember_me"
-                                                   value="true" />
-                                            <label for="announcements">Remember me</label>
+                                        <div class="form-group">
+                                            <input type="checkbox" id="basic_checkbox_20" class="form-control" name="remember_me" value="true" />
+                                            <label for="basic_checkbox_20">Remember me</label>
                                             <label class="lost-pwd"><a href="{{url('forgot-password')}}">Lost your
                                             password</a></label>
                                         </div>
                                         <button type="submit" class="btn  btn-default sign-in-btn login-btn">Sign in</button>
 
-                                        <div class="othr-signin">
-                                            <a href="javascript:void(0);" onclick="fbLogin()" class="btn btn-default facebook-btn">Connect with Facebook</a>
-                                            <a class="btn  btn-default google-btn" href="{{url('hauth/login/Google')}}">Connect with Google</a>
-                                            <a class="btn  btn-default linkedin-btn" href="{{url('hauth/login/LinkedIn')}}">Connect with Linkedin</a>
-                                        </div>
+                                        {{--<div class="othr-signin">--}}
+                                            {{--<a href="javascript:void(0);" onclick="fbLogin()" class="btn btn-default facebook-btn">Connect with Facebook</a>--}}
+                                            {{--<a class="btn  btn-default google-btn" href="{{url('hauth/login/Google')}}">Connect with Google</a>--}}
+                                            {{--<a class="btn  btn-default linkedin-btn" href="{{url('hauth/login/LinkedIn')}}">Connect with Linkedin</a>--}}
+                                        {{--</div>--}}
                                     </form>
                                 </div>
                             </div>
@@ -115,11 +113,11 @@
                                                      ('privacy-policy')}}">Privacy Policy</a></label>
                                         </div>
                                     </div>
-                                    <div class="othr-signin">
+                                    <div class="">
                                         <button type="submit" class="btn btn-default signup-btn">Sign up</button>
-                                        <a href="javascript:void(0);" onclick="fbLogin()" class="btn btn-default facebook-btn">Connect with Facebook</a>
-                                        <a class="btn  btn-default google-btn" href="{{url('hauth/login/Google')}}">Connect with Google</a>
-                                        <a class="btn  btn-default linkedin-btn" href="{{url('hauth/login/LinkedIn')}}">Connect with Linkedin</a>
+                                        {{--<a href="javascript:void(0);" onclick="fbLogin()" class="btn btn-default facebook-btn">Connect with Facebook</a>--}}
+                                        {{--<a class="btn  btn-default google-btn" href="{{url('hauth/login/Google')}}">Connect with Google</a>--}}
+                                        {{--<a class="btn  btn-default linkedin-btn" href="{{url('hauth/login/LinkedIn')}}">Connect with Linkedin</a>--}}
                                     </div>
                                 </form>
                             </div>
@@ -149,11 +147,11 @@
                                                     Condition</a> and our <a target="_blank" href="{{url('privacy-policy')}}">Privacy Policy</a></label>
                                         </div>
                                     </div>
-                                    <div class="othr-signin">
+                                    <div class="">
                                         <button type="submit" class="btn btn-default signup-btn">Sign up</button>
-                                        <a href="javascript:void(0);" onclick="fbLogin()" class="btn btn-default facebook-btn">Connect with Facebook</a>
-                                        <a class="btn  btn-default google-btn" href="{{url('hauth/login/Google')}}">Connect with Google</a>
-                                        <a class="btn  btn-default linkedin-btn" href="{{url('hauth/login/LinkedIn')}}">Connect with Linkedin</a>
+                                        {{--<a href="javascript:void(0);" onclick="fbLogin()" class="btn btn-default facebook-btn">Connect with Facebook</a>--}}
+                                        {{--<a class="btn  btn-default google-btn" href="{{url('hauth/login/Google')}}">Connect with Google</a>--}}
+                                        {{--<a class="btn  btn-default linkedin-btn" href="{{url('hauth/login/LinkedIn')}}">Connect with Linkedin</a>--}}
                                     </div>
                                 </form>
                             </div>
