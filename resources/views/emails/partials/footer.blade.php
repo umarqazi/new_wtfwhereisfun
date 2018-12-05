@@ -1,11 +1,11 @@
 <!-- Footer Section Open // -->
 <table border="0" width="100%" align="center" cellpadding="0" cellspacing="0" style="width:100%;max-width:100%;">
     <tr>
-        <td class="bodyBgColor" align="center" valign="top" bgcolor="#F9F9F9">
+        <td class="bodyBgColor" align="center" valign="top" bgcolor="#474749">
             <!-- Bg Color Open // -->
             <table class="row" border="0" width="700" align="center" cellpadding="0" cellspacing="0" style="width:700px;max-width:700px;">
                 <tr>
-                    <td class="blackBgColor" align="center" valign="top" bgcolor="#000000">
+                    <td class="blackBgColor" align="center" valign="top" bgcolor="#474749">
                         <!-- E-mail Container Section Open // -->
                         <table class="row" width="600" align="center" border="0" cellpadding="0" cellspacing="0" style="width:600px;max-width:600px;">
                             <tr>
@@ -29,7 +29,7 @@
                                                     <tr>
                                                         <td align="center" valign="middle">
                                                             <a href="{{url('/')}}" style="text-decoration:none;border:0">
-                                                                <img src="{{asset('img/logos/logo-icon.png')}}" alt="#" border="0" width="100" style="display:block;border:0;width:100px;padding:0;padding-bottom:30px;">
+                                                                <img src="{{asset('img/logos/stub-logo.png')}}" alt="#" border="0" width="100" style="display:block;border:0;width:100px;padding:0;padding-bottom:30px;">
                                                             </a>
                                                         </td>
                                                     </tr>

@@ -141,7 +141,7 @@
                                                     <tbody><tr>
                                                         <td align="center" valign="middle">
                                                             <a href="{{url('/')}}" style="text-decoration:none;border:0">
-                                                                <img src="{{asset('img/logos/logo-icon.png')}}" alt="#" border="0" width="100" style="display:block;border:0;width:100px;">
+                                                                <img src="{{asset('img/logos/stub-logo.png')}}" alt="#" border="0" width="100" style="display:block;border:0;width:100px;">
                                                             </a>
                                                         </td>
                                                     </tr>

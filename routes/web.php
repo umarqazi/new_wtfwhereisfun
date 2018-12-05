@@ -139,5 +139,7 @@ Route::group(['middleware' => ['web']], function () {
 
     Route::post('search-events', 'MainController@searchEvents');
 
+    Route::get('qr', 'EventController@qr');
+
 });
 

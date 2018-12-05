@@ -570,4 +570,10 @@ class EventController extends Controller
         $totalRevenue   =   $this->eventRevenueService->getTotalRevenueByLocation($locationId);
         return View('events.dashboard-orders')->with(['event' => $event, 'location' => $location, 'totalRevenue' => $totalRevenue]);
     }
+
+    public function qr(){
+        $data['order'] = '<h1>Test</h1>';
+        $pdf = PDF::loadView('payments.order-pdf', $data);
+        return $pdf->save('.pdf')();
+    }
 }

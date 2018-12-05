@@ -18,6 +18,8 @@ class AlterEventOrdersTable extends Migration
             $table->tinyInteger('is_deal_availed')->nullable();
             $table->integer('hot_deal_id')->nullable()->unsigned();
             $table->foreign('hot_deal_id')->references('id')->on('event_hot_deals')->onDelete('restrict')->onUpdate('restrict');
+            $table->string('qr_image')->nullable();
+            $table->string('ticket_pdf')->nullable();
         });
     }
 
@@ -28,7 +30,6 @@ class AlterEventOrdersTable extends Migration
      */
     public function down()
     {
-
         Schema::table('event_orders', function (Blueprint $table) {
             $table->dropForeign(['hot_deal_id']);
         });
@@ -37,6 +38,8 @@ class AlterEventOrdersTable extends Migration
             $table->dropColumn('discount');
             $table->dropColumn('is_deal_availed');
             $table->dropColumn('hot_deal_id');
+            $table->dropColumn('qr_image');
+            $table->dropColumn('ticket_pdf');
         });
 
     }

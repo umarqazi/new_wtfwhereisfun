@@ -30,6 +30,8 @@ class TicketPurchased extends Mailable
      */
     public function build()
     {
-        return $this->view('emails.ticket-purchased');
+        $directory = getDirectory('orders', $this->orderDetails->id);
+        $file = public_path('storage/').removeFirstParam($directory['relative_path']).$this->orderDetails->ticket_pdf;
+        return $this->view('emails.ticket-purchased')->attach($file);
     }
 }
