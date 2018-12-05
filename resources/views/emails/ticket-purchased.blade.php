@@ -1,6 +1,55 @@
 @extends('layouts.email-master')
 @section('title', "New Ticket Purchased:: Where's the fun")
 @section('content')
+
+    <!-- Image Column Section Open // -->
+    <table border="0" width="100%" align="center" cellpadding="0" cellspacing="0" style="width:100%;max-width:100%;">
+        <tbody><tr>
+            <td class="bodyBgColor" align="center" valign="top" bgcolor="#F9F9F9">
+                <!-- Bg Color Open // -->
+                <table class="row" border="0" width="700" align="center" cellpadding="0" cellspacing="0" style="width:700px;max-width:700px;">
+                    <tbody><tr>
+                        <td class="whiteBgColor" align="center" valign="top" bgcolor="#FFFFFF">
+                            <!-- E-mail Container Section Open // -->
+                            <table class="row" border="0" width="700" align="center" cellpadding="0" cellspacing="0" style="width:700px;max-width:700px;">
+                                <tbody><tr>
+                                    <td class="containerPadding" align="center" valign="top">
+
+                                        <!-- Table Container 1 Column Open // -->
+                                        <table class="row" border="0" width="700" align="center" cellpadding="0" cellspacing="0" style="width:700px;max-width:700px;">
+                                            <tbody><tr>
+                                                <td align="center" valign="middle" style="font-size:0;padding:0">
+
+                                                    <!-- Image Section -->
+                                                    <table border="0" width="100%" align="center" cellpadding="0" cellspacing="0" style="width:100%;max-width:100%;">
+                                                        <tbody><tr>
+                                                            <td class="imgResponsive" align="center" valign="middle" style="padding:0;">
+                                                                <a href="" style="text-decoration:none;border:0">
+                                                                    <img src="{{$orderDetails->directory.$orderDetails->qr_image}}" alt="#" border="0" width="500" style="display:block;border:0;width:100%;max-width:500px">
+                                                                </a>
+                                                            </td>
+                                                        </tr>
+                                                        </tbody></table>
+
+                                                </td>
+                                            </tr>
+                                            </tbody></table>
+                                        <!-- Table Container 1 Column Close // -->
+
+                                    </td>
+                                </tr>
+                                </tbody></table>
+                            <!-- E-mail Container Section Close // -->
+                        </td>
+                    </tr>
+                    </tbody></table>
+                <!-- Bg Color Close // -->
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <!-- Image Column Section Close // -->
+
     <!-- Title, Subtitle and Description Section Open // -->
     <table border="0" width="100%" align="center" cellpadding="0" cellspacing="0" style="width:100%;max-width:100%;">
         <tr>

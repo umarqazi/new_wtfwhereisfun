@@ -19,8 +19,36 @@ class EventOrder extends Model
      * @var array
      */
     protected $fillable = [
-        'user_id', 'event_id', 'transaction_id', 'payment_gross', 'currency_code', 'payer_email', 'payment_status', 'ticket_id', 'quantity', 'ticket_price', 'paypal_token', 'payment_method', 'is_deal_availed', 'discount', 'hot_deal_id'
+        'user_id', 'event_id', 'transaction_id', 'payment_gross', 'currency_code', 'payer_email', 'payment_status', 'ticket_id', 'quantity', 'ticket_price', 'paypal_token', 'payment_method', 'is_deal_availed', 'discount', 'hot_deal_id', 'qr_image', 'ticket_pdf'
     ];
+
+    /**
+     * The attributes that appended to the model
+     *
+     * @var array
+     */
+    protected $appends = ['directory', 'encrypted_id'];
+
+    /**
+     * Get Encrypted Id of the model instance
+     *
+     * @var array
+     */
+    public function getEncryptedIdAttribute()
+    {
+        return encrypt_id($this->id);
+    }
+
+    /**
+     * Get Directory of the model instance
+     *
+     * @var array
+     */
+    public function getDirectoryAttribute()
+    {
+        $directory = getDirectory('orders', $this->id);
+        return $directory['web_path'];
+    }
 
     /**
      * Get Order Event

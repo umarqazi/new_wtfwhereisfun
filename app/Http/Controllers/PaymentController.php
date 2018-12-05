@@ -7,6 +7,8 @@ use App\Services\Events\EventHotDealService;
 use App\Services\Events\EventTicketService;
 use App\Services\MailService;
 use App\Services\Payments\CheckoutService;
+use App\Services\PdfService;
+use App\Services\QrCodeService;
 use Illuminate\Http\Request;
 use Srmklive\PayPal\Services\ExpressCheckout;
 class PaymentController extends Controller
@@ -15,6 +17,8 @@ class PaymentController extends Controller
     protected $checkoutService;
     protected $hotDealService;
     protected $mailService;
+    protected $qrCodeService;
+    protected $pdfService;
 
     public function __construct()
     {
@@ -22,6 +26,8 @@ class PaymentController extends Controller
         $this->checkoutService     = new CheckoutService;
         $this->hotDealService      = new EventHotDealService;
         $this->mailService         = new MailService;
+        $this->qrCodeService       = new QrCodeService;
+        $this->pdfService          = new PdfService;
     }
 
     public function checkout(Request $request){
@@ -61,7 +67,9 @@ class PaymentController extends Controller
         $amount     = $this->checkoutService->calculateDealPrice($hotDeal, $ticket, $request->quantity);
         $charge     = $this->checkoutService->completeStripeProcess($request->all(), $amount);
         $order      = $this->checkoutService->storeOrder($request->all(), $userId, $ticket, $charge);
-        $this->mailService->ticketNotification($order);
+        $qrImg      = $this->qrCodeService->generateOrderQR($order->id);
+        $orderPdf   = $this->pdfService->generateTicketPdf($order->id);
+        $this->mailService->ticketNotification($order->id);
         return View('payments.success')->with('orderDetails', $order);
     }
 

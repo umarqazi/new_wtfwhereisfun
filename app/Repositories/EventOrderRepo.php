@@ -11,6 +11,10 @@ class EventOrderRepo
         $this->orderModel = new EventOrder();
     }
 
+    public function getOrderById($id){
+        return $this->orderModel->find($id);
+    }
+
     public function getUserTickets($userId){
         return $this->orderModel->getUserOrders($userId)->getCompletedOrders()->recentCreatedAt()->get();
     }
@@ -33,6 +37,14 @@ class EventOrderRepo
 
     public function getMonthOrderByTickets($ticketId){
         return $this->orderModel->getMonthlyTicketOrders($ticketId)->getCompletedOrders()->get();
+    }
+
+    public function updateQrImage($id, $img){
+        return $this->orderModel->where('id', $id)->update(['qr_image' => $img]);
+    }
+
+    public function updatePdfName($id, $name){
+        return $this->orderModel->where('id', $id)->update(['ticket_pdf' => $name]);
     }
 
 }
