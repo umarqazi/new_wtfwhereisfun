@@ -142,7 +142,7 @@
                             </div>
 
                             <div>
-                                <input name="user_status" type="radio" id="radio_7" value="new" class="with-gap" onchange="getUserForm(this)" required>
+                                <input name="user_status" type="radio" id="radio_7" value="new" class="with-gap" onchange="getUserForm(this)">
                                 <label for="radio_7">
                                     Create New Account
                                 </label>
