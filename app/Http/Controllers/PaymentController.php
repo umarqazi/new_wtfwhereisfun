@@ -17,7 +17,7 @@ class PaymentController extends Controller
     protected $checkoutService;
     protected $hotDealService;
     protected $mailService;
-    protected $qRCodeService;
+    protected $qrCodeService;
     protected $pdfService;
 
     public function __construct()
@@ -26,7 +26,7 @@ class PaymentController extends Controller
         $this->checkoutService     = new CheckoutService;
         $this->hotDealService      = new EventHotDealService;
         $this->mailService         = new MailService;
-        $this->qRCodeService       = new QrCodeService;
+        $this->qrCodeService       = new QrCodeService;
         $this->pdfService          = new PdfService;
     }
 
@@ -67,7 +67,7 @@ class PaymentController extends Controller
         $amount     = $this->checkoutService->calculateDealPrice($hotDeal, $ticket, $request->quantity);
         $charge     = $this->checkoutService->completeStripeProcess($request->all(), $amount);
         $order      = $this->checkoutService->storeOrder($request->all(), $userId, $ticket, $charge);
-        $qrImg      = $this->qRCodeService->generateOrderQR($order->id);
+        $qrImg      = $this->qrCodeService->generateOrderQR($order->id);
         $orderPdf   = $this->pdfService->generateTicketPdf($order->id);
         $this->mailService->ticketNotification($order->id);
         return View('payments.success')->with('orderDetails', $order);
