@@ -64,7 +64,7 @@
             </td>
             <td style="" colspan="">
                 <p class="">
-                    <a href="{{url('/').'/'.$order->event->organizer->slug}}">Visit Organizer Page</a>
+                    <a href="{{url('/').'/organizer/'.$order->event->organizer->slug}}">Visit Organizer Page</a>
                 </p>
             </td>
 
