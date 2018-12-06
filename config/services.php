@@ -35,4 +35,16 @@ return [
         'secret' => env('STRIPE_SECRET'),
     ],
 
+//    'facebook' => [
+//        'client_id' => env('FACEBOOK_APP_ID'),         // Your GitHub Client ID
+//        'client_secret' => env('FACEBOOK_APP_SECRET'), // Your GitHub Client Secret
+//        'redirect' => env('APP_URL').env('FACEBOOK_REDIRECT_URL'),
+//    ],
+
+    'facebook' => [
+        'client_id' => '2321030821302722',         // Your GitHub Client ID
+        'client_secret' => 'b8989ab478cce0255215e3f4166e2aaa', // Your GitHub Client Secret
+        'redirect' => url('auth/facebook/callback'),
+    ],
+
 ];

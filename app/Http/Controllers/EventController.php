@@ -42,6 +42,7 @@ use App\Http\Requests\EventTicket;
 use App\Http\Requests\EventTicketPass;
 use App\Http\Requests\EventTimeLocation;
 use Carbon\Carbon;
+use Facebook\Facebook;
 class EventController extends Controller
 {
     protected $eventService;
@@ -549,9 +550,9 @@ class EventController extends Controller
         $locationId     = decrypt_id($locationId);
         $event          = $this->eventLocationService->getLocationEvent($locationId);
         $location       = $this->eventLocationService->getTimeLocation($locationId);
-        $totalRevenue   =   $this->eventRevenueService->getTotalRevenueByLocation($locationId);
-        $weekRevenue    =   $this->eventRevenueService->getWeekRevenueByLocation($locationId);
-        $monthRevenue   =   $this->eventRevenueService->getMonthRevenueByLocation($locationId);
+        $totalRevenue   = $this->eventRevenueService->getTotalRevenueByLocation($locationId);
+        $weekRevenue    = $this->eventRevenueService->getWeekRevenueByLocation($locationId);
+        $monthRevenue   = $this->eventRevenueService->getMonthRevenueByLocation($locationId);
         $orderIds       = $totalRevenue['orders']->pluck('id')->toArray();
         $disputes       = $this->disputeService->getByOrderId($orderIds);
         $eventOrganizer = $event->organizer;
@@ -570,4 +571,190 @@ class EventController extends Controller
         $totalRevenue   =   $this->eventRevenueService->getTotalRevenueByLocation($locationId);
         return View('events.dashboard-orders')->with(['event' => $event, 'location' => $location, 'totalRevenue' => $totalRevenue]);
     }
+
+    public function login(){
+        $fb = new Facebook([
+            'app_id' => '2169416569759428', // Replace {app-id} with your app id
+            'app_secret' => '2870de610c559e3c64ca307b776f939c',
+            'default_graph_version' => 'v2.2',
+        ]);
+
+        $helper = $fb->getRedirectLoginHelper();
+
+        $permissions = ['email']; // Optional permissions
+        $loginUrl = $helper->getLoginUrl('https://wtfwheresthefun.localhost'.'/fb-callback', $permissions);
+
+        echo '<a href="' . htmlspecialchars($loginUrl) . '">Log in with Facebook!</a>';
+    }
+
+    public function callback(){
+        $fb = new Facebook([
+            'app_id' => '2169416569759428', // Replace {app-id} with your app id
+            'app_secret' => '2870de610c559e3c64ca307b776f939c',
+            'default_graph_version' => 'v2.2',
+            'cookie' => false,
+            'scope' => 'manage_pages'
+        ]);
+
+        $helper = $fb->getRedirectLoginHelper();
+        if (isset($_GET['state'])) {
+            $helper->getPersistentDataHandler()->set('state', $_GET['state']);
+        }
+
+        try {
+            $accessToken = $helper->getAccessToken();
+        } catch(Facebook\Exceptions\FacebookResponseException $e) {
+            // When Graph returns an error
+            echo 'Graph returned an error: ' . $e->getMessage();
+            exit;
+        } catch(Facebook\Exceptions\FacebookSDKException $e) {
+            // When validation fails or other local issues
+            echo 'Facebook SDK returned an error: ' . $e->getMessage();
+            exit;
+        }
+
+        $page_id = '321441951777744';
+
+// Now, getting the PAGE Access token, using the user access token
+        $page_access_token = "";
+        try {
+            // Returns a `Facebook\FacebookResponse` object
+            $response = $fb->get('321441951777744?access_token&access_token='.$accessToken);
+        } catch(Facebook\Exceptions\FacebookResponseException $e) {
+            echo 'Graph returned an error: ' . $e->getMessage();
+            exit;
+        } catch(Facebook\Exceptions\FacebookSDKException $e) {
+            echo 'Facebook SDK returned an error: ' . $e->getMessage();
+            exit;
+        }
+        dd($response);
+        /* handle the result */
+        dd($graphNode);
+//        $result = $fb->api("/me/accounts");
+        $result = $fb->api('/me/accounts?fields='.$accessToken);
+        foreach($result["data"] as $page) {
+            if($page["id"] == $page_id) {
+                $page_access_token = $page["access_token"];
+                break;
+            }
+        }
+        dd($page_access_token);
+//        $this->postFacebookEvent($accessToken->getValue(), $fb);
+
+        if (! isset($accessToken)) {
+            if ($helper->getError()) {
+                header('HTTP/1.0 401 Unauthorized');
+                echo "Error: " . $helper->getError() . "\n";
+                echo "Error Code: " . $helper->getErrorCode() . "\n";
+                echo "Error Reason: " . $helper->getErrorReason() . "\n";
+                echo "Error Description: " . $helper->getErrorDescription() . "\n";
+            } else {
+                header('HTTP/1.0 400 Bad Request');
+                echo 'Bad request';
+            }
+            exit;
+        }
+
+// Logged in
+        echo '<h3>Access Token</h3>';
+        var_dump($accessToken->getValue());
+
+// The OAuth 2.0 client handler helps us manage access tokens
+        $oAuth2Client = $fb->getOAuth2Client();
+
+// Get the access token metadata from /debug_token
+        $tokenMetadata = $oAuth2Client->debugToken($accessToken);
+        echo '<h3>Metadata</h3>';
+        var_dump($tokenMetadata);
+
+// Validation (these will throw FacebookSDKException's when they fail)
+        $tokenMetadata->validateAppId('2169416569759428'); // Replace {app-id} with your app id
+// If you know the user ID this access token belongs to, you can validate it here
+//$tokenMetadata->validateUserId('123');
+        $tokenMetadata->validateExpiration();
+
+        if (! $accessToken->isLongLived()) {
+            // Exchanges a short-lived access token for a long-lived one
+            try {
+                $accessToken = $oAuth2Client->getLongLivedAccessToken($accessToken);
+            } catch (Facebook\Exceptions\FacebookSDKException $e) {
+                echo "<p>Error getting long-lived access token: " . $e->getMessage() . "</p>\n\n";
+                exit;
+            }
+
+            echo '<h3>Long-lived</h3>';
+            var_dump($accessToken->getValue());
+        }
+
+        $_SESSION['fb_access_token'] = (string) $accessToken;
+
+// User is logged in with a long-lived access token.
+// You can redirect them to a members-only page.
+//header('Location: https://example.com/members.php');
+    }
+
+    public function postFacebookEvent($access_token, $facebook){
+
+        $page_id = '321441951777744';
+
+// Now, getting the PAGE Access token, using the user access token
+
+        $page_access_token = "";
+        dd($facebook);
+        $result = $facebook->api("/me/accounts");
+        foreach($result["data"] as $page) {
+            if($page["id"] == $page_id) {
+                $page_access_token = $page["access_token"];
+                break;
+            }
+        }
+
+//        $page_token_url = "https://graph.facebook.com/".$page_id."?fields=access_token&" . $access_token;
+//        $page_token_url = str_replace("amp;","", $page_token_url);
+//        $response = file_get_contents($page_token_url);
+//
+//// Parse the return value and get the Page access token
+//        $resp_obj = json_decode($response,true);
+
+//        $page_access_token = $resp_obj['access_token'];
+
+// Declare the variables we'll use to demonstrate
+// the new event-management APIs
+        $event_id = 0;
+        $event_name = "DjJazz";
+        $event_start = time() + rand(1, 100) * rand(24, 64) * 3600;
+        $event_privacy = "SECRET"; // We'll make it secret so we don't annoy folks.
+
+// We'll create an event in this example.
+// We'll need create_event permission for this.
+        $params = array(
+            'name' => $event_name,
+            'start_time' => $event_start,
+            'privacy_type' => $event_privacy,
+            'access_token' => $page_access_token,
+            'page_id' => $page_id //where $page_id is the ID of the page you are managing
+        );
+
+// Create an event
+        $ret_obj = $facebook->api("/$page_id/events", 'POST', $params);
+        if(isset($ret_obj['id'])) {
+            // Success
+            $event_id = $ret_obj['id'];
+            printMsg('Event ID: ' . $event_id);
+        } else {
+            printMsg("Couldn't create event.");
+        }
+
+// Convenience method to print simple pre-formatted text.
+        function printMsg($msg) {
+            echo "<pre>$msg</pre>";
+        }
+
+    }
+
+    public function pdf(){
+        $order = $this->eventOrderService->getOrderById(1);
+        return View('payments.order-pdf')->with(['order' => $order, 'path' => $order->directory]);
+    }
+
 }

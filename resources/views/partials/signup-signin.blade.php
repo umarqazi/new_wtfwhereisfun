@@ -40,11 +40,11 @@
                                         </div>
                                         <button type="submit" class="btn  btn-default sign-in-btn login-btn">Sign in</button>
 
-                                        {{--<div class="othr-signin">--}}
-                                            {{--<a href="javascript:void(0);" onclick="fbLogin()" class="btn btn-default facebook-btn">Connect with Facebook</a>--}}
-                                            {{--<a class="btn  btn-default google-btn" href="{{url('hauth/login/Google')}}">Connect with Google</a>--}}
-                                            {{--<a class="btn  btn-default linkedin-btn" href="{{url('hauth/login/LinkedIn')}}">Connect with Linkedin</a>--}}
-                                        {{--</div>--}}
+                                        <div class="othr-signin">
+                                            <a href="{{url('auth/facebook')}}" class="btn btn-default facebook-btn">Connect with Facebook</a>
+                                            <a class="btn btn-default google-btn" href="{{url('hauth/login/Google')}}">Connect with Google</a>
+                                            <a class="btn btn-default linkedin-btn" href="{{url('hauth/login/LinkedIn')}}">Connect with Linkedin</a>
+                                        </div>
                                     </form>
                                 </div>
                             </div>
