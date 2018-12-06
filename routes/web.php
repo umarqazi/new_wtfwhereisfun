@@ -26,6 +26,10 @@ Route::group(['middleware' => ['web']], function () {
     Route::post('do-register', 'MainController@register');
     Route::get('user/verify/{token}', 'MainController@verifyUser');
 
+    // OAuth Routes
+    Route::get('auth/{provider}', 'MainController@redirectToProvider');
+    Route::get('auth/{provider}/callback', 'MainController@handleProviderCallback');
+
     Route::get('forgot-password', 'MainController@forgetPassword');
     Route::post('do-forgot-password', 'MainController@doForgetPassword');
     Route::get('reset-password/{token}', 'MainController@resetPassword');
@@ -139,7 +143,8 @@ Route::group(['middleware' => ['web']], function () {
 
     Route::post('search-events', 'MainController@searchEvents');
 
-    Route::get('qr', 'EventController@qr');
+    Route::get('pdf', 'EventController@pdf');
+    Route::get('fb-callback', 'EventController@callback');
 
 });
 

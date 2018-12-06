@@ -22,6 +22,9 @@ class UsersTableSeeder extends Seeder
         factory(App\User::class, 1)->create(['email' => 'jazib.javed@gems.techverx.com'])->each(function($user){
             $user->assignRole(2);
         });
+        factory(App\User::class, 1)->create(['email' => 'awaiss@gems.techverx.com'])->each(function($user){
+            $user->assignRole(2);
+        });
         factory(App\User::class, 1)->create(['email' => 'admin@site.com'])->each(function($user){
             $user->assignRole(4);
         });
