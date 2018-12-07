@@ -2,10 +2,12 @@
 
 namespace App\Repositories;
 
+use App\Mail\SocialSignUp;
 use App\User;
 use App\UserEmailPreference;
 use Illuminate\Support\Facades\Auth;
 use App\Role;
+use Illuminate\Support\Facades\Mail;
 class UserRepo
 {
     /**
@@ -139,17 +141,25 @@ class UserRepo
             return $authUser;
         }else{
             $names = getFirstLastName($user->name);
-            $user = $this->userModel->create([
+            $authUser = $this->userModel->create([
                 'first_name'    => $names['first'],
                 'last_name'     => $names['last'],
                 'email'         => $user->email,
                 'provider'      => $provider,
-                'provider_id'   => $user->id
+                'provider_id'   => $user->id,
+                'is_verified'   => 1
             ]);
-            $user->assignRole('normal');
+
+            $reset_password = ResetPassword::create([
+                'user_id'   => $authUser->id,
+                'token'     => str_random(30)
+            ]);
+
+            Mail::to($authUser->email)->send(new SocialSignUp($reset_password));
+
+            return $authUser;
         }
 
-        return $user;
     }
 }
 
