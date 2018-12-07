@@ -181,4 +181,12 @@ class UserServices
         }
         return $response;
     }
+
+    public function handleSocialUser($user, $provider){
+        $authUser = $this->userRepo->findSocialUser($user, $provider);
+        Auth::login($authUser, true);
+        return $authUser;
+    }
+
+
 }

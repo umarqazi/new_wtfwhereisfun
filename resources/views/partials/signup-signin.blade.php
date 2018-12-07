@@ -42,8 +42,8 @@
 
                                         <div class="othr-signin">
                                             <a href="{{url('auth/facebook')}}" class="btn btn-default facebook-btn">Connect with Facebook</a>
-                                            <a class="btn btn-default google-btn" href="{{url('hauth/login/Google')}}">Connect with Google</a>
-                                            <a class="btn btn-default linkedin-btn" href="{{url('hauth/login/LinkedIn')}}">Connect with Linkedin</a>
+                                            <a class="btn btn-default google-btn" href="{{url('auth/google')}}">Connect with Google</a>
+                                            <a class="btn btn-default linkedin-btn" href="{{url('auth/linkedIn')}}">Connect with Linkedin</a>
                                         </div>
                                     </form>
                                 </div>

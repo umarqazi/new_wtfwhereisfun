@@ -26,3 +26,13 @@ if (! function_exists('removeFirstParam')){
         return substr($path, strpos($path, '/') + 1);
     }
 }
+
+if (! function_exists('getFirstLastName')){
+    function getFirstLastName($name)
+    {
+        $parts = explode(" ", $name);
+        $lastname = array_pop($parts);
+        $firstname = implode(" ", $parts);
+        return ['first' => $firstname, 'last' => $lastname];
+    }
+}

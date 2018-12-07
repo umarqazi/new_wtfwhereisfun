@@ -116,6 +116,31 @@ class UserRepo
     public function updateProfileImage($file, $id){
         $this->userModel->where('id', $id)->update(['profile_thumbnail' => $file]);
     }
+
+    /**
+    _ If a user has registered before using social auth, return the user
+    _ else, create a new user object.
+    _ @param  $user Socialite user object
+    _ @param $provider Social auth provider
+    _ @return  User
+     */
+    public function findSocialUser($user, $provider)
+    {
+        $authUser = $this->userModel->where('provider_id', $user->id)->first();
+        if ($authUser) {
+            return $authUser;
+        }
+        $names = getFirstLastName($user->name);
+        $user = $this->userModel->create([
+            'first_name'    => $names['first'],
+            'last_name'     => $names['last'],
+            'email'         => $user->email,
+            'provider'      => $provider,
+            'provider_id'   => $user->id
+        ]);
+//        $user->assignRole($role);
+        return $user;
+    }
 }
 
 

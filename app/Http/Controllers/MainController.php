@@ -27,6 +27,7 @@ use App\Mail\VerifyMail;
 use Illuminate\Support\Facades\Crypt;
 use Spatie\Permission\Traits\HasRoles;
 use Socialite;
+use App\User;
 class MainController extends Controller
 {
     use HasRoles;
@@ -295,33 +296,9 @@ class MainController extends Controller
     public function handleProviderCallback($provider)
     {
         $user = Socialite::driver($provider)->user();
-
-        $authUser = $this->findOrCreateUser($user, $provider);
-        Auth::login($authUser, true);
-        return redirect($this->redirectTo);
+        $response = $this->userServices->handleSocialUser($user, $provider);
+        return redirect(url('/'));
     }
-
-    /**
-    _ If a user has registered before using social auth, return the user
-    _ else, create a new user object.
-    _ @param  $user Socialite user object
-    _ @param $provider Social auth provider
-    _ @return  User
-     */
-    public function findOrCreateUser($user, $provider)
-    {
-        $authUser = User::where('provider_id', $user->id)->first();
-        if ($authUser) {
-            return $authUser;
-        }
-        return User::create([
-            'name'     => $user->name,
-            'email'    => $user->email,
-            'provider' => $provider,
-            'provider_id' => $user->id
-        ]);
-    }
-
 
     public function aboutUs(){
         $content = $this->contentService->getContent($type = 'ABOUT_US');
