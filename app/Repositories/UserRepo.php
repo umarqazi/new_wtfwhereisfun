@@ -5,6 +5,7 @@ namespace App\Repositories;
 use App\User;
 use App\UserEmailPreference;
 use Illuminate\Support\Facades\Auth;
+use App\Role;
 class UserRepo
 {
     /**
@@ -130,15 +131,24 @@ class UserRepo
         if ($authUser) {
             return $authUser;
         }
-        $names = getFirstLastName($user->name);
-        $user = $this->userModel->create([
-            'first_name'    => $names['first'],
-            'last_name'     => $names['last'],
-            'email'         => $user->email,
-            'provider'      => $provider,
-            'provider_id'   => $user->id
-        ]);
-//        $user->assignRole($role);
+        $authUser = $this->userModel->where('email', $user->email)->first();
+        if($authUser){
+            $authUser->provider_id  = $user->id;
+            $authUser->provider     = $provider;
+            $authUser->save();
+            return $authUser;
+        }else{
+            $names = getFirstLastName($user->name);
+            $user = $this->userModel->create([
+                'first_name'    => $names['first'],
+                'last_name'     => $names['last'],
+                'email'         => $user->email,
+                'provider'      => $provider,
+                'provider_id'   => $user->id
+            ]);
+            $user->assignRole('normal');
+        }
+
         return $user;
     }
 }

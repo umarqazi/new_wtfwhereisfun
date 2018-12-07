@@ -36,21 +36,23 @@ return [
     ],
 
     'facebook' => [
-        'client_id' => env('FACEBOOK_APP_ID'),         // Your GitHub Client ID
-        'client_secret' => env('FACEBOOK_APP_SECRET'), // Your GitHub Client Secret
+        'client_id' => env('FACEBOOK_APP_ID'),         // Your Facebook Client ID
+        'client_secret' => env('FACEBOOK_APP_SECRET'), // Your Facebook Client Secret
         'redirect' => env('APP_URL').env('FACEBOOK_REDIRECT_URL'),
     ],
 
 
     'google' => [
-        'client_id' => env('GOOGLE_APP_ID'),         // Your GitHub Client ID
-        'client_secret' => env('GOOGLE_APP_SECRET'), // Your GitHub Client Secret
+        'client_id' => env('GOOGLE_APP_ID'),         // Your Google Client ID
+        'client_secret' => env('GOOGLE_APP_SECRET'), // Your Google Client Secret
         'redirect' => env('APP_URL').env('GOOGLE_REDIRECT_URL'),
     ],
-//    'facebook' => [
-//        'client_id' => env('FACEBOOK_APP_ID'),         // Your GitHub Client ID
-//        'client_secret' => env('FACEBOOK_APP_SECRET'), // Your GitHub Client Secret
-//        'redirect' => env('APP_URL').env('FACEBOOK_REDIRECT_URL'),
-//    ],
+
+
+    'linkedin' => [
+        'client_id' => env('LINKEDIN_APP_ID'),      // Your Linkedin Client ID
+        'client_secret' => env('LINKEDIN_APP_SECRET'),  // Your Linkedin Client Secret
+        'redirect' => env('APP_URL').env('LINKEDIN_REDIRECT_URL'),
+    ],
 
 ];

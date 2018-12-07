@@ -15,8 +15,6 @@ use Illuminate\Support\Facades\Config;
 use App\Role;
 use App\Services\AddressServices;
 use App\Repositories\UserRepo;
-
-
 class UserServices
 {
     protected $userRepo;
