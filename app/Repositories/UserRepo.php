@@ -8,6 +8,7 @@ use App\UserEmailPreference;
 use Illuminate\Support\Facades\Auth;
 use App\Role;
 use Illuminate\Support\Facades\Mail;
+use App\ResetPassword;
 class UserRepo
 {
     /**
@@ -120,6 +121,12 @@ class UserRepo
         $this->userModel->where('id', $id)->update(['profile_thumbnail' => $file]);
     }
 
+    public function updateRole($request, $userId){
+        $user = $this->userModel->find($userId);
+        $user->assignRole($request['role']);
+        return true;
+    }
+
     /**
     _ If a user has registered before using social auth, return the user
     _ else, create a new user object.
@@ -127,7 +134,7 @@ class UserRepo
     _ @param $provider Social auth provider
     _ @return  User
      */
-    public function findSocialUser($user, $provider)
+    public function findCreateSocialUser($user, $provider)
     {
         $authUser = $this->userModel->where('provider_id', $user->id)->first();
         if ($authUser) {
@@ -156,10 +163,8 @@ class UserRepo
             ]);
 
             Mail::to($authUser->email)->send(new SocialSignUp($reset_password));
-
             return $authUser;
         }
-
     }
 }
 

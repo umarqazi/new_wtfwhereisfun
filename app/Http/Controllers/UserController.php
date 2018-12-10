@@ -79,6 +79,30 @@ class UserController extends Controller
     }
 
     /**
+     * Show the User Role selection form.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function selectRole()
+    {
+        $user = Auth::user();
+        alert('Please select your Role first', 'Required');
+        return view('users.select-role')->with(['user' => $user]);
+    }
+
+    /**
+     * Update User Role
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function updateUserRole(Request $request)
+    {
+        $this->userServices->updateUserRole($request->all(), Auth::user()->id);
+        alert('Your Role has updated Successfully!', 'Success');
+        return redirect('/');
+    }
+
+    /**
      * Show the application's vendor dashboard.
      *
      * @return \Illuminate\Http\Response

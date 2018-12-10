@@ -181,9 +181,13 @@ class UserServices
     }
 
     public function handleSocialUser($user, $provider){
-        $authUser = $this->userRepo->findSocialUser($user, $provider);
+        $authUser = $this->userRepo->findCreateSocialUser($user, $provider);
         Auth::login($authUser, true);
         return $authUser;
+    }
+
+    public function updateUserRole($request, $userId){
+        return $this->userRepo->updateRole($request, $userId);
     }
 
 
