@@ -127,13 +127,6 @@ class UserRepo
         return true;
     }
 
-    /**
-    _ If a user has registered before using social auth, return the user
-    _ else, create a new user object.
-    _ @param  $user Socialite user object
-    _ @param $provider Social auth provider
-    _ @return  User
-     */
     public function findCreateSocialUser($user, $provider)
     {
         $authUser = $this->userModel->where('provider_id', $user->id)->first();
