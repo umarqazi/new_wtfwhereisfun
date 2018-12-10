@@ -16,6 +16,8 @@ class AlterUsersTable extends Migration
         Schema::table('users', function (Blueprint $table) {
             $table->string('payment_email')->nullable();
             $table->string('payment_method')->nullable();
+            $table->string('provider')->nullable();
+            $table->string('provider_id')->nullable();
         });
     }
 
@@ -29,6 +31,8 @@ class AlterUsersTable extends Migration
         Schema::table('users', function (Blueprint $table) {
             $table->dropColumn('payment_email');
             $table->dropColumn('payment_method');
+            $table->dropColumn('provider');
+            $table->dropColumn('provider_id');
         });
 
     }

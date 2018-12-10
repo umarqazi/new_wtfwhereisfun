@@ -15,8 +15,6 @@ use Illuminate\Support\Facades\Config;
 use App\Role;
 use App\Services\AddressServices;
 use App\Repositories\UserRepo;
-
-
 class UserServices
 {
     protected $userRepo;
@@ -181,4 +179,16 @@ class UserServices
         }
         return $response;
     }
+
+    public function handleSocialUser($user, $provider){
+        $authUser = $this->userRepo->findCreateSocialUser($user, $provider);
+        Auth::login($authUser, true);
+        return $authUser;
+    }
+
+    public function updateUserRole($request, $userId){
+        return $this->userRepo->updateRole($request, $userId);
+    }
+
+
 }
