@@ -44,6 +44,7 @@
                                                 <li><a href="{{url('profile')}}">Profile</a></li>
                                                 <li><a href="{{url('events/create')}}">Create Events</a></li>
                                                 <li><a href="{{url('my-events')}}">My Events</a></li>
+                                                <li><a href="{{route('calendar')}}">Events Calendar</a></li>
                                                 <li><a href="{{url('my-tickets')}}">My Tickets</a></li>
                                                 <li><a href="{{url('organizers/create')}}">Manage Organizers</a></li>
                                                 <li><a href="{{url('complaints')}}">Complaints</a></li>
@@ -111,6 +112,7 @@
                                                 <li><a href="{{url('profile')}}">Profile</a></li>
                                                 <li><a href="{{url('events/create')}}">Create Event</a></li>
                                                 <li><a href="{{url('my-events')}}">My Events</a></li>
+                                                <li><a href="{{route('calendar')}}">Events Calendar</a></li>
                                                 <li><a href="{{url('my-tickets')}}">My Tickets</a></li>
                                                 <li><a href="{{url('organizers/create')}}">Manage Organizers</a></li>
                                                 <li><a href="{{url('complaints')}}">Complaints</a></li>

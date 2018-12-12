@@ -2,8 +2,15 @@
 
 namespace App\Exceptions;
 
+use ErrorException;
 use Exception;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Auth\AuthenticationException;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Psy\Exception\FatalErrorException;
+use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+
 
 class Handler extends ExceptionHandler
 {
@@ -13,7 +20,12 @@ class Handler extends ExceptionHandler
      * @var array
      */
     protected $dontReport = [
-        //
+        \Illuminate\Auth\AuthenticationException::class,
+        \Illuminate\Auth\Access\AuthorizationException::class,
+        \Symfony\Component\HttpKernel\Exception\HttpException::class,
+        \Illuminate\Database\Eloquent\ModelNotFoundException::class,
+        \Illuminate\Session\TokenMismatchException::class,
+        \Illuminate\Validation\ValidationException::class,
     ];
 
     /**
@@ -48,6 +60,30 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
+        if ($exception instanceof NotFoundHttpException) {
+            if ($request->expectsJson()) {
+                return response()->json(['error' => 'Not Found'], 404);
+            }
+            return response()->view('errors/404', ['NotFound' => true], 404);
+        }
+        elseif ($exception instanceof  MethodNotAllowedHttpException){
+            if ($request->expectsJson()) {
+                return response()->json(['error' => 'Not Found'], 404);
+            }
+            return response()->view('errors/404', ['MethodNotAllowed' => true], 404);
+        }
+        elseif($exception instanceof ErrorException){
+            if ($request->expectsJson()) {
+                return response()->json(['error' => 'Not Found'], 404);
+            }
+            return response()->view('errors/404', ['NotFound' => true], 404);
+        }
+        elseif ($exception instanceof  ModelNotFoundException){
+            if ($request->expectsJson()) {
+                return response()->json(['error' => 'Not Found'], 404);
+            }
+            return response()->view('errors/404', ['ModelNotFound' => true], 404);
+        }
         return parent::render($request, $exception);
     }
 }
