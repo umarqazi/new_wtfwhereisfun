@@ -27,43 +27,45 @@
     <div style="border: 3px solid #474749;">
         <table width="100%" style="border-collapse: collapse;">
             <tr style="background:#474749" height="250px">
-                <td style="color:#fff;">
+                <td style="color:#fff; padding: 10px 20px;">
                     <h2 style="margin-bottom: 0px;">This is your Ticket</h2>
                     <p style="margin-top: 0px;">Present this ticket page at the event</p>
                 </td>
-                <td style="text-align: right; vertical-align: middle"><img src="{{asset('img/logos/stub-logo.png')}}"  width="150px"></td>
+                <td style="text-align: right; vertical-align: middle; padding: 10px 20px;"><img src="{{asset('img/logos/stub-logo.png')}}"  width="150px"></td>
             </tr>
         </table>
-        <table width="100%" style="border-collapse: collapse;">
-            <tr style="padding-left:20px;">
-                <td style="">
-                    <p style="color:#86C543;"><strong>Event</strong></p>
+        <table width="100%" style="border-collapse: collapse; background: #f3f3f3; border-bottom: solid 2px #fff;">
+            <tr>
+                <td style="padding: 15px;">
+                    <p style="color:#86C543;">
+                        <strong>Event</strong>
+                    </p>
                 </td>
-                <td style="">
+                <td style="padding: 15px;">
                     <p class="">{{$order->event->title}}</p>
                 </td>
 
-                <td style="">
+                <td style="padding: 15px;">
                     <p style="color:#86C543;"><strong>Event Organizer</strong></p>
                 </td>
-                <td style="">
+                <td style="padding: 15px;">
                     <p class="">{{$order->event->organizer->name}}</p>
                 </td>
             </tr>
 
-            <tr style="padding-left:20px;">
-                <td style="">
+            <tr>
+                <td style="padding: 15px;">
                     <p style="color:#86C543;"><strong>Organizer Contact</strong></p>
                 </td>
-                <td style="">
-                    <p class="">
+                <td style="padding: 15px;">
+                    <p>
                         {{$order->event->organizer->contact}}
                     </p>
                 </td>
-                <td style="">
+                <td style="padding: 15px;">
                     <p style="color:#86C543;"><strong>Organizer Page</strong></p>
                 </td>
-                <td style="" colspan="">
+                <td style="padding: 15px;" colspan="">
                     <p class="">
                         <a href="{{url('/').'/organizer/'.$order->event->organizer->slug}}">Visit Organizer Page</a>
                     </p>
@@ -73,24 +75,45 @@
 
         </table>
 
-        <table style="min-width: 100%; border-collapse: collapse; margin-top: 20px">
+        <table style="min-width: 100%; border-collapse: collapse;">
             <tr>
-                <td style="border: solid 1px #eee; width: 65%; background: #e2e3e5; padding: 10px;">
-                    <h3>Event Details</h3>
-                    <p><strong>Event Name : </strong>{{$order->event->title}}</p>
-                    <p><strong>Ticket Name : </strong>{{$order->ticket->name}}</p>
-                    <p><strong>Event Location : </strong>{{$order->ticket->time_location->location}}</p>
-                    <p><strong>Event Date : </strong>{{$order->ticket->time_location->starting->format('D, M d')}} - {{$order->ticket->time_location->ending->format('D, M d')}}</p>
-                    <p><strong>Event Time : </strong>{{$order->ticket->time_location->starting->format('g:i A')}}  - {{$order->ticket->time_location->ending->format('g:i A')}}</p>
+                <td style="border: solid 1px #eee; width: 55%; background: #efefef; padding: 10px; border-right: #fff solid 3px; vertical-align: top;">
+                    <h3 style="color: #5aa92a; font-weight: 600; border-bottom: #c1c1c1 solid 1px; padding-bottom: 10px;">Event Details</h3>
+                    <div style="border-right: #c1c1c1 solid 1px; width: 30%; display: inline-block; padding: 15px 0px; vertical-align: top;">
+
+                        <p style="padding: 10px; margin-bottom:0px;">Event Name : </p>
+                        <p style="padding: 10px; margin-bottom:0px;">Ticket Name : </p>
+                        <p style="padding: 10px; margin-bottom:0px;">Event Location : </p>
+                        <p style="padding: 10px; margin-bottom:0px;">Event Date : </p>
+                        <p style="padding: 10px; margin-bottom:0px;">Event Time : </p>
+                    </div>
+
+                    <div style=" display: inline-block; padding: 15px 0px;  width: 68%; vertical-align: top">
+                        <p style="padding: 10px; margin-bottom:0px;">{{$order->event->title}}</p>
+                        <p style="padding: 10px; margin-bottom:0px;">{{$order->ticket->name}}</p>
+                        <p style="padding: 10px; margin-bottom:0px;">{{$order->ticket->time_location->location}}</p>
+                        <p style="padding: 10px; margin-bottom:0px;">{{$order->ticket->time_location->starting->format('D, M d')}} - {{$order->ticket->time_location->ending->format('D, M d')}}</p>
+                        <p style="padding: 10px; margin-bottom:0px;">{{$order->ticket->time_location->starting->format('g:i A')}}  - {{$order->ticket->time_location->ending->format('g:i A')}}</p>
+                    </div>
                 </td>
-                <td style="width: 20px"></td>
-                <td style="border: solid 1px #eee; background: #b1b2b3; padding: 10px">
-                    <h3>Order Information</h3>
-                    <p><strong>Order Info : </strong>Order #{{$order->id}}. Ordered By {{$order->user->first_name}} on {{monthDateYearFromat($order->created_at)}} {{$order->created_at->format('g:i A')}}</p>
-                    <p><strong>Amount Paid : </strong>${{$order->payment_gross}}</p>
-                    <p><strong>Ticket Quantity : </strong>${{$order->quantity}}</p>
-                    <p><strong>Ticket Price : </strong>${{$order->ticket_price}}</p>
-                    <p><strong>Order Status : </strong>{{ucfirst($order->payment_status)}}</p>
+
+                <td style="border: solid 1px #eee; background: #e4e4e4; padding: 10px;">
+                    <h3 style="color: #5aa92a; font-weight: 600; border-bottom: #c1c1c1 solid 1px; padding-bottom: 10px;">Order Information</h3>
+                    <div style="border-right: #c1c1c1 solid 1px; width: 30%; display: inline-block; padding: 15px 0px; vertical-align: top">
+                        <p style="padding: 10px; margin-bottom:0px;">Order Info : </p>
+                        <p style="padding: 10px; margin-bottom:0px;">Amount Paid : </p>
+                        <p style="padding: 10px; margin-bottom:0px;">Ticket Quantity : </p>
+                        <p style="padding: 10px; margin-bottom:0px;">Ticket Price : </p>
+                        <p style="padding: 10px; margin-bottom:0px;">Order Status : </p>
+                    </div>
+
+                    <div style=" display: inline-block; padding: 15px 0px; vertical-align: top; width: 68%">
+                        <p style="padding: 10px; margin-bottom:0px;">Order #{{$order->id}}. Ordered By {{$order->user->first_name}} on {{monthDateYearFromat($order->created_at)}} {{$order->created_at->format('g:i A')}}</p>
+                        <p style="padding: 10px; margin-bottom:0px;">${{$order->payment_gross}}</p>
+                        <p style="padding: 10px; margin-bottom:0px;">{{$order->quantity}}</p>
+                        <p style="padding: 10px; margin-bottom:0px;">${{$order->ticket_price}}</p>
+                        <p style="padding: 10px; margin-bottom:0px;">{{ucfirst($order->payment_status)}}</p>
+                    </div>
                 </td>
             </tr>
         </table>

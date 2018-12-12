@@ -6516,3 +6516,73 @@ section.content{
    margin-top: 80px;
    padding: 30px 0;
 }
+
+.events-calendar{
+   margin:auto;
+   width:1024px;
+   margin-bottom:20px;
+}
+
+.event-color-status{
+   margin:auto;
+   width:1024px;
+}
+
+.fc-row .fc-content-skeleton td, .fc-row .fc-helper-skeleton td{
+   border-color: #ddd!important;
+}
+
+.event-color-status div{
+   display:inline-block;
+   vertical-align: middle;
+}
+
+.foo {
+   float: left;
+   width: 20px;
+   height: 20px;
+   margin: 0 5px;
+   border: 1px solid rgba(0, 0, 0, .2);
+}
+
+.calendar-yellow {
+   background: #EEE8AA;
+}
+
+.calendar-green{
+   background: #86C543;
+}
+
+.calendar-grey{
+   background: #e0e0e0;
+}
+
+#event-details .location{
+   padding-top : 0px;
+}
+
+#event-details button{
+   margin: 0;
+}
+
+#event-details .img-holder img{
+   height:150px;
+   object-fit: cover;
+   max-width:100%;
+}
+
+#event-details p{
+   margin-bottom : 0;
+}
+
+#event-details h4{
+   margin-top : 0;
+}
+
+#event-details p strong{
+   font-weight : 600;
+}
+
+.events-calendar .fc-time{
+   display : none;
+}

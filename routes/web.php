@@ -84,7 +84,6 @@ Route::group(['middleware' => ['web']], function () {
 
                 Route::post('update-payment-info', 'UserController@paymentInfoUpdate');
 
-                Route::resource('events', 'EventController');
                 Route::get('my-events', 'EventController@getMyEvents');
 
                 Route::post('get-event-sub-topics', 'EventController@getTopicSubTopics');
@@ -119,9 +118,11 @@ Route::group(['middleware' => ['web']], function () {
                     Route::post('make-hot-deal', 'EventController@makeHotDeal');
                     Route::post('remove-deal', 'EventController@removeHotDeal');
 
+                    Route::get('calendar', 'EventController@calendar')->name('calendar');
 
                 });
 
+                Route::resource('events', 'EventController');
 
                 /*Complaint Routes */
                 Route::get('complaints', 'DisputeController@showComplaints');
@@ -139,17 +140,17 @@ Route::group(['middleware' => ['web']], function () {
             });
         });
 
-        Route::prefix('events')->group(function () {
-            Route::get('today-events/all', 'EventController@getTodaysEvents')->name('today-events');
-            Route::get('future-events/all', 'EventController@getFutureEvents')->name('future-events');
-            Route::get('{id}/{locationId}', 'EventController@show')->name('showById');
-            Route::post('get-time-location', 'EventController@getTimeLocation');
-        });
-
         Route::post('search-events', 'MainController@searchEvents');
 
         Route::get('pdf', 'EventController@pdf');
         Route::get('fb-callback', 'EventController@callback');
+    });
+
+    Route::prefix('events')->group(function () {
+        Route::get('today-events/all', 'EventController@getTodaysEvents')->name('today-events');
+        Route::get('future-events/all', 'EventController@getFutureEvents')->name('future-events');
+        Route::get('{id}/{locationId}', 'EventController@show')->name('showById');
+        Route::post('get-time-location', 'EventController@getTimeLocation');
     });
 });
 

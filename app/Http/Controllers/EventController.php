@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\EventLayout;
 use App\Http\Requests\EventTopic;
 use App\Repositories\EventImageRepo;
+use App\Services\Events\EventCalendarService;
 use App\Services\Events\EventOrderService;
 use App\Services\Events\EventRevenueService;
 use App\Services\Events\TicketDisputeService;
@@ -62,6 +63,7 @@ class EventController extends Controller
     protected $eventImageService;
     protected $eventHotDealService;
     protected $eventOrderService;
+    protected $eventCalendarService;
     protected $eventRevenueService;
     protected $disputeService;
 
@@ -86,6 +88,7 @@ class EventController extends Controller
         $this->eventOrderService        = new EventOrderService();
         $this->eventRevenueService      = new EventRevenueService();
         $this->disputeService           = new TicketDisputeService();
+        $this->eventCalendarService     = new EventCalendarService();
     }
 
     /**
@@ -575,6 +578,11 @@ class EventController extends Controller
     public function pdf(){
         $order = $this->eventOrderService->getOrderById(1);
         return View('payments.order-pdf')->with(['order' => $order, 'path' => $order->directory]);
+    }
+
+    public function calendar(){
+        $calendar = $this->eventCalendarService->getVendorEventsCalendar(Auth::user()->id);
+        return View('events.calendar', compact('calendar'));
     }
 
 }
