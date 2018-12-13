@@ -77,7 +77,7 @@ class OrganizerService extends BaseService implements IDBService
     }
 
     public function updateOrganizerUrl($organizer,$request){
-      return  $this->organizerRepo->updateOrganizerUrl($organizer,$request);
+      return $this->organizerRepo->updateOrganizerUrl($organizer,$request);
     }
 
 }

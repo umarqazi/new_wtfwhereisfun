@@ -88,9 +88,6 @@ Route::group(['middleware' => ['web']], function () {
 
                 Route::post('get-event-sub-topics', 'EventController@getTopicSubTopics');
 
-                Route::get('events/{locationId}/dashboard', 'EventController@dashboard');
-                Route::get('events/{locationId}/dashboard/orders', 'EventController@dashboardOrders');
-
                 Route::prefix('events')->group(function () {
 
                     Route::post('go-live', 'EventController@eventGoLive');
@@ -119,6 +116,10 @@ Route::group(['middleware' => ['web']], function () {
                     Route::post('remove-deal', 'EventController@removeHotDeal');
 
                     Route::get('calendar', 'EventController@calendar')->name('calendar');
+
+                    Route::get('{locationId}/dashboard', 'EventController@dashboard');
+                    Route::get('{locationId}/dashboard/orders', 'EventController@dashboardOrders');
+                    Route::post('update-event-url', 'EventController@updateEventUrl');
 
                 });
 

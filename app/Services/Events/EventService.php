@@ -122,9 +122,13 @@ class EventService extends BaseService implements IDBService
     }
 
     public function show($id, $locationId){
-        $eventId        = decrypt_id($id);
+        $event          = $this->eventRepo->getEventBySlug($id);
+        if(empty($event)){
+            $eventId    = decrypt_id($id);
+            $event      = $this->getByID($eventId);
+        }
+        $eventId        = $event->id;
         $locationId     = decrypt_id($locationId);
-        $event          = $this->getByID($eventId);
         $locations      = $this->eventLocationService->getEventLocations($eventId);
         $eventLocation  = $this->eventLocationService->getTimeLocation($locationId);
         $tickets        = $this->eventTicketService->getTicketsByLocation($locationId);
@@ -151,5 +155,10 @@ class EventService extends BaseService implements IDBService
             $event = $this->eventRepo->goLive($eventId);
             return ['type' => 'success', 'msg' => 'Congratulations! Your Event has gone Live', 'data' => $event];
         }
+    }
+
+    public function updateEventUrl($id, $request){
+        return $this->eventRepo->updateEventUrl($id, $request);
+
     }
 }

@@ -345,34 +345,3 @@ $(document).ready(function($) {
 /*****************************************************************************
  ***************************Change Photo Script Start**************************
  ******************************************************************************/
-
-$( ".btn-save-organizer-url" ).click(function() {
-    var hasSpace = $('#organizer_url').val().indexOf(' ')>=0;
-    if($('#organizer_url').val().match(/[^a-zA-Z0-9 ]/g) || hasSpace || $('#organizer_url').val() == "")
-    {
-        sweetAlert('error', 'Your "Personalized Organizer URL" can only include alphanumeric letters.');
-    } else{
-        var organizerName = $('input[name=organizer_url]').val();
-        var organizerId = $('input[name=organizer_id]').val();
-        // Send ajax request to update organizer url
-        $.ajax({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            },
-            url: '/change-orgranizer-url',
-            type: 'post',
-            data: {
-                'id': organizerId,
-                'url': organizerName,
-            },
-            success:function(response) {
-                var base_path = $('input[name=base_url]').val();
-
-                console.log(response,'response');
-                $("#old-url").attr("href", base_path+'/organizer/'+response.organizer_url);
-                // $("#old-url").text('http://'+response.organizer_url+'.wtf.localhost/organizer/'+response.slug);
-                $("#old-url").text(base_path+'/organizer/'+response.organizer_url);
-            }
-        });
-    }
-});

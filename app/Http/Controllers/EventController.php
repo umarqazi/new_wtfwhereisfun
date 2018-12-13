@@ -575,14 +575,22 @@ class EventController extends Controller
         return View('events.dashboard-orders')->with(['event' => $event, 'location' => $location, 'totalRevenue' => $totalRevenue]);
     }
 
-    public function pdf(){
-        $order = $this->eventOrderService->getOrderById(1);
-        return View('payments.order-pdf')->with(['order' => $order, 'path' => $order->directory]);
-    }
-
     public function calendar(){
         $calendar = $this->eventCalendarService->getVendorEventsCalendar(Auth::user()->id);
         return View('events.calendar', compact('calendar'));
+    }
+
+    /*
+     * Update Event Url
+     * \Illuminate\Http\ Request $request
+     */
+    public function updateEventUrl(Request $request){
+        $response = $this->eventService->updateEventUrl(decrypt_id($request->id), $request->all());
+        return response()->json([
+            'type'      =>  'success',
+            'msg'       =>  'Your Event Link has been updated Successfully!',
+            'data'      =>  url('/').'/events/'.$request->url.'-'.$request->id.'/'.$request->locationId
+        ]);
     }
 
 }
