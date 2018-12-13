@@ -215,24 +215,53 @@
                                 <div class="event-oraganizer">
                                     <h1>Your Links</h1>
                                     <p><strong>Your Organizer URL: </strong>
-                                        @if(!$eventOrganizer->organizer_url)
-                                            <a href="{{ url('/') }}{{'/organizer/'.$eventOrganizer->slug}}" id="old-url">{{ url('/') }}{{'/organizer/'.$eventOrganizer->slug}}</a>
+                                        @if(!empty($eventOrganizer->organizer_url))
+                                            <a href="{{ url('/') }}{{'/organizer/'.$eventOrganizer->organizer_url}}" id="organizer-old-url">{{ url('/') }}{{'/organizer/'.$eventOrganizer->organizer_url}}</a>
                                         @else
-                                            <a href="{{url('/')}}/organizer/{{$eventOrganizer->organizer_url}}" id="old-url">{{url('/')}}/organizer/{{$eventOrganizer->organizer_url}}</a>
+                                            <a href="{{url('/').'/organizer/'.$eventOrganizer->slug}}" id="organizer-old-url">{{url('/').'/organizer/'.$eventOrganizer->slug}}</a>
                                         @endif
 
-                                        <input type="hidden" name="organizer_id" value="{{$eventOrganizer->id}}">
+                                        <input type="hidden" name="organizer_id" id="organizer-id" value="{{$eventOrganizer->id}}">
                                         <input type="hidden" name="base_url" value="{{url('/')}}">
                                         <strong>  - [ <a href="javascript:void(0)" data-toggle="collapse" data-target="#changeOrganizer-url">Change</a> ]</strong>
                                     </p>
                                     <div id="changeOrganizer-url" class="collapse">
-                                        <p>Create your own Personalized Organizer URL for ABC Company.</p>
-                                        @if(!$eventOrganizer->organizer_url)
-                                            <strong class="pre_url">{{url('/')}}/organizer/</strong><input type="text" id="organizer_url" name="organizer_url" placeholder="helloWorld" />
+                                        <p>Create your own Personalized Organizer URL</p>
+                                        @if(!empty($eventOrganizer->organizer_url))
+                                            <strong class="pre_url">{{url('/').'/organizer/'}}</strong>
+                                            <input type="text" id="organizer_url" name="organizer_url" value="@php echo substr($eventOrganizer->organizer_url, 0, strpos($eventOrganizer->organizer_url, '-')); @endphp" placeholder="your-own-url" /><strong>-{{$eventOrganizer->encrypted_id}}</strong>
                                         @else
-                                            <strong class="pre_url">{{url('/')}}/organizer/</strong><input type="text" id="organizer_url" name="organizer_url" value="@php echo substr($eventOrganizer->organizer_url, 0, strpos($eventOrganizer->organizer_url, '-')); @endphp" placeholder="helloWorld" /><strong>-{{$eventOrganizer->encrypted_id}}</strong>
+                                            <strong class="pre_url">{{url('/').'/organizer/'}}</strong>
+                                            <input type="text" id="organizer_url" name="organizer_url" placeholder="your-own-url" />
                                         @endif
-                                        <button type="button" class="btn btn-save-organizer-url">Save</button>
+                                        <button type="button" class="btn btn-sm rounded-border" onclick="updateUrl('organizer')">Save</button>
+                                    </div>
+
+                                    <p><strong>Your Event URL: </strong>
+                                        @if(!empty($event->slug))
+                                            <a href="{{ url('/').'events/'.$event->slug.'/'.$location->encrypted_id }}" id="event-old-url">{{ url('/').'/events/'.$event->slug.'/'.$location->encrypted_id }}</a>
+                                        @else
+                                            <a href="{{url('/').'/events/'.$event->encrypted_id.'/'.$location->encrypted_id}}" id="event-old-url">{{url('/').'/events/'.$event->encrypted_id.'/'.$location->encrypted_id}}</a>
+                                        @endif
+
+                                        <input type="hidden" name="event_id" id="event-id" value="{{$event->encrypted_id}}">
+                                        <input type="hidden" name="base_url" value="{{url('/')}}">
+                                        <input type="hidden" name="locaiton_id" id="location-id" value="{{$location->encrypted_id}}">
+                                        <strong>  - [ <a href="javascript:void(0)" data-toggle="collapse" data-target="#event-url">Change</a> ]</strong>
+                                    </p>
+                                    <div id="event-url" class="collapse">
+                                        <p>Create your own Personalized Event URL</p>
+                                        @if(!empty($event->slug))
+                                            <strong class="pre_url">{{url('/').'/events/'}}</strong>
+                                            <input type="text" id="event-url-field" name="event_url"
+                                                   value="{{substr($event->slug, 0, strpos($event->slug, '-'))}}" placeholder="your-own-url" />
+                                            <strong>-{{$event->encrypted_id.'/'.$location->encrypted_id}}</strong>
+                                        @else
+                                            <strong class="pre_url">{{url('/').'/events/'}}</strong>
+                                            <input type="text" id="event-url-field" name="event_url" placeholder="your-own-url" />
+                                            <strong>-{{$event->encrypted_id.'/'.$location->encrypted_id}}</strong>
+                                        @endif
+                                        <button type="button" class="btn btn-sm rounded-border btn-save-event-url" onclick="updateUrl('event')">Save</button>
                                     </div>
                                 </div>
                             </div>
@@ -465,7 +494,7 @@
                     <div class="col-lg-12">
                         <div class="card">
                             <div class="body">
-                                <p class="m-b-0"><a href="http://thememakker.com/" target="black">Copyright © Wiloke.com •Tel: +98-76543210</a> </p>
+                                <p class="m-b-0"><a href="{{url('/')}}" target="black">Copyright © Wiloke.com •Tel: +98-76543210</a> </p>
                             </div>
                         </div>
                     </div>
@@ -475,7 +504,7 @@
         </section>
     </div>
 
-    <script src="{{asset('js/organizer.js')}}"></script>
+    <script src="{{asset('js/eventpage/events.js')}}"></script>
     <script>
         $(".total-revenue").knob();
     </script>

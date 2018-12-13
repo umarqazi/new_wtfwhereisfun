@@ -29,7 +29,6 @@ class EventRepo
         $event->referral_code               =       $request->referral_code;
         $event->discount                    =       $request->discount;
         $event->access                      =       $request->access;
-        $event->slug                        =       str_replace(' ','-', $request->title);
         $event->is_draft                    =       1;
         $event->is_online                   =       $request->is_online;
         $event->is_shareable                =       $isShareable;
@@ -66,7 +65,6 @@ class EventRepo
         $event->referral_code               =       $request->referral_code;
         $event->discount                    =       $request->discount;
         $event->access                      =       $request->access;
-        $event->slug                        =       str_replace(' ','-', $request->title);
         $event->is_online                   =       $request->is_online;
         $event->is_shareable                =       $isShareable;
         $event->additional_message          =       $request->additional_message;
@@ -151,5 +149,13 @@ class EventRepo
     public function hotEvents(){
         return $this->eventModel->has('hot_deal')->get();
 
+    }
+
+    public function updateEventUrl($id, $request){
+        return $this->eventModel->where('id', $id)->update(['slug' => $request['url'].'-'.$request['id']]);
+    }
+
+    public function getEventBySlug($slug){
+        return $this->eventModel->where('slug', $slug)->first();
     }
 }

@@ -40,3 +40,15 @@ function hideSearchResults(){
         $('.search_dropdown').css('display', 'none');
         }, 500);
 }
+
+function initialize() {
+    var input = document.getElementById('search-location');
+    var map = new google.maps.places.SearchBox(input);
+    // searchBox.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+
+    // Bias the SearchBox results towards current map's viewport.
+    map.addListener('bounds_changed', function () {
+        searchBox.setBounds(input);
+    });
+}
+google.maps.event.addDomListener(window, 'load', initialize);

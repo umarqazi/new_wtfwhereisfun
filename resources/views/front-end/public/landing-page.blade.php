@@ -29,7 +29,7 @@
                                     </div>
                                     <div class="clm">
                                         <i class="fa fa-send"></i>
-                                        <input type="text" class="fld" name="location" value="{{$city}}" onchange="checkLocation(this)">
+                                        <input type="text" class="fld" id="search-location" name="location" value="{{$city}}" onchange="checkLocation(this)">
                                     </div>
                                     <div class="clm third_clm">
                                         <button class="search_btn" type="submit" id="search-button">Search</button>

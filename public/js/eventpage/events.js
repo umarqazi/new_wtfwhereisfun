@@ -992,3 +992,49 @@ function deleteHotDeal(obj){
 function locationError(){
     sweetAlert('Error', 'Please create an Event Location first');
 }
+
+
+function updateUrl(type){
+    if(type === 'organizer'){
+        var url         = $('#organizer_url').val();
+        var id          = $('#organizer-id').val();
+        var requestUrl  = base_url()+'/change-orgranizer-url';
+        var oldUrlID    = $('#organizer-old-url');
+        var locationId  = null;
+    }else{
+        var url         = $('#event-url-field').val();
+        var id          = $('#event-id').val();
+        var requestUrl  = base_url()+'/events/update-event-url';
+        var oldUrlID    = $('#event-old-url');
+        var locationId  = $('#location-id').val();
+    }
+
+    console.log('url', url);
+    console.log('id', id);
+    console.log('requestUrl', requestUrl);
+    console.log('oldUrlID', oldUrlID);
+
+
+    if((url.indexOf(' ')>=0) || (url.match(/[^a-zA-Z0-9 ]/g)) || url == ""){
+        sweetAlert('error', 'Your "Personalized URL" can only include alphanumeric letters.');
+    }else{
+        // Send ajax request to update organizer url
+        $.ajax({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            url: requestUrl,
+            type: 'post',
+            data: {id : id, url: url, locationId : locationId},
+            success:function(response) {
+                if(response.type == 'success'){
+                    var base_path = $('input[name=base_url]').val();
+                    oldUrlID.attr("href", response.data).text(response.data);
+                    sweetAlert('Success', response.msg);
+                }else{
+                    sweetAlert('Error', 'Something went wrong, Please try again!');
+                }
+            }
+        });
+    }
+}

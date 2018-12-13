@@ -24,8 +24,8 @@ class EventCalendarService
             }
 
             $events[] = \Calendar::event(
-                $location->event->title.' ('.$location->location.')' , //event title
-                false, //full day event?
+                str_limit($location->event->title, 10, '...').' ('.str_limit($location->location, 8, '...').')' , //event title
+                true, //full day event?
                 $location->starting, //start time (you can also use Carbon instead of DateTime)
                 $location->ending, //end time (you can also use Carbon instead of DateTime)
                 $location->id, //optionally, you can specify an event ID

@@ -200,8 +200,9 @@ class OrganizerController extends Controller
         $organizer = $this->organizerService->updateOrganizerUrl($organizer_detail,$request);
 
         return response()->json([
-            'organizer_url' => $organizer['organizer_url'],
-            'slug' => $organizer['slug'],
+            'type'      =>      'success',
+            'msg'       =>      'Your Organizer Link has been updated Successfully!',
+            'data'      =>      url('/').'/organizer/'.$organizer['organizer_url']
         ]);
     }
 }
