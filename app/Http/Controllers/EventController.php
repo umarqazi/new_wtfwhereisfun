@@ -4,11 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\EventLayout;
 use App\Http\Requests\EventTopic;
-use App\Repositories\EventImageRepo;
-use App\Services\Events\EventCalendarService;
-use App\Services\Events\EventOrderService;
-use App\Services\Events\EventRevenueService;
-use App\Services\Events\TicketDisputeService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Config;
@@ -22,6 +17,11 @@ use Alert;
 use App\Role;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\URL;
+use App\Services\Events\EventCalendarService;
+use App\Services\Events\EventOrderService;
+use App\Services\Events\EventRevenueService;
+use App\Services\Events\TicketDisputeService;
+use App\Services\Payments\StripeService;
 use App\Services\Events\EventService;
 use App\Services\RefundPolicyService;
 use App\Services\Events\EventTopicService;
@@ -66,29 +66,31 @@ class EventController extends Controller
     protected $eventCalendarService;
     protected $eventRevenueService;
     protected $disputeService;
+    protected $stripeService;
 
     public function __construct()
     {
         $this->eventService             = new EventService();
-        $this->refundPolicyService      = new RefundPolicyService();
-        $this->eventTopicService        = new EventTopicService();
-        $this->eventTypeService         = new EventTypeService();
-        $this->categoryServices         = new CategoryService();
-        $this->eventSubTopicService     = new EventSubTopicService();
-        $this->eventDetailService       = new EventDetailService();
-        $this->eventLocationService     = new EventTimeLocationService();
-        $this->currencyService          = new CurrencyService();
-        $this->timeZoneService          = new TimeZoneService();
-        $this->eventTicketService       = new EventTicketService();
-        $this->eventListingService      = new EventListingService();
-        $this->eventLayoutService       = new EventLayoutService();
-        $this->organizerService         = new OrganizerService();
-        $this->eventImageService        = new EventImageService();
-        $this->eventHotDealService      = new EventHotDealService();
-        $this->eventOrderService        = new EventOrderService();
-        $this->eventRevenueService      = new EventRevenueService();
-        $this->disputeService           = new TicketDisputeService();
-        $this->eventCalendarService     = new EventCalendarService();
+        $this->refundPolicyService      = new RefundPolicyService;
+        $this->eventTopicService        = new EventTopicService;
+        $this->eventTypeService         = new EventTypeService;
+        $this->categoryServices         = new CategoryService;
+        $this->eventSubTopicService     = new EventSubTopicService;
+        $this->eventDetailService       = new EventDetailService;
+        $this->eventLocationService     = new EventTimeLocationService;
+        $this->currencyService          = new CurrencyService;
+        $this->timeZoneService          = new TimeZoneService;
+        $this->eventTicketService       = new EventTicketService;
+        $this->eventListingService      = new EventListingService;
+        $this->eventLayoutService       = new EventLayoutService;
+        $this->organizerService         = new OrganizerService;
+        $this->eventImageService        = new EventImageService;
+        $this->eventHotDealService      = new EventHotDealService;
+        $this->eventOrderService        = new EventOrderService;
+        $this->eventRevenueService      = new EventRevenueService;
+        $this->disputeService           = new TicketDisputeService;
+        $this->eventCalendarService     = new EventCalendarService;
+        $this->stripeService            = new StripeService;
     }
 
     /**
@@ -125,7 +127,8 @@ class EventController extends Controller
      */
     public function store(Event $request)
     {
-        $response = $this->eventService->store($request);
+        $response       = $this->eventService->store($request);
+        $stripeProduct  = $this->stripeService->createStripeProduct($response->id, 'store');
         $response['encoded_id'] = encrypt_id($response['id']);
         return response()->json([
             'type'  =>  'success',
@@ -216,8 +219,9 @@ class EventController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function detailsUpdate(Event $request){
-        $eventId = decrypt_id($request->event_id);
-        $response = $this->eventDetailService->updateDetails($request, $eventId);
+        $eventId        = decrypt_id($request->event_id);
+        $response       = $this->eventDetailService->updateDetails($request, $eventId);
+        $stripeProduct  = $this->stripeService->createStripeProduct($response->id, 'edit');
         return response()->json([
             'type'      =>  'success',
             'msg'       =>  'Event Details has been Updated Successfully',
@@ -296,7 +300,8 @@ class EventController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function ticketUpdate(EventTicket $request){
-        $response = $this->eventTicketService->updateEventTicket($request, decrypt_id($request->event_id));
+        $response   = $this->eventTicketService->updateEventTicket($request, decrypt_id($request->event_id));
+        $ticketSku  = $this->stripeService->createStripeSku($response->id, $request->request_type);
         return response()->json([
             'type'      =>  'success',
             'msg'       =>  'Event Ticket has been updated Successfully',

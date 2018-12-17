@@ -51,10 +51,10 @@
                                                     </button>
                                                     <ul class='dropdown-menu pull-right'>
                                                         <li><a href="{{url('events/'.$encryptedId.'/edit')}}">Edit Event</a></li>
-                                                        @if($location->event->hot_deal()->exists())
-                                                            <li><a href='javascript:void(0);' class='remove_hot' onclick='deleteHotDeal(this)' id="{{$encryptedId}}">Remove Deal</a></li>
+                                                        @if($location->hot_deal()->exists())
+                                                            {{--<li><a href='javascript:void(0);' class='remove_hot' onclick='deleteHotDeal(this)' id="{{$encryptedId}}">Remove Deal</a></li>--}}
                                                         @else
-                                                            <li><a href='javascript:void(0);' onclick='createHotDeal(this)' id="{{$encryptedId}}">Make Hot Deal</a></li>
+                                                            <li><a href='javascript:void(0);' onclick='createHotDeal(this)' id="{{$location->encrypted_id}}">Make Hot Deal</a></li>
                                                         @endif
                                                     </ul>
                                                 </li>
@@ -70,14 +70,14 @@
                                             <p><i class="fa fa-map-marker"></i>
                                                 {{$location->location}}
                                             </p>
-                                            @if($location->event->hot_deal()->exists())
+                                            @if($location->hot_deal()->exists())
                                                 <div class="tooltipContainer hotDeal">
                                                     <i class="fa fa-tag"></i> Hot Deal
                                                     <div class="customToolTip">
                                                         <p>
-                                                            <strong>Starts At : </strong><span>{{$location->event->hot_deal->start_time->format('D, M Y g:i A')}}</span><br>
-                                                            <strong>Ends At : </strong><span>{{$location->event->hot_deal->end_time->format('D, M Y g:i A')}}</span><br>
-                                                            <strong>Discount : </strong><span>{{$location->event->hot_deal->discount}}%</span>
+                                                            <strong>Starts At : </strong><span>{{$location->hot_deal->start_time->format('D, M Y g:i A')}}</span><br>
+                                                            <strong>Ends At : </strong><span>{{$location->hot_deal->end_time->format('D, M Y g:i A')}}</span><br>
+                                                            <strong>Discount : </strong><span>{{$location->hot_deal->discount}}%</span>
                                                         </p>
                                                     </div>
                                                 </div>
@@ -212,7 +212,10 @@
                                         <div class="info">
                                             <ul class="actions-btns header-dropdown m-r--5">
                                                 <li class="action-list">
-                                                    <a class="btn" href="{{url('events/'.$encryptedId.'/edit')}}">Manage</a>
+                                                    <a class="btn" href="{{url('events/'.$encryptedId.'/dashboard')}}">Manage</a>
+                                                </li>
+                                                <li class="action-list">
+                                                    <a class="btn" href="{{url('events/'.$encryptedId.'/edit')}}">Edit</a>
                                                 </li>
                                             </ul>
                                             <div class="event-title">
@@ -273,7 +276,7 @@
                         <button type="submit" class="btn  btn-default save-hot modal-btn">Save Hot Deal</button>
                         <button type="button" class="btn btn-default modal-btn waves-effect" data-dismiss="modal">CLOSE</button>
                     </div>
-                    <input type="hidden" class="event_id" name="event_id">
+                    <input type="hidden" name="location_id" id="location-id">
                 </form>
             </div>
         </div>

@@ -7,7 +7,7 @@
                 <div class="panel panel-default">
                     <div class="dispute-listing">
                         <div class="img-holder">
-                            @if(!empty($dispute_details->user->directory.$dispute_details->user->profile_thumbnail))
+                            @if(!empty($dispute_details->user->profile_thumbnail))
                             <img src="{{$dispute_details->user->directory.$dispute_details->user->profile_thumbnail}}">
                             @else
                                 <img src="{{asset('img/default-148.png')}}">

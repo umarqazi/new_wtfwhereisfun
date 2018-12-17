@@ -161,4 +161,8 @@ class EventService extends BaseService implements IDBService
         return $this->eventRepo->updateEventUrl($id, $request);
 
     }
+
+    public function updateStripeProductId($eventId, $product){
+        return $this->eventRepo->updateStripeProductId($eventId, $product);
+    }
 }

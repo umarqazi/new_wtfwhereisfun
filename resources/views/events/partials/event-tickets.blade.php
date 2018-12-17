@@ -10,7 +10,7 @@
                         <td class="text-center"><strong><i class="fa fa-ticket"></i><br>Ticket Name</strong></td>
                         <td class="text-center"><strong><i class="fa fa-money"></i><br>Ticket Price</strong></td>
                         <td class="text-center"><strong><i class="fa fa-ticket"></i><br>Tickets Type</strong></td>
-                        @if($tickets[0]->event->hot_deal()->exists())
+                        @if($tickets[0]->time_location->hot_deal()->exists())
                             <td class="text-center"><strong><i class="fa fa-ticket"></i><br>Discount</strong></td>
                         @endif
                         {{--<td class="text-center"><strong><i class="fa fa-info-circle"></i><br>Details</strong></td>--}}
@@ -21,9 +21,9 @@
                             <td class="text-center"><span>{{$ticket->name}}</span></td>
                             <td class="text-center"><span>${{$ticket->price}}</span></td>
                             <td class="text-center"><span>{{$ticket->type}}</span></td>
-                            @if($ticket->event->hot_deal()->exists())
+                            @if($ticket->time_location->hot_deal()->exists())
                                 <td class="text-center">
-                                    {{$ticket->event->hot_deal->discount}}%
+                                    {{$ticket->time_location->hot_deal->discount}}%
                                 </td>
                             @endif
                             {{--<td class="text-center"><button class="btn btn-info details" data-toggle="modal" data-target="#ticket-{{$ticket->id}}" type="button"><i class="fa fa-info-circle"></i></button></td>--}}

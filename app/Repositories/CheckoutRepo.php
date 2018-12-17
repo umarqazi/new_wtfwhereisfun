@@ -12,7 +12,7 @@ class CheckoutRepo
         $this->eventOrderModel  = new EventOrder;
     }
 
-    public function storeOrderDetails($userId, $ticket, $orderDetails, $charge){
+    public function storeOrderDetails($userId, $ticket, $orderDetails, $stripeOrder){
         $qty = (int) $orderDetails['quantity'];
         $order = [
             'event_id'      =>      $ticket->event->id,
@@ -21,20 +21,20 @@ class CheckoutRepo
             'quantity'      =>      $qty,
             'ticket_price'  =>      $ticket->price,
             'payment_method'=>      'stripe',
-            'transaction_id'=>      $charge['id'],
-            'payment_gross' =>      $charge['amount']/100,
-            'currency_code' =>      $charge['currency'],
-            'payment_status'=>       $charge['status']
+            'transaction_id'=>      $stripeOrder['charge'],
+            'payment_gross' =>      $stripeOrder['amount']/100,
+            'currency_code' =>      $stripeOrder['currency'],
+            'payment_status'=>      $stripeOrder['status'],
+            'stripe_order_id'=>     $stripeOrder['id']
         ];
 
-        if($ticket->event->hot_deal()->exists()){
+        if($ticket->time_location->hot_deal()->exists()){
             $order['is_deal_availed']      = 1;
-            $order['discount']             = $ticket->event->hot_deal->discount;
-            $order['hot_deal_id']          = $ticket->event->hot_deal->id;
+            $order['discount']             = $ticket->time_location->hot_deal->discount;
+            $order['hot_deal_id']          = $ticket->time_location->hot_deal->id;
         }
 
-        $newOrder = $this->eventOrderModel->create($order);
-        return $newOrder;
+        return $this->eventOrderModel->create($order);
     }
 
     public function setOrderToken($orderId, $token){

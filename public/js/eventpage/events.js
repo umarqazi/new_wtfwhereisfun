@@ -89,7 +89,7 @@ $(document).ready(function($) {
                 var count  = keys.length;
                 for (var i = 0; i < count; i++)
                 {
-                    $('#event-create .'+keys[i]).html(errors[keys[i]]).focus();
+                    $('#event-details .'+keys[i]).html(errors[keys[i]]).focus();
                 }
                 $('#event-details .btn-save').attr('disabled',false).text('Next');
             }
@@ -903,9 +903,9 @@ function eventGolive(event, obj){
  ******************************************************************************/
 
 function createHotDeal(obj){
-    var event_id = $(obj).attr('id');
+    var locationId = $(obj).attr('id');
     $('#make-hot-deal').modal('show');
-    $('#make-hot-deal input.event_id').attr('value', event_id);
+    $('#make-hot-deal #location-id').attr('value', locationId);
 }
 
 $("#make-hot").submit(function(event) {
