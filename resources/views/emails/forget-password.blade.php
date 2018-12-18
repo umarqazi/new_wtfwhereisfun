@@ -1,5 +1,5 @@
 @extends('layouts.email-master')
-@section('title', "Reset Password :: Where's the fun")
+@section('title', "Reset Password ")
 @section('content')
 
 <!-- Image Column Section Open // -->

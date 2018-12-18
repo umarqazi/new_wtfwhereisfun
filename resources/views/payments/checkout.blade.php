@@ -1,6 +1,6 @@
 <!------ Include the above in your HEAD tag ---------->
 @extends('layouts.master')
-@section('title', "Checkout :: Where's the fun")
+@section('title', "Checkout ")
 @section('content')
     <script src="https://js.stripe.com/v3/"></script>
     <div class="container checkout-page">

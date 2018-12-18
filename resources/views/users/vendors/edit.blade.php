@@ -1,5 +1,5 @@
 @extends('layouts.master')
-@section('title', "Where's the fun :: Account-Settings")
+@section('title', "Account-Settings")
 {{-- ______________________ Start Main Content __________________ --}}
 @section('content')
     <div class="container-fluid profileSideBar">

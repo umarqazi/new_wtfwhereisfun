@@ -1,8 +1,8 @@
 @extends('layouts.master')
 @if(Route::current()->getName() == 'today-events')
-    @section('title', "Today's Events :: Where's the fun")
+    @section('title', "Today's Events ")
 @else
-    @section('title', "Future Events :: Where's the fun")
+    @section('title', "Future Events ")
 @endif
 @section('content')
     <div class="container">

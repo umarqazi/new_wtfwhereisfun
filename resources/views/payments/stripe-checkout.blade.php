@@ -1,5 +1,5 @@
 @extends('layouts.master')
-@section('title', "Checkout :: Where's the fun ")
+@section('title', "Checkout  ")
 @section('content')
 
     <div class="stripe-checkout">

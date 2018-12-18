@@ -1,5 +1,5 @@
 @extends('layouts.master')
-@section('title', "Where's the fun :: Manage-Organizers-Create")
+@section('title', "Manage-Organizers-Create")
 @section('content')
     <!-- ______________________ Start Main Content __________________ -->
     <div class="container-fluid profileSideBar">

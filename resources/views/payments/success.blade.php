@@ -1,5 +1,5 @@
 @extends('layouts.master')
-@section('title', "Successful Checkout :: Where's the fun")
+@section('title', "Successful Checkout ")
 @section('content')
     <div class="page-wrapper thankyou-page">
         <div class="page-container">

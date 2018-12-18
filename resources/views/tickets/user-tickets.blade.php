@@ -1,5 +1,5 @@
 @extends('layouts.master')
-@section('title', "My Tickets :: Where's the fun")
+@section('title', "My Tickets ")
 @section('content')
     <div class="my-tickets">
         <div class="container-fluid">

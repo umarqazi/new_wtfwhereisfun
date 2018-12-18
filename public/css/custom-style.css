@@ -6586,3 +6586,7 @@ section.content{
 .events-calendar .fc-time{
    display : none;
 }
+
+.vendor-events-listing{
+   min-height:600px;
+}

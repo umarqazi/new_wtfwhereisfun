@@ -1,5 +1,5 @@
 @extends('layouts.email-master')
-@section('title', "New Ticket Purchased:: Where's the fun")
+@section('title', "New Ticket Purchased")
 @section('content')
 
     <!-- Image Column Section Open // -->
