@@ -1,5 +1,5 @@
 @extends('layouts.master')
-@section('title', "My Tickets :: Where's the fun")
+@section('title', "My Tickets ")
 @section('content')
     <div class="container custom-margin-top">
         <div class="row">

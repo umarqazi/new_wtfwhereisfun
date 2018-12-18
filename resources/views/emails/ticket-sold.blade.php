@@ -1,5 +1,5 @@
 @extends('layouts.email-master')
-@section('title', "Ticket Sold :: Where's the fun")
+@section('title', "Ticket Sold ")
 @section('content')
     <!-- Title, Subtitle and Description Section Open // -->
     <table border="0" width="100%" align="center" cellpadding="0" cellspacing="0" style="width:100%;max-width:100%;">

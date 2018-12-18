@@ -1,5 +1,5 @@
 @extends('layouts.email-master')
-@section('title', "Dispute Reply :: Where's the fun")
+@section('title', "Dispute Reply ")
 @section('content')
 
     <!-- Image Column Section Open // -->

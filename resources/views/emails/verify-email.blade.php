@@ -1,5 +1,5 @@
 @extends('layouts.email-master')
-@section('title', "Email Verification :: Where's the fun")
+@section('title', "Email Verification ")
 @section('content')
 
     <!-- Image Column Section Open // -->

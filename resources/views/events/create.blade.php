@@ -1,5 +1,5 @@
 @extends('layouts.master')
-@section('title', "Where's the fun:: Create Event")
+@section('title', "Create Event")
 @section('content')
     <link rel="stylesheet" href="{{asset('css/eventpage/richtext.min.css')}}">
     <link rel="stylesheet" href="{{asset('css/eventpage/bootstrap-datetimepicker.min.css')}}">

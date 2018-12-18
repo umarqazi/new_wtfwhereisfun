@@ -1,5 +1,5 @@
 @extends('layouts.master')
-@section('title', "Where's the fun :: Complete-Event-Details")
+@section('title', "Complete-Event-Details")
 @section('content')
     {{-- ______________________ Start Main Content __________________ --}}
     <link rel="stylesheet" href="{{asset('css/eventpage/richtext.min.css')}}">

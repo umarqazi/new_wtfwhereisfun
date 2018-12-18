@@ -1,5 +1,5 @@
 @extends('layouts.master')
-@section('title', "Where's the fun :: All Blogs")
+@section('title', "All Blogs")
 @section('content')
     <link rel="stylesheet" href="{{asset('/css/blog-grid-list.css')}}">
     {{--@if(count($blogs))--}}

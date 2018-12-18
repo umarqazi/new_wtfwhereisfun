@@ -1,7 +1,7 @@
 @extends("layouts.master")
 @section("title", "Event Listings")
 @section("content")
-    <div id="" class="main_content">
+    <div id="" class="main_content vendor-events-listing">
         <div class="container">
             <div class="col-md-12">
                 <a href="javascript:void(0)" onclick="window.history.back()" class=" pull-right btn btn-raised btn-default waves-effect back-button1">Back</a>

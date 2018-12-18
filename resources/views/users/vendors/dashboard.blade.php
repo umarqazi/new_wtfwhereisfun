@@ -1,5 +1,5 @@
 @extends('layouts.master')
-@section('title', "Where's the fun :: Dashboard")
+@section('title', "Dashboard")
 <!--Dashboard Content-->
 @section('content')
     <section class="content home dashboard-main main-top-padding">

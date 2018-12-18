@@ -1,5 +1,5 @@
 @extends('layouts.master')
-@section('title', "Where's the fun :: Blog Page")
+@section('title', "Blog Page")
 @section('content')
     <style type="text/css">
         .body{

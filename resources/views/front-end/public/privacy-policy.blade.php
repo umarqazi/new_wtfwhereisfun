@@ -1,5 +1,5 @@
 @extends('layouts.master')
-@section('title', "Privacy Policy :: Where's the fun")
+@section('title', "Privacy Policy ")
 @section('content')
     <!-- ______________________ Start Main Content __________________ -->
     <div id="maincontent" class="main-content">
