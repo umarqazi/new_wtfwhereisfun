@@ -10,8 +10,7 @@
                     <div class="form-group">
                         <label>What is your event called? <span class="required-field">*</span></label>
                         <span class="label_cap text-right char_limit">0/75</span>
-                        <input type="text" class="form-control" placeholder="Make it a short and
-                                        catchy title" name="title" value="{{$event->title}}" id="event_title" required="" maxlength="75">
+                        <input type="text" class="form-control" placeholder="Make it a short and catchy title" name="title" value="{{$event->title}}" id="event_title" required="" maxlength="75">
                         <div class="form-error title"></div>
                     </div>
                     <div class="form-group">

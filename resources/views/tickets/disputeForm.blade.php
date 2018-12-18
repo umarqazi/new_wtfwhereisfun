@@ -17,8 +17,16 @@
 
                     <div class="dispute-listing">
                         <div class="img-holder">
-                            <img src="{{asset('images/contact_list-profile2.jpg')}}">
-                            <p>Sorav</p>
+                            @if(!empty($user->profile_thumbnail))
+                                <img class="rounded" src="{{$user->directory.$dispute->user->profile_thumbnail}}" alt="">
+                            @else
+                                <img src="{{asset('img/default-148.png')}}">
+                            @endif
+                            @if(!empty($user->first_name))
+                                <p>{{$user->first_name.' '.$user->last_name}}</p>
+                            @else
+                                <p>{{$user->email}}</p>
+                            @endif
                         </div>
                         <div class="dispute-detail">
                             <h2>Event Title</h2>

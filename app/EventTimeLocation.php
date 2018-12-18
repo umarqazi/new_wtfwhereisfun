@@ -57,6 +57,13 @@ class EventTimeLocation extends Model
     }
 
     /**
+     * Get Hot Event.
+     */
+    public function hot_deal(){
+        return $this->HasOne('App\EventHotDeal', 'time_location_id');
+    }
+
+    /**
      * Get Transacted Currency
      */
     public function transacted_currency()

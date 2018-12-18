@@ -37,7 +37,14 @@
                                             </tr>
 
                                             <tr>
-                                                <td class="ticket-img"><img class="img-responsive" src="{{$directory['web_path'].$ticket->event->header_image}}"></td>
+                                                <td class="ticket-img">
+                                                    @if(!empty($ticket->event->header_image))
+                                                        <img class="img-responsive" src="{{$directory['web_path'].$ticket->event->header_image}}">
+                                                    @else
+                                                        <img class="img-responsive" src="{{asset('img/dummy.jpg')}}">
+                                                    @endif
+
+                                                </td>
                                                 <td>{{$ticket->name}}<input type="hidden" name="ticket_id" value="{{encrypt_id($ticket->id)}}"></td>
                                                 <td class="ticket-detail"><p>{{$ticket->description}}</p></td>
                                                 <td>{{$ticket->time_location->location}}</td>

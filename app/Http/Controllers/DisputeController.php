@@ -40,7 +40,7 @@ class DisputeController extends Controller
         $id    = decrypt_id($id);
         $event = $this->eventOrderService->getEventByOrderId($id);
         $event_details = $this->eventService->getByID($event->event_id);
-        return view('tickets.disputeForm')->with(['event_details' => $event_details, 'order_id' => $id]);
+        return view('tickets.disputeForm')->with(['event_details' => $event_details, 'order_id' => $id, 'user' => Auth::user()]);
     }
 
     public function store(SaveDisputeRequest $request){

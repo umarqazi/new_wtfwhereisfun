@@ -15,15 +15,15 @@ class EventHotDeal extends Model
      * @var array
      */
     protected $fillable = [
-        'hours', 'discount', 'start_time', 'end_time', 'event_id'
+        'hours', 'discount', 'start_time', 'end_time', 'time_location_id', 'stripe_coupon_id'
     ];
 
     /**
-     * Get Hot Events
+     * Get Hot Event Locations
      */
-    public function event()
+    public function time_location()
     {
-        return $this->belongsTo('App\Event');
+        return $this->belongsTo('App\EventTimeLocation', 'time_location_id');
     }
 
     /**
