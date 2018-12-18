@@ -14,7 +14,7 @@ class EventHotDealService
     public function __construct()
     {
         $this->eventHotDealRepo     = new EventHotDealRepo;
-        $this->stripeProvider   = new Stripe(env('STRIPE_API_KEY', 'sk_test_iTNTzvLIxH136Q6MjRZ3dmM0'));
+        $this->stripeProvider       = new Stripe(env('STRIPE_API_KEY', 'sk_test_iTNTzvLIxH136Q6MjRZ3dmM0'));
     }
 
     public function makeHotDeal($request){
