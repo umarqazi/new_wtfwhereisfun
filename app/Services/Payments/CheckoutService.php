@@ -36,12 +36,11 @@ class CheckoutService
             }
         }
 
-        return $user->id;
+        return $user;
     }
 
-    public function storeOrder($orderDetails, $userId, $ticket, $charge = null){
-        $order = $this->checkoutRepo->storeOrderDetails($userId, $ticket, $orderDetails, $charge);
-        return $order;
+    public function storeOrder($orderDetails, $userId, $ticket, $stripeOrder = null){
+        return  $this->checkoutRepo->storeOrderDetails($userId, $ticket, $orderDetails, $stripeOrder);
     }
 
     public function pay($orderDetails){
@@ -51,21 +50,29 @@ class CheckoutService
         return $response['paypal_link'];
     }
 
-    public function completeStripeProcess($data, $amount){
-//        $quantity = (int) $data['quantity'];
-//        if($hotDeal['hotDeal']){
-//            $discount = $ticket->price * $hotDeal['details']->discount/100;
-//            $discount = $discount * $quantity;
-//        }else{
-//            $discount = 0;
-//        }
-//        $amount = $ticket->price * $quantity - $discount;
-        $charge = $this->stripeProvider->charges()->create([
-            'source'    => $data['stripeToken'],
-            'currency'  => 'USD',
-            'amount'    => $amount
+    public function completeStripeProcess($data, $hotDeal, $ticket, $user){
+        if($hotDeal['hotDeal']){
+            $coupon = $hotDeal['details']->stripe_coupon_id;
+        }else{
+            $coupon = null;
+        }
+        $order = $this->stripeProvider->orders()->create([
+            'currency' => 'usd',
+            'items' => [
+                [
+                    'type'      => 'sku',
+                    'parent'    => $ticket->stripe_sku_id,
+                    'quantity'  => $data['quantity']
+                ]
+            ],
+            'metadata'  =>  [
+                'name'        => $ticket->event->title.' -'.$ticket->event->vendor->first_name.' '.$ticket->event->vendor->last_name.'('.$ticket->event->vendor->email.')',
+                'description' => 'Event hosted by '.$ticket->event->vendor->first_name.' '.$ticket->event->vendor->last_name.'('.$ticket->event->vendor->email.')',
+            ],
+            'coupon'    => $coupon,
         ]);
-        return $charge;
+
+        return $this->stripeProvider->orders()->pay($order['id'], ['source' => $data['stripeToken'], 'email' => $user->email]);
     }
 
     public function success($request){

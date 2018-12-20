@@ -8,7 +8,7 @@ class EventTicket extends Model
 {
     protected $fillable = [
         'event_id', 'name', 'quantity', 'price', 'description', 'selling_start', 'selling_end', 'status',
-        'min_order', 'max_order', 'release_ticket', 'availability', 'type'
+        'min_order', 'max_order', 'release_ticket', 'availability', 'type', 'stripe_sku_id'
     ];
 
     protected $with = ['time_location'];

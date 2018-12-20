@@ -6,7 +6,6 @@ use App\Http\Requests\EventLayout;
 use App\Http\Requests\EventTopic;
 use App\Http\Requests\WaitListSetting;
 use App\Http\Requests\WaitListSignUpForm;
-use App\Repositories\EventImageRepo;
 use App\Services\Events\EventCalendarService;
 use App\Services\Events\EventOrderService;
 use App\Services\Events\EventRevenueService;
@@ -26,6 +25,7 @@ use Alert;
 use App\Role;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\URL;
+use App\Services\Payments\StripeService;
 use App\Services\Events\EventService;
 use App\Services\RefundPolicyService;
 use App\Services\Events\EventTopicService;
@@ -47,7 +47,6 @@ use App\Http\Requests\EventTicket;
 use App\Http\Requests\EventTicketPass;
 use App\Http\Requests\EventTimeLocation;
 use Carbon\Carbon;
-use Facebook\Facebook;
 
 class EventController extends Controller
 {
@@ -73,6 +72,7 @@ class EventController extends Controller
     protected $disputeService;
     protected $waitingListSettingsService;
     protected $waitingListService;
+    protected $stripeService;
 
     public function __construct()
     {
@@ -98,6 +98,7 @@ class EventController extends Controller
         $this->eventCalendarService         = new EventCalendarService();
         $this->waitingListSettingsService   = new WaitingListSettingsService();
         $this->waitingListService           = new WaitingListService();
+        $this->stripeService            = new StripeService;
     }
 
     /**
@@ -134,7 +135,8 @@ class EventController extends Controller
      */
     public function store(Event $request)
     {
-        $response = $this->eventService->store($request);
+        $response       = $this->eventService->store($request);
+        $stripeProduct  = $this->stripeService->createStripeProduct($response->id, 'store');
         $response['encoded_id'] = encrypt_id($response['id']);
         return response()->json([
             'type'  =>  'success',
@@ -237,8 +239,9 @@ class EventController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function detailsUpdate(Event $request){
-        $eventId = decrypt_id($request->event_id);
-        $response = $this->eventDetailService->updateDetails($request, $eventId);
+        $eventId        = decrypt_id($request->event_id);
+        $response       = $this->eventDetailService->updateDetails($request, $eventId);
+        $stripeProduct  = $this->stripeService->createStripeProduct($response->id, 'edit');
         return response()->json([
             'type'      =>  'success',
             'msg'       =>  'Event Details has been Updated Successfully',
@@ -317,7 +320,8 @@ class EventController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function ticketUpdate(EventTicket $request){
-        $response = $this->eventTicketService->updateEventTicket($request, decrypt_id($request->event_id));
+        $response   = $this->eventTicketService->updateEventTicket($request, decrypt_id($request->event_id));
+        $ticketSku  = $this->stripeService->createStripeSku($response->id, $request->request_type);
         return response()->json([
             'type'      =>  'success',
             'msg'       =>  'Event Ticket has been updated Successfully',

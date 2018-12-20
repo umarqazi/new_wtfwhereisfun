@@ -72,4 +72,8 @@ class EventTicketRepo
         }
     }
 
+    public function updateTicketSkuId($ticketId, $sku){
+        return $this->ticketModel->where('id', $ticketId)->update(['stripe_sku_id' => $sku['id']]);
+    }
+
 }

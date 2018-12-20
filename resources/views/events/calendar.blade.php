@@ -1,5 +1,5 @@
 @extends('layouts.master')
-@section('title', "Where's the fun:: Create Event")
+@section('title', " Create Event")
 @section('content')
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment.min.js"></script>

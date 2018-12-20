@@ -37,6 +37,8 @@ Route::group(['middleware' => ['web']], function () {
 
     Route::get('organizer/{slug}', 'OrganizerController@organizerProfile');
 
+    Route::post('search-events', 'MainController@searchEvents');
+
     Route::resource('blogs', 'BlogController');
 
     Route::get('email', 'PaymentController@email');
@@ -143,13 +145,7 @@ Route::group(['middleware' => ['web']], function () {
 
             });
         });
-
-        Route::post('search-events', 'MainController@searchEvents');
-
-        Route::get('pdf', 'EventController@pdf');
-        Route::get('fb-callback', 'EventController@callback');
     });
-
     Route::prefix('events')->group(function () {
         Route::get('today-events/all', 'EventController@getTodaysEvents')->name('today-events');
         Route::get('future-events/all', 'EventController@getFutureEvents')->name('future-events');

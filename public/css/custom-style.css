@@ -6637,6 +6637,9 @@ section.content{
 .bold{
    font-weight: bold !important;
 }
-.red{
+.red {
    color: red !important;
+}
+.vendor-events-listing{
+   min-height:600px;
 }

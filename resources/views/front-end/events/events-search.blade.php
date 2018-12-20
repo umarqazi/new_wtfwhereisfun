@@ -1,5 +1,5 @@
 @extends('layouts.master')
-@section('title', "Search Events:: Where's the fun")
+@section('title', "Search Events")
 @section('content')
     <div class="container">
         <div class="main-top-padding">

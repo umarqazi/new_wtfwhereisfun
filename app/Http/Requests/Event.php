@@ -23,8 +23,13 @@ class Event extends FormRequest
      */
     public function rules()
     {
+        if(isset($this->event_id)){
+            $titleRule = 'required|string|max:75|unique:events,title,'.decrypt_id($this->event_id);
+        }else{
+            $titleRule = 'required|string|max:75|unique:events,title';
+        }
         return [
-            'title'             => 'required|string|max:75',
+            'title'             => $titleRule,
             'description'       => 'required',
             'organizer_id'      => 'required',
             'discount'          => 'required_with:referral_code,numeric',

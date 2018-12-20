@@ -74,7 +74,10 @@ class EventTicketService extends BaseService
             $qtyLeft      = $ticket->quantity;
         }
         return $qtyLeft;
+    }
 
+    public function updateTicketSkuId($ticketId, $sku){
+        return $this->eventTicketRepo->updateTicketSkuId($ticketId, $sku);
     }
 
 }

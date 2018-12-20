@@ -12,32 +12,31 @@ class EventHotDealRepo
     public function __construct()
     {
         $this->hotdealModel = new EventHotDeal;
-        $this->eventRepo   = new EventRepo;
     }
 
-    public function makeHotDeal($request, $data){
+    public function makeHotDeal($data){
         $hotDeal = $this->hotdealModel->create([
-            'hours'         =>  $request->hours,
-            'discount'      =>  $request->discount,
-            'start_time'    =>  $data['start'],
-            'end_time'      =>  $data['end'],
-            'event_id'      =>  decrypt_id($request->event_id),
+            'hours'             =>  $data['hours'],
+            'discount'          =>  $data['discount'],
+            'start_time'        =>  $data['start'],
+            'end_time'          =>  $data['end'],
+            'time_location_id'  =>  $data['time_location_id'],
+            'stripe_coupon_id'  =>  $data['stripe_coupon_id']
         ]);
-
         return $hotDeal;
     }
 
-    public function removeHotDeal($id){
-        $event = $this->eventRepo->getByID($id);
-        if($event->hot_deal->exists()){
-            $event->hot_deal->delete();
+    public function removeHotDeal($locationId){
+        $hotDeal = $this->checkIfDealExists($locationId);
+        if(!empty($hotDeal)){
+            $hotDeal->delete();
             return true;
         }
         return false;
     }
 
-    public function checkIfDealExists($eventId){
-        return $this->hotdealModel->where('event_id', $eventId)->first();
+    public function checkIfDealExists($locationId){
+        return $this->hotdealModel->where('time_location_id', $locationId)->first();
     }
 
 }

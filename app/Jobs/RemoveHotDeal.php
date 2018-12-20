@@ -13,7 +13,17 @@ use Illuminate\Foundation\Bus\Dispatchable;
 class RemoveHotDeal implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
+
     protected $eventHotDeal;
+    protected $hotDeal;
+
+    /**
+     * The number of times the job may be attempted.
+     *
+     * @var int
+     */
+    public $tries = 5;
+
     /**
      * Create a new job instance.
      *
@@ -30,8 +40,8 @@ class RemoveHotDeal implements ShouldQueue
      *
      * @return void
      */
-    public function handle(EventHotDeal $hotDeal)
+    public function handle()
     {
-        $this->eventHotDeal->removeHotDeal($hotDeal->event_id);
+        $this->eventHotDeal->removeHotDeal($this->hotDeal->time_location_id);
     }
 }

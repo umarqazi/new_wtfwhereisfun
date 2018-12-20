@@ -105,8 +105,8 @@ class EventLocationRepo
     public function hotEvents(){
         $vendorId = null;
         $hotDeals = $this->eventLocationModel->todayEvents()->whereHas('event', function($query) use ($vendorId){
-            $query->publishedEvents($vendorId)->has('hot_deal');
-        })->get();
+            $query->publishedEvents($vendorId);
+        })->has('hot_deal')->get();
         return $hotDeals;
     }
 

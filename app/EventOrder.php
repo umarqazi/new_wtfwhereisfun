@@ -19,7 +19,9 @@ class EventOrder extends Model
      * @var array
      */
     protected $fillable = [
-        'user_id', 'event_id', 'transaction_id', 'payment_gross', 'currency_code', 'payer_email', 'payment_status', 'ticket_id', 'quantity', 'ticket_price', 'paypal_token', 'payment_method', 'is_deal_availed', 'discount', 'hot_deal_id', 'qr_image', 'ticket_pdf'
+        'user_id', 'event_id', 'transaction_id', 'payment_gross', 'currency_code', 'payer_email', 'payment_status',
+        'ticket_id', 'quantity', 'ticket_price', 'paypal_token', 'payment_method', 'is_deal_availed', 'discount',
+        'hot_deal_id', 'qr_image', 'ticket_pdf', 'stripe_order_id'
     ];
 
     /**
@@ -96,7 +98,7 @@ class EventOrder extends Model
      */
     public function scopeGetCompletedOrders($query)
     {
-        return $query->whereIn('payment_status', ['Completed', 'succeeded']);
+        return $query->whereIn('payment_status', ['Completed', 'succeeded', 'paid']);
     }
 
     /**

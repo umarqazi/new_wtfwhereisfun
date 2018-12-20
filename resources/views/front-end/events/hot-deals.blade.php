@@ -1,5 +1,5 @@
 @extends('layouts.master')
-@section('title', "Hot Deal Events :: Where's the fun")
+@section('title', "Hot Deal Events ")
 @section('content')
     <div class="container">
         <div class="main-top-padding">

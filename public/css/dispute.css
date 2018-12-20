@@ -70,7 +70,7 @@
     display: inline-block;
 }
 
-.eventListing .img-holder{
+.dispute_listing_parent .img-holder{
     width: 64px;
     height: 64px;
     border-radius: 50%;
@@ -81,7 +81,7 @@
     max-width: 100%;
 }
 
-.eventListing .info{
+.dispute_listing_parent .info{
     display: inline-block;
     vertical-align: top;
     padding-left: 15px;

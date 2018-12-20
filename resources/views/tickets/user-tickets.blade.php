@@ -1,5 +1,5 @@
 @extends('layouts.master')
-@section('title', "My Tickets :: Where's the fun")
+@section('title', "My Tickets ")
 @section('content')
     <div class="my-tickets">
         <div class="container-fluid">
@@ -32,8 +32,8 @@
                         @foreach($orders as $order)
                             <div class="ticket-content">
                                 <div class="date">
-                                    nov<br>
-                                    <span>11</span>
+                                    {{get_month($order->ticket->time_location->starting)}}<br>
+                                    <span>{{$order->ticket->time_location->starting->day}}</span>
                                 </div>
                                 <div class="ticket-wrapper">
                                     <div class="event-image">
@@ -64,7 +64,11 @@
                             </div>
                         @endforeach
                     @else
-                        <div><p>No Tickets Purchased yet</p></div>
+                        <div>
+                            <h4>
+                                <strong>No Tickets Purchased yet</strong>
+                            </h4>
+                        </div>
                     @endif
                 </div>
             </div>

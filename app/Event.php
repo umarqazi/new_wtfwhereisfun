@@ -15,7 +15,7 @@ class Event extends Model
         'title', 'description', 'contact', 'referral_code', 'discount', 'access', 'slug',
         'additional_message', 'total_capacity', 'refund_policy', 'is_draft', 'is_online', 'ticket_flag', 'is_sold_out', 'is_shareable',
         'is_published', 'is_cancelled', 'is_approved', 'status', 'user_id', 'event_type_id', 'event_topic_id',
-        'event_sub_topic_id', 'category_id', 'template_id', 'organizer_id'
+        'event_sub_topic_id', 'category_id', 'template_id', 'organizer_id', 'stripe_product_id'
     ];
 
     /**
@@ -134,13 +134,6 @@ class Event extends Model
      */
     public function tags(){
         return $this->HasMany('App\EventTag');
-    }
-
-    /**
-     * Get Hot Event.
-     */
-    public function hot_deal(){
-        return $this->HasOne('App\EventHotDeal');
     }
 
     /**
