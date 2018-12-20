@@ -71,7 +71,7 @@
                                         <span>User : <strong class="ticket-name">{{$order->user->first_name.' '.$order->user->last_name}}</strong></span><br>
                                     @endif
                                     <span>Amount Paid : <strong>${{$order->payment_gross}}</strong></span><br>
-                                    <span class="payment-status">Payment Status : <strong>Completed</strong></span>
+                                    <span class="payment-status">Payment Status : <strong>{{ucfirst($order->payment_status)}}</strong></span>
                                     <span class="payment-method">Payment Method : <strong>{{ucfirst($order->payment_method)}}</strong></span><br>
                                     <span>Bought at : <strong>{{monthDateYearFromat($order->created_at)}}</strong></span><br>
                                     @if(strpos(url()->current(),'admin') == true)
