@@ -4,6 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\EventLayout;
 use App\Http\Requests\EventTopic;
+use App\Http\Requests\WaitListSetting;
+use App\Http\Requests\WaitListSignUpForm;
+use App\Services\Events\EventCalendarService;
+use App\Services\Events\EventOrderService;
+use App\Services\Events\EventRevenueService;
+use App\Services\Events\TicketDisputeService;
+use App\Services\WaitingListService;
+use App\Services\WaitingListSettingsService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Config;
@@ -17,10 +25,6 @@ use Alert;
 use App\Role;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\URL;
-use App\Services\Events\EventCalendarService;
-use App\Services\Events\EventOrderService;
-use App\Services\Events\EventRevenueService;
-use App\Services\Events\TicketDisputeService;
 use App\Services\Payments\StripeService;
 use App\Services\Events\EventService;
 use App\Services\RefundPolicyService;
@@ -43,7 +47,7 @@ use App\Http\Requests\EventTicket;
 use App\Http\Requests\EventTicketPass;
 use App\Http\Requests\EventTimeLocation;
 use Carbon\Carbon;
-use Facebook\Facebook;
+
 class EventController extends Controller
 {
     protected $eventService;
@@ -66,30 +70,34 @@ class EventController extends Controller
     protected $eventCalendarService;
     protected $eventRevenueService;
     protected $disputeService;
+    protected $waitingListSettingsService;
+    protected $waitingListService;
     protected $stripeService;
 
     public function __construct()
     {
-        $this->eventService             = new EventService();
-        $this->refundPolicyService      = new RefundPolicyService;
-        $this->eventTopicService        = new EventTopicService;
-        $this->eventTypeService         = new EventTypeService;
-        $this->categoryServices         = new CategoryService;
-        $this->eventSubTopicService     = new EventSubTopicService;
-        $this->eventDetailService       = new EventDetailService;
-        $this->eventLocationService     = new EventTimeLocationService;
-        $this->currencyService          = new CurrencyService;
-        $this->timeZoneService          = new TimeZoneService;
-        $this->eventTicketService       = new EventTicketService;
-        $this->eventListingService      = new EventListingService;
-        $this->eventLayoutService       = new EventLayoutService;
-        $this->organizerService         = new OrganizerService;
-        $this->eventImageService        = new EventImageService;
-        $this->eventHotDealService      = new EventHotDealService;
-        $this->eventOrderService        = new EventOrderService;
-        $this->eventRevenueService      = new EventRevenueService;
-        $this->disputeService           = new TicketDisputeService;
-        $this->eventCalendarService     = new EventCalendarService;
+        $this->eventService                 = new EventService();
+        $this->refundPolicyService          = new RefundPolicyService();
+        $this->eventTopicService            = new EventTopicService();
+        $this->eventTypeService             = new EventTypeService();
+        $this->categoryServices             = new CategoryService();
+        $this->eventSubTopicService         = new EventSubTopicService();
+        $this->eventDetailService           = new EventDetailService();
+        $this->eventLocationService         = new EventTimeLocationService();
+        $this->currencyService              = new CurrencyService();
+        $this->timeZoneService              = new TimeZoneService();
+        $this->eventTicketService           = new EventTicketService();
+        $this->eventListingService          = new EventListingService();
+        $this->eventLayoutService           = new EventLayoutService();
+        $this->organizerService             = new OrganizerService();
+        $this->eventImageService            = new EventImageService();
+        $this->eventHotDealService          = new EventHotDealService();
+        $this->eventOrderService            = new EventOrderService();
+        $this->eventRevenueService          = new EventRevenueService();
+        $this->disputeService               = new TicketDisputeService();
+        $this->eventCalendarService         = new EventCalendarService();
+        $this->waitingListSettingsService   = new WaitingListSettingsService();
+        $this->waitingListService           = new WaitingListService();
         $this->stripeService            = new StripeService;
     }
 
@@ -140,12 +148,24 @@ class EventController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param $id
+     * @param $locationId
+     * @return $this
      */
     public function show($id, $locationId)
     {
-        $response = $this->eventService->show($id, $locationId);
+        $response               = $this->eventService->show($id, $locationId);
+        $locationId             = decrypt_id($locationId);
+        $event                  = $this->eventLocationService->getLocationEvent($locationId);
+        $location               = $this->eventLocationService->getTimeLocation($locationId);
+        $data                   = [
+                                        'event_id' => $event->id,
+                                        'event_time_locations_id' => $location->id,
+                                    ];
+        $waitList               = $this->waitingListSettingsService->fetch($data);
+        $response['event']      = $event;
+        $response['location']   = $location;
+        $response['waitList']   = $waitList;
         return view('events.layouts.'.$response['layout'])->with($response);
     }
 
@@ -570,7 +590,8 @@ class EventController extends Controller
 
     /**
      * Get Events Dashboard's Orders
-     * @param  \Illuminate\Http\ $locationId
+     * @param $locationId
+     * @return $this
      */
     public function dashboardOrders($locationId){
         $locationId         = decrypt_id($locationId);
@@ -579,6 +600,44 @@ class EventController extends Controller
         $completedOrders    = $this->eventRevenueService->getTotalRevenueByLocation($locationId);
         $allOrders          = $this->eventRevenueService->getAllOrdersByLocation($locationId);
         return View('events.dashboard-orders')->with(['event' => $event, 'location' => $location, 'completedOrders' => $completedOrders, 'allOrders' => $allOrders]);
+    }
+
+
+    /**
+     * Get Events Dashboard's Wait List Settings
+     * @param $locationId
+     * @return $this
+     */
+    public function dashboardWaitListSettings($locationId){
+        $locationId     = decrypt_id($locationId);
+        $event          = $this->eventLocationService->getLocationEvent($locationId);
+        $location       = $this->eventLocationService->getTimeLocation($locationId);
+        $data           = [
+            'event_id' => $event->id,
+            'event_time_locations_id' => $location->id,
+        ];
+        $waitList       = $this->waitingListSettingsService->fetch($data);
+        return View('events.dashboard-wait-list-settings')->with(['event' => $event, 'location' => $location, 'waitList' => $waitList]);
+    }
+
+    /**
+     * @param WaitListSetting $request
+     * @return $this
+     */
+    public function saveWaitListSettings(WaitListSetting $request){
+        $data = $request->all();
+        unset($data['_token']);
+        unset($data['_method']);
+        unset($data['waitlist_check']);
+        $data1['event_time_locations_id'] = $data['event_time_locations_id'];
+        $data1['event_id'] = $data['event_id'];
+        unset($data['event_time_locations_id']);
+        unset($data['event_id']);
+        $locationId = $request->event_time_locations_id;
+        $waitList   = $this->waitingListSettingsService->updateORCreateWaitingListSetting($data1, $data);
+        $event      = $this->eventLocationService->getLocationEvent($locationId);
+        $location   = $this->eventLocationService->getTimeLocation($locationId);
+        return View('events.dashboard-wait-list-settings')->with(['event' => $event, 'location' => $location, 'waitList' => $waitList]);
     }
 
     public function calendar(){
@@ -597,6 +656,33 @@ class EventController extends Controller
             'msg'       =>  'Your Event Link has been updated Successfully!',
             'data'      =>  url('/').'/events/'.$request->url.'-'.$request->id.'/'.$request->locationId
         ]);
+    }
+
+    /**
+     * @param $locationId
+     * @return $this
+     */
+    public function waitList($locationId)
+    {
+        $locationId     = decrypt_id($locationId);
+        $event          = $this->eventLocationService->getLocationEvent($locationId);
+        $location       = $this->eventLocationService->getTimeLocation($locationId);
+        $data           = [
+            'event_id'                  => $event->id,
+            'event_time_locations_id'   => $location->id,
+        ];
+        $waitList       = $this->waitingListSettingsService->fetch($data);
+        return View('events.dashboard-wait-list')->with(['event' => $event, 'location' => $location, 'waitList' => $waitList]);
+    }
+
+    /**
+     * @param WaitListSignUpForm $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function signUpForWaiting(WaitListSignUpForm $request){
+        $waiting_record = $this->waitingListService->create($request->all());
+        Alert('Request added to Waiting List','success');
+        return redirect()->back();
     }
 
 }

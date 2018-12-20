@@ -3,8 +3,8 @@
 @section('content')
     <link rel="stylesheet" href="{{asset('css/eventpage/richtext.min.css')}}">
     <link rel="stylesheet" href="{{asset('css/eventpage/bootstrap-datetimepicker.min.css')}}">
-    <script src="{{asset('js/moment.min.js')}}></script>
-    <script src="{{asset('js/eventpage/jquery.bxslider.js')}}></script>
+    <script src="{{asset('js/moment.min.js')}}"></script>
+    <script src="{{asset('js/eventpage/jquery.bxslider.js')}}"></script>
     <link rel="stylesheet" href="{{asset('css/eventpage/jquery.bxslider.css')}}">
 
     <div class="container-fluid profileSideBar">

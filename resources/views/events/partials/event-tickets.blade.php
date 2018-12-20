@@ -28,16 +28,20 @@
                             @endif
                             {{--<td class="text-center"><button class="btn btn-info details" data-toggle="modal" data-target="#ticket-{{$ticket->id}}" type="button"><i class="fa fa-info-circle"></i></button></td>--}}
                             <td class="text-center">
-                                @if($ticket->orders->sum('quantity') >= $ticket->quantity)
-                                    <strong class="ticket-sold-out">Sold Out</strong>
+                                @if($waitList == null)
+                                    @if($ticket->orders->sum('quantity') >= $ticket->quantity)
+                                        <strong class="ticket-sold-out">Sold Out</strong>
+                                    @else
+                                        <form method="post" action="{{url('checkout')}}">
+                                            {{ csrf_field() }}
+                                            <input type="hidden" name="ticket_id" value="{{$ticket->id}}">
+                                            <button type="submit" class="btn btn-info">
+                                                <i class="fa fa-shopping-cart"></i>
+                                            </button>
+                                        </form>
+                                    @endif
                                 @else
-                                    <form method="post" action="{{url('checkout')}}">
-                                        {{ csrf_field() }}
-                                        <input type="hidden" name="ticket_id" value="{{$ticket->id}}">
-                                        <button type="submit" class="btn btn-info">
-                                            <i class="fa fa-shopping-cart"></i>
-                                        </button>
-                                    </form>
+                                    <p class="showWailListForm" data-ticketID="{{$ticket->id}}">Sign Up For Waiting List</p>
                                 @endif
                             </td>
                         </tr>
@@ -126,6 +130,15 @@
                     @endforeach
                 </table>
             </div>
+            <div class="row">
+                <div class="waitListForms">
+                @foreach($tickets as $ticket)
+                    @if($waitList != null)
+                        @include('events.partials.wait-list-sign-up-form')
+                    @endif
+                @endforeach
+                </div>
+            </div>
 
         </div>
 
@@ -135,3 +148,11 @@
         <p>No tickets Available</p>
     </div>
 @endif
+<script type="text/javascript">
+    $('.showWailListForm').click(function(event){
+        event.preventDefault();
+        var ticketID = $(this).attr('data-ticketID');
+        $('#waitListForm-'+ticketID).removeClass('hidden');
+        $('#waitListForm-'+ticketID).siblings().addClass('hidden');
+    });
+</script>
