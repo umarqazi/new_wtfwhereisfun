@@ -25,7 +25,8 @@
     <link rel="stylesheet" type="text/css" href="{{asset('listgo/css/jetpack.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('listgo/css/layout-3-style.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('listgo/css/listgo-custom.css')}}">
-
+    <script type="text/javascript" src="{{asset('listgo/js/lib/jquery-1.11.2.min.js')}}"></script>
+    <script type="text/javascript" src="{{asset('listgo/js/lib/jquery-ui.min.js')}}"></script>
 </head>
 <body>
     @yield('content')
@@ -36,8 +37,6 @@
     }
 </script>
 <script data-cfasync="false" src="../cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
-<script type="text/javascript" src="{{asset('listgo/js/lib/jquery-1.11.2.min.js')}}"></script>
-<script type="text/javascript" src="{{asset('listgo/js/lib/jquery-ui.min.js')}}"></script>
 <script type="text/javascript" src="{{asset('listgo/js/lib/jquery.owl.carousel.js')}}"></script>
 <script src="{{asset('js/fancybox/jquery.fancybox.min.js')}}"></script>
 <script src="{{asset('js/moment.min.js')}}"></script>

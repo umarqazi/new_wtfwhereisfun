@@ -27,7 +27,8 @@
                 <ul class="ml-menu">
                     <li> <a href="{{url('events/'.$location->encrypted_id.'/dashboard/orders')}}">All Orders</a></li>
                     <li> <a href="javascript:void(0)">Order Confirmation</a></li>
-                    <li> <a href="javascript:void(0)">Waitlist</a></li>
+                    <li> <a href="{{url('events/'.$location->encrypted_id.'/dashboard/wait-list-settings')}}">Wait List Settings</a></li>
+                    <li> <a href="{{url('events/'.$location->encrypted_id.'/dashboard/wait-list')}}">Wait List</a></li>
                     <li> <a href="javascript:void(0)">Guest List</a></li>
                 </ul>
             </li>

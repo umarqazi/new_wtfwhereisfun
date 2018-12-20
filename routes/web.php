@@ -119,6 +119,9 @@ Route::group(['middleware' => ['web']], function () {
 
                     Route::get('{locationId}/dashboard', 'EventController@dashboard');
                     Route::get('{locationId}/dashboard/orders', 'EventController@dashboardOrders');
+                    Route::get('{locationId}/dashboard/wait-list-settings', 'EventController@dashboardWaitListSettings');
+                    Route::post('{locationId}/dashboard/wait-list-settings-update', 'EventController@saveWaitListSettings');
+                    Route::get('{locationId}/dashboard/wait-list', 'EventController@waitList');
                     Route::post('update-event-url', 'EventController@updateEventUrl');
 
                 });
@@ -151,6 +154,7 @@ Route::group(['middleware' => ['web']], function () {
         Route::get('today-events/all', 'EventController@getTodaysEvents')->name('today-events');
         Route::get('future-events/all', 'EventController@getFutureEvents')->name('future-events');
         Route::get('{id}/{locationId}', 'EventController@show')->name('showById');
+        Route::post('signup-for-waiting', 'EventController@signUpForWaiting');
         Route::post('get-time-location', 'EventController@getTimeLocation');
     });
 });
