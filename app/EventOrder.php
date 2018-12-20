@@ -98,7 +98,7 @@ class EventOrder extends Model
      */
     public function scopeGetCompletedOrders($query)
     {
-        return $query->whereIn('payment_status', ['Completed', 'succeeded']);
+        return $query->whereIn('payment_status', ['Completed', 'succeeded', 'paid']);
     }
 
     /**
