@@ -573,11 +573,12 @@ class EventController extends Controller
      * @param  \Illuminate\Http\ $locationId
      */
     public function dashboardOrders($locationId){
-        $locationId     = decrypt_id($locationId);
-        $event          = $this->eventLocationService->getLocationEvent($locationId);
-        $location       = $this->eventLocationService->getTimeLocation($locationId);
-        $totalRevenue   =   $this->eventRevenueService->getTotalRevenueByLocation($locationId);
-        return View('events.dashboard-orders')->with(['event' => $event, 'location' => $location, 'totalRevenue' => $totalRevenue]);
+        $locationId         = decrypt_id($locationId);
+        $event              = $this->eventLocationService->getLocationEvent($locationId);
+        $location           = $this->eventLocationService->getTimeLocation($locationId);
+        $completedOrders    = $this->eventRevenueService->getTotalRevenueByLocation($locationId);
+        $allOrders          = $this->eventRevenueService->getAllOrdersByLocation($locationId);
+        return View('events.dashboard-orders')->with(['event' => $event, 'location' => $location, 'completedOrders' => $completedOrders, 'allOrders' => $allOrders]);
     }
 
     public function calendar(){

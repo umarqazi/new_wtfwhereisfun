@@ -6047,10 +6047,6 @@ i, cite, em, var, address, dfn {
    text-align: center;
 }
 
-.my-tickets{
-   padding-top: 80px;
-}
-
 .img-ticket-count{
    background-color : #fff;
    border-radius : 5px;
@@ -6116,7 +6112,7 @@ i, cite, em, var, address, dfn {
 .ticket-content .event-ticket-details{
    display: inline-block;
    vertical-align: middle;
-   width: calc(100% - 265px);
+   width: calc(100% - 350px);
    padding-left: 12px;
 }
 
@@ -6589,4 +6585,8 @@ section.content{
 
 .vendor-events-listing{
    min-height:600px;
+}
+
+.my-tickets .refund-button{
+   margin-left:5px;
 }

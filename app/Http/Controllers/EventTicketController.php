@@ -6,8 +6,9 @@ use App\Services\Events\EventOrderService;
 use App\Services\Events\EventService;
 use Illuminate\Http\Request;
 use App\Services\Events\EventTicketService;
-use Illuminate\Support\Carbon;
+//use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
+use Carbon\Carbon;
 class EventTicketController extends Controller
 {
     protected $eventTicketService;

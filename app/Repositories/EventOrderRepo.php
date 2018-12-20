@@ -16,7 +16,7 @@ class EventOrderRepo
     }
 
     public function getUserTickets($userId){
-        return $this->orderModel->getUserOrders($userId)->getCompletedOrders()->recentCreatedAt()->get();
+        return $this->orderModel->getUserOrders($userId)->getCompletedOrders()->getRefundedOrders()->recentCreatedAt()->get();
     }
 
     public function getEventOrders($eventId){
@@ -25,6 +25,10 @@ class EventOrderRepo
 
     public function getTicketOrders($ticketId){
         return $this->orderModel->getTicketOrders($ticketId)->getCompletedOrders()->recentCreatedAt()->get();
+    }
+
+    public function getAllTicketOrders($ticketId){
+        return $this->orderModel->getTicketOrders($ticketId)->getCompletedOrders()->getRefundedOrders()->recentCreatedAt()->get();
     }
 
     public function getEventByOrderId($id){
@@ -46,5 +50,11 @@ class EventOrderRepo
     public function updatePdfName($id, $name){
         return $this->orderModel->where('id', $id)->update(['ticket_pdf' => $name]);
     }
+
+    public function updateRefundOrder($orderId, $refund){
+        return $this->orderModel->where('id', $orderId)->update(['stripe_refund_id' => $refund['id'], 'payment_status' => 'refunded', 'refunded_amount' => $refund['amount']/100 ]);
+    }
+
+
 
 }

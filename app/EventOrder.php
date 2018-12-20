@@ -21,7 +21,7 @@ class EventOrder extends Model
     protected $fillable = [
         'user_id', 'event_id', 'transaction_id', 'payment_gross', 'currency_code', 'payer_email', 'payment_status',
         'ticket_id', 'quantity', 'ticket_price', 'paypal_token', 'payment_method', 'is_deal_availed', 'discount',
-        'hot_deal_id', 'qr_image', 'ticket_pdf', 'stripe_order_id'
+        'hot_deal_id', 'qr_image', 'ticket_pdf', 'stripe_order_id', 'stripe_refund_id', 'refunded_amount'
     ];
 
     /**
@@ -99,6 +99,18 @@ class EventOrder extends Model
     public function scopeGetCompletedOrders($query)
     {
         return $query->whereIn('payment_status', ['Completed', 'succeeded', 'paid']);
+    }
+
+    /**
+     * Scope a query to get completed orders.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @param mixed $type
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeGetRefundedOrders($query)
+    {
+        return $query->orWhere('payment_status', 'refunded');
     }
 
     /**
