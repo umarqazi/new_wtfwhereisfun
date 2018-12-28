@@ -13,9 +13,9 @@
                         <h1>Guest List</h1>
                     </div>
                     <div class="col-md-12">
-                        <button class="btn btn-sm rounded-border collapsed btn-collapse-form" data-toggle="collapse" data-target="#show_form"><span>Expand Add Guest Form <i class="fa fa-caret-down"></i></span><b>Collapse Add Guest Form <i class="fa fa-caret-up"></i></b></button>
+                        <button class="btn btn-sm rounded-border @if($errors->isEmpty())collapsed @endif btn-collapse-form" data-toggle="collapse" data-target="#show_form"><span>Expand Add Guest Form <i class="fa fa-caret-down"></i></span><b>Collapse Add Guest Form <i class="fa fa-caret-up"></i></b></button>
                     </div>
-                    <div id="show_form" class="collapse">
+                    <div id="show_form" @if($errors->isEmpty()) class="collapse" @else class="collapse in show" @endif>
                         <div class="col-md-12">
                             @php
                                 $url = explode('/', url()->current());
@@ -26,9 +26,8 @@
                                 <input type="hidden" name="_method" value="POST">
                                 <input type="hidden" name="_token" value="{{csrf_token()}}">
                                 <input type="hidden" name="guest_list_id" value="{{$url[7]}}">
-                                <input type="hidden" name="guest_list_id" value="{{$url[7]}}">
                                 <div class="col-md-3">
-                                    <input class="guest-input" type="text" name="name" id="name" placeholder="Enter Guest Name">
+                                    <input class="guest-input" type="text" name="name" id="name" placeholder="Enter Guest Name" required>
                                     @if ($errors->has('name'))
                                         <div class="col-md-12 pl-20">
                                             <p class="bold red text-center">{{ $errors->default->first('name') }}</p>
@@ -36,7 +35,7 @@
                                     @endif
                                 </div>
                                 <div class="col-md-2">
-                                    <input class="guest-input" type="number" min="1" name="quantity" id="quantity" placeholder="Enter Quantity">
+                                    <input class="guest-input" type="number" min="1" name="quantity" id="quantity" placeholder="Enter Quantity" required>
                                     @if ($errors->has('quantity'))
                                         <div class="col-md-12 pl-20">
                                             <p class="bold red text-center">{{ $errors->default->first('quantity') }}</p>
@@ -50,11 +49,17 @@
                                     <input class="guest-input" type="email" name="guest_email" id="guest_email" placeholder="Enter Guest Email">
                                 </div>
                                 <div class="col-md-3 vip-drop-drown">
-                                    <select name="ticket_id">
+                                    <select name="ticket_id"  required>
+                                        <option value="">Select Ticket</option>
                                         @foreach($tickets as $ticket)
                                             <option value="{{$ticket->id}}">{{$ticket->name}}</option>
                                         @endforeach
                                     </select>
+                                    @if ($errors->has('ticket_id'))
+                                        <div class="col-md-12 pl-20">
+                                            <p class="bold red text-center">{{ $errors->default->first('ticket_id') }}</p>
+                                        </div>
+                                    @endif
                                 </div>
                                 <div class="col-md-3">
                                     <input type="submit" class="btn btn-sm rounded-border" value="Add Guest">
@@ -77,7 +82,10 @@
                                 <strong>Quantity</strong>
                             </td>
                             <td class="text-center">
-                                <strong>Checked In</strong>
+                                <strong>Guest of / Affiliation</strong>
+                            </td>
+                            <td class="text-center">
+                                <strong>Guest Email</strong>
                             </td>
                         </tr>
                         @if(count($guests) > 0)
@@ -86,7 +94,20 @@
                                 <td class="text-center"><span>{{$key + 1 }}</span></td>
                                 <td><span>{{$guest->name}}</span></td>
                                 <td class="text-center"><span>{{$guest->quantity}}</span></td>
-                                <td class="text-center">0</td>
+                                <td class="text-center">
+                                    @if($guest->guest_affiliation)
+                                        {{$guest->guest_affiliation}}
+                                    @else
+                                        -
+                                    @endif
+                                </td>
+                                <td class="text-center">
+                                    @if($guest->guest_email)
+                                        {{$guest->guest_email}}
+                                    @else
+                                        -
+                                    @endif
+                                </td>
                             </tr>
                             @endforeach
                         @else
