@@ -637,6 +637,9 @@ class EventController extends Controller
         unset($data['_token']);
         unset($data['_method']);
         unset($data['waitlist_check']);
+        if (!array_key_exists('collect_phn', $data)) {
+            $data['collect_phn'] = 0;
+        }
         $data1['event_time_locations_id'] = $data['event_time_locations_id'];
         $data1['event_id'] = $data['event_id'];
         unset($data['event_time_locations_id']);
