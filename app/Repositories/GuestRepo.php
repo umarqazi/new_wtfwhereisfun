@@ -1,21 +1,21 @@
 <?php
 namespace App\Repositories;
 
-use App\WaitList;
+use App\Guest;
 
-class WaitListRepo
+class GuestRepo
 {
     /**
-     * @var WaitingList
+     * @var Guest
      */
-    protected $waitingList;
+    protected $guest;
 
     /**
-     * WaitListSettingsRepo constructor.
+     * GuestRepo constructor.
      */
     public function __construct()
     {
-        $this->waitList = new WaitList();
+        $this->guest = new Guest();
     }
 
     /**
@@ -23,7 +23,7 @@ class WaitListRepo
      * @return mixed
      */
     public function create($data){
-        return $this->waitList->create($data);
+        return $this->guest->create($data);
     }
 
     /**
@@ -31,7 +31,7 @@ class WaitListRepo
      * @return mixed
      */
     public function fetch($data){
-        return $this->waitList->where($data)->paginate(100);
+        return $this->guest->where($data)->paginate(100);
     }
 
 

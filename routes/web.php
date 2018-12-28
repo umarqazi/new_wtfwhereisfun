@@ -124,6 +124,11 @@ Route::group(['middleware' => ['web']], function () {
                     Route::get('{locationId}/dashboard/wait-list-settings', 'EventController@dashboardWaitListSettings');
                     Route::post('{locationId}/dashboard/wait-list-settings-update', 'EventController@saveWaitListSettings');
                     Route::get('{locationId}/dashboard/wait-list', 'EventController@waitList');
+                    Route::get('{locationId}/dashboard/guest-list', 'EventController@guestLists');
+                    Route::get('{locationId}/dashboard/guest-list/{guestList}', 'EventController@guestList');
+                    Route::post('{locationId}/dashboard/guest-list/{guestList}/add-guest', 'EventController@addGuest');
+                    Route::post('{locationId}/dashboard/add-guest-list', 'EventController@addGuestList');
+                    Route::post('{locationId}/dashboard/add-guest', 'EventController@addGuest');
                     Route::post('update-event-url', 'EventController@updateEventUrl');
 
                 });
