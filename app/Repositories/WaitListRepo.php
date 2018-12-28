@@ -31,7 +31,7 @@ class WaitListRepo
      * @return mixed
      */
     public function fetch($data){
-        return $this->waitList->where($data)->get();
+        return $this->waitList->where($data)->paginate(100);
     }
 
     /**

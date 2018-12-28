@@ -25,7 +25,6 @@ class EventTimeLocation extends Model
     /**
      * Get Encrypted Id of the model instance
      *
-     * @var array
      */
     public function getEncryptedIdAttribute()
     {

@@ -6643,3 +6643,38 @@ section.content{
 .my-tickets .refund-button{
    margin-left:5px;
 }
+.guest-list-heading{
+   margin-top: 0px;
+}
+.guest-list-input{
+   padding: 1px 20px;
+   font-size: 11px;
+   width: 500px;
+   margin-top: 10px;
+   border-radius: 5px;
+}
+.guest-input{
+   margin-top: 20px;
+   padding: 10px;
+   width: 100%;
+   height: 40px;
+   border-radius: 5px;
+}
+
+.vip-drop-drown .btn{
+   display: none;
+}
+.vip-drop-drown .bootstrap-select {
+   border: none!important;
+}
+.vip-drop-drown select {
+   height: 40px;
+   width: 100% !important;
+   border-radius: 5px;
+   margin-bottom: 0px !important;
+   box-shadow: none;
+}
+
+.btn-collapse-form b{display:inline}
+.btn-collapse-form:not(.collapsed)  span{display:none}
+.btn-collapse-form.collapsed b {display:none}

@@ -2,14 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use App\Guest;
 use App\Http\Requests\EventLayout;
 use App\Http\Requests\EventTopic;
+use App\Http\Requests\GuestList;
 use App\Http\Requests\WaitListSetting;
 use App\Http\Requests\WaitListSignUpForm;
 use App\Services\Events\EventCalendarService;
 use App\Services\Events\EventOrderService;
 use App\Services\Events\EventRevenueService;
 use App\Services\Events\TicketDisputeService;
+use App\Services\GuestListService;
+use App\Services\GuestService;
 use App\Services\WaitingListService;
 use App\Services\WaitingListSettingsService;
 use Illuminate\Http\Request;
@@ -47,6 +51,7 @@ use App\Http\Requests\EventTicket;
 use App\Http\Requests\EventTicketPass;
 use App\Http\Requests\EventTimeLocation;
 use Carbon\Carbon;
+use App\Http\Requests\Guest as GuestRequest;
 
 class EventController extends Controller
 {
@@ -73,6 +78,8 @@ class EventController extends Controller
     protected $waitingListSettingsService;
     protected $waitingListService;
     protected $stripeService;
+    protected $guestListService;
+    protected $guestService;
 
     public function __construct()
     {
@@ -98,7 +105,9 @@ class EventController extends Controller
         $this->eventCalendarService         = new EventCalendarService();
         $this->waitingListSettingsService   = new WaitingListSettingsService();
         $this->waitingListService           = new WaitingListService();
-        $this->stripeService            = new StripeService;
+        $this->guestListService             = new GuestListService();
+        $this->guestService                 = new GuestService();
+        $this->stripeService                = new StripeService;
     }
 
     /**
@@ -619,7 +628,10 @@ class EventController extends Controller
         unset($data['_token']);
         unset($data['_method']);
         unset($data['waitlist_check']);
-        $data1['event_time_location_id'] = $data['event_time_location_id'];
+        if (!array_key_exists('collect_phn', $data)) {
+            $data['collect_phn'] = 0;
+        }
+        $data1['event_time_locations_id'] = $data['event_time_locations_id'];
         $data1['event_id'] = $data['event_id'];
         unset($data['event_time_location_id']);
         unset($data['event_id']);
@@ -663,7 +675,8 @@ class EventController extends Controller
             'event_time_location_id'   => $location->id,
         ];
         $waitList       = $this->waitingListSettingsService->fetch($data);
-        return View('events.dashboard-wait-list')->with(['event' => $event, 'location' => $location, 'waitList' => $waitList]);
+        $waitListing    = $this->waitingListService->fetch($data);
+        return View('events.dashboard-wait-list')->with(['event' => $event, 'location' => $location, 'waitList' => $waitList, 'waitListing' => $waitListing]);
     }
 
     /**
@@ -672,8 +685,51 @@ class EventController extends Controller
      */
     public function signUpForWaiting(WaitListSignUpForm $request){
         $waiting_record = $this->waitingListService->create($request->all());
-        Alert('Request added to Waiting List','success');
+        Alert('Request added to Waiting List!','success');
         return redirect()->back();
     }
 
+    public function guestLists($locationId){
+        $locationId = decrypt_id($locationId);
+        $data =[
+            'event_time_locations_id' => $locationId,
+        ];
+        $event          = $this->eventLocationService->getLocationEvent($locationId);
+        $location       = $this->eventLocationService->getTimeLocation($locationId);
+        $guestListing   = $this->guestListService->fetch($data);
+        return View('events.dashboard-guest-list')->with(['event' => $event, 'guestListing' => $guestListing, 'location' => $location]);
+    }
+
+    public function guestList($locationId, $guestListId){
+        $locationId = decrypt_id($locationId);
+        $guestListId = decrypt_id($guestListId);
+        $data =[
+            'guest_list_id' => $guestListId,
+        ];
+        $event          = $this->eventLocationService->getLocationEvent($locationId);
+        $location       = $this->eventLocationService->getTimeLocation($locationId);
+        $tickets        = $this->eventTicketService->getTicketsByLocation($locationId);
+        $guests         = $this->guestService->fetch($data);
+        return View('events.dashboard-guest')->with(['event' => $event, 'guests' => $guests, 'location' => $location, 'tickets' => $tickets]);
+    }
+
+    public function addGuestList($locationId, GuestList $request){
+        $locationId = decrypt_id($locationId);
+        $data = [
+            'name'                      => $request->name,
+            'event_time_locations_id'   => $locationId,
+        ];
+        $this->guestListService->create($data);
+        Alert('Guest List added!','success');
+        return redirect()->back();
+    }
+
+    public function addGuest($locationId, $guestList, GuestRequest $request){
+        $data = $request->all();
+        $data['guest_list_id'] = decrypt_id($data['guest_list_id']);
+        $locationId = decrypt_id($locationId);
+        $this->guestService->create($data);
+        Alert('Guest added to Guest List!','success');
+        return redirect()->back();
+    }
 }
