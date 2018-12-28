@@ -117,8 +117,8 @@ class PaymentController extends Controller
     public function refundOrder($orderId){
         $response       = $this->refundPolicyService->refundOrder(decrypt_id($orderId));
         $order          = $this->eventOrderService->getOrderById(decrypt_id($orderId));
-        OrderRefundMailing::dispatch($order)->delay(Carbon::now()->addSeconds(40));
-        WaitListMailing::dispatch($order)->delay(Carbon::now()->addSeconds(40));
+        OrderRefundMailing::dispatch($order)->delay(Carbon::now()->addSeconds(5));
+        WaitListMailing::dispatch($order)->delay(Carbon::now()->addSeconds(5));
         return redirect()->back();
     }
 }

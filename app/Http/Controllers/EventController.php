@@ -631,7 +631,7 @@ class EventController extends Controller
         if (!array_key_exists('collect_phn', $data)) {
             $data['collect_phn'] = 0;
         }
-        $data1['event_time_locations_id'] = $data['event_time_locations_id'];
+        $data1['event_time_location_id'] = $data['event_time_location_id'];
         $data1['event_id'] = $data['event_id'];
         unset($data['event_time_location_id']);
         unset($data['event_id']);
@@ -672,7 +672,7 @@ class EventController extends Controller
         $location       = $this->eventLocationService->getTimeLocation($locationId);
         $data           = [
             'event_id'                  => $event->id,
-            'event_time_location_id'   => $location->id,
+            'event_time_location_id'    => $location->id,
         ];
         $waitList       = $this->waitingListSettingsService->fetch($data);
         $waitListing    = $this->waitingListService->fetch($data);
