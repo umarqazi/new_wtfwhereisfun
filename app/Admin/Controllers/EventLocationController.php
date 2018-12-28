@@ -199,9 +199,11 @@ class EventLocationController extends Controller
     }
 
     protected function getLocationOrders($id){
-        $event = $this->eventLocationService->getLocationEvent($id);
-        $location = $this->eventLocationService->getTimeLocation($id);
-        $totalRevenue   =   $this->eventRevenueService->getTotalRevenueByLocation($id);
-        return View('events.dashboard-orders')->with(['event' => $event, 'location' => $location, 'totalRevenue' => $totalRevenue]);
+        $event              = $this->eventLocationService->getLocationEvent($id);
+        $location           = $this->eventLocationService->getTimeLocation($id);
+        $completedOrders    = $this->eventRevenueService->getTotalRevenueByLocation($id);
+        $allOrders          = $this->eventRevenueService->getAllOrdersByLocation($id);
+        return View('events.dashboard-orders')->with(['event' => $event, 'location' => $location,
+            'completedOrders' => $completedOrders, 'allOrders' => $allOrders ]);
     }
 }

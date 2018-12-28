@@ -3,7 +3,7 @@
     <input type="hidden" name="_token" value="{{csrf_token()}}">
     <input type="hidden" name="ticket_id" value="{{$ticket->id}}">
     <input type="hidden" name="event_id" value="{{$event->id}}">
-    <input type="hidden" name="event_time_locations_id" value="{{$location->id}}">
+    <input type="hidden" name="event_time_location_id" value="{{$eventLocation->id}}">
     @if($waitList->collect_name != null)
     <div class="form-group">
         <label class="control-label col-sm-3" for="name">Full Name:</label>

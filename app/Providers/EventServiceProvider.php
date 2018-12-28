@@ -16,6 +16,12 @@ class EventServiceProvider extends ServiceProvider
         'App\Events\Event' => [
             'App\Listeners\EventListener',
         ],
+        'App\Events\WaitListMailingEvent' => [
+            'App\Listeners\WaitListMailingListener',
+        ],
+        'App\Events\OrderRefundMailingEvent' => [
+            'App\Listeners\OrderRefundMailingListener',
+        ],
     ];
 
     /**

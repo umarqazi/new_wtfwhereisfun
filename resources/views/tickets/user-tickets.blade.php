@@ -71,6 +71,8 @@
                                             <a href="{{url('order/refund/'.$order->encrypted_id)}}" class="btn btn-sm rounded-border pull-right refund-button" >Refund</a>
                                         @endif
                                         <a href="{{url('ticket-dispute/'.$order->encrypted_id)}}" class="btn btn-sm rounded-border pull-right" >Dispute</a>
+                                    @else
+                                        <a href="{{url('test/'.$order->id)}}" class="btn btn-sm rounded-border pull-right" >Test</a>
                                     @endif
                                 </div>
                             </div>

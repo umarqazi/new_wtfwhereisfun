@@ -34,5 +34,15 @@ class WaitListRepo
         return $this->waitList->where($data)->get();
     }
 
+    /**
+     * @param $ticketId
+     * @return mixed
+     */
+    public function getTicketWaitingList($ticketId){
+        return $this->waitList->where('ticket_id', $ticketId)->get();
+    }
+
+
+
 
 }

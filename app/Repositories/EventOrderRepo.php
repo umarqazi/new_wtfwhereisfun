@@ -28,7 +28,7 @@ class EventOrderRepo
     }
 
     public function getAllTicketOrders($ticketId){
-        return $this->orderModel->getTicketOrders($ticketId)->getCompletedOrders()->getRefundedOrders()->recentCreatedAt()->get();
+        return $this->orderModel->getTicketOrders($ticketId)->recentCreatedAt()->get();
     }
 
     public function getEventByOrderId($id){

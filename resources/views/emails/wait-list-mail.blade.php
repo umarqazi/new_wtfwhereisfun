@@ -1,5 +1,5 @@
 @extends('layouts.email-master')
-@section('title', "Dispute Reply ")
+@section('title', "Ticket Wait List Notification")
 @section('content')
 
     <!-- Image Column Section Open // -->
@@ -20,7 +20,7 @@
                                             <tr>
                                                 <td align="center" valign="middle" style="font-size:0;padding:0">
                                                 @php
-                                                    $link = route('showById', ['id' => $reply->dispute->eventOrder->event->encrypted_id, 'locationId' => $reply->dispute->eventOrder->ticket->time_location->encrypted_id ]);
+                                                    $link = route('showById', ['id' => $waitList->ticket->event->encrypted_id, 'locationId' => $waitList->ticket->time_location->encrypted_id ]);
                                                 @endphp
                                                 <!-- Image Section -->
                                                     <table border="0" width="100%" align="center" cellpadding="0" cellspacing="0" style="width:100%;max-width:100%;">
@@ -81,12 +81,12 @@
                                                     <table class="row" border="0" width="500" align="center" cellpadding="0" cellspacing="0" style="width:500px;max-width:500px;">
                                                         <tr>
                                                             <td class="sectionSubTitle centerText" align="center" valign="middle" style="font-family:'Montserrat',Arial,Helvetica,sans-serif;color:#86C543;font-size:12px;line-height:20px;font-weight:700;letter-spacing:0.5px;padding:0;padding-bottom:5px;">
-                                                                Dispute Subject
+                                                                Wait List Notification
                                                             </td>
                                                         </tr>
                                                         <tr>
                                                             <td class="sectionTitle centerText" align="center" valign="middle" style="font-family:'Montserrat',Arial,Helvetica,sans-serif;color:#191919;font-size:22px;line-height:30px;font-weight:700;letter-spacing:0px;padding:0;padding-bottom:20px;">
-                                                                {{$reply->dispute->subject}}
+                                                                Hello {{$waitList->name}}!
                                                             </td>
                                                         </tr>
                                                         <tr>
@@ -101,10 +101,13 @@
                                                         </tr>
                                                         <tr>
                                                             <td class="sectionDesc centerText" align="center" valign="middle" style="font-family:'Open Sans',Arial,Helvetica,sans-serif;color:#939393;font-size:14px;line-height:22px;font-weight:400;letter-spacing:0px;">
-                                                             <strong>RE:</strong>   {!! $reply->message !!}
+                                                                The wait has been over. The requested ticket has been available. Please grab your ticket ASAP by clicking on the link below.
+                                                                <br>
+                                                                <a href="{{$link}}" class="btn btn-sm rounded-border">View Ticket</a>
                                                             </td>
                                                         </tr>
                                                     </table>
+
                                                 </td>
                                             </tr>
                                         </table>
@@ -212,9 +215,9 @@
                                                                         <tr>
                                                                             <td class="imgResponsive" align="center" valign="middle">
                                                                                 <a href="{{$link}}" style="text-decoration:none;border:0;">
-                                                                                    @if(!empty($dispute->event->header_image))
+                                                                                    @if(!empty($waitList->ticket->event->header_image))
                                                                                         @php
-                                                                                            $image = $dispute->event->directory.$dispute->event->header_image;
+                                                                                            $image = $waitList->ticket->event->directory.$waitList->ticket->event->header_image;
                                                                                         @endphp
                                                                                     @else
                                                                                         @php
@@ -262,17 +265,17 @@
                                                                         </tr>
                                                                         <tr>
                                                                             <td class="infoTitle centerText" align="left" valign="middle" style="font-family:'Montserrat',Arial,Helvetica,sans-serif;color:#191919;font-size:16px;line-height:24px;font-weight:700;letter-spacing:0px;padding:0;">
-                                                                                {{$reply->dispute->eventOrder->ticket->time_location->starting->format('D, M d')}} -
+                                                                                {{$waitList->ticket->time_location->starting->format('D, M d')}} -
                                                                             </td>
                                                                         </tr>
                                                                         <tr>
                                                                             <td class="infoTitle centerText" align="left" valign="middle" style="font-family:'Montserrat',Arial,Helvetica,sans-serif;color:#191919;font-size:16px;line-height:24px;font-weight:700;letter-spacing:0px;padding:0;">
-                                                                                {{$reply->dispute->eventOrder->ticket->time_location->ending->format('D, M d')}}
+                                                                                {{$waitList->ticket->time_location->ending->format('D, M d')}}
                                                                             </td>
                                                                         </tr>
                                                                         <tr>
                                                                             <td class="infoDesc cen5terText" align="left" valign="middle" style="font-family:'Montserrat',Arial,Helvetica,sans-serif;color:#939393;font-size:16px;line-height:24px;font-weight:400;letter-spacing:0px;padding:0;padding-bottom:20px;">
-                                                                                {{$reply->dispute->eventOrder->ticket->time_location->starting->format('g:i A')}}  - {{$reply->dispute->eventOrder->ticket->time_location->ending->format('g:i A')}}
+                                                                                {{$waitList->ticket->time_location->starting->format('g:i A')}}  - {{$waitList->ticket->time_location->ending->format('g:i A')}}
                                                                             </td>
                                                                         </tr>
                                                                         <tr>
@@ -282,27 +285,17 @@
                                                                         </tr>
                                                                         <tr>
                                                                             <td class="infoTitle centerText" align="left" valign="middle" style="font-family:'Montserrat',Arial,Helvetica,sans-serif;color:#191919;font-size:16px;line-height:24px;font-weight:700;letter-spacing:0px;padding:0;">
-                                                                                {{$reply->dispute->eventOrder->ticket->time_location->location}}
+                                                                                {{$waitList->ticket->time_location->location}}
                                                                             </td>
                                                                         </tr>
                                                                         <tr>
                                                                             <td class="infosubTitle centerText" align="left" valign="middle" style="font-family:'Montserrat',Arial,Helvetica,sans-serif;color:#86C543;font-size:12px;line-height:20px;font-weight:700;letter-spacing:0.5px;padding:0;">
-                                                                                Amount Paid
+                                                                                Status
                                                                             </td>
                                                                         </tr>
                                                                         <tr>
                                                                             <td class="infoTitle centerText" align="left" valign="middle" style="font-family:'Montserrat',Arial,Helvetica,sans-serif;color:#191919;font-size:16px;line-height:24px;font-weight:700;letter-spacing:0px;padding:0;">
-                                                                                ${{$reply->dispute->eventOrder->payment_gross}}
-                                                                            </td>
-                                                                        </tr>
-                                                                        <tr>
-                                                                            <td class="infosubTitle centerText" align="left" valign="middle" style="font-family:'Montserrat',Arial,Helvetica,sans-serif;color:#86C543;font-size:12px;line-height:20px;font-weight:700;letter-spacing:0.5px;padding:0;">
-                                                                                Ticket Quantity
-                                                                            </td>
-                                                                        </tr>
-                                                                        <tr>
-                                                                            <td class="infoTitle centerText" align="left" valign="middle" style="font-family:'Montserrat',Arial,Helvetica,sans-serif;color:#191919;font-size:16px;line-height:24px;font-weight:700;letter-spacing:0px;padding:0;">
-                                                                                {{$reply->dispute->eventOrder->quantity}}
+                                                                                Waiting
                                                                             </td>
                                                                         </tr>
                                                                     </table>
@@ -341,8 +334,3 @@
     </table>
     <!-- Event Info With Left Boxed Image Section Close // -->
 @endsection
-
-
-
-
-

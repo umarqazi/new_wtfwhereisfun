@@ -7,19 +7,21 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
-class TicketPurchased extends Mailable
+
+class VendorRefund extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public $orderDetails;
+    protected $eventOrder;
+
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct(EventOrder $orderDetails)
+    public function __construct(EventOrder $order)
     {
-        $this->orderDetails = $orderDetails;
+        $this->eventOrder    =      $order;
     }
 
     /**
@@ -29,8 +31,6 @@ class TicketPurchased extends Mailable
      */
     public function build()
     {
-        $directory = getDirectory('orders', $this->orderDetails->id);
-        $file = public_path('storage/').removeFirstParam($directory['relative_path']).$this->orderDetails->ticket_pdf;
-        return $this->view('emails.ticket-purchased')->attach($file);
+        return $this->view('emails.vendor-refund')->with('order', $this->eventOrder);
     }
 }

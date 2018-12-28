@@ -146,7 +146,7 @@ Route::group(['middleware' => ['web']], function () {
             });
 
             Route::get('order/refund/{orderId}', 'PaymentController@refundOrder');
-            Route::get('hell', 'PaymentController@hell');
+            Route::get('test/{orderId}', 'PaymentController@test');
         });
     });
     Route::prefix('events')->group(function () {

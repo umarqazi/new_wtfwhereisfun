@@ -79,6 +79,14 @@ class EventTimeLocation extends Model
         return $this->HasMany('App\EventTicket', 'time_location_id');
     }
 
+    /**
+     * Get WaitList Setting
+     */
+    public function wait_list_setting()
+    {
+        return $this->HasOne('App\WaitingListSetting', 'event_time_location_id');
+    }
+
 
     /**
      * Scope a query to get Today's Events.

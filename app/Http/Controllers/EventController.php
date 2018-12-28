@@ -154,18 +154,7 @@ class EventController extends Controller
      */
     public function show($id, $locationId)
     {
-        $response               = $this->eventService->show($id, $locationId);
-        $locationId             = decrypt_id($locationId);
-        $event                  = $this->eventLocationService->getLocationEvent($locationId);
-        $location               = $this->eventLocationService->getTimeLocation($locationId);
-        $data                   = [
-                                        'event_id' => $event->id,
-                                        'event_time_locations_id' => $location->id,
-                                    ];
-        $waitList               = $this->waitingListSettingsService->fetch($data);
-        $response['event']      = $event;
-        $response['location']   = $location;
-        $response['waitList']   = $waitList;
+        $response = $this->eventService->show($id, $locationId);
         return view('events.layouts.'.$response['layout'])->with($response);
     }
 
@@ -599,7 +588,8 @@ class EventController extends Controller
         $location           = $this->eventLocationService->getTimeLocation($locationId);
         $completedOrders    = $this->eventRevenueService->getTotalRevenueByLocation($locationId);
         $allOrders          = $this->eventRevenueService->getAllOrdersByLocation($locationId);
-        return View('events.dashboard-orders')->with(['event' => $event, 'location' => $location, 'completedOrders' => $completedOrders, 'allOrders' => $allOrders]);
+        return View('events.dashboard-orders')->with(['event' => $event, 'location' => $location,
+            'completedOrders' => $completedOrders, 'allOrders' => $allOrders]);
     }
 
 
@@ -614,7 +604,7 @@ class EventController extends Controller
         $location       = $this->eventLocationService->getTimeLocation($locationId);
         $data           = [
             'event_id' => $event->id,
-            'event_time_locations_id' => $location->id,
+            'event_time_location_id' => $location->id,
         ];
         $waitList       = $this->waitingListSettingsService->fetch($data);
         return View('events.dashboard-wait-list-settings')->with(['event' => $event, 'location' => $location, 'waitList' => $waitList]);
@@ -629,11 +619,12 @@ class EventController extends Controller
         unset($data['_token']);
         unset($data['_method']);
         unset($data['waitlist_check']);
-        $data1['event_time_locations_id'] = $data['event_time_locations_id'];
+        $data1['event_time_location_id'] = $data['event_time_location_id'];
         $data1['event_id'] = $data['event_id'];
-        unset($data['event_time_locations_id']);
+        unset($data['event_time_location_id']);
         unset($data['event_id']);
-        $locationId = $request->event_time_locations_id;
+
+        $locationId = $request->event_time_location_id;
         $waitList   = $this->waitingListSettingsService->updateORCreateWaitingListSetting($data1, $data);
         $event      = $this->eventLocationService->getLocationEvent($locationId);
         $location   = $this->eventLocationService->getTimeLocation($locationId);
@@ -669,7 +660,7 @@ class EventController extends Controller
         $location       = $this->eventLocationService->getTimeLocation($locationId);
         $data           = [
             'event_id'                  => $event->id,
-            'event_time_locations_id'   => $location->id,
+            'event_time_location_id'   => $location->id,
         ];
         $waitList       = $this->waitingListSettingsService->fetch($data);
         return View('events.dashboard-wait-list')->with(['event' => $event, 'location' => $location, 'waitList' => $waitList]);

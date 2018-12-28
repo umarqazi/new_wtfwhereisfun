@@ -1,5 +1,5 @@
 @extends('layouts.email-master')
-@section('title', "Dispute Reply ")
+@section('title', "New Ticket Purchased")
 @section('content')
 
     <!-- Image Column Section Open // -->
@@ -19,15 +19,13 @@
                                         <table class="row" border="0" width="700" align="center" cellpadding="0" cellspacing="0" style="width:700px;max-width:700px;">
                                             <tr>
                                                 <td align="center" valign="middle" style="font-size:0;padding:0">
-                                                @php
-                                                    $link = route('showById', ['id' => $reply->dispute->eventOrder->event->encrypted_id, 'locationId' => $reply->dispute->eventOrder->ticket->time_location->encrypted_id ]);
-                                                @endphp
-                                                <!-- Image Section -->
+
+                                                    <!-- Image Section -->
                                                     <table border="0" width="100%" align="center" cellpadding="0" cellspacing="0" style="width:100%;max-width:100%;">
                                                         <tr>
                                                             <td class="imgResponsive" align="center" valign="middle" style="padding:0;">
-                                                                <a href="{{$link}}" style="text-decoration:none;border:0;">
-                                                                    <img src="{{asset('img/notificationbell.png')}}" alt="#" border="0" width="290" style="display:block;border:0;width:100%;max-width:290px">
+                                                                <a href="{{url('/')}}" style="text-decoration:none;border:0">
+                                                                    <img src="{{asset('img/email-images/refund.png')}}" alt="#" border="0" width="500" style="display:block;border:0;width:100%;max-width:500px">
                                                                 </a>
                                                             </td>
                                                         </tr>
@@ -81,12 +79,12 @@
                                                     <table class="row" border="0" width="500" align="center" cellpadding="0" cellspacing="0" style="width:500px;max-width:500px;">
                                                         <tr>
                                                             <td class="sectionSubTitle centerText" align="center" valign="middle" style="font-family:'Montserrat',Arial,Helvetica,sans-serif;color:#86C543;font-size:12px;line-height:20px;font-weight:700;letter-spacing:0.5px;padding:0;padding-bottom:5px;">
-                                                                Dispute Subject
+                                                                Order Refund
                                                             </td>
                                                         </tr>
                                                         <tr>
                                                             <td class="sectionTitle centerText" align="center" valign="middle" style="font-family:'Montserrat',Arial,Helvetica,sans-serif;color:#191919;font-size:22px;line-height:30px;font-weight:700;letter-spacing:0px;padding:0;padding-bottom:20px;">
-                                                                {{$reply->dispute->subject}}
+                                                                {{$order->ticket->name}}
                                                             </td>
                                                         </tr>
                                                         <tr>
@@ -101,10 +99,19 @@
                                                         </tr>
                                                         <tr>
                                                             <td class="sectionDesc centerText" align="center" valign="middle" style="font-family:'Open Sans',Arial,Helvetica,sans-serif;color:#939393;font-size:14px;line-height:22px;font-weight:400;letter-spacing:0px;">
-                                                             <strong>RE:</strong>   {!! $reply->message !!}
+                                                                {{$order->user->first_name}} has refunded the event ticket.
+                                                                The amount has been transferred to the customer's account Successfully.
                                                             </td>
                                                         </tr>
+                                                        @if(!empty($order->ticket->description))
+                                                            <tr>
+                                                                <td class="sectionDesc centerText" align="center" valign="middle" style="font-family:'Open Sans',Arial,Helvetica,sans-serif;color:#939393;font-size:14px;line-height:22px;font-weight:400;letter-spacing:0px;">
+                                                                    {{$order->ticket->description}}
+                                                                </td>
+                                                            </tr>
+                                                        @endif
                                                     </table>
+
                                                 </td>
                                             </tr>
                                         </table>
@@ -131,48 +138,9 @@
     </table>
     <!-- Title, Subtitle and Description Section Close // -->
 
-    <!-- Single Center Button 1 Section Open // -->
-    <table border="0" width="100%" align="center" cellpadding="0" cellspacing="0" style="width:100%;max-width:100%;">
-        <tr>
-            <td class="bodyBgColor" align="center" valign="top" bgcolor="#F9F9F9">
-                <!-- Bg Color Open // -->
-                <table class="row" border="0" width="700" align="center" cellpadding="0" cellspacing="0" style="width:700px;max-width:700px;">
-                    <tr>
-                        <td class="whiteBgColor" align="center" valign="top" bgcolor="#FFFFFF">
-                            <!-- E-mail Container Section Open // -->
-                            <table class="row" width="600" align="center" border="0" cellpadding="0" cellspacing="0" style="width:600px;max-width:600px;">
-                                <tr>
-                                    <td class="container-padding" align="center" valign="top">
-
-                                        <!-- Space Open -->
-                                        <table border="0" width="100%" align="center" cellpadding="0" cellspacing="0" style="width:100%;max-width:100%;">
-                                            <tr>
-                                                <td align="center" valign="middle" height="30" style="font-size:30px;line-height:30px;">&nbsp;</td>
-                                            </tr>
-                                        </table>
-                                        <!-- Space Close -->
-
-                                        <!-- Space Open -->
-                                        <table border="0" width="100%" align="center" cellpadding="0" cellspacing="0" style="width:100%;max-width:100%;">
-                                            <tr>
-                                                <td align="center" valign="middle" height="30" style="font-size:30px;line-height:30px;">&nbsp;</td>
-                                            </tr>
-                                        </table>
-                                        <!-- Space Close -->
-
-                                    </td>
-                                </tr>
-                            </table>
-                            <!-- E-mail Container Section Close // -->
-                        </td>
-                    </tr>
-                </table>
-                <!-- Bg Color Close // -->
-            </td>
-        </tr>
-    </table>
-    <!-- Single Center Button 1 Section Close // -->
-
+    @php
+        $link = route('showById', ['id' => $order->event->encrypted_id, 'locationId' => $order->ticket->time_location->encrypted_id ]);
+    @endphp
     <!-- Event Info With Left Boxed Image Section Open // -->
     <table border="0" width="100%" align="center" cellpadding="0" cellspacing="0" style="width:100%;max-width:100%;">
         <tr>
@@ -212,9 +180,9 @@
                                                                         <tr>
                                                                             <td class="imgResponsive" align="center" valign="middle">
                                                                                 <a href="{{$link}}" style="text-decoration:none;border:0;">
-                                                                                    @if(!empty($dispute->event->header_image))
+                                                                                    @if(!empty($order->event->header_image))
                                                                                         @php
-                                                                                            $image = $dispute->event->directory.$dispute->event->header_image;
+                                                                                            $image = $order->event->directory.$order->event->header_image;
                                                                                         @endphp
                                                                                     @else
                                                                                         @php
@@ -257,52 +225,32 @@
                                                                     <table border="0" width="100%" align="center" cellpadding="0" cellspacing="0" style="width:100%;max-width:100%;">
                                                                         <tr>
                                                                             <td class="infosubTitle centerText" align="left" valign="middle" style="font-family:'Montserrat',Arial,Helvetica,sans-serif;color:#86C543;font-size:12px;line-height:20px;font-weight:700;letter-spacing:0.5px;padding:0;">
-                                                                                DATE &amp; TIME
+                                                                                Event Title
                                                                             </td>
                                                                         </tr>
                                                                         <tr>
                                                                             <td class="infoTitle centerText" align="left" valign="middle" style="font-family:'Montserrat',Arial,Helvetica,sans-serif;color:#191919;font-size:16px;line-height:24px;font-weight:700;letter-spacing:0px;padding:0;">
-                                                                                {{$reply->dispute->eventOrder->ticket->time_location->starting->format('D, M d')}} -
-                                                                            </td>
-                                                                        </tr>
-                                                                        <tr>
-                                                                            <td class="infoTitle centerText" align="left" valign="middle" style="font-family:'Montserrat',Arial,Helvetica,sans-serif;color:#191919;font-size:16px;line-height:24px;font-weight:700;letter-spacing:0px;padding:0;">
-                                                                                {{$reply->dispute->eventOrder->ticket->time_location->ending->format('D, M d')}}
-                                                                            </td>
-                                                                        </tr>
-                                                                        <tr>
-                                                                            <td class="infoDesc cen5terText" align="left" valign="middle" style="font-family:'Montserrat',Arial,Helvetica,sans-serif;color:#939393;font-size:16px;line-height:24px;font-weight:400;letter-spacing:0px;padding:0;padding-bottom:20px;">
-                                                                                {{$reply->dispute->eventOrder->ticket->time_location->starting->format('g:i A')}}  - {{$reply->dispute->eventOrder->ticket->time_location->ending->format('g:i A')}}
+                                                                                {{$order->event->title}}
                                                                             </td>
                                                                         </tr>
                                                                         <tr>
                                                                             <td class="infosubTitle centerText" align="left" valign="middle" style="font-family:'Montserrat',Arial,Helvetica,sans-serif;color:#86C543;font-size:12px;line-height:20px;font-weight:700;letter-spacing:0.5px;padding:0;">
-                                                                                LOCATION
+                                                                                Event Location
                                                                             </td>
                                                                         </tr>
                                                                         <tr>
                                                                             <td class="infoTitle centerText" align="left" valign="middle" style="font-family:'Montserrat',Arial,Helvetica,sans-serif;color:#191919;font-size:16px;line-height:24px;font-weight:700;letter-spacing:0px;padding:0;">
-                                                                                {{$reply->dispute->eventOrder->ticket->time_location->location}}
+                                                                                {{$order->ticket->time_location->location}}
                                                                             </td>
                                                                         </tr>
                                                                         <tr>
                                                                             <td class="infosubTitle centerText" align="left" valign="middle" style="font-family:'Montserrat',Arial,Helvetica,sans-serif;color:#86C543;font-size:12px;line-height:20px;font-weight:700;letter-spacing:0.5px;padding:0;">
-                                                                                Amount Paid
+                                                                                Amount Refunded
                                                                             </td>
                                                                         </tr>
                                                                         <tr>
                                                                             <td class="infoTitle centerText" align="left" valign="middle" style="font-family:'Montserrat',Arial,Helvetica,sans-serif;color:#191919;font-size:16px;line-height:24px;font-weight:700;letter-spacing:0px;padding:0;">
-                                                                                ${{$reply->dispute->eventOrder->payment_gross}}
-                                                                            </td>
-                                                                        </tr>
-                                                                        <tr>
-                                                                            <td class="infosubTitle centerText" align="left" valign="middle" style="font-family:'Montserrat',Arial,Helvetica,sans-serif;color:#86C543;font-size:12px;line-height:20px;font-weight:700;letter-spacing:0.5px;padding:0;">
-                                                                                Ticket Quantity
-                                                                            </td>
-                                                                        </tr>
-                                                                        <tr>
-                                                                            <td class="infoTitle centerText" align="left" valign="middle" style="font-family:'Montserrat',Arial,Helvetica,sans-serif;color:#191919;font-size:16px;line-height:24px;font-weight:700;letter-spacing:0px;padding:0;">
-                                                                                {{$reply->dispute->eventOrder->quantity}}
+                                                                                ${{$order->refunded_amount}}
                                                                             </td>
                                                                         </tr>
                                                                     </table>
@@ -341,8 +289,3 @@
     </table>
     <!-- Event Info With Left Boxed Image Section Close // -->
 @endsection
-
-
-
-
-

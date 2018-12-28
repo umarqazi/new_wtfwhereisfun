@@ -28,20 +28,20 @@
                             @endif
                             {{--<td class="text-center"><button class="btn btn-info details" data-toggle="modal" data-target="#ticket-{{$ticket->id}}" type="button"><i class="fa fa-info-circle"></i></button></td>--}}
                             <td class="text-center">
-                                @if($waitList == null)
-                                    @if($ticket->orders->sum('quantity') >= $ticket->quantity)
+                                @if($ticket->qty_left > 0)
+                                    <form method="post" action="{{url('checkout')}}">
+                                        {{ csrf_field() }}
+                                        <input type="hidden" name="ticket_id" value="{{$ticket->id}}">
+                                        <button type="submit" class="btn btn-info">
+                                            <i class="fa fa-shopping-cart"></i>
+                                        </button>
+                                    </form>
+                                @else
+                                    @if(($waitList == null) || ($ticket->waitings->count() >= $waitList->max_count))
                                         <strong class="ticket-sold-out">Sold Out</strong>
                                     @else
-                                        <form method="post" action="{{url('checkout')}}">
-                                            {{ csrf_field() }}
-                                            <input type="hidden" name="ticket_id" value="{{$ticket->id}}">
-                                            <button type="submit" class="btn btn-info">
-                                                <i class="fa fa-shopping-cart"></i>
-                                            </button>
-                                        </form>
+                                        <p class="showWailListForm" data-ticketID="{{$ticket->id}}">Add to Waiting List</p>
                                     @endif
-                                @else
-                                    <p class="showWailListForm" data-ticketID="{{$ticket->id}}">Sign Up For Waiting List</p>
                                 @endif
                             </td>
                         </tr>

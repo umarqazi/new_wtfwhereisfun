@@ -14,6 +14,20 @@ class EventTicket extends Model
     protected $with = ['time_location'];
 
     /**
+     * The attributes that appended to the model
+     */
+    protected $appends = ['qty_left'];
+
+    /**
+     * Get Quantity Left of the model instance
+     */
+    public function getQtyLeftAttribute()
+    {
+        $completedOrders = $this->orders()->getCompletedOrders()->get();
+        return $this->quantity - $completedOrders->sum('quantity');
+    }
+
+    /**
      * Get Event
      */
     public function event()
@@ -43,6 +57,14 @@ class EventTicket extends Model
     public function time_location()
     {
         return $this->belongsTo('App\EventTimeLocation', 'time_location_id');
+    }
+
+    /**
+     * Get Ticket WaitList
+     */
+    public function waitings()
+    {
+        return $this->HasMany('App\WaitList', 'ticket_id');
     }
 
 }

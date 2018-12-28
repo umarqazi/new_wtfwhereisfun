@@ -11,7 +11,7 @@ class WaitList extends Model
     protected $table = 'wait_list';
 
     protected $fillable = [
-        'event_id', 'event_time_locations_id', 'ticket_id', 'name', 'email', 'phn'
+        'event_id', 'event_time_location_id', 'ticket_id', 'name', 'email', 'phn'
     ];
 
     /**
@@ -51,7 +51,7 @@ class WaitList extends Model
      */
     public function ticket()
     {
-        return $this->belongsTo('App\EventTicket');
+        return $this->belongsTo('App\EventTicket', 'ticket_id');
     }
 
 }

@@ -34,5 +34,13 @@ class WaitingListService
         return $this->waitingListRepo->fetch($data);
     }
 
+    /**
+     * @param $ticketId
+     * @return mixed
+     */
+    public function getTicketWaitingList($ticketId){
+        return $this->waitingListRepo->getTicketWaitingList($ticketId);
+    }
+
 
 }
