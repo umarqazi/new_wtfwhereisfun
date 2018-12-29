@@ -108,9 +108,9 @@ class EventOrder extends Model
      * @param mixed $type
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function scopeGetRefundedOrders($query)
+    public function scopeGetRefundedOrders($query, $userId)
     {
-        return $query->orWhere('payment_status', 'refunded');
+        return $query->where('user_id', $userId)->where('payment_status', 'refunded');
     }
 
     /**

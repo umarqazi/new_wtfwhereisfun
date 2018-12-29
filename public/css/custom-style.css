@@ -6678,3 +6678,15 @@ section.content{
 .btn-collapse-form b{display:inline}
 .btn-collapse-form:not(.collapsed)  span{display:none}
 .btn-collapse-form.collapsed b {display:none}
+
+p.dispute-user{
+   width: calc(100% - 200px);
+}
+
+.find-events #search-events-form{
+   padding:2px;
+}
+
+.find-events .search_dropdown{
+   z-index: 999999;
+}

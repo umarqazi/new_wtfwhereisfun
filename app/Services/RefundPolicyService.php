@@ -54,6 +54,13 @@ class RefundPolicyService extends BaseService implements IDBService
         if(($order->event->refund_policy->days != 0) && (Carbon::now() <= getTicketRefundDays($starting, $refundDays))){
             $refund = $this->stripeProvider->refunds()->create($order->transaction_id);
             $this->eventOrderService->updateRefundOrderDetails($orderId, $refund);
+            $sku        = $this->stripeProvider->skus()->find($order->ticket->stripe_sku_id);
+            $updatedQty = $sku['inventory']['quantity'] + $order->quantity;
+            $updateSku  = $this->stripeProvider->skus()->update($sku['id'], [
+                'inventory' => [
+                    'quantity' => $updatedQty
+                ],
+            ]);
             Alert::success('Your Order has been refunded Successfully!', 'Order Refunded');
             return true;
         }else{

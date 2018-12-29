@@ -67,9 +67,6 @@
                                         @endif
                                     </div>
                                     @if($order->payment_status != 'refunded')
-                                        @if(($order->event->refund_policy->days != 0) && (\Carbon\Carbon::now() <= getTicketRefundDays($order->ticket->time_location->starting, $order->event->refund_policy->days)))
-                                            <a href="{{url('order/refund/'.$order->encrypted_id)}}" class="btn btn-sm rounded-border pull-right refund-button" >Refund</a>
-                                        @endif
                                         <a href="{{url('ticket-dispute/'.$order->encrypted_id)}}" class="btn btn-sm rounded-border pull-right" >Dispute</a>
                                     @endif
                                 </div>

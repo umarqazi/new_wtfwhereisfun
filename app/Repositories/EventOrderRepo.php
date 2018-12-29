@@ -16,7 +16,9 @@ class EventOrderRepo
     }
 
     public function getUserTickets($userId){
-        return $this->orderModel->getUserOrders($userId)->getCompletedOrders()->getRefundedOrders()->recentCreatedAt()->get();
+        return $this->orderModel->getUserOrders($userId)->getCompletedOrders()->orWhere(function($query) use ($userId){
+            return $query->getRefundedOrders($userId);
+        })->recentCreatedAt()->get();
     }
 
     public function getEventOrders($eventId){
