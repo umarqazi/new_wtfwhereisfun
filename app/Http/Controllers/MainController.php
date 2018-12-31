@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\App;
 use Illuminate\Http\Request;
+use Analytics;
+use Spatie\Analytics\Period;
 use Validator;
 use Alert;
 use Illuminate\Support\Facades\Redirect;
@@ -58,6 +60,8 @@ class MainController extends Controller
      */
     public function index()
     {
+        $analyticsData = Analytics::fetchVisitorsAndPageViews(Period::months(6));
+        dd($analyticsData);
         $user           = Auth::user();
         $blogs          = $this->blogServices->getAll();
         $testimonials   = $this->testimonialServices->getAll();
