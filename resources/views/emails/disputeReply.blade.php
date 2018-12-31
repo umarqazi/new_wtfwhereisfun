@@ -27,7 +27,7 @@
                                                         <tr>
                                                             <td class="imgResponsive" align="center" valign="middle" style="padding:0;">
                                                                 <a href="{{$link}}" style="text-decoration:none;border:0;">
-                                                                    <img src="{{asset('img/notificationbell.png')}}" alt="#" border="0" width="290" style="display:block;border:0;width:100%;max-width:290px">
+                                                                    <img src="{{asset('img/email-images/notificationbell.png')}}" alt="#" border="0" width="290" style="display:block;border:0;width:100%;max-width:290px">
                                                                 </a>
                                                             </td>
                                                         </tr>
