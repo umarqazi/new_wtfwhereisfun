@@ -2,13 +2,21 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\WaitListMailingEvent;
 use App\Http\Requests\Checkout;
+use App\Jobs\OrderRefundMailing;
+use App\Jobs\WaitListMailing;
 use App\Services\Events\EventHotDealService;
+use App\Services\Events\EventOrderService;
 use App\Services\Events\EventTicketService;
 use App\Services\MailService;
 use App\Services\Payments\CheckoutService;
 use App\Services\PdfService;
 use App\Services\QrCodeService;
+use Alert;
+use App\Services\RefundPolicyService;
+use App\Services\WaitingListSettingsService;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Srmklive\PayPal\Services\ExpressCheckout;
 class PaymentController extends Controller
@@ -19,15 +27,21 @@ class PaymentController extends Controller
     protected $mailService;
     protected $qrCodeService;
     protected $pdfService;
+    protected $refundPolicyService;
+    protected $eventOrderService;
+    protected $waitListSettingService;
 
     public function __construct()
     {
-        $this->eventTicketService  = new EventTicketService;
-        $this->checkoutService     = new CheckoutService;
-        $this->hotDealService      = new EventHotDealService;
-        $this->mailService         = new MailService;
-        $this->qrCodeService       = new QrCodeService;
-        $this->pdfService          = new PdfService;
+        $this->eventTicketService       = new EventTicketService;
+        $this->checkoutService          = new CheckoutService;
+        $this->hotDealService           = new EventHotDealService;
+        $this->mailService              = new MailService;
+        $this->qrCodeService            = new QrCodeService;
+        $this->pdfService               = new PdfService;
+        $this->refundPolicyService      = new RefundPolicyService;
+        $this->eventOrderService        = new EventOrderService;
+        $this->waitListSettingService   = new WaitingListSettingsService;
     }
 
     public function checkout(Request $request){
@@ -64,7 +78,6 @@ class PaymentController extends Controller
         $user           = $this->checkoutService->handleCheckoutUser($request);
         $ticket         = $this->eventTicketService->getTicketDetails(decrypt_id($request->ticket_id));
         $hotDeal        = $this->hotDealService->getHotDealDetails($ticket->time_location->id);
-//        $amount         = $this->checkoutService->calculateDealPrice($hotDeal, $ticket, $request->quantity);
         $stripeOrder    = $this->checkoutService->completeStripeProcess($request->all(), $hotDeal, $ticket, $user);
         $order          = $this->checkoutService->storeOrder($request->all(), $user->id, $ticket, $stripeOrder);
         $qrImg          = $this->qrCodeService->generateOrderQR($order->id);
@@ -101,4 +114,11 @@ class PaymentController extends Controller
         return View('emails.ticket-purchased');
     }
 
+    public function refundOrder($orderId){
+        $response       = $this->refundPolicyService->refundOrder(decrypt_id($orderId));
+        $order          = $this->eventOrderService->getOrderById(decrypt_id($orderId));
+        OrderRefundMailing::dispatch($order)->delay(Carbon::now()->addSeconds(5));
+        WaitListMailing::dispatch($order)->delay(Carbon::now()->addSeconds(5));
+        return redirect('complaints');
+    }
 }

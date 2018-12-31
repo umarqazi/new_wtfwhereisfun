@@ -95,7 +95,7 @@ class TicketDisputeRepo
             $dispute->seen_by_user = 1;
         }
 
-        $dispute->update();
+        return $dispute->update();
     }
 
     public function changeReplySeenStatus($dispute_id){
@@ -108,7 +108,7 @@ class TicketDisputeRepo
             $dispute->seen_by_user = 1;
             $dispute->seen_by_vendor = 0;
         }
-        $dispute->update();
+        return $dispute->update();
     }
 
 }

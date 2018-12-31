@@ -17,8 +17,8 @@ class CreateWaitListSettingsTable extends Migration
             $table->increments('id');
             $table->integer('event_id')->unsigned();
             $table->foreign('event_id')->references('id')->on('events')->onDelete('cascade')->onUpdate('cascade');
-            $table->integer('event_time_locations_id')->unsigned();
-            $table->foreign('event_time_locations_id')->references('id')->on('event_time_locations')->onDelete('cascade')->onUpdate('cascade');
+            $table->integer('event_time_location_id')->unsigned();
+            $table->foreign('event_time_location_id')->references('id')->on('event_time_locations')->onDelete('cascade')->onUpdate('cascade');
             $table->tinyInteger('triggers_on');
             $table->integer('max_count');
             $table->tinyInteger('collect_name');

@@ -1,7 +1,8 @@
 @extends('layouts.master')
 @section('title', "My Tickets ")
 @section('content')
-    <div class="my-tickets">
+    @include('sweet::alert')
+    <div class="my-tickets main-top-padding">
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-4">
@@ -54,12 +55,20 @@
                                         <h4><a href="{{route('showById', ['id' => $order->event->encrypted_id, 'locationId' => $order->ticket->time_location->encrypted_id ])}}">{{$order->event->title}}</a></h4>
                                         <strong class="ticket-name">Ticket Name : {{$order->ticket->name}}</strong><br>
                                         <span class="ticket-location"><i class="fa fa-map-marker green"></i> {{$order->ticket->time_location->location}}</span><br>
-                                        <span class="ticket-date"><i class="fa fa-calendar green"></i> {{monthDateYearFromat($order->ticket->time_location->starting)}} - {{monthDateYearFromat($order->ticket->time_location->ending)}}</span><br>
-                                        <span class="ticket-time"><i class="fa fa-clock green"></i> {{$order->ticket->time_location->starting->format('g:i A')}} - {{$order->ticket->time_location->ending->format('g:i A')}}</span><br>
-                                        <span>Amount Paid : <strong>${{$order->payment_gross}}</strong></span><br>
-                                        <span>Bought at : <strong>{{monthDateYearFromat($order->created_at)}}</strong></span><br>
+                                        @if($order->payment_status != 'refunded')
+                                            <span class="ticket-date"><i class="fa fa-calendar green"></i> {{monthDateYearFromat($order->ticket->time_location->starting)}} - {{monthDateYearFromat($order->ticket->time_location->ending)}}</span><br>
+                                            <span class="ticket-time"><i class="fa fa-clock green"></i> {{$order->ticket->time_location->starting->format('g:i A')}} - {{$order->ticket->time_location->ending->format('g:i A')}}</span><br>
+                                            <span>Amount Paid : <strong>${{$order->payment_gross}}</strong></span><br>
+                                            <span>Bought at : <strong>{{monthDateYearFromat($order->created_at)}}</strong></span><br>
+                                        @else
+                                            <span>Order Status : <strong>{{ucfirst($order->payment_status)}}</strong></span><br>
+                                            <span>Amount Refunded : <strong>${{($order->refunded_amount)}}</strong></span><br>
+                                            <span>Refunded at : <strong>{{monthDateYearFromat($order->updated_at)}}</strong></span><br>
+                                        @endif
                                     </div>
-                                    <a href="{{url('ticket-dispute/'.encrypt_id($order->id))}}" class="btn btn-sm rounded-border pull-right" >Dispute</a>
+                                    @if($order->payment_status != 'refunded')
+                                        <a href="{{url('ticket-dispute/'.$order->encrypted_id)}}" class="btn btn-sm rounded-border pull-right" >Dispute</a>
+                                    @endif
                                 </div>
                             </div>
                         @endforeach

@@ -8,11 +8,20 @@
                     <div class="dispute-listing">
                         <div class="img-holder">
                             @if(!empty($dispute_details->user->profile_thumbnail))
-                            <img src="{{$dispute_details->user->directory.$dispute_details->user->profile_thumbnail}}">
+                                <img src="{{$dispute_details->user->directory.$dispute_details->user->profile_thumbnail}}">
                             @else
                                 <img src="{{asset('img/default-148.png')}}">
-                            <p>{{$dispute_details->user->first_name}}</p>
                             @endif
+                            @if(!$dispute_details->is_closed)
+                                @if($dispute_details->event->vendor->id == Auth::user()->id)
+                                    @if($dispute_details->eventOrder->payment_status != 'refunded')
+                                        @if(($dispute_details->event->refund_policy->days != 0) && (\Carbon\Carbon::now() <= getTicketRefundDays($dispute_details->eventOrder->ticket->time_location->starting, $dispute_details->event->refund_policy->days)))
+                                            <a href="{{url('order/refund/'.$dispute_details->eventOrder->encrypted_id)}}" class="btn btn-sm rounded-border pull-right refund-button" >Refund</a>
+                                        @endif
+                                    @endif
+                                @endif
+                            @endif
+                            <p class="dispute-user">{{$dispute_details->user->first_name}} {{$dispute_details->user->last_name}}</p>
                         </div>
                         <div class="dispute-detail">
                             <h2>Event Title</h2>
@@ -39,17 +48,17 @@
                             @endif
                         </div>
                         @if(!$dispute_details->is_closed)
-                        <div class="dispute-detail">
-                            <form method="POST" action="{{ url('/dispute-reply') }}" enctype="multipart/form-data">
-                             {{ csrf_field() }}
-                                <h2>Reply</h2>
-                                <textarea class="form-control" id="reply" required name="reply"></textarea>
-                                <input type="hidden" name="dispute_id" value="{{$dispute_details->id}}">
-                                <button type="submit" class="btn rounded-border pull-right">
-                                    Submit
-                                </button>
-                            </form>
-                        </div>
+                            <div class="dispute-detail">
+                                <form method="POST" action="{{ url('/dispute-reply') }}" enctype="multipart/form-data">
+                                 {{ csrf_field() }}
+                                    <h2>Reply</h2>
+                                    <textarea class="form-control" id="reply" required name="reply"></textarea>
+                                    <input type="hidden" name="dispute_id" value="{{$dispute_details->id}}">
+                                    <button type="submit" class="btn rounded-border">
+                                        Submit
+                                    </button>
+                                </form>
+                            </div>
                        @endif
                     </div>
                     {{--<div class="date">2018: 1222 i99</div>--}}

@@ -25,7 +25,7 @@ class WaitListSetting extends FormRequest
     {
         return [
 //            'waitlist_check'            => 'required',
-//            'event_time_locations_id'   => 'required',
+//            'event_time_location_id'   => 'required',
             'triggers_on'               => 'required',
             'max_count'                 => 'required',
             'collect_name'              => 'required',

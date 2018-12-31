@@ -21,3 +21,10 @@ if (! function_exists('monthDateYearFromat')) {
         return \Carbon\Carbon::parse($date)->format('M d, Y');
     }
 }
+
+if (! function_exists('getTicketRefundDays')) {
+    function getTicketRefundDays($starting, $refundDays){
+        return (\Carbon\Carbon::parse($starting)->subDays($refundDays));
+    }
+}
+

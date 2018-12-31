@@ -2,7 +2,6 @@
 namespace App\Repositories;
 
 use App\WaitingListSetting;
-
 class WaitListSettingsRepo
 {
     /**
