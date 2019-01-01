@@ -2,6 +2,7 @@
 namespace App\Services\Events;
 
 use App\Repositories\EventRepo;
+use App\Services\WaitingListSettingsService;
 use Illuminate\Http\Response;
 use App\Services\IDBService;
 use App\Services\BaseService;
@@ -39,22 +40,24 @@ class EventService extends BaseService implements IDBService
     protected $eventLayoutService;
     protected $organizerService;
     protected $eventTagService;
+    protected $waitingListSettingsService;
 
     public function __construct(){
-        $this->refundPolicyService      = new RefundPolicyService();
-        $this->eventTopicService        = new EventTopicService();
-        $this->eventTypeService         = new EventTypeService();
-        $this->eventTagService          = new EventTagService();
-        $this->categoryServices         = new CategoryService();
-        $this->eventSubTopicService     = new EventSubTopicService();
-        $this->eventDetailService       = new EventDetailService();
-        $this->eventLocationService     = new EventTimeLocationService();
-        $this->currencyService          = new CurrencyService();
-        $this->timeZoneService          = new TimeZoneService();
-        $this->eventTicketService       = new EventTicketService();
-        $this->eventLayoutService       = new EventLayoutService();
-        $this->eventRepo                = new EventRepo();
-        $this->organizerService         = new OrganizerService();
+        $this->refundPolicyService          = new RefundPolicyService();
+        $this->eventTopicService            = new EventTopicService();
+        $this->eventTypeService             = new EventTypeService();
+        $this->eventTagService              = new EventTagService();
+        $this->categoryServices             = new CategoryService();
+        $this->eventSubTopicService         = new EventSubTopicService();
+        $this->eventDetailService           = new EventDetailService();
+        $this->eventLocationService         = new EventTimeLocationService();
+        $this->currencyService              = new CurrencyService();
+        $this->timeZoneService              = new TimeZoneService();
+        $this->eventTicketService           = new EventTicketService();
+        $this->eventLayoutService           = new EventLayoutService();
+        $this->eventRepo                    = new EventRepo();
+        $this->organizerService             = new OrganizerService();
+        $this->waitingListSettingsService   = new WaitingListSettingsService();
     }
 
     public function create($request = null)
@@ -135,6 +138,8 @@ class EventService extends BaseService implements IDBService
         $tags           = $this->eventTagService->getEventTags($eventId);
         $moreEvents     = $this->eventRepo->getMoreEvents($event->vendor->id, $eventId);
         $directory      = getDirectory('events', $eventId);
+        $data           = ['event_id' => $eventId, 'event_time_location_id' => $locationId];
+        $waitList       = $this->waitingListSettingsService->fetch($data);
         if(!empty($eventLocation)){
             Mapper::map($eventLocation->latitude , $eventLocation->longitude);
         }
@@ -143,7 +148,9 @@ class EventService extends BaseService implements IDBService
         }else{
             $layout         = $event->layout->name;
         }
-        return (['event' => $event, 'layout' => $layout, 'eventId' => $id, 'locations' => $locations, 'eventLocation' => $eventLocation, 'tickets' => $tickets, 'directory' => $directory, 'moreEvents' => $moreEvents, 'tags' => $tags ]);
+        return (['event' => $event, 'layout' => $layout, 'eventId' => $id, 'locations' => $locations,
+            'eventLocation' => $eventLocation, 'tickets' => $tickets, 'directory' => $directory,
+            'moreEvents' => $moreEvents, 'tags' => $tags, 'waitList' => $waitList ]);
     }
 
     public function goLive($request){

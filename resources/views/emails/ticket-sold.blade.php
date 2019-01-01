@@ -198,7 +198,7 @@
                                                                             </td>
                                                                         </tr>
                                                                         <tr>
-                                                                            <td class="infoDesc centerText" align="left" valign="middle" style="font-family:'Montserrat',Arial,Helvetica,sans-serif;color:#939393;font-size:16px;line-height:24px;font-weight:400;letter-spacing:0px;padding:0;padding-bottom:20px;">
+                                                                            <td class="infoTitle centerText" align="left" valign="middle" style="font-family:'Montserrat',Arial,Helvetica,sans-serif;color:#939393;font-size:16px;line-height:24px;font-weight:400;letter-spacing:0px;padding:0;padding-bottom:20px;">
                                                                                 {{$orderDetails->ticket->time_location->starting->format('g:i A')}}  - {{$orderDetails->ticket->time_location->ending->format('g:i A')}}
                                                                             </td>
                                                                         </tr>

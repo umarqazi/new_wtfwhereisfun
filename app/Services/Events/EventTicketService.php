@@ -6,18 +6,21 @@ use App\Repositories\EventRepo;
 use App\Repositories\EventTicketRepo;
 use App\Services\BaseService;
 use App\Services\IDBService;
+use App\Services\WaitingListService;
 use Illuminate\Http\Response;
 class EventTicketService extends BaseService
 {
     protected $eventRepo;
     protected $eventTicketRepo;
     protected $eventOrderRepo;
+    protected $waitingListService;
 
     public function __construct()
     {
-        $this->eventRepo        = new EventRepo;
-        $this->eventTicketRepo  = new EventTicketRepo;
-        $this->eventOrderRepo   = new EventOrderRepo;
+        $this->eventRepo            = new EventRepo;
+        $this->eventTicketRepo      = new EventTicketRepo;
+        $this->eventOrderRepo       = new EventOrderRepo;
+        $this->waitingListService   = new WaitingListService;
     }
 
     public function getEventTickets($id){
@@ -78,6 +81,15 @@ class EventTicketService extends BaseService
 
     public function updateTicketSkuId($ticketId, $sku){
         return $this->eventTicketRepo->updateTicketSkuId($ticketId, $sku);
+    }
+
+    public function getTicketWaitList($ticketId){
+        $ticket = $this->getTicketDetails($ticketId);
+        if($ticket->time_location->wait_list_setting != null){
+            return $this->waitingListService->getTicketWaitingList($ticket->id);
+        }else{
+            return [];
+        }
     }
 
 }

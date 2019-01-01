@@ -27,6 +27,10 @@ class EventOrderService
         return $this->eventOrderRepo->getTicketOrders($ticketId);
     }
 
+    public function getAllOrdersByTickets($ticketId){
+        return $this->eventOrderRepo->getAllTicketOrders($ticketId);
+    }
+
     public function getWeekOrderByTickets($ticketId){
         return $this->eventOrderRepo->getWeekOrderByTickets($ticketId);
     }
@@ -41,6 +45,10 @@ class EventOrderService
 
     public function updateOrderPdfName($id, $imgName){
         return $this->eventOrderRepo->updatePdfName($id, $imgName);
+    }
+
+    public function updateRefundOrderDetails($orderId, $refund){
+        return $this->eventOrderRepo->updateRefundOrder($orderId, $refund);
     }
 
 }

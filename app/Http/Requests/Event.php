@@ -32,6 +32,7 @@ class Event extends FormRequest
             'title'             => $titleRule,
             'description'       => 'required',
             'organizer_id'      => 'required',
+            'refund_policy'     => 'required',
             'discount'          => 'required_with:referral_code,numeric',
             'contact'           => ''
         ];
@@ -46,6 +47,7 @@ class Event extends FormRequest
     {
         return [
             'organizer_id.required'     => 'Please select an Organizer',
+            'refund_policy.required'    => 'Please select a Refund Policy',
             'discount.required_with'    => 'Discount is required',
         ];
     }

@@ -13,7 +13,9 @@ class WaitingListSetting extends Model
     protected $table = 'wait_list_settings';
 
     protected $fillable = [
-        'event_id', 'event_time_locations_id', 'triggers_on', 'max_count', 'collect_name', 'collect_email', 'collect_phn', 'time_to_respond_days', 'time_to_respond_hours', 'time_to_respond_mins', 'auto_respond_msgs', 'ticket_release_msgs'
+        'event_id', 'event_time_location_id', 'triggers_on', 'max_count', 'collect_name', 'collect_email',
+        'collect_phn', 'time_to_respond_days', 'time_to_respond_hours', 'time_to_respond_mins', 'auto_respond_msgs',
+        'ticket_release_msgs'
     ];
 
     /**

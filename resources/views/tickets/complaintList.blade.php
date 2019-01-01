@@ -41,7 +41,9 @@
                                                 </ul>
                                                 <div class="leftSide">
                                                     <div class="event-title">
-                                                        <a href="http://wtf.localhost/dispute/show/1">{{$dispute->subject}}</a>
+                                                        <p><strong>{{$dispute->subject}}</strong>
+                                                            @if(!$dispute->seen_by_vendor)<span class="badge badge-success">New</span> @endif
+                                                        </p>
                                                     </div>
                                                     <p>{!! $dispute->message !!}</p>
                                                 </div>
@@ -54,7 +56,7 @@
                                 @endforeach
                             @else
                                 <div>
-                                    <p><strong>No Disputes Found</strong></p>
+                                    <p><strong>No Complaints Found</strong></p>
                                 </div>
                             @endif
                         </div>

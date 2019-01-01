@@ -7,14 +7,8 @@
         @endif
         <section class="content home">
             @include('events.partials.event-dashboard-top-details')
-            @php
-                $url = explode('/', url()->current());
-                array_pop($url);
-                array_push($url, 'wait-list-settings-update');
-                $url = implode('/', $url);
-            @endphp
-            <form action="{{$url}}" id="wait_list_setting_form" method="POST">
-                <input type="hidden" name="event_time_locations_id" value="{{$location->id}}">
+            <form action="{{url('/').'/events/'.$location->encrypted_id.'/dashboard/wait-list-settings-update'}}" id="wait_list_setting_form" method="POST">
+                <input type="hidden" name="event_time_location_id" value="{{$location->id}}">
                 <input type="hidden" name="event_id" value="{{$event->id}}">
                 <input type="hidden" name="_token" value="{{csrf_token()}}">
                 <input type="hidden" name="_method" value="POST">
@@ -94,13 +88,9 @@
                         </div>
                         <div class="col-md-12 mb-10 pl-20">
                             <input type="checkbox" class="checkbox" id="collect_phn" name="collect_phn" value="1"
-                                   @if(isset($waitList))
-                                        @if($waitList->collect_phn != NULL)
-                                            checked=""
-                                        @endif
-                                   @else
-                                        checked=""
-                                   @endif>
+                               @if(isset($waitList))
+                                    @if(!empty($waitList->collect_phn)) checked @endif
+                               @endif >
                             <label for="collect_phn">Phone Number</label>
                         </div>
                         <div class="col-md-12 mt-10">

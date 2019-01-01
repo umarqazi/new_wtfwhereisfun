@@ -27,16 +27,7 @@
                                                         <tr>
                                                             <td class="imgResponsive" align="center" valign="middle" style="padding:0;">
                                                                 <a href="{{$link}}" style="text-decoration:none;border:0;">
-                                                                    @if(!empty($reply->dispute->event->header_image))
-                                                                        @php
-                                                                            $image = $reply->dispute->event->directory.$reply->dispute->event->header_image;
-                                                                        @endphp
-                                                                    @else
-                                                                        @php
-                                                                            $image = asset('img/dummy.jpg');
-                                                                        @endphp
-                                                                    @endif
-                                                                    <img src="{{$image}}" alt="#" border="0" width="290" style="display:block;border:0;width:100%;max-width:290px">
+                                                                    <img src="{{asset('img/email-images/notificationbell.png')}}" alt="#" border="0" width="290" style="display:block;border:0;width:100%;max-width:290px">
                                                                 </a>
                                                             </td>
                                                         </tr>
@@ -220,8 +211,17 @@
                                                                     <table border="0" width="100%" align="center" cellpadding="0" cellspacing="0" style="width:100%;max-width:100%;">
                                                                         <tr>
                                                                             <td class="imgResponsive" align="center" valign="middle">
-                                                                                <a href="example.com" style="text-decoration:none;border:0;">
-                                                                                    <img src="images/map1.jpg" alt="#" border="0" width="290" style="display:block;border:0;width:100%;max-width:290px">
+                                                                                <a href="{{$link}}" style="text-decoration:none;border:0;">
+                                                                                    @if(!empty($dispute->event->header_image))
+                                                                                        @php
+                                                                                            $image = $dispute->event->directory.$dispute->event->header_image;
+                                                                                        @endphp
+                                                                                    @else
+                                                                                        @php
+                                                                                            $image = asset('img/dummy.jpg');
+                                                                                        @endphp
+                                                                                    @endif
+                                                                                    <img src="{{$image}}" alt="#" border="0" width="290" style="display:block;border:0;width:100%;max-width:290px">
                                                                                 </a>
                                                                             </td>
                                                                         </tr>

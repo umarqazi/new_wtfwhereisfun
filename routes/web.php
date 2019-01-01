@@ -149,6 +149,9 @@ Route::group(['middleware' => ['web']], function () {
                 Route::post('organizers/remove-image', 'OrganizerController@removeImage');
 
             });
+
+            Route::get('order/refund/{orderId}', 'PaymentController@refundOrder');
+            Route::get('test/{orderId}', 'PaymentController@test');
         });
     });
     Route::prefix('events')->group(function () {

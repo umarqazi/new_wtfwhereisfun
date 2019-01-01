@@ -110,13 +110,14 @@
                                             <textarea class="content_editor1" name="additional_message"></textarea>
                                         </div>
                                         <div class="form-group Refund_Policy">
-                                            <label> Set a refund policy </label>
+                                            <label> Set a refund policy <span class="required-field">*</span></label>
                                             <select class="form-control" name="refund_policy" required>
                                                 <option disabled selected>Select Refund Policy</option>
                                                 @foreach($refundPolicies as $refund)
                                                     <option value="{{$refund->id}}">{{$refund->text}}</option>
                                                 @endforeach
                                             </select>
+                                            <div class="form-error refund_policy"></div>
                                             <span class="label_cap">If your refund policy is changed after tickets have been sold, the new policy will apply to future orders only. <br> Any free order can be cancelled by the buyer at any time.<a href="#"> Learn more.</a></span>
                                         </div>
 

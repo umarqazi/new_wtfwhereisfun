@@ -87,7 +87,8 @@ class MainController extends Controller
                 'data' => ['searchResults' => $response['results'], 'count' => $response['count']]
             ]);
         }else{
-            return View('front-end.events.events-search')->with(['locationEvents' => $response['results'], 'count' => $response['count'] ]);
+            $location       = $this->eventLocationService->getUserLocation();
+            return View('front-end.events.events-search')->with(['locationEvents' => $response['results'], 'count' => $response['count'], 'city' => $location['city'] ]);
         }
     }
 
