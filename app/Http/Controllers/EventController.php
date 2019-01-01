@@ -648,6 +648,7 @@ class EventController extends Controller
         $waitList   = $this->waitingListSettingsService->updateORCreateWaitingListSetting($data1, $data);
         $event      = $this->eventLocationService->getLocationEvent($locationId);
         $location   = $this->eventLocationService->getTimeLocation($locationId);
+
         return View('events.dashboard-wait-list-settings')->with(['event' => $event, 'location' => $location, 'waitList' => $waitList]);
     }
 
