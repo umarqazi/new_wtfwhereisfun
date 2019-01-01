@@ -6,14 +6,6 @@
     <!-- font include -->
     <script src="{{asset('js/jquery.min.js')}}"></script>
 
-    <!-- Google Tag Manager -->
-    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-            new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-            j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-            'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-        })(window,document,'script','dataLayer','GTM-5T5VGHN');</script>
-    <!-- End Google Tag Manager -->
-
     <!-- Bootstrap Script -->
     <script src="{{asset('js/bootstrap.min.js')}}"></script>
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800" rel="stylesheet">
@@ -53,15 +45,5 @@
 
     <!-- dispute  Style -->
     <link href="{{asset('css/dispute.css')}}" rel="stylesheet" type="text/css">
-
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-131495965-1"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-
-        gtag('config', 'UA-131495965-1');
-    </script>
 
 </head>
