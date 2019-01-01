@@ -133,7 +133,7 @@
             <div class="row">
                 <div class="waitListForms">
                 @foreach($tickets as $ticket)
-                    @if($waitList != null)
+                    @if($waitList != null || $errors->any())
                         @include('events.partials.wait-list-sign-up-form')
                     @endif
                 @endforeach
@@ -147,6 +147,12 @@
     <div>
         <p>No tickets Available</p>
     </div>
+@endif
+@if(!$errors->isEmpty())
+    <script type="text/javascript">
+        var new_position = $('.listing-single').offset();
+        $('html, body').stop().animate({ scrollTop: new_position.top }, 500);
+    </script>
 @endif
 <script type="text/javascript">
     $('.showWailListForm').click(function(event){

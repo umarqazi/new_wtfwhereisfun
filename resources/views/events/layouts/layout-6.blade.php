@@ -55,13 +55,13 @@
                                 @include('events.partials.event-layout-tabs')
 
                                 <div class="tab__content">
-                                    <div id="tab-description" class="tab__panel active">
+                                    <div id="tab-description" class="tab__panel @if($errors->isEmpty()) active @endif">
                                         <div class="listing-single__content">
                                             @include('events.partials.event-description')
                                         </div>
                                     </div>
 
-                                    <div id="event-tickets" class="tab__panel default-status has-single-map">
+                                    <div id="event-tickets" class="tab__panel default-status has-single-map @if(!$errors->isEmpty()) active @endif">
                                         @include('events.partials.event-tickets')
                                     </div>
 
