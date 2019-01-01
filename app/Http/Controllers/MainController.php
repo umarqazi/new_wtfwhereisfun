@@ -4,8 +4,6 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\App;
 use Illuminate\Http\Request;
-use Analytics;
-use Spatie\Analytics\Period;
 use Validator;
 use Alert;
 use Illuminate\Support\Facades\Redirect;
@@ -62,21 +60,6 @@ class MainController extends Controller
      */
     public function index()
     {
-//        $analytics = Analytics::performQuery(Period::days(60), 'ga:pageviews', ['dimensions' => 'ga:browser, ga:countryIsoCode, ga:browser']);
-//        dd($analytics);
-//        $analytics = (Analytics::performQuery(Period::days(7), "ga:pageviews", ["filters" => "ga:pagePath=@/https://stubguys.com/events/Wpmbk5ezJn/Wpmbk5ezJn", 'prettyPrint' => true]));
-//        $analyticsData = Analytics::fetchVisitorsAndPageViews(Period::days(60));
-//        dd($analyticsData);
-//        $analyticsData = Analytics::fetchMostVisitedPages(Period::years(1), 20);
-//        $analyticsData = Analytics::performQuery(
-//            Period::years(1),
-//            'ga:sessions',
-//            [
-//                'metrics' => 'ga:sessions, ga:pageviews',
-//                'dimensions' => 'ga:yearMonth'
-//            ]
-//        );
-//        dd($analytics);
         $user           = Auth::user();
         $blogs          = $this->blogServices->getAll();
         $testimonials   = $this->testimonialServices->getAll();

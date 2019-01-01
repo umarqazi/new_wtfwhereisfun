@@ -40,6 +40,124 @@
                         </div>
                     </div>
                 </div>
+
+                <div class="row clearfix">
+                    <div class="col-lg-12">
+                        <div class="card">
+                            <ul class="row profile_state list-unstyled">
+                                <li class="col-lg-3 col-md-4 col-6">
+                                    <div class="body">
+                                        <i class="zmdi zmdi-calendar col-amber"></i>
+                                        <h4>2,365</h4>
+                                        <span>Event Views</span><br>
+                                        <span class="badge badge-info">Total Views</span>
+                                    </div>
+                                </li>
+                                <li class="col-lg-3 col-md-4 col-6">
+                                    <div class="body">
+                                        <i class="zmdi zmdi-thumb-up col-blue"></i>
+                                        <h4>365</h4>
+                                        <span>Organizer Profile Views</span>
+                                        <span class="badge badge-warning">Total Views</span>
+                                    </div>
+                                </li>
+                                <li class="col-lg-3 col-md-4 col-6">
+                                    <div class="body">
+                                        <i class="zmdi zmdi-comment-text col-red"></i>
+                                        <h4>65</h4>
+                                        <span>Event Views</span><br>
+                                        <span class="badge badge-info">This Month</span>
+                                    </div>
+                                </li>
+                                <li class="col-lg-3 col-md-4 col-6">
+                                    <div class="body">
+                                        <i class="zmdi zmdi-account text-success"></i>
+                                        <h4>2,055</h4>
+                                        <span>Event Views</span><br>
+                                        <span class="badge badge-info">This Week</span>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row clearfix">
+                    <div class="col-md-12 col-lg-12">
+                        <div class="card visitors-map">
+                            <div class="header">
+                                <h2>Visitors Statistics</h2>
+                                <span class="badge badge-primary">Coming Soon</span>
+                            </div>
+                            <div class="body">
+                                <div class="row">
+                                    <div class="col-xl-8 col-lg-7 col-md-12">
+                                        <div id="world-map-markers" class="jvector-map"></div>
+                                    </div>
+                                    <div class="col-xl-4 col-lg-5 col-md-12">
+                                        <div class="table-responsive">
+                                            <table class="table table-hover">
+                                                <thead>
+                                                <tr>
+                                                    <th>Contrary</th>
+                                                    <th>2017</th>
+                                                    <th>2017</th>
+                                                    <th>Change</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <tr>
+                                                    <td>USA</td>
+                                                    <td>2,009</td>
+                                                    <td>3,591</td>
+                                                    <td>7.01% <i class="zmdi zmdi-trending-up text-success"></i></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>India</td>
+                                                    <td>1,129</td>
+                                                    <td>1,361</td>
+                                                    <td>3.01% <i class="zmdi zmdi-trending-up text-success"></i></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Canada</td>
+                                                    <td>2,009</td>
+                                                    <td>2,901</td>
+                                                    <td>9.01% <i class="zmdi zmdi-trending-up text-success"></i></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Australia</td>
+                                                    <td>954</td>
+                                                    <td>901</td>
+                                                    <td>5.71% <i class="zmdi zmdi-trending-down text-warning"></i></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Germany</td>
+                                                    <td>594</td>
+                                                    <td>500</td>
+                                                    <td>6.11% <i class="zmdi zmdi-trending-down text-warning"></i></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>UK</td>
+                                                    <td>1,500</td>
+                                                    <td>1,971</td>
+                                                    <td>8.50% <i class="zmdi zmdi-trending-up text-success"></i></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Other</td>
+                                                    <td>4,236</td>
+                                                    <td>4,591</td>
+                                                    <td>9.15% <i class="zmdi zmdi-trending-up text-success"></i></td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="row clearfix">
                     <div class="col-lg-4 col-md-12 col-sm-12">
                         <div class="card ">
@@ -269,226 +387,6 @@
                     </div>
                 </div>
                 <meta name="csrf-token" content="{{ csrf_token() }}">
-
-                <div class="row clearfix">
-                    <div class="col-lg-9 col-md-8">
-                        <div class="card product-report">
-                            <div class="header">
-                                <h2>Annual Report <small>Description text here...</small></h2>
-                                <ul class="header-dropdown m-r--5">
-                                    <li class="dropdown"> <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> <i class="zmdi zmdi-more-vert"></i> </a>
-                                        <ul class="dropdown-menu pull-right">
-                                            <li><a href="javascript:void(0);">Action</a></li>
-                                            <li><a href="javascript:void(0);">Another action</a></li>
-                                            <li><a href="javascript:void(0);">Something else here</a></li>
-                                        </ul>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="body">
-                                <div class="row clearfix m-b-15">
-                                    <div class="col-lg-4 col-md-4 col-sm-4">
-                                        <div class="icon l-amber"><i class="zmdi zmdi-chart-donut"></i></div>
-                                        <div class="col-in">
-                                            <h4 class="counter m-b-0">$4,516</h4>
-                                            <small class="text-muted m-t-0">Sales Report</small>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-4 col-md-4 col-sm-4">
-                                        <div class="icon l-turquoise"><i class="zmdi zmdi-chart"></i></div>
-                                        <div class="col-in">
-                                            <h4 class="counter m-b-0">$6,481</h4>
-                                            <small class="text-muted m-t-0">Annual Revenue </small>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-4 col-md-4 col-sm-4">
-                                        <div class="icon l-parpl"><i class="zmdi zmdi-card"></i></div>
-                                        <div class="col-in">
-                                            <h4 class="counter m-b-0">$3,915</h4>
-                                            <small class="text-muted m-t-0">Total Profit</small>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div id="area_chart" class="graph"></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-4">
-                        <div class="row clearfix">
-                            <div class="col-lg-12 col-md-6 col-sm-12">
-                                <div class="card top-report">
-                                    <div class="body">
-                                        <h3 class="m-t-0">50.5 Gb <i class="zmdi zmdi-trending-up float-right"></i></h3>
-                                        <p class="text-muted">Traffic this month</p>
-                                        <div class="progress">
-                                            <div class="progress-bar l-turquoise" role="progressbar" aria-valuenow="68" aria-valuemin="0" aria-valuemax="100" style="width: 68%;"></div>
-                                        </div>
-                                        <small>Change 5%</small>
-                                        <span class="badge badge-primary">Coming Soon</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-12 col-md-6 col-sm-12">
-                                <div class="card top-report">
-                                    <div class="body">
-                                        <h3 class="m-t-0">1,600 <i class="zmdi zmdi-trending-up float-right"></i></h3>
-                                        <p class="text-muted">New Feedbacks</p>
-                                        <div class="progress">
-                                            <div class="progress-bar l-blush" role="progressbar" aria-valuenow="68" aria-valuemin="0" aria-valuemax="100" style="width: 68%;"></div>
-                                        </div>
-                                        <small>Change 15%</small>
-                                        <span class="badge badge-primary">Coming Soon</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-12">
-                                <div class="card top-report">
-                                    <div class="body">
-                                        <h3 class="m-t-0">26.8% <i class="zmdi zmdi-trending-down float-right"></i></h3>
-                                        <p class="text-muted">Server Load</p>
-                                        <div class="progress">
-                                            <div class="progress-bar l-parpl" role="progressbar" aria-valuenow="32" aria-valuemin="0" aria-valuemax="100" style="width:32%;"></div>
-                                        </div>
-                                        <small>Change 17%</small>
-                                        <span class="badge badge-primary">Coming Soon</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row clearfix">
-                    <div class="col-lg-12">
-                        <div class="card">
-                            <ul class="row profile_state list-unstyled">
-                                <li class="col-lg-2 col-md-4 col-6">
-                                    <div class="body">
-                                        <i class="zmdi zmdi-camera col-amber"></i>
-                                        <h4>2,365</h4>
-                                        <span>Shots View</span>
-                                        <span class="badge badge-primary">Coming Soon</span>
-                                    </div>
-                                </li>
-                                <li class="col-lg-2 col-md-4 col-6">
-                                    <div class="body">
-                                        <i class="zmdi zmdi-thumb-up col-blue"></i>
-                                        <h4>365</h4>
-                                        <span>Likes</span>
-                                        <span class="badge badge-primary">Coming Soon</span>
-                                    </div>
-                                </li>
-                                <li class="col-lg-2 col-md-4 col-6">
-                                    <div class="body">
-                                        <i class="zmdi zmdi-comment-text col-red"></i>
-                                        <h4>65</h4>
-                                        <span>Comments</span>
-                                        <span class="badge badge-primary">Coming Soon</span>
-                                    </div>
-                                </li>
-                                <li class="col-lg-2 col-md-4 col-6">
-                                    <div class="body">
-                                        <i class="zmdi zmdi-account text-success"></i>
-                                        <h4>2,055</h4>
-                                        <span>Profile Views</span>
-                                        <span class="badge badge-primary">Coming Soon</span>
-                                    </div>
-                                </li>
-                                <li class="col-lg-2 col-md-4 col-6">
-                                    <div class="body">
-                                        <i class="zmdi zmdi-desktop-mac text-info"></i>
-                                        <h4>3,159</h4>
-                                        <span>Website View</span>
-                                        <span class="badge badge-primary">Coming Soon</span>
-                                    </div>
-                                </li>
-                                <li class="col-lg-2 col-md-4 col-6">
-                                    <div class="body">
-                                        <i class="zmdi zmdi-attachment text-warning"></i>
-                                        <h4>2,365</h4>
-                                        <span>Attachment</span>
-                                        <span class="badge badge-primary">Coming Soon</span>
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row clearfix">
-                    <div class="col-md-12 col-lg-12">
-                        <div class="card visitors-map">
-                            <div class="header">
-                                <h2>Visitors Statistics</h2>
-                                <span class="badge badge-primary">Coming Soon</span>
-                            </div>
-                            <div class="body">
-                                <div class="row">
-                                    <div class="col-xl-8 col-lg-7 col-md-12">
-                                        <div id="world-map-markers" class="jvector-map"></div>
-                                    </div>
-                                    <div class="col-xl-4 col-lg-5 col-md-12">
-                                        <div class="table-responsive">
-                                            <table class="table table-hover">
-                                                <thead>
-                                                <tr>
-                                                    <th>Contrary</th>
-                                                    <th>2017</th>
-                                                    <th>2017</th>
-                                                    <th>Change</th>
-                                                </tr>
-                                                </thead>
-                                                <tbody>
-                                                <tr>
-                                                    <td>USA</td>
-                                                    <td>2,009</td>
-                                                    <td>3,591</td>
-                                                    <td>7.01% <i class="zmdi zmdi-trending-up text-success"></i></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>India</td>
-                                                    <td>1,129</td>
-                                                    <td>1,361</td>
-                                                    <td>3.01% <i class="zmdi zmdi-trending-up text-success"></i></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Canada</td>
-                                                    <td>2,009</td>
-                                                    <td>2,901</td>
-                                                    <td>9.01% <i class="zmdi zmdi-trending-up text-success"></i></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Australia</td>
-                                                    <td>954</td>
-                                                    <td>901</td>
-                                                    <td>5.71% <i class="zmdi zmdi-trending-down text-warning"></i></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Germany</td>
-                                                    <td>594</td>
-                                                    <td>500</td>
-                                                    <td>6.11% <i class="zmdi zmdi-trending-down text-warning"></i></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>UK</td>
-                                                    <td>1,500</td>
-                                                    <td>1,971</td>
-                                                    <td>8.50% <i class="zmdi zmdi-trending-up text-success"></i></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Other</td>
-                                                    <td>4,236</td>
-                                                    <td>4,591</td>
-                                                    <td>9.15% <i class="zmdi zmdi-trending-up text-success"></i></td>
-                                                </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
 
                 <div class="row clearfix event-dashboard-footer">
                     <div class="col-lg-12">
