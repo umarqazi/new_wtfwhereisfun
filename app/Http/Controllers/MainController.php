@@ -65,8 +65,8 @@ class MainController extends Controller
 //        $analytics = Analytics::performQuery(Period::days(60), 'ga:pageviews', ['dimensions' => 'ga:browser, ga:countryIsoCode, ga:browser']);
 //        dd($analytics);
 //        $analytics = (Analytics::performQuery(Period::days(7), "ga:pageviews", ["filters" => "ga:pagePath=@/https://stubguys.com/events/Wpmbk5ezJn/Wpmbk5ezJn", 'prettyPrint' => true]));
-        $analyticsData = Analytics::fetchVisitorsAndPageViews(Period::days(60));
-        dd($analyticsData);
+//        $analyticsData = Analytics::fetchVisitorsAndPageViews(Period::days(60));
+//        dd($analyticsData);
 //        $analyticsData = Analytics::fetchMostVisitedPages(Period::years(1), 20);
 //        $analyticsData = Analytics::performQuery(
 //            Period::years(1),
