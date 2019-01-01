@@ -39,7 +39,6 @@ class MainController extends Controller
     protected $eventListingService;
     protected $eventLocationService;
     protected $eventFilterService;
-    protected $analytics;
 
     public function __construct()
     {
@@ -51,7 +50,6 @@ class MainController extends Controller
         $this->eventListingService  = new EventListingService;
         $this->eventLocationService = new EventTimeLocationService;
         $this->eventFilterService   = new EventFilterService;
-        $this->analytics            = new Analytics;
     }
     /**
      * Show the application's landing Page.
