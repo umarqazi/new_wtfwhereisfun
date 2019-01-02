@@ -369,7 +369,7 @@
                                 {{$marker['latitude']}},
                                 {{$marker['longitude']}}
                             ],
-                    name : {{$marker['country']}},
+                    name : '{{$marker["country"]}}',
                 });
             @endforeach
         @endif
