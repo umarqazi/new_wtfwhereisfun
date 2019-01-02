@@ -96,7 +96,7 @@ class EventTimeLocation extends Model
      */
     public function scopeTodayEvents($query)
     {
-        return $query->whereDate('starting', '=',  Carbon::today()->toDateString())->where('ending', '>=', Carbon::today()->toDateString());
+        return $query->whereDate('starting', '<=',  Carbon::today()->toDateString())->where('ending', '>=', Carbon::today()->toDateString());
     }
 
     /**

@@ -583,7 +583,6 @@ class EventController extends Controller
         $weekRevenue    = $this->eventRevenueService->getWeekRevenueByLocation($locationId);
         $monthRevenue   = $this->eventRevenueService->getMonthRevenueByLocation($locationId);
         $analytics      = $this->analyticService->getEventAnalytics($locationId);
-        dd($analytics);
         $orderIds       = $totalRevenue['orders']->pluck('id')->toArray();
         $disputes       = $this->disputeService->getByOrderId($orderIds);
         $eventOrganizer = $event->organizer;

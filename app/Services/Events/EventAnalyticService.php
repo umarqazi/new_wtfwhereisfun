@@ -23,11 +23,6 @@ class EventAnalyticService
         $monthViews         = $this->getUrlViews(Period::days(30), $eventUrl);
         $locationAnalytics  = $this->getAnalyticsByCountry($totalPeriod, $eventUrl);
         $browserAnalytics   = $this->getAnalyticsByBrowsers($totalPeriod, $eventUrl);
-        $totalViews         = $totalViews[0]['pageViews'];
-        $weekViews          = $weekViews[0]['pageViews'];
-        $monthViews         = $monthViews[0]['pageViews'];
-        foreach($locationAnalytics as $ana){
-        }
 
         return ['totalViews' => $totalViews, 'weekViews' => $weekViews, 'monthViews' => $monthViews,
             'locationAnalytics' => $locationAnalytics, 'browserAnalytics' => $browserAnalytics];
@@ -45,12 +40,17 @@ class EventAnalyticService
             ['filters' => 'ga:pagePath==/'.$url,]
         );
 
-        return collect($response['rows'] ?? [])
+        $finalResponse = collect($response['rows'] ?? [])
             ->map(function (array $pageRow) {
                 return [
                     'pageViews' => $pageRow[0],
                 ];
             });
+        if($finalResponse->count() > 0){
+            return $finalResponse[0]['pageViews'];
+        }else{
+            return 0;
+        }
     }
 
     /**
@@ -63,7 +63,7 @@ class EventAnalyticService
             $period,
             'ga:sessions',
             [
-                'dimensions' => 'ga:country',
+                'dimensions' => 'ga:country,ga:latitude,ga:longitude',
                 'filters' => 'ga:pagePath==/'.$url,
                 'sort'  =>  '-ga:sessions'
             ]
@@ -71,7 +71,9 @@ class EventAnalyticService
         return collect($response['rows'] ?? [])->map(function (array $dateRow) {
             return [
                 'country'   => $dateRow[0],
-                'sessions'  => (int) $dateRow[1]
+                'latitude'   => $dateRow[1],
+                'longitude' =>  $dateRow[2],
+                'sessions'  => (int) $dateRow[3]
             ];
         });
     }

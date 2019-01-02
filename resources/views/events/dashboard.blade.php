@@ -48,7 +48,7 @@
                                 <li class="col-lg-3 col-md-4 col-6">
                                     <div class="body">
                                         <i class="zmdi zmdi-calendar col-amber"></i>
-                                        <h4>2,365</h4>
+                                        <h4>{{$analytics['totalViews']}}</h4>
                                         <span>Event Views</span><br>
                                         <span class="badge badge-info">Total Views</span>
                                     </div>
@@ -56,7 +56,7 @@
                                 <li class="col-lg-3 col-md-4 col-6">
                                     <div class="body">
                                         <i class="zmdi zmdi-comment-text col-red"></i>
-                                        <h4>65</h4>
+                                        <h4>{{$analytics['monthViews']}}</h4>
                                         <span>Event Views</span><br>
                                         <span class="badge badge-info">This Month</span>
                                     </div>
@@ -64,7 +64,7 @@
                                 <li class="col-lg-3 col-md-4 col-6">
                                     <div class="body">
                                         <i class="zmdi zmdi-account text-success"></i>
-                                        <h4>2,055</h4>
+                                        <h4>{{$analytics['weekViews']}}</h4>
                                         <span>Event Views</span><br>
                                         <span class="badge badge-info">This Week</span>
                                     </div>
@@ -87,12 +87,11 @@
                         <div class="card visitors-map">
                             <div class="header">
                                 <h2>Visitors Statistics</h2>
-                                <span class="badge badge-primary">Coming Soon</span>
                             </div>
                             <div class="body">
                                 <div class="row">
                                     <div class="col-xl-8 col-lg-7 col-md-12">
-                                        <div id="world-map-markers" class="jvector-map"></div>
+                                        <div id="analytics-map-markers" class="jvector-map"></div>
                                     </div>
                                     <div class="col-xl-4 col-lg-5 col-md-12">
                                         <div class="table-responsive">
@@ -104,10 +103,18 @@
                                                 </tr>
                                                 </thead>
                                                 <tbody>
-                                                <tr>
-                                                    <td>USA</td>
-                                                    <td>2,009</td>
-                                                </tr>
+                                                @if($analytics['locationAnalytics']->count() > 0)
+                                                    @foreach($analytics['locationAnalytics'] as $location)
+                                                        <tr>
+                                                            <td>{{$location['country']}}</td>
+                                                            <td>{{$location['session']}}</td>
+                                                        </tr>
+                                                    @endforeach
+                                                @else
+                                                    <tr>
+                                                        <td>No Data Available</td>
+                                                    </tr>
+                                                @endif
                                                 </tbody>
                                             </table>
                                         </div>
@@ -353,9 +360,17 @@
         </section>
     </div>
 
-    <script src="{{asset('js/eventpage/events.js')}}"></script>
     <script>
-        $(".total-revenue").knob();
+        var markers = {{$analytics['locationAnalytics']}};
+        var countryInfo = [];
+        if(markers.length != 0){
+            $.each(markers, function() {
+                countryInfo.push({latLng: [this.latitude,this.longitude], name : this.country});
+            });
+        }
     </script>
+    <script src="{{asset('js/eventpage/dashboard-analytics.js')}}"></script>
+    <script src="{{asset('js/eventpage/events.js')}}"></script>
+
 
 @endsection
