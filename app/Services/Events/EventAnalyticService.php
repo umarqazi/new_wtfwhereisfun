@@ -16,7 +16,7 @@ class EventAnalyticService
 
     public function getEventAnalytics($locationId){
         $location   = $this->eventLocationService->getTimeLocation($locationId);
-        $eventUrl   = route('showById', ['id' => $location->event->encrypted_id, 'locationId' => $location->encrypted_id ]);
+        $eventUrl   = 'events/'.$location->event->encrypted_id.'/'.$location->encrypted_id;
         $totalPeriod= Period::create($location->created_at, Carbon::now());
         $totalViews = $this->getUrlViews($totalPeriod, $eventUrl);
         $weekViews  = $this->getUrlViews(Period::days(7), $eventUrl);
@@ -36,7 +36,7 @@ class EventAnalyticService
         $response = Analytics::performQuery(
             $period,
             'ga:pageviews',
-            ["filters" => "ga:pagePath=@/".$url,]
+            ['filters' => 'ga:pagePath==/'.$url,]
         );
 
         return collect($response['rows'] ?? [])
@@ -58,7 +58,7 @@ class EventAnalyticService
             'ga:sessions',
             [
                 'dimensions' => 'ga:country',
-                'filters' => 'ga:pagePath=@/'.$url,
+                'filters' => 'ga:pagePath==/'.$url,
                 'sort'  =>  '-ga:sessions'
             ]
         );
@@ -82,7 +82,7 @@ class EventAnalyticService
             'ga:sessions',
             [
                 'dimensions' => 'ga:browser',
-                'filters'    => 'ga:pagePath=@/'.$url,
+                'filters'    => 'ga:pagePath==/'.$url,
                 'sort'       => '-ga:sessions',
             ]
         );
@@ -118,27 +118,3 @@ class EventAnalyticService
 
 
 }
-
-
-//        $analytics = Analytics::performQuery(Period::days(60), 'ga:pageviews', ['dimensions' => 'ga:browser, ga:countryIsoCode, ga:browser']);
-//        dd($analytics);
-//        $response = (Analytics::performQuery(Period::days(7), "ga:pageviews", ["filters" => "ga:pagePath=@/https://stubguys.com/events/Opnel5aKBz/Opnel5aKBz", 'prettyPrint' => true]));
-//        return collect($response['rows'] ?? [])->map(function (array $dateRow) {
-//            return [
-//                'date' => Carbon::createFromFormat('Ymd', $dateRow[0]),
-//                'visitors' => (int) $dateRow[1],
-//            ];
-//        });
-//        /events/Opnel5aKBz/Opnel5aKBz
-//        $analyticsData = Analytics::fetchVisitorsAndPageViews(Period::days(60));
-//        dd($analyticsData);
-//        $analyticsData = Analytics::fetchMostVisitedPages(Period::years(1), 20);
-//        $analyticsData = Analytics::performQuery(
-//            Period::years(1),
-//            'ga:sessions',
-//            [
-//                'metrics' => 'ga:sessions, ga:pageviews',
-//                'dimensions' => 'ga:yearMonth'
-//            ]
-//        );
-//        dd($analyticsData);
