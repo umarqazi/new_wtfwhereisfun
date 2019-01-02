@@ -55,14 +55,6 @@
                                 </li>
                                 <li class="col-lg-3 col-md-4 col-6">
                                     <div class="body">
-                                        <i class="zmdi zmdi-thumb-up col-blue"></i>
-                                        <h4>365</h4>
-                                        <span>Organizer Profile Views</span>
-                                        <span class="badge badge-warning">Total Views</span>
-                                    </div>
-                                </li>
-                                <li class="col-lg-3 col-md-4 col-6">
-                                    <div class="body">
                                         <i class="zmdi zmdi-comment-text col-red"></i>
                                         <h4>65</h4>
                                         <span>Event Views</span><br>
@@ -75,6 +67,14 @@
                                         <h4>2,055</h4>
                                         <span>Event Views</span><br>
                                         <span class="badge badge-info">This Week</span>
+                                    </div>
+                                </li>
+                                <li class="col-lg-3 col-md-4 col-6">
+                                    <div class="body">
+                                        <i class="zmdi zmdi-thumb-up col-blue"></i>
+                                        <h4>365</h4>
+                                        <span>Organizer Profile Views</span>
+                                        <span class="badge badge-warning">Total Views</span>
                                     </div>
                                 </li>
                             </ul>
@@ -99,54 +99,14 @@
                                             <table class="table table-hover">
                                                 <thead>
                                                 <tr>
-                                                    <th>Contrary</th>
-                                                    <th>2017</th>
-                                                    <th>2017</th>
-                                                    <th>Change</th>
+                                                    <th>Country</th>
+                                                    <th>Sessions</th>
                                                 </tr>
                                                 </thead>
                                                 <tbody>
                                                 <tr>
                                                     <td>USA</td>
                                                     <td>2,009</td>
-                                                    <td>3,591</td>
-                                                    <td>7.01% <i class="zmdi zmdi-trending-up text-success"></i></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>India</td>
-                                                    <td>1,129</td>
-                                                    <td>1,361</td>
-                                                    <td>3.01% <i class="zmdi zmdi-trending-up text-success"></i></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Canada</td>
-                                                    <td>2,009</td>
-                                                    <td>2,901</td>
-                                                    <td>9.01% <i class="zmdi zmdi-trending-up text-success"></i></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Australia</td>
-                                                    <td>954</td>
-                                                    <td>901</td>
-                                                    <td>5.71% <i class="zmdi zmdi-trending-down text-warning"></i></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Germany</td>
-                                                    <td>594</td>
-                                                    <td>500</td>
-                                                    <td>6.11% <i class="zmdi zmdi-trending-down text-warning"></i></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>UK</td>
-                                                    <td>1,500</td>
-                                                    <td>1,971</td>
-                                                    <td>8.50% <i class="zmdi zmdi-trending-up text-success"></i></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Other</td>
-                                                    <td>4,236</td>
-                                                    <td>4,591</td>
-                                                    <td>9.15% <i class="zmdi zmdi-trending-up text-success"></i></td>
                                                 </tr>
                                                 </tbody>
                                             </table>
@@ -219,15 +179,6 @@
                             <div class="header">
                                 <h2>Browser Usage</h2>
                                 <span class="badge badge-primary">Coming Soon</span>
-                                <ul class="header-dropdown m-r--5">
-                                    <li class="dropdown"> <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> <i class="zmdi zmdi-more-vert"></i> </a>
-                                        <ul class="dropdown-menu slideUp ">
-                                            <li><a href="javascript:void(0);">Action</a></li>
-                                            <li><a href="javascript:void(0);">Another action</a></li>
-                                            <li><a href="javascript:void(0);">Something else</a></li>
-                                        </ul>
-                                    </li>
-                                </ul>
                             </div>
                             <div class="body">
                                 <div id="donut_chart" class="dashboard-donut-chart"></div>
@@ -236,31 +187,31 @@
                                     <tr>
                                         <td>1</td>
                                         <td>Chrome</td>
-                                        <td>6985</td>
+                                        <td>6985 Views</td>
                                         <td><i class="zmdi zmdi-caret-up text-success"></i></td>
                                     </tr>
                                     <tr>
                                         <td>2</td>
                                         <td>Other</td>
-                                        <td>2697</td>
+                                        <td>2697 Views</td>
                                         <td><i class="zmdi zmdi-caret-up text-success"></i></td>
                                     </tr>
                                     <tr>
                                         <td>3</td>
                                         <td>Safari</td>
-                                        <td>3597</td>
+                                        <td>3597 Views</td>
                                         <td><i class="zmdi zmdi-caret-down text-danger"></i></td>
                                     </tr>
                                     <tr>
                                         <td>4</td>
                                         <td>Firefox</td>
-                                        <td>2145</td>
+                                        <td>2145 Views</td>
                                         <td><i class="zmdi zmdi-caret-up text-success"></i></td>
                                     </tr>
                                     <tr>
                                         <td>5</td>
                                         <td>Opera</td>
-                                        <td>1854</td>
+                                        <td>1854 Views</td>
                                         <td><i class="zmdi zmdi-caret-down text-danger"></i></td>
                                     </tr>
                                     </tbody>

@@ -583,11 +583,13 @@ class EventController extends Controller
         $weekRevenue    = $this->eventRevenueService->getWeekRevenueByLocation($locationId);
         $monthRevenue   = $this->eventRevenueService->getMonthRevenueByLocation($locationId);
         $analytics      = $this->analyticService->getEventAnalytics($locationId);
+        dd($analytics);
         $orderIds       = $totalRevenue['orders']->pluck('id')->toArray();
         $disputes       = $this->disputeService->getByOrderId($orderIds);
         $eventOrganizer = $event->organizer;
         return View('events.dashboard')->with(['event' => $event, 'location' => $location, 'totalRevenue' => $totalRevenue,
-            'weekRevenue' => $weekRevenue, 'monthRevenue' => $monthRevenue, 'disputes' => $disputes, 'activity' => $totalRevenue['orders'], 'eventOrganizer' => $eventOrganizer ]);
+            'weekRevenue' => $weekRevenue, 'monthRevenue' => $monthRevenue, 'disputes' => $disputes,
+            'activity' => $totalRevenue['orders'], 'eventOrganizer' => $eventOrganizer, 'analytics' => $analytics ]);
     }
 
     /**

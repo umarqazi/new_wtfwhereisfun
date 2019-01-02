@@ -19,10 +19,19 @@ class EventAnalyticService
         $eventUrl   = route('showById', ['id' => $location->event->encrypted_id, 'locationId' => $location->encrypted_id ]);
         $totalPeriod= Period::create($location->created_at, Carbon::now());
         $totalViews = $this->getUrlViews($totalPeriod, $eventUrl);
+        $weekViews  = $this->getUrlViews(Period::days(7), $eventUrl);
+        $monthViews = $this->getUrlViews(Period::days(30), $eventUrl);
         $locationAnalytics  = $this->getAnalyticsByCountry($totalPeriod, $eventUrl);
-        dd($totalViews);
+        $browserAnalytics   = $this->getAnalyticsByBrowsers($totalPeriod, $eventUrl);
+        return ['totalViews' => $totalViews, 'weekViews' => $weekViews, 'monthViews' => $monthViews,
+            'locationAnalytics' => $locationAnalytics, 'browserAnalytics' => $browserAnalytics];
     }
 
+    /**
+     * @param $period
+     * @param $url
+     * @return static
+     */
     public function getUrlViews($period, $url){
         $response = Analytics::performQuery(
             $period,
@@ -38,13 +47,18 @@ class EventAnalyticService
             });
     }
 
+    /**
+     * @param $period
+     * @param $url
+     * @return static
+     */
     public function getAnalyticsByCountry($period, $url){
         $response = Analytics::performQuery(
             $period,
             'ga:sessions',
             [
                 'dimensions' => 'ga:country',
-                'filters' => "ga:pagePath=@/".$url,
+                'filters' => 'ga:pagePath=@/'.$url,
                 'sort'  =>  '-ga:sessions'
             ]
         );
@@ -55,6 +69,54 @@ class EventAnalyticService
             ];
         });
     }
+
+    /**
+     * @param $period
+     * @param $url
+     * @param int $maxResults
+     * @return Collection|static
+     */
+    public function getAnalyticsByBrowsers($period, $url, $maxResults = 10){
+        $response = Analytics::performQuery(
+            $period,
+            'ga:sessions',
+            [
+                'dimensions' => 'ga:browser',
+                'filters'    => 'ga:pagePath=@/'.$url,
+                'sort'       => '-ga:sessions',
+            ]
+        );
+
+        $topBrowsers = collect($response['rows'] ?? [])->map(function (array $browserRow) {
+            return [
+                'browser' => $browserRow[0],
+                'sessions' => (int) $browserRow[1],
+            ];
+        });
+
+        if ($topBrowsers->count() <= $maxResults) {
+            return $topBrowsers;
+        }
+
+        return $this->summarizeTopBrowsers($topBrowsers, $maxResults);
+    }
+
+    /**
+     * @param Collection $topBrowsers
+     * @param int $maxResults
+     * @return Collection
+     */
+    protected function summarizeTopBrowsers(Collection $topBrowsers, int $maxResults): Collection
+    {
+        return $topBrowsers
+            ->take($maxResults - 1)
+            ->push([
+                'browser' => 'Others',
+                'sessions' => $topBrowsers->splice($maxResults - 1)->sum('sessions'),
+            ]);
+    }
+
+
 }
 
 
