@@ -104,10 +104,10 @@
                                                 </thead>
                                                 <tbody>
                                                 @if($analytics['locationAnalytics']->count() > 0)
-                                                    @foreach($analytics['locationAnalytics'] as $location)
+                                                    @foreach($analytics['locationAnalytics'] as $loc)
                                                         <tr>
-                                                            <td>{{$location['country']}}</td>
-                                                            <td>{{$location['sessions']}}</td>
+                                                            <td>{{$loc['country']}}</td>
+                                                            <td>{{$loc['sessions']}}</td>
                                                         </tr>
                                                     @endforeach
                                                 @else
@@ -314,7 +314,7 @@
                                     </div>
 
                                     <p><strong>Your Event URL: </strong>
-                                        @if(!empty($event->slug) || $event->slug != null)
+                                        @if(!empty($event->slug))
                                             <a href="{{ url('/').'events/'.$event->slug.'/'.$location->encrypted_id }}" id="event-old-url">{{ url('/').'/events/'.$event->slug.'/'.$location->encrypted_id }}</a>
                                         @else
                                             <a href="{{url('/').'/events/'.$event->encrypted_id.'/'.$location->encrypted_id}}" id="event-old-url">{{url('/').'/events/'.$event->encrypted_id.'/'.$location->encrypted_id}}</a>
