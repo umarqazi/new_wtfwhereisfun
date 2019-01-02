@@ -125,4 +125,15 @@ class EventAnalyticService
     }
 
 
+    public function getCountryAnalyticMarkers($locationAnalytics){
+        $countryInfo = [];
+        if($locationAnalytics->count() > 0){
+            foreach($locationAnalytics as $location){
+                array_push($countryInfo, $location);
+            }
+        }
+        return $countryInfo;
+    }
+
+
 }

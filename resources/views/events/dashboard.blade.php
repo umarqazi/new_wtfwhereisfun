@@ -361,7 +361,7 @@
     </div>
 
     <script>
-        var markers = {{$analytics['locationAnalytics']}};
+        var markers = {{json_encode($countryMarkers)}};
         var countryInfo = [];
         if(markers.length != 0){
             $.each(markers, function() {
