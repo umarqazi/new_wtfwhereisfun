@@ -185,42 +185,24 @@
                         <div class="card">
                             <div class="header">
                                 <h2>Browser Usage</h2>
-                                <span class="badge badge-primary">Coming Soon</span>
                             </div>
                             <div class="body">
-                                <div id="donut_chart" class="dashboard-donut-chart"></div>
+                                <div id="analytics_donut_chart" class="dashboard-donut-chart"></div>
                                 <table class="table m-t-15 m-b-0">
                                     <tbody>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>Chrome</td>
-                                        <td>6985 Views</td>
-                                        <td><i class="zmdi zmdi-caret-up text-success"></i></td>
-                                    </tr>
-                                    <tr>
-                                        <td>2</td>
-                                        <td>Other</td>
-                                        <td>2697 Views</td>
-                                        <td><i class="zmdi zmdi-caret-up text-success"></i></td>
-                                    </tr>
-                                    <tr>
-                                        <td>3</td>
-                                        <td>Safari</td>
-                                        <td>3597 Views</td>
-                                        <td><i class="zmdi zmdi-caret-down text-danger"></i></td>
-                                    </tr>
-                                    <tr>
-                                        <td>4</td>
-                                        <td>Firefox</td>
-                                        <td>2145 Views</td>
-                                        <td><i class="zmdi zmdi-caret-up text-success"></i></td>
-                                    </tr>
-                                    <tr>
-                                        <td>5</td>
-                                        <td>Opera</td>
-                                        <td>1854 Views</td>
-                                        <td><i class="zmdi zmdi-caret-down text-danger"></i></td>
-                                    </tr>
+                                    @if($analytics['browserAnalytics']->count() > 0)
+                                        @foreach($analytics['browserAnalytics'] as $key => $browser)
+                                            <tr>
+                                                <td>{{$key}}</td>
+                                                <td>{{$browser['browser']}}</td>
+                                                <td>{{$browser['sessions']}}</td>
+                                            </tr>
+                                        @endforeach
+                                    @else
+                                        <tr>
+                                            <td>No Data Available</td>
+                                        </tr>
+                                    @endif
                                     </tbody>
                                 </table>
                             </div>
@@ -372,6 +354,28 @@
                     name : '{{$marker["country"]}}',
                 });
             @endforeach
+        @endif
+
+        var browserData = [];
+        var colors = [];
+        var i = 0;
+        var predefinedColorsArray = ['#00adef', '#fcb711', '#12a682', '#f58787', '#708090'];
+        @if($analytics['browserAnalytics']->count() > 0)
+            @php $totalSessions = $analytics['browserAnalytics']->sum('sessions') @endphp
+            @foreach($analytics['browserAnalytics'] as $browser)
+                browserData.push({
+                    label: '{{$browser['browser']}}',
+                    value: {{$browser['sessions']/$totalSessions * 100}}
+                });
+                colors.push(predefinedColorsArray[i]);
+                i = i++;
+            @endforeach
+        @else
+            browserData.push({
+                label: 'No Data Available',
+                value: 100
+            });
+            colors.push(predefinedColorsArray[0]);
         @endif
 
     </script>

@@ -34,3 +34,14 @@ $(function () {
 $(function () {
     $(".total-revenue").knob();
 });
+
+$(function () {
+    Morris.Donut({
+        element: 'analytics_donut_chart',
+        data: browserData,
+        colors: colors,
+        formatter: function (y) {
+            return y + '%'
+        }
+    });
+});

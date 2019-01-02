@@ -84,7 +84,7 @@ class EventAnalyticService
      * @param int $maxResults
      * @return Collection|static
      */
-    public function getAnalyticsByBrowsers($period, $url, $maxResults = 10){
+    public function getAnalyticsByBrowsers($period, $url, $maxResults = 4){
         $response = Analytics::performQuery(
             $period,
             'ga:sessions',
