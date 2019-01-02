@@ -362,7 +362,7 @@
 
     <script>
         var countryInfo = [];
-        @if($analytics['locationAnalytics']->count() > 0){
+        @if($analytics['locationAnalytics']->count() > 0)
             @foreach($analytics['locationAnalytics'] as $marker)
                 countryInfo.push({
                     latLng: [
