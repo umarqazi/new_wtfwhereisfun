@@ -361,13 +361,19 @@
     </div>
 
     <script>
-        var markers = {{json_encode($countryMarkers)}};
         var countryInfo = [];
-        if(markers.length != 0){
-            $.each(markers, function() {
-                countryInfo.push({latLng: [this.latitude,this.longitude], name : this.country});
-            });
-        }
+        @if($analytics['locationAnalytics']->count() > 0){
+            @foreach($analytics['locationAnalytics'] as $marker)
+                countryInfo.push({
+                    latLng: [
+                                {{$marker['latitude']}},
+                                {{$marker['longitude']}}
+                            ],
+                    name : {{$marker['country']}},
+                });
+            @endforeach
+        @endif
+
     </script>
     <script src="{{asset('js/eventpage/dashboard-analytics.js')}}"></script>
     <script src="{{asset('js/eventpage/events.js')}}"></script>
