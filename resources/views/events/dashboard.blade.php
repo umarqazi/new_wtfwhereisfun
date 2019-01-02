@@ -107,7 +107,7 @@
                                                     @foreach($analytics['locationAnalytics'] as $location)
                                                         <tr>
                                                             <td>{{$location['country']}}</td>
-                                                            <td>{{$location['session']}}</td>
+                                                            <td>{{$location['sessions']}}</td>
                                                         </tr>
                                                     @endforeach
                                                 @else
