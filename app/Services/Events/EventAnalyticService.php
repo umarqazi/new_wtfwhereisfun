@@ -15,14 +15,20 @@ class EventAnalyticService
     }
 
     public function getEventAnalytics($locationId){
-        $location   = $this->eventLocationService->getTimeLocation($locationId);
-        $eventUrl   = 'events/'.$location->event->encrypted_id.'/'.$location->encrypted_id;
-        $totalPeriod= Period::create($location->created_at, Carbon::now());
-        $totalViews = $this->getUrlViews($totalPeriod, $eventUrl);
-        $weekViews  = $this->getUrlViews(Period::days(7), $eventUrl);
-        $monthViews = $this->getUrlViews(Period::days(30), $eventUrl);
+        $location           = $this->eventLocationService->getTimeLocation($locationId);
+        $eventUrl           = 'events/'.$location->event->encrypted_id.'/'.$location->encrypted_id;
+        $totalPeriod        = Period::create($location->created_at, Carbon::now());
+        $totalViews         = $this->getUrlViews($totalPeriod, $eventUrl);
+        $weekViews          = $this->getUrlViews(Period::days(7), $eventUrl);
+        $monthViews         = $this->getUrlViews(Period::days(30), $eventUrl);
         $locationAnalytics  = $this->getAnalyticsByCountry($totalPeriod, $eventUrl);
         $browserAnalytics   = $this->getAnalyticsByBrowsers($totalPeriod, $eventUrl);
+        $totalViews         = $totalViews[0]['pageViews'];
+        $weekViews          = $weekViews[0]['pageViews'];
+        $monthViews         = $monthViews[0]['pageViews'];
+        foreach($locationAnalytics as $ana){
+        }
+
         return ['totalViews' => $totalViews, 'weekViews' => $weekViews, 'monthViews' => $monthViews,
             'locationAnalytics' => $locationAnalytics, 'browserAnalytics' => $browserAnalytics];
     }
