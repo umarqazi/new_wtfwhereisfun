@@ -314,7 +314,7 @@
                                     </div>
 
                                     <p><strong>Your Event URL: </strong>
-                                        @if(!empty($event->slug))
+                                        @if(!empty($event->slug) || $event->slug != null)
                                             <a href="{{ url('/').'events/'.$event->slug.'/'.$location->encrypted_id }}" id="event-old-url">{{ url('/').'/events/'.$event->slug.'/'.$location->encrypted_id }}</a>
                                         @else
                                             <a href="{{url('/').'/events/'.$event->encrypted_id.'/'.$location->encrypted_id}}" id="event-old-url">{{url('/').'/events/'.$event->encrypted_id.'/'.$location->encrypted_id}}</a>
