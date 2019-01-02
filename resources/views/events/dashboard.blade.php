@@ -133,31 +133,35 @@
                             </div>
                             <div class="body">
                                 <ul class="inbox-widget list-unstyled clearfix">
-                                    @foreach($disputes as $dispute)
-                                        <li class="inbox-inner">
-                                            <a href="{{url('disputes/'.$dispute->encrypted_id)}}">
-                                                <div class="inbox-item">
-                                                    <div class="inbox-img">
-                                                        @if(!empty($dispute->user->profile_thumbnail))
-                                                            @php
-                                                                $img = $dispute->user->directory.$dispute->user->profile_thumbnail;
-                                                            @endphp
-                                                        @else
-                                                            @php
-                                                                $img = asset('img/default-148.png');
-                                                            @endphp
-                                                        @endif
-                                                        <img src="{{$img}}" alt="User Image">
+                                    @if(count($disputes))
+                                        @foreach($disputes as $dispute)
+                                            <li class="inbox-inner">
+                                                <a href="{{url('disputes/'.$dispute->encrypted_id)}}">
+                                                    <div class="inbox-item">
+                                                        <div class="inbox-img">
+                                                            @if(!empty($dispute->user->profile_thumbnail))
+                                                                @php
+                                                                    $img = $dispute->user->directory.$dispute->user->profile_thumbnail;
+                                                                @endphp
+                                                            @else
+                                                                @php
+                                                                    $img = asset('img/default-148.png');
+                                                                @endphp
+                                                            @endif
+                                                            <img src="{{$img}}" alt="User Image">
+                                                        </div>
+                                                        <div class="inbox-item-info">
+                                                            <p class="author">{{$dispute->user->first_name}} {{$dispute->user->last_name}}</p>
+                                                            <p class="inbox-message">{!! str_limit($dispute->message, 25, '...') !!}</p>
+                                                            <p class="inbox-date">{{monthDateYearFromat($dispute->created_at)}}</p>
+                                                        </div>
                                                     </div>
-                                                    <div class="inbox-item-info">
-                                                        <p class="author">{{$dispute->user->first_name}} {{$dispute->user->last_name}}</p>
-                                                        <p class="inbox-message">{!! str_limit($dispute->message, 25, '...') !!}</p>
-                                                        <p class="inbox-date">{{monthDateYearFromat($dispute->created_at)}}</p>
-                                                    </div>
-                                                </div>
-                                            </a>
-                                        </li>
-                                    @endforeach
+                                                </a>
+                                            </li>
+                                        @endforeach
+                                    @else
+                                        <p><strong>No Messages Received Yet.</strong></p>
+                                    @endif
                                 </ul>
                             </div>
                         </div>
@@ -169,14 +173,18 @@
                             </div>
                             <div class="body">
                                 <div class="streamline b-l b-accent">
-                                    @foreach($activity as $order)
-                                        <div class="sl-item">
-                                            <div class="sl-content">
-                                                <div class="text-muted-dk">{{monthDateYearFromat($order->created_at)}}</div>
-                                                <p><a href="" class="text-info">Order placed by {{$order->user->first_name}} on {{$order->ticket->name}}</a></p>
+                                    @if(count($activity))
+                                        @foreach($activity as $order)
+                                            <div class="sl-item">
+                                                <div class="sl-content">
+                                                    <div class="text-muted-dk">{{monthDateYearFromat($order->created_at)}}</div>
+                                                    <p><a href="" class="text-info">Order placed by {{$order->user->first_name}} on {{$order->ticket->name}}</a></p>
+                                                </div>
                                             </div>
-                                        </div>
-                                    @endforeach
+                                        @endforeach
+                                    @else
+                                        <p><strong> No Activities Yet.</strong></p>
+                                    @endif
                                 </div>
                             </div>
                         </div>
@@ -189,6 +197,13 @@
                             <div class="body">
                                 <div id="analytics_donut_chart" class="dashboard-donut-chart"></div>
                                 <table class="table m-t-15 m-b-0">
+                                    <thead>
+                                        <tr>
+                                            <td>S.NO</td>
+                                            <td>Browser</td>
+                                            <td>Sessions</td>
+                                        </tr>
+                                    </thead>
                                     <tbody>
                                     @if($analytics['browserAnalytics']->count() > 0)
                                         @foreach($analytics['browserAnalytics'] as $key => $browser)
@@ -200,7 +215,7 @@
                                         @endforeach
                                     @else
                                         <tr>
-                                            <td>No Data Available</td>
+                                            <td colspan="3">No Data Available</td>
                                         </tr>
                                     @endif
                                     </tbody>
