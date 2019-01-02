@@ -193,7 +193,7 @@
                                     @if($analytics['browserAnalytics']->count() > 0)
                                         @foreach($analytics['browserAnalytics'] as $key => $browser)
                                             <tr>
-                                                <td>{{$key}}</td>
+                                                <td>{{$key + 1}}</td>
                                                 <td>{{$browser['browser']}}</td>
                                                 <td>{{$browser['sessions']}}</td>
                                             </tr>
