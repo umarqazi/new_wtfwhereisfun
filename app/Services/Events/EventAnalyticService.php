@@ -64,7 +64,7 @@ class EventAnalyticService
     public function getAnalyticsByCountry($period, $url){
         $response = Analytics::performQuery(
             $period,
-            'ga:sessions',
+            'ga:pageviews',
             [
                 'dimensions' => 'ga:country,ga:latitude,ga:longitude',
                 'filters' => 'ga:pagePath==/'.$url,
@@ -90,7 +90,7 @@ class EventAnalyticService
     public function getAnalyticsByBrowsers($period, $url, $maxResults = 4){
         $response = Analytics::performQuery(
             $period,
-            'ga:sessions',
+            'ga:pageviews',
             [
                 'dimensions' => 'ga:browser',
                 'filters'    => 'ga:pagePath==/'.$url,
