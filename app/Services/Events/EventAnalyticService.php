@@ -68,7 +68,7 @@ class EventAnalyticService
             [
                 'dimensions' => 'ga:country,ga:latitude,ga:longitude',
                 'filters' => 'ga:pagePath==/'.$url,
-                'sort'  =>  '-ga:sessions'
+                'sort'  =>  '-ga:pageviews'
             ]
         );
         return collect($response['rows'] ?? [])->map(function (array $dateRow) {
@@ -94,7 +94,7 @@ class EventAnalyticService
             [
                 'dimensions' => 'ga:browser',
                 'filters'    => 'ga:pagePath==/'.$url,
-                'sort'       => '-ga:sessions',
+                'sort'       => '-ga:pageviews',
             ]
         );
 
