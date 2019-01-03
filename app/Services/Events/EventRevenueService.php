@@ -22,7 +22,7 @@ class EventRevenueService
         $orders             = $this->eventOrderService->getOrderByTickets($ticketIds);
         if(count($orders) > 0){
             $soldQty            = $orders->sum('quantity');
-            $revenuePercentage  = $soldQty/$totalQty * 100;
+            $revenuePercentage  = round($soldQty/$totalQty * 100, 2);
         }else{
             $revenuePercentage  = 0;
         }
