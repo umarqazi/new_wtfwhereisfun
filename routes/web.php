@@ -133,7 +133,7 @@ Route::group(['middleware' => ['web']], function () {
 
                     Route::get('{locationId}/dashboard/add-to-facebook', 'FacebookEventController@addToFacebook');
                     Route::get('{locationId}/connect-to-facebook', 'FacebookEventController@connectToFacebook');
-                    Route::get('/facebook/callback', 'FacebookEventController@handleFacebookCallBack');
+                    Route::get('facebook/callback', 'FacebookEventController@handleFacebookCallBack');
 
                 });
 
