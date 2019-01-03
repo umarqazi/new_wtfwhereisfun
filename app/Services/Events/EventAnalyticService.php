@@ -2,16 +2,19 @@
 
 namespace App\Services\Events;
 use Analytics;
+use App\Services\Organizers\OrganizerService;
 use Spatie\Analytics\Period;
 use Carbon\Carbon;
 class EventAnalyticService
 {
     protected $analytic;
     protected $eventLocationService;
+    protected $organizerService;
 
     public function __construct()
     {
         $this->eventLocationService     =       new EventTimeLocationService();
+        $this->organizerService         =       new OrganizerService();
     }
 
     public function getEventAnalytics($locationId){
@@ -21,11 +24,11 @@ class EventAnalyticService
         $totalViews         = $this->getUrlViews($totalPeriod, $eventUrl);
         $weekViews          = $this->getUrlViews(Period::days(7), $eventUrl);
         $monthViews         = $this->getUrlViews(Period::days(30), $eventUrl);
+        $organizerViews     = $this->getOrganizerAnalytics($location->event->organizer->id);
         $locationAnalytics  = $this->getAnalyticsByCountry($totalPeriod, $eventUrl);
         $browserAnalytics   = $this->getAnalyticsByBrowsers($totalPeriod, $eventUrl);
-
         return ['totalViews' => $totalViews, 'weekViews' => $weekViews, 'monthViews' => $monthViews,
-            'locationAnalytics' => $locationAnalytics, 'browserAnalytics' => $browserAnalytics];
+            'locationAnalytics' => $locationAnalytics, 'browserAnalytics' => $browserAnalytics, 'organizerViews' => $organizerViews];
     }
 
     /**
@@ -124,16 +127,18 @@ class EventAnalyticService
             ]);
     }
 
-
-    public function getCountryAnalyticMarkers($locationAnalytics){
-        $countryInfo = [];
-        if($locationAnalytics->count() > 0){
-            foreach($locationAnalytics as $location){
-                array_push($countryInfo, $location);
-            }
+    public function getOrganizerAnalytics($organizerId){
+        $organizer          = $this->organizerService->getOrganizer($organizerId);
+        $period             = Period::create($organizer->created_at, Carbon::now());
+        $slug               = 'organizers/'.$organizer->slug;
+        $organizerSlugViews = $this->getUrlViews($period, $slug);
+        $organizerTotalViews= $organizerSlugViews;
+        if(!empty($organizer->organizer_url)){
+            $slug               = 'organizers/'.$organizer->organizer_url;
+            $organizerUrlViews  = $this->getUrlViews($period, $slug);
+            $organizerTotalViews= $organizerTotalViews + $organizerUrlViews;
         }
-        return $countryInfo;
+        return $organizerTotalViews;
     }
-
 
 }

@@ -55,7 +55,7 @@
                                 </li>
                                 <li class="col-lg-3 col-md-4 col-6">
                                     <div class="body">
-                                        <i class="zmdi zmdi-comment-text col-red"></i>
+                                        <i class="zmdi zmdi-view-web green"></i>
                                         <h4>{{$analytics['monthViews']}}</h4>
                                         <span>Event Views</span><br>
                                         <span class="badge badge-info">This Month</span>
@@ -63,7 +63,7 @@
                                 </li>
                                 <li class="col-lg-3 col-md-4 col-6">
                                     <div class="body">
-                                        <i class="zmdi zmdi-account text-success"></i>
+                                        <i class="zmdi zmdi-view-week text-success"></i>
                                         <h4>{{$analytics['weekViews']}}</h4>
                                         <span>Event Views</span><br>
                                         <span class="badge badge-info">This Week</span>
@@ -71,8 +71,8 @@
                                 </li>
                                 <li class="col-lg-3 col-md-4 col-6">
                                     <div class="body">
-                                        <i class="zmdi zmdi-thumb-up col-blue"></i>
-                                        <h4>365</h4>
+                                        <i class="zmdi zmdi-account col-blue"></i>
+                                        <h4>{{$analytics['organizerViews']}}</h4>
                                         <span>Organizer Profile Views</span>
                                         <span class="badge badge-warning">Total Views</span>
                                     </div>
@@ -172,7 +172,7 @@
                                 <h2>Activities</h2>
                             </div>
                             <div class="body">
-                                <div class="streamline b-l b-accent">
+                                <div class="streamline b-l @if(count($activity)) b-accent @endif">
                                     @if(count($activity))
                                         @foreach($activity as $order)
                                             <div class="sl-item">
@@ -378,12 +378,13 @@
         @if($analytics['browserAnalytics']->count() > 0)
             @php $totalSessions = $analytics['browserAnalytics']->sum('sessions') @endphp
             @foreach($analytics['browserAnalytics'] as $browser)
+                var percentage = {{$browser['sessions']/$totalSessions * 100}}
                 browserData.push({
                     label: '{{$browser['browser']}}',
-                    value: {{$browser['sessions']/$totalSessions * 100}}
+                    value: percentage.toFixed(2)
                 });
                 colors.push(predefinedColorsArray[i]);
-                i = i++;
+                i = i+1;
             @endforeach
         @else
             browserData.push({
