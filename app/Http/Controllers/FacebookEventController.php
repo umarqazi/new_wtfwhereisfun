@@ -41,7 +41,7 @@ class FacebookEventController
      * @return mixed
      */
     public function connectToFacebook($locationId){
-        $redirectUrl = route('facebook-connect');
+        $redirectUrl = url('facebook/callback');
         return Socialite::driver('facebook')->with(['locationId' => $locationId])->redirectUrl($redirectUrl)->redirect();
     }
 
