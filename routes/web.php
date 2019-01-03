@@ -131,6 +131,10 @@ Route::group(['middleware' => ['web']], function () {
                     Route::post('{locationId}/dashboard/add-guest', 'EventController@addGuest');
                     Route::post('update-event-url', 'EventController@updateEventUrl');
 
+                    Route::get('{locationId}/dashboard/add-to-facebook', 'FacebookEventController@addToFacebook');
+                    Route::get('{locationId}/connect-to-facebook', 'FacebookEventController@connectToFacebook');
+                    Route::get('{locationId}/facebook/callback', 'FacebookEventController@handleFacebookCallBack');
+
                 });
 
                 Route::resource('events', 'EventController');

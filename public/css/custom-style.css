@@ -1,6 +1,6 @@
 ﻿/*-----------------------
 Theme Color : #89c557;
-Theme Hover Color : #89c557;
+Theme 1r Color : #89c557;
 Text Color : #554740;+
 -------------------*/
 
@@ -6689,4 +6689,18 @@ p.dispute-user{
 
 .find-events .search_dropdown{
    z-index: 999999;
+}
+
+.btn--facebook{
+   background-color: #3b5998!important;
+   border:none;
+}
+
+.btn--facebook:hover{
+   background-color: #3b5998!important;
+   border:none;
+}
+
+.btn--facebook span{
+   padding-right: 5px;
 }

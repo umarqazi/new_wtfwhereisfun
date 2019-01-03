@@ -25,18 +25,33 @@ class UserServices
         $this->userRepo             = new UserRepo();
     }
 
+    /**
+     * @return int
+     */
     public function countUsers(){
         return User::all()->count();
     }
 
+    /**
+     * @param User $user
+     * @return mixed
+     */
     public function roles(User $user){
         return $user->roles->pluck('name');
     }
 
+    /**
+     * @param $email
+     * @return mixed
+     */
     public function getUserByEmail($email){
         return $this->userRepo->getByEmail($email);
     }
 
+    /**
+     * @param $token
+     * @return string
+     */
     public function verifyUser($token)
     {
         $verification_user = UserVerification::where('token', $token)->first();
@@ -54,6 +69,10 @@ class UserServices
         }
     }
 
+    /**
+     * @param $request
+     * @return User
+     */
     public function register($request){
         $user = new User;
         if ($request->has('username')) {
@@ -78,6 +97,10 @@ class UserServices
         return $user;
     }
 
+    /**
+     * @param $request
+     * @return array|string
+     */
     public function login($request){
         $credentials = $request->only('email', 'password');
         $user = User::where('email', $request->email)->first();
@@ -99,6 +122,10 @@ class UserServices
         }
     }
 
+    /**
+     * @param $request
+     * @return string
+     */
     public function forgetPassword($request){
         $user = User::where('email', $request->email)->first();
         if(!empty($user->lost_password)){
@@ -122,6 +149,10 @@ class UserServices
         }
     }
 
+    /**
+     * @param $request
+     * @return string
+     */
     public function resetPassword($request){
         $reset_password = ResetPassword::where('token', $request->token)->first();
         if(is_null($reset_password)){
@@ -135,6 +166,9 @@ class UserServices
         }
     }
 
+    /**
+     * @return array
+     */
     public function accountSettings(){
         $user = Auth::user();
         $shippingAddress = $user->shipping_address;
@@ -169,6 +203,10 @@ class UserServices
                 $shippingAsBilling, 'emailPreference' => $user->email_preference, 'directory' => getDirectory('vendors', $user->id)];
     }
 
+    /**
+     * @param $request
+     * @return \Illuminate\Contracts\Auth\Authenticatable|null
+     */
     public function doAccountSettings($request){
         $response = $this->userRepo->updateProfile($request);
         if($request->is_billing_shipping){
@@ -180,14 +218,33 @@ class UserServices
         return $response;
     }
 
+    /**
+     * @param $user
+     * @param $provider
+     * @return mixed
+     */
     public function handleSocialUser($user, $provider){
         $authUser = $this->userRepo->findCreateSocialUser($user, $provider);
         Auth::login($authUser, true);
         return $authUser;
     }
 
+    /**
+     * @param $request
+     * @param $userId
+     * @return bool
+     */
     public function updateUserRole($request, $userId){
         return $this->userRepo->updateRole($request, $userId);
+    }
+
+    /**
+     * @param $userId
+     * @param $facebookId
+     * @return bool
+     */
+    public function updateFacebookId($userId, $facebookId){
+        return $this->userRepo->updateFacebookId($userId, $facebookId);
     }
 
 

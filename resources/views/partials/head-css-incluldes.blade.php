@@ -38,8 +38,7 @@
 
     <!-- Custom Style -->
     <link href="{{asset('css/custom-style.css')}}" rel="stylesheet" type="text/css">
-    <!-- My Custom Style -->
-    {{--<link href="{{asset('css/my-custom-style.css')}}" rel="stylesheet" type="text/css">--}}
+
     <!-- Responsive Style -->
     <link href="{{asset('css/responsive.css')}}" rel="stylesheet" type="text/css">
 

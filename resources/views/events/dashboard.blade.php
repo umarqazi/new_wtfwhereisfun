@@ -73,7 +73,7 @@
                                     <div class="body">
                                         <i class="zmdi zmdi-account col-blue"></i>
                                         <h4>{{$analytics['organizerViews']}}</h4>
-                                        <span>Organizer Profile Views</span>
+                                        <span>Organizer Profile Views</span><br>
                                         <span class="badge badge-warning">Total Views</span>
                                     </div>
                                 </li>
