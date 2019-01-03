@@ -67,16 +67,16 @@ class EventAnalyticService
             'ga:pageviews',
             [
                 'dimensions' => 'ga:country,ga:latitude,ga:longitude',
-                'filters' => 'ga:pagePath==/'.$url,
-                'sort'  =>  '-ga:pageviews'
+                'filters'    => 'ga:pagePath==/'.$url,
+                'sort'       =>  '-ga:pageviews'
             ]
         );
         return collect($response['rows'] ?? [])->map(function (array $dateRow) {
             return [
-                'country'   => $dateRow[0],
+                'country'    => $dateRow[0],
                 'latitude'   => $dateRow[1],
-                'longitude' =>  $dateRow[2],
-                'sessions'  => (int) $dateRow[3]
+                'longitude'  =>  $dateRow[2],
+                'pageViews'  => (int) $dateRow[3]
             ];
         });
     }
@@ -100,8 +100,8 @@ class EventAnalyticService
 
         $topBrowsers = collect($response['rows'] ?? [])->map(function (array $browserRow) {
             return [
-                'browser' => $browserRow[0],
-                'sessions' => (int) $browserRow[1],
+                'browser'   => $browserRow[0],
+                'pageViews' => (int) $browserRow[1],
             ];
         });
 
@@ -122,8 +122,8 @@ class EventAnalyticService
         return $topBrowsers
             ->take($maxResults - 1)
             ->push([
-                'browser' => 'Others',
-                'sessions' => $topBrowsers->splice($maxResults - 1)->sum('sessions'),
+                'browser'   => 'Others',
+                'pageViews' => $topBrowsers->splice($maxResults - 1)->sum('sessions'),
             ]);
     }
 

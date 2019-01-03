@@ -99,7 +99,7 @@
                                                 <thead>
                                                 <tr>
                                                     <th>Country</th>
-                                                    <th>Sessions</th>
+                                                    <th>Page Views</th>
                                                 </tr>
                                                 </thead>
                                                 <tbody>
@@ -107,7 +107,7 @@
                                                     @foreach($analytics['locationAnalytics'] as $loc)
                                                         <tr>
                                                             <td>{{$loc['country']}}</td>
-                                                            <td>{{$loc['sessions']}}</td>
+                                                            <td>{{$loc['pageViews']}}</td>
                                                         </tr>
                                                     @endforeach
                                                 @else
@@ -201,7 +201,7 @@
                                         <tr>
                                             <td>S.NO</td>
                                             <td>Browser</td>
-                                            <td>Sessions</td>
+                                            <td>Page Views</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -210,7 +210,7 @@
                                             <tr>
                                                 <td>{{$key + 1}}</td>
                                                 <td>{{$browser['browser']}}</td>
-                                                <td>{{$browser['sessions']}}</td>
+                                                <td>{{$browser['pageViews']}}</td>
                                             </tr>
                                         @endforeach
                                     @else
@@ -376,9 +376,9 @@
         var i = 0;
         var predefinedColorsArray = ['#00adef', '#fcb711', '#12a682', '#f58787', '#708090'];
         @if($analytics['browserAnalytics']->count() > 0)
-            @php $totalSessions = $analytics['browserAnalytics']->sum('sessions') @endphp
+            @php $totalViews = $analytics['browserAnalytics']->sum('pageViews') @endphp
             @foreach($analytics['browserAnalytics'] as $browser)
-                var percentage = {{$browser['sessions']/$totalSessions * 100}}
+                var percentage = {{$browser['pageViews']/$totalViews * 100}}
                 browserData.push({
                     label: '{{$browser['browser']}}',
                     value: percentage.toFixed(2)
