@@ -50,7 +50,7 @@ class FacebookEventController
      * @param $provider
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function handleFacebookCallBack($locationId, $provider)
+    public function handleFacebookCallBack($provider)
     {
         $user = Socialite::driver($provider)->user();
 //        $response = $this->userServices->updateFacebookId(Auth::user()->id, $provider);
