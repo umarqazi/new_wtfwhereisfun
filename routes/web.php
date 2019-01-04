@@ -135,7 +135,7 @@ Route::group(['middleware' => ['web']], function () {
                     Route::get('{locationId}/connect-to-facebook', 'FacebookEventController@connectToFacebook');
 
                 });
-                Route::get('facebook/callback/{provider}', 'FacebookEventController@handleFacebookCallBack');
+                Route::get('{provider}/callback', 'FacebookEventController@handleFacebookCallBack');
 
                 Route::resource('events', 'EventController');
 
