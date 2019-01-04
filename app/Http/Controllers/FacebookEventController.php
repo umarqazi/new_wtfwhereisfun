@@ -6,6 +6,9 @@ use App\Services\Events\EventService;
 use App\Services\Events\EventTimeLocationService;
 use App\Services\Events\FacebookService;
 use App\Services\UserServices;
+use Illuminate\Support\Facades\URL;
+use Request;
+use Illuminate\Support\Facades\Session;
 use Laravel\Socialite\Facades\Socialite;
 
 class FacebookEventController
@@ -29,6 +32,7 @@ class FacebookEventController
         $event              = $this->eventLocationService->getLocationEvent($locationId);
         $location           = $this->eventLocationService->getTimeLocation($locationId);
         if(empty($event->vendor->facebook_id)){
+            Session::put('url', URL::current());
             return View('events.add-to-facebook')->with(['event' => $event, 'location' => $location]);
         }else{
 
@@ -40,24 +44,8 @@ class FacebookEventController
      * @param $locationId
      * @return mixed
      */
-    public function connectToFacebook($locationId){
-        $redirectUrl = url('facebook/callback');
-        return Socialite::driver('facebook')->with(['locationId' => $locationId])->redirectUrl($redirectUrl)->redirect();
-    }
-
-    /**
-     * @param $locationId
-     * @param $provider
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
-     */
-    public function handleFacebookCallBack($provider)
-    {
-        $user = Socialite::driver($provider)->user();
-//        $response = $this->userServices->updateFacebookId(Auth::user()->id, $provider);
-        print_r($user.'     User');
-        print_r($provider.'      Provider');
-        die();
-        return redirect(url('events/'.$locationId.'/dashboard/add-to-facebook'));
+    public function connectToFacebook(){
+        return Socialite::driver('facebook')->redirect();
     }
 
 }

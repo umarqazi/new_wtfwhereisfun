@@ -160,8 +160,8 @@ class UserRepo
         }
     }
 
-    public function updateFacebookId($userId, $facebookId){
-        $this->userModel->where('id', $userId)->update(['facebook_id' => $facebookId]);
+    public function updateFacebookId($userId, $facebookUser){
+        $this->userModel->where('id', $userId)->update(['facebook_id' => $facebookUser->id]);
         return true;
     }
 }

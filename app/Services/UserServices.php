@@ -243,8 +243,8 @@ class UserServices
      * @param $facebookId
      * @return bool
      */
-    public function updateFacebookId($userId, $facebookId){
-        return $this->userRepo->updateFacebookId($userId, $facebookId);
+    public function updateFacebookId($userId, $facebookUser){
+        return $this->userRepo->updateFacebookId($userId, $facebookUser);
     }
 
 

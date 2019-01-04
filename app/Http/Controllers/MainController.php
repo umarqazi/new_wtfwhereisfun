@@ -1,9 +1,11 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Services\Events\FacebookService;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\App;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 use Validator;
 use Alert;
 use Illuminate\Support\Facades\Redirect;
@@ -39,6 +41,7 @@ class MainController extends Controller
     protected $eventListingService;
     protected $eventLocationService;
     protected $eventFilterService;
+    protected $facebookService;
 
     public function __construct()
     {
@@ -50,6 +53,7 @@ class MainController extends Controller
         $this->eventListingService  = new EventListingService;
         $this->eventLocationService = new EventTimeLocationService;
         $this->eventFilterService   = new EventFilterService;
+        $this->facebookService      = new FacebookService;
     }
     /**
      * Show the application's landing Page.
@@ -296,8 +300,13 @@ class MainController extends Controller
     public function handleProviderCallback($provider)
     {
         $user = Socialite::driver($provider)->user();
-        $response = $this->userServices->handleSocialUser($user, $provider);
-        return redirect(url('/'));
+        if(Auth::user()){
+            $this->userServices->updateFacebookId(Auth::user()->id, $user);
+            return Redirect::to(Session::get('url'));
+        }else{
+            $response = $this->userServices->handleSocialUser($user, $provider);
+            return redirect(url('/'));
+        }
     }
 
     public function aboutUs(){
