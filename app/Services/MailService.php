@@ -33,6 +33,6 @@ class MailService
 
     public function sendRefundMails($order){
         Mail::to($order->user->email)->send(new CustomerRefund($order));
-        Mail::to($order->user->email)->send(new VendorRefund($order));
+        Mail::to($order->event->vendor->email)->send(new VendorRefund($order));
     }
 }

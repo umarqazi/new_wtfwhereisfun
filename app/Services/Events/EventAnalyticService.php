@@ -130,11 +130,11 @@ class EventAnalyticService
     public function getOrganizerAnalytics($organizerId){
         $organizer          = $this->organizerService->getOrganizer($organizerId);
         $period             = Period::create($organizer->created_at, Carbon::now());
-        $slug               = 'organizers/'.$organizer->slug;
+        $slug               = 'organizer/'.$organizer->slug;
         $organizerSlugViews = $this->getUrlViews($period, $slug);
         $organizerTotalViews= $organizerSlugViews;
         if(!empty($organizer->organizer_url)){
-            $slug               = 'organizers/'.$organizer->organizer_url;
+            $slug               = 'organizer/'.$organizer->organizer_url;
             $organizerUrlViews  = $this->getUrlViews($period, $slug);
             $organizerTotalViews= $organizerTotalViews + $organizerUrlViews;
         }
