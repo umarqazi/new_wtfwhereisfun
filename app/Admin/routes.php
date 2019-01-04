@@ -24,6 +24,7 @@ Route::group([
         $router->resource('disputes', 'DisputeController')->only(['index', 'show']);
 
         $router->get('event/location/{id}/orders', 'EventLocationController@getLocationOrders');
+        $router->post('event/location/{id}/orders/payout', 'PayoutController@payout');
 
         Route::prefix('events')->group(function (Router $router) {
             $router->get('approve/{id}', 'EventController@approveEvent');

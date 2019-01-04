@@ -46,11 +46,6 @@
                                             @include('events.partials.event-description')
                                         </div>
                                     </div>
-
-                                    <div id="event-tickets" class="tab__panel default-status has-single-map">
-                                        @include('events.partials.event-tickets')
-                                    </div>
-
                                 </div>
                             </div>
 

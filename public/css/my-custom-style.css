@@ -862,3 +862,9 @@ form#profile-image,form#organizers-profile-image{
     height: 10%;
     width: 10%;
 }
+.red{
+    color: red;
+}
+.bold{
+    font-weight: 900;
+}

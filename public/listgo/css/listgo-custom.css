@@ -396,6 +396,25 @@ p .event-tag-name{
     z-index: 8;
 }
 
+.custom-ticket-btn{
+    padding-top: 20px !important;
+    background-color: #e0e0e0 !important;
+    z-index: 999999;
+}
+.custom-ticket-btn button {
+    background: #86C543;
+    color: #fff;
+    font-weight: 800;
+    display: block;
+    font-size: 16px;
+    width: 100%;
+    padding: 10px 0px;
+}
+.btn-clr-green{
+    color: #fff;
+    background: #86C543;
+}
+
 
 @media screen and (max-width: 991px) {
     .listing-single-wrap7 .listing-single{
