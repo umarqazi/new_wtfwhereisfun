@@ -126,4 +126,9 @@ class PaymentController extends Controller
         WaitListMailing::dispatch($order)->delay(Carbon::now()->addSeconds(60));
         return redirect('complaints');
     }
+
+    public function checkMail($orderId){
+        $order          = $this->eventOrderService->getOrderById(decrypt_id($orderId));
+        OrderRefundMailing::dispatch($order)->delay(Carbon::now()->addSeconds(60));
+    }
 }

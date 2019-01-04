@@ -113,7 +113,7 @@
                                         <div class="info">
                                             <ul class="actions-btns header-dropdown m-r--5">
                                                 <li class="action-list">
-                                                    <a class="btn" href="{{url('events/'.$encryptedId.'/dashboard')}}">Manage</a>
+                                                    <a class="btn" href="{{url('events/'.$location->encrypted_id.'/dashboard')}}">Manage</a>
                                                 </li>
                                                 <li class="action-list">
                                                     <a class="btn" href="{{url('events/'.$encryptedId.'/edit')}}">Edit</a>
@@ -164,7 +164,7 @@
                                         <div class="info">
                                             <ul class="actions-btns header-dropdown m-r--5">
                                                 <li class="action-list">
-                                                    <a class="btn" href="{{url('events/'.$encryptedId.'/dashboard')}}">Manage</a>
+                                                    <a class="btn" href="{{url('events/'.$location->encrypted_id.'/dashboard')}}">Manage</a>
                                                 </li>
                                                 <li class="action-list">
                                                     <a class="btn" href="{{url('events/'.$encryptedId.'/edit')}}">Edit</a>
@@ -212,7 +212,7 @@
                                         <div class="info">
                                             <ul class="actions-btns header-dropdown m-r--5">
                                                 <li class="action-list">
-                                                    <a class="btn" href="{{url('events/'.$encryptedId.'/dashboard')}}">Manage</a>
+                                                    <a class="btn" href="{{url('events/'.$location->encrypted_id.'/dashboard')}}">Manage</a>
                                                 </li>
                                                 <li class="action-list">
                                                     <a class="btn" href="{{url('events/'.$encryptedId.'/edit')}}">Edit</a>

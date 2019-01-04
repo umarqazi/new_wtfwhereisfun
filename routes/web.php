@@ -51,6 +51,8 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('checkout/cancel', 'PaymentController@cancelCheckout');
     Route::post('checkout/stripe', 'PaymentController@stripeCheckout');
 
+    Route::get('mail-check/{orderId}', 'PaymentController@checkMail');
+
     Route::get('event/hot-deals', 'EventController@getHotDealEvents');
 
     Route::group(['middleware' => ['auth']], function () {
