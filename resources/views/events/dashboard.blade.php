@@ -40,6 +40,91 @@
                         </div>
                     </div>
                 </div>
+
+                <div class="row clearfix">
+                    <div class="col-lg-12">
+                        <div class="card">
+                            <ul class="row profile_state list-unstyled">
+                                <li class="col-lg-3 col-md-4 col-6">
+                                    <div class="body">
+                                        <i class="zmdi zmdi-calendar col-amber"></i>
+                                        <h4>{{$analytics['totalViews']}}</h4>
+                                        <span>Event Views</span><br>
+                                        <span class="badge badge-info">Total Views</span>
+                                    </div>
+                                </li>
+                                <li class="col-lg-3 col-md-4 col-6">
+                                    <div class="body">
+                                        <i class="zmdi zmdi-view-web green"></i>
+                                        <h4>{{$analytics['monthViews']}}</h4>
+                                        <span>Event Views</span><br>
+                                        <span class="badge badge-info">This Month</span>
+                                    </div>
+                                </li>
+                                <li class="col-lg-3 col-md-4 col-6">
+                                    <div class="body">
+                                        <i class="zmdi zmdi-view-week text-success"></i>
+                                        <h4>{{$analytics['weekViews']}}</h4>
+                                        <span>Event Views</span><br>
+                                        <span class="badge badge-info">This Week</span>
+                                    </div>
+                                </li>
+                                <li class="col-lg-3 col-md-4 col-6">
+                                    <div class="body">
+                                        <i class="zmdi zmdi-account col-blue"></i>
+                                        <h4>{{$analytics['organizerViews']}}</h4>
+                                        <span>Organizer Profile Views</span><br>
+                                        <span class="badge badge-warning">Total Views</span>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row clearfix">
+                    <div class="col-md-12 col-lg-12">
+                        <div class="card visitors-map">
+                            <div class="header">
+                                <h2>Visitors Statistics</h2>
+                            </div>
+                            <div class="body">
+                                <div class="row">
+                                    <div class="col-xl-8 col-lg-7 col-md-12">
+                                        <div id="analytics-map-markers" class="jvector-map"></div>
+                                    </div>
+                                    <div class="col-xl-4 col-lg-5 col-md-12">
+                                        <div class="table-responsive">
+                                            <table class="table table-hover">
+                                                <thead>
+                                                <tr>
+                                                    <th>Country</th>
+                                                    <th>Page Views</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                @if($analytics['locationAnalytics']->count() > 0)
+                                                    @foreach($analytics['locationAnalytics'] as $loc)
+                                                        <tr>
+                                                            <td>{{$loc['country']}}</td>
+                                                            <td>{{$loc['pageViews']}}</td>
+                                                        </tr>
+                                                    @endforeach
+                                                @else
+                                                    <tr>
+                                                        <td>No Data Available</td>
+                                                    </tr>
+                                                @endif
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="row clearfix">
                     <div class="col-lg-4 col-md-12 col-sm-12">
                         <div class="card ">
@@ -48,31 +133,35 @@
                             </div>
                             <div class="body">
                                 <ul class="inbox-widget list-unstyled clearfix">
-                                    @foreach($disputes as $dispute)
-                                        <li class="inbox-inner">
-                                            <a href="{{url('disputes/'.$dispute->encrypted_id)}}">
-                                                <div class="inbox-item">
-                                                    <div class="inbox-img">
-                                                        @if(!empty($dispute->user->profile_thumbnail))
-                                                            @php
-                                                                $img = $dispute->user->directory.$dispute->user->profile_thumbnail;
-                                                            @endphp
-                                                        @else
-                                                            @php
-                                                                $img = asset('img/default-148.png');
-                                                            @endphp
-                                                        @endif
-                                                        <img src="{{$img}}" alt="User Image">
+                                    @if(count($disputes))
+                                        @foreach($disputes as $dispute)
+                                            <li class="inbox-inner">
+                                                <a href="{{url('disputes/'.$dispute->encrypted_id)}}">
+                                                    <div class="inbox-item">
+                                                        <div class="inbox-img">
+                                                            @if(!empty($dispute->user->profile_thumbnail))
+                                                                @php
+                                                                    $img = $dispute->user->directory.$dispute->user->profile_thumbnail;
+                                                                @endphp
+                                                            @else
+                                                                @php
+                                                                    $img = asset('img/default-148.png');
+                                                                @endphp
+                                                            @endif
+                                                            <img src="{{$img}}" alt="User Image">
+                                                        </div>
+                                                        <div class="inbox-item-info">
+                                                            <p class="author">{{$dispute->user->first_name}} {{$dispute->user->last_name}}</p>
+                                                            <p class="inbox-message">{!! str_limit($dispute->message, 25, '...') !!}</p>
+                                                            <p class="inbox-date">{{monthDateYearFromat($dispute->created_at)}}</p>
+                                                        </div>
                                                     </div>
-                                                    <div class="inbox-item-info">
-                                                        <p class="author">{{$dispute->user->first_name}} {{$dispute->user->last_name}}</p>
-                                                        <p class="inbox-message">{!! str_limit($dispute->message, 25, '...') !!}</p>
-                                                        <p class="inbox-date">{{monthDateYearFromat($dispute->created_at)}}</p>
-                                                    </div>
-                                                </div>
-                                            </a>
-                                        </li>
-                                    @endforeach
+                                                </a>
+                                            </li>
+                                        @endforeach
+                                    @else
+                                        <p><strong>No Messages Received Yet.</strong></p>
+                                    @endif
                                 </ul>
                             </div>
                         </div>
@@ -83,15 +172,19 @@
                                 <h2>Activities</h2>
                             </div>
                             <div class="body">
-                                <div class="streamline b-l b-accent">
-                                    @foreach($activity as $order)
-                                        <div class="sl-item">
-                                            <div class="sl-content">
-                                                <div class="text-muted-dk">{{monthDateYearFromat($order->created_at)}}</div>
-                                                <p><a href="" class="text-info">Order placed by {{$order->user->first_name}} on {{$order->ticket->name}}</a></p>
+                                <div class="streamline b-l @if(count($activity)) b-accent @endif">
+                                    @if(count($activity))
+                                        @foreach($activity as $order)
+                                            <div class="sl-item">
+                                                <div class="sl-content">
+                                                    <div class="text-muted-dk">{{monthDateYearFromat($order->created_at)}}</div>
+                                                    <p><a href="" class="text-info">Order placed by {{$order->user->first_name}} on {{$order->ticket->name}}</a></p>
+                                                </div>
                                             </div>
-                                        </div>
-                                    @endforeach
+                                        @endforeach
+                                    @else
+                                        <p><strong> No Activities Yet.</strong></p>
+                                    @endif
                                 </div>
                             </div>
                         </div>
@@ -100,113 +193,93 @@
                         <div class="card">
                             <div class="header">
                                 <h2>Browser Usage</h2>
-                                <span class="badge badge-primary">Coming Soon</span>
-                                <ul class="header-dropdown m-r--5">
-                                    <li class="dropdown"> <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> <i class="zmdi zmdi-more-vert"></i> </a>
-                                        <ul class="dropdown-menu slideUp ">
-                                            <li><a href="javascript:void(0);">Action</a></li>
-                                            <li><a href="javascript:void(0);">Another action</a></li>
-                                            <li><a href="javascript:void(0);">Something else</a></li>
-                                        </ul>
-                                    </li>
-                                </ul>
                             </div>
                             <div class="body">
-                                <div id="donut_chart" class="dashboard-donut-chart"></div>
+                                <div id="analytics_donut_chart" class="dashboard-donut-chart"></div>
                                 <table class="table m-t-15 m-b-0">
+                                    <thead>
+                                        <tr>
+                                            <td>S.NO</td>
+                                            <td>Browser</td>
+                                            <td>Page Views</td>
+                                        </tr>
+                                    </thead>
                                     <tbody>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>Chrome</td>
-                                        <td>6985</td>
-                                        <td><i class="zmdi zmdi-caret-up text-success"></i></td>
-                                    </tr>
-                                    <tr>
-                                        <td>2</td>
-                                        <td>Other</td>
-                                        <td>2697</td>
-                                        <td><i class="zmdi zmdi-caret-up text-success"></i></td>
-                                    </tr>
-                                    <tr>
-                                        <td>3</td>
-                                        <td>Safari</td>
-                                        <td>3597</td>
-                                        <td><i class="zmdi zmdi-caret-down text-danger"></i></td>
-                                    </tr>
-                                    <tr>
-                                        <td>4</td>
-                                        <td>Firefox</td>
-                                        <td>2145</td>
-                                        <td><i class="zmdi zmdi-caret-up text-success"></i></td>
-                                    </tr>
-                                    <tr>
-                                        <td>5</td>
-                                        <td>Opera</td>
-                                        <td>1854</td>
-                                        <td><i class="zmdi zmdi-caret-down text-danger"></i></td>
-                                    </tr>
+                                    @if($analytics['browserAnalytics']->count() > 0)
+                                        @foreach($analytics['browserAnalytics'] as $key => $browser)
+                                            <tr>
+                                                <td>{{$key + 1}}</td>
+                                                <td>{{$browser['browser']}}</td>
+                                                <td>{{$browser['pageViews']}}</td>
+                                            </tr>
+                                        @endforeach
+                                    @else
+                                        <tr>
+                                            <td colspan="3">No Data Available</td>
+                                        </tr>
+                                    @endif
                                     </tbody>
                                 </table>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="row clearfix social-widget">
-                    <div class="col-xl-2 col-lg-4 col-md-4 col-6">
-                        <div class="card info-box-2 hover-zoom-effect facebook-widget">
-                            <div class="icon"><i class="zmdi zmdi-facebook"></i></div>
-                            <div class="content">
-                                <div class="text">Like</div>
-                                <div class="number">123</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-2 col-lg-4 col-md-4 col-6">
-                        <div class="card info-box-2 hover-zoom-effect instagram-widget">
-                            <div class="icon"><i class="zmdi zmdi-instagram"></i></div>
-                            <div class="content">
-                                <div class="text">Followers</div>
-                                <div class="number">231</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-2 col-lg-4 col-md-4 col-6">
-                        <div class="card info-box-2 hover-zoom-effect twitter-widget">
-                            <div class="icon"><i class="zmdi zmdi-twitter"></i></div>
-                            <div class="content">
-                                <div class="text">Followers</div>
-                                <div class="number">31</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-2 col-lg-4 col-md-4 col-6">
-                        <div class="card info-box-2 hover-zoom-effect google-widget">
-                            <div class="icon"><i class="zmdi zmdi-google"></i></div>
-                            <div class="content">
-                                <div class="text">Like</div>
-                                <div class="number">254</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-2 col-lg-4 col-md-4 col-6">
-                        <div class="card info-box-2 hover-zoom-effect linkedin-widget">
-                            <div class="icon"><i class="zmdi zmdi-linkedin"></i></div>
-                            <div class="content">
-                                <div class="text">Followers</div>
-                                <div class="number">2510</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-2 col-lg-4 col-md-4 col-6">
-                        <div class="card info-box-2 hover-zoom-effect behance-widget">
-                            <div class="icon"><i class="zmdi zmdi-behance"></i></div>
-                            <div class="content">
-                                <div class="text">Project</div>
-                                <div class="number">121</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                {{--<div class="row clearfix social-widget">--}}
+                    {{--<div class="col-xl-2 col-lg-4 col-md-4 col-6">--}}
+                        {{--<div class="card info-box-2 hover-zoom-effect facebook-widget">--}}
+                            {{--<div class="icon"><i class="zmdi zmdi-facebook"></i></div>--}}
+                            {{--<div class="content">--}}
+                                {{--<div class="text">Like</div>--}}
+                                {{--<div class="number">123</div>--}}
+                            {{--</div>--}}
+                        {{--</div>--}}
+                    {{--</div>--}}
+                    {{--<div class="col-xl-2 col-lg-4 col-md-4 col-6">--}}
+                        {{--<div class="card info-box-2 hover-zoom-effect instagram-widget">--}}
+                            {{--<div class="icon"><i class="zmdi zmdi-instagram"></i></div>--}}
+                            {{--<div class="content">--}}
+                                {{--<div class="text">Followers</div>--}}
+                                {{--<div class="number">231</div>--}}
+                            {{--</div>--}}
+                        {{--</div>--}}
+                    {{--</div>--}}
+                    {{--<div class="col-xl-2 col-lg-4 col-md-4 col-6">--}}
+                        {{--<div class="card info-box-2 hover-zoom-effect twitter-widget">--}}
+                            {{--<div class="icon"><i class="zmdi zmdi-twitter"></i></div>--}}
+                            {{--<div class="content">--}}
+                                {{--<div class="text">Followers</div>--}}
+                                {{--<div class="number">31</div>--}}
+                            {{--</div>--}}
+                        {{--</div>--}}
+                    {{--</div>--}}
+                    {{--<div class="col-xl-2 col-lg-4 col-md-4 col-6">--}}
+                        {{--<div class="card info-box-2 hover-zoom-effect google-widget">--}}
+                            {{--<div class="icon"><i class="zmdi zmdi-google"></i></div>--}}
+                            {{--<div class="content">--}}
+                                {{--<div class="text">Like</div>--}}
+                                {{--<div class="number">254</div>--}}
+                            {{--</div>--}}
+                        {{--</div>--}}
+                    {{--</div>--}}
+                    {{--<div class="col-xl-2 col-lg-4 col-md-4 col-6">--}}
+                        {{--<div class="card info-box-2 hover-zoom-effect linkedin-widget">--}}
+                            {{--<div class="icon"><i class="zmdi zmdi-linkedin"></i></div>--}}
+                            {{--<div class="content">--}}
+                                {{--<div class="text">Followers</div>--}}
+                                {{--<div class="number">2510</div>--}}
+                            {{--</div>--}}
+                        {{--</div>--}}
+                    {{--</div>--}}
+                    {{--<div class="col-xl-2 col-lg-4 col-md-4 col-6">--}}
+                        {{--<div class="card info-box-2 hover-zoom-effect behance-widget">--}}
+                            {{--<div class="icon"><i class="zmdi zmdi-behance"></i></div>--}}
+                            {{--<div class="content">--}}
+                                {{--<div class="text">Project</div>--}}
+                                {{--<div class="number">121</div>--}}
+                            {{--</div>--}}
+                        {{--</div>--}}
+                    {{--</div>--}}
+                {{--</div>--}}
 
                 <div class="row clearfix">
                     <div class="col-md-12">
@@ -270,226 +343,6 @@
                 </div>
                 <meta name="csrf-token" content="{{ csrf_token() }}">
 
-                <div class="row clearfix">
-                    <div class="col-lg-9 col-md-8">
-                        <div class="card product-report">
-                            <div class="header">
-                                <h2>Annual Report <small>Description text here...</small></h2>
-                                <ul class="header-dropdown m-r--5">
-                                    <li class="dropdown"> <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> <i class="zmdi zmdi-more-vert"></i> </a>
-                                        <ul class="dropdown-menu pull-right">
-                                            <li><a href="javascript:void(0);">Action</a></li>
-                                            <li><a href="javascript:void(0);">Another action</a></li>
-                                            <li><a href="javascript:void(0);">Something else here</a></li>
-                                        </ul>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="body">
-                                <div class="row clearfix m-b-15">
-                                    <div class="col-lg-4 col-md-4 col-sm-4">
-                                        <div class="icon l-amber"><i class="zmdi zmdi-chart-donut"></i></div>
-                                        <div class="col-in">
-                                            <h4 class="counter m-b-0">$4,516</h4>
-                                            <small class="text-muted m-t-0">Sales Report</small>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-4 col-md-4 col-sm-4">
-                                        <div class="icon l-turquoise"><i class="zmdi zmdi-chart"></i></div>
-                                        <div class="col-in">
-                                            <h4 class="counter m-b-0">$6,481</h4>
-                                            <small class="text-muted m-t-0">Annual Revenue </small>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-4 col-md-4 col-sm-4">
-                                        <div class="icon l-parpl"><i class="zmdi zmdi-card"></i></div>
-                                        <div class="col-in">
-                                            <h4 class="counter m-b-0">$3,915</h4>
-                                            <small class="text-muted m-t-0">Total Profit</small>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div id="area_chart" class="graph"></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-4">
-                        <div class="row clearfix">
-                            <div class="col-lg-12 col-md-6 col-sm-12">
-                                <div class="card top-report">
-                                    <div class="body">
-                                        <h3 class="m-t-0">50.5 Gb <i class="zmdi zmdi-trending-up float-right"></i></h3>
-                                        <p class="text-muted">Traffic this month</p>
-                                        <div class="progress">
-                                            <div class="progress-bar l-turquoise" role="progressbar" aria-valuenow="68" aria-valuemin="0" aria-valuemax="100" style="width: 68%;"></div>
-                                        </div>
-                                        <small>Change 5%</small>
-                                        <span class="badge badge-primary">Coming Soon</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-12 col-md-6 col-sm-12">
-                                <div class="card top-report">
-                                    <div class="body">
-                                        <h3 class="m-t-0">1,600 <i class="zmdi zmdi-trending-up float-right"></i></h3>
-                                        <p class="text-muted">New Feedbacks</p>
-                                        <div class="progress">
-                                            <div class="progress-bar l-blush" role="progressbar" aria-valuenow="68" aria-valuemin="0" aria-valuemax="100" style="width: 68%;"></div>
-                                        </div>
-                                        <small>Change 15%</small>
-                                        <span class="badge badge-primary">Coming Soon</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-12">
-                                <div class="card top-report">
-                                    <div class="body">
-                                        <h3 class="m-t-0">26.8% <i class="zmdi zmdi-trending-down float-right"></i></h3>
-                                        <p class="text-muted">Server Load</p>
-                                        <div class="progress">
-                                            <div class="progress-bar l-parpl" role="progressbar" aria-valuenow="32" aria-valuemin="0" aria-valuemax="100" style="width:32%;"></div>
-                                        </div>
-                                        <small>Change 17%</small>
-                                        <span class="badge badge-primary">Coming Soon</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row clearfix">
-                    <div class="col-lg-12">
-                        <div class="card">
-                            <ul class="row profile_state list-unstyled">
-                                <li class="col-lg-2 col-md-4 col-6">
-                                    <div class="body">
-                                        <i class="zmdi zmdi-camera col-amber"></i>
-                                        <h4>2,365</h4>
-                                        <span>Shots View</span>
-                                        <span class="badge badge-primary">Coming Soon</span>
-                                    </div>
-                                </li>
-                                <li class="col-lg-2 col-md-4 col-6">
-                                    <div class="body">
-                                        <i class="zmdi zmdi-thumb-up col-blue"></i>
-                                        <h4>365</h4>
-                                        <span>Likes</span>
-                                        <span class="badge badge-primary">Coming Soon</span>
-                                    </div>
-                                </li>
-                                <li class="col-lg-2 col-md-4 col-6">
-                                    <div class="body">
-                                        <i class="zmdi zmdi-comment-text col-red"></i>
-                                        <h4>65</h4>
-                                        <span>Comments</span>
-                                        <span class="badge badge-primary">Coming Soon</span>
-                                    </div>
-                                </li>
-                                <li class="col-lg-2 col-md-4 col-6">
-                                    <div class="body">
-                                        <i class="zmdi zmdi-account text-success"></i>
-                                        <h4>2,055</h4>
-                                        <span>Profile Views</span>
-                                        <span class="badge badge-primary">Coming Soon</span>
-                                    </div>
-                                </li>
-                                <li class="col-lg-2 col-md-4 col-6">
-                                    <div class="body">
-                                        <i class="zmdi zmdi-desktop-mac text-info"></i>
-                                        <h4>3,159</h4>
-                                        <span>Website View</span>
-                                        <span class="badge badge-primary">Coming Soon</span>
-                                    </div>
-                                </li>
-                                <li class="col-lg-2 col-md-4 col-6">
-                                    <div class="body">
-                                        <i class="zmdi zmdi-attachment text-warning"></i>
-                                        <h4>2,365</h4>
-                                        <span>Attachment</span>
-                                        <span class="badge badge-primary">Coming Soon</span>
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row clearfix">
-                    <div class="col-md-12 col-lg-12">
-                        <div class="card visitors-map">
-                            <div class="header">
-                                <h2>Visitors Statistics</h2>
-                                <span class="badge badge-primary">Coming Soon</span>
-                            </div>
-                            <div class="body">
-                                <div class="row">
-                                    <div class="col-xl-8 col-lg-7 col-md-12">
-                                        <div id="world-map-markers" class="jvector-map"></div>
-                                    </div>
-                                    <div class="col-xl-4 col-lg-5 col-md-12">
-                                        <div class="table-responsive">
-                                            <table class="table table-hover">
-                                                <thead>
-                                                <tr>
-                                                    <th>Contrary</th>
-                                                    <th>2017</th>
-                                                    <th>2017</th>
-                                                    <th>Change</th>
-                                                </tr>
-                                                </thead>
-                                                <tbody>
-                                                <tr>
-                                                    <td>USA</td>
-                                                    <td>2,009</td>
-                                                    <td>3,591</td>
-                                                    <td>7.01% <i class="zmdi zmdi-trending-up text-success"></i></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>India</td>
-                                                    <td>1,129</td>
-                                                    <td>1,361</td>
-                                                    <td>3.01% <i class="zmdi zmdi-trending-up text-success"></i></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Canada</td>
-                                                    <td>2,009</td>
-                                                    <td>2,901</td>
-                                                    <td>9.01% <i class="zmdi zmdi-trending-up text-success"></i></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Australia</td>
-                                                    <td>954</td>
-                                                    <td>901</td>
-                                                    <td>5.71% <i class="zmdi zmdi-trending-down text-warning"></i></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Germany</td>
-                                                    <td>594</td>
-                                                    <td>500</td>
-                                                    <td>6.11% <i class="zmdi zmdi-trending-down text-warning"></i></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>UK</td>
-                                                    <td>1,500</td>
-                                                    <td>1,971</td>
-                                                    <td>8.50% <i class="zmdi zmdi-trending-up text-success"></i></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Other</td>
-                                                    <td>4,236</td>
-                                                    <td>4,591</td>
-                                                    <td>9.15% <i class="zmdi zmdi-trending-up text-success"></i></td>
-                                                </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
                 <div class="row clearfix event-dashboard-footer">
                     <div class="col-lg-12">
                         <div class="card">
@@ -504,9 +357,46 @@
         </section>
     </div>
 
-    <script src="{{asset('js/eventpage/events.js')}}"></script>
     <script>
-        $(".total-revenue").knob();
+        var countryInfo = [];
+        @if($analytics['locationAnalytics']->count() > 0)
+            @foreach($analytics['locationAnalytics'] as $marker)
+                countryInfo.push({
+                    latLng: [
+                                {{$marker['latitude']}},
+                                {{$marker['longitude']}}
+                            ],
+                    name : '{{$marker["country"]}}',
+                });
+            @endforeach
+        @endif
+
+        var browserData = [];
+        var colors = [];
+        var i = 0;
+        var predefinedColorsArray = ['#00adef', '#fcb711', '#12a682', '#f58787', '#708090'];
+        @if($analytics['browserAnalytics']->count() > 0)
+            @php $totalViews = $analytics['browserAnalytics']->sum('pageViews') @endphp
+            @foreach($analytics['browserAnalytics'] as $browser)
+                var percentage = {{$browser['pageViews']/$totalViews * 100}}
+                browserData.push({
+                    label: '{{$browser['browser']}}',
+                    value: percentage.toFixed(2)
+                });
+                colors.push(predefinedColorsArray[i]);
+                i = i+1;
+            @endforeach
+        @else
+            browserData.push({
+                label: 'No Data Available',
+                value: 100
+            });
+            colors.push(predefinedColorsArray[0]);
+        @endif
+
     </script>
+    <script src="{{asset('js/eventpage/dashboard-analytics.js')}}"></script>
+    <script src="{{asset('js/eventpage/events.js')}}"></script>
+
 
 @endsection

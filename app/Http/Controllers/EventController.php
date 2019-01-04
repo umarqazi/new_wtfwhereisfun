@@ -9,6 +9,7 @@ use App\Http\Requests\GuestList;
 use App\Http\Requests\WaitListSetting;
 use App\Http\Requests\WaitListSignUpForm;
 use App\Mail\WaitingConfirmation;
+use App\Services\Events\EventAnalyticService;
 use App\Services\Events\EventCalendarService;
 use App\Services\Events\EventOrderService;
 use App\Services\Events\EventRevenueService;
@@ -81,6 +82,7 @@ class EventController extends Controller
     protected $stripeService;
     protected $guestListService;
     protected $guestService;
+    protected $analyticService;
 
     public function __construct()
     {
@@ -108,7 +110,8 @@ class EventController extends Controller
         $this->waitingListService           = new WaitingListService();
         $this->guestListService             = new GuestListService();
         $this->guestService                 = new GuestService();
-        $this->stripeService                = new StripeService;
+        $this->stripeService                = new StripeService();
+        $this->analyticService              = new EventAnalyticService();
     }
 
     /**
@@ -580,11 +583,13 @@ class EventController extends Controller
         $totalRevenue   = $this->eventRevenueService->getTotalRevenueByLocation($locationId);
         $weekRevenue    = $this->eventRevenueService->getWeekRevenueByLocation($locationId);
         $monthRevenue   = $this->eventRevenueService->getMonthRevenueByLocation($locationId);
+        $analytics      = $this->analyticService->getEventAnalytics($locationId);
         $orderIds       = $totalRevenue['orders']->pluck('id')->toArray();
         $disputes       = $this->disputeService->getByOrderId($orderIds);
         $eventOrganizer = $event->organizer;
         return View('events.dashboard')->with(['event' => $event, 'location' => $location, 'totalRevenue' => $totalRevenue,
-            'weekRevenue' => $weekRevenue, 'monthRevenue' => $monthRevenue, 'disputes' => $disputes, 'activity' => $totalRevenue['orders'], 'eventOrganizer' => $eventOrganizer ]);
+            'weekRevenue' => $weekRevenue, 'monthRevenue' => $monthRevenue, 'disputes' => $disputes,
+            'activity' => $totalRevenue['orders'], 'eventOrganizer' => $eventOrganizer, 'analytics' => $analytics ]);
     }
 
     /**

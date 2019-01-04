@@ -96,7 +96,7 @@ class EventTimeLocation extends Model
      */
     public function scopeTodayEvents($query)
     {
-        return $query->whereDate('starting', '=',  Carbon::today()->toDateString())->orWhere('ending', '>=', Carbon::today()->toDateString());
+        return $query->whereDate('starting', '<=',  Carbon::today()->toDateString())->where('ending', '>=', Carbon::today()->toDateString());
     }
 
     /**
@@ -108,7 +108,7 @@ class EventTimeLocation extends Model
      */
     public function scopeFutureEvents($query)
     {
-        return $query->whereDate('starting', '>=',  Carbon::today()->addDay()->toDateString())->orWhere('ending', '>=', Carbon::today()->addDay());
+        return $query->whereDate('starting', '>=',  Carbon::today()->addDay()->toDateString())->where('ending', '>=', Carbon::today()->addDay());
     }
 
     /**

@@ -9,6 +9,24 @@
     <meta name="format-detection" content="telephone=no">
     <title>Event Details</title>
 
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+            new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+            j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+            'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+        })(window,document,'script','dataLayer','GTM-5T5VGHN');</script>
+    <!-- End Google Tag Manager -->
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-131495965-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-131495965-1');
+    </script>
+
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,600|Poppins:400,600" rel="stylesheet">
 
     <link rel="stylesheet" type="text/css" href="{{asset('listgo/css/lib/font-awesome.min.css')}}">
@@ -46,7 +64,7 @@
 <script type="text/javascript" src="{{asset('listgo/js/lib/jquery.magnific-popup.min.js')}}"></script>
 <script type="text/javascript" src="{{asset('listgo/js/scripts.js')}}"></script>
 <script type="text/javascript" src="{{asset('listgo/js/listgo-custom.js')}}"></script>
-    <script type="text/javascript" src="{{asset('listgo/js/jquery.sticky-kit.min.js')}}"></script>
+<script type="text/javascript" src="{{asset('listgo/js/jquery.sticky-kit.min.js')}}"></script>
     <script>
         $(document).ready(function(){
             $(".custom-ticket-btn").stick_in_parent();
@@ -54,6 +72,5 @@
 
     </script>
 {{--<script type="text/javascript" src="{{asset('js/eventpage/events.js')}}"></script>--}}
-
 </body>
 </html>

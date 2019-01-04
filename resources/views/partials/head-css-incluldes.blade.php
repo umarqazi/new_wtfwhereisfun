@@ -5,6 +5,7 @@
     <title>@yield('title') @if(Request::url() != url('/')) :: StubGuys @endif</title>
     <!-- font include -->
     <script src="{{asset('js/jquery.min.js')}}"></script>
+
     <!-- Bootstrap Script -->
     <script src="{{asset('js/bootstrap.min.js')}}"></script>
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800" rel="stylesheet">
@@ -37,13 +38,11 @@
 
     <!-- Custom Style -->
     <link href="{{asset('css/custom-style.css')}}" rel="stylesheet" type="text/css">
-    <!-- My Custom Style -->
-    {{--<link href="{{asset('css/my-custom-style.css')}}" rel="stylesheet" type="text/css">--}}
+
     <!-- Responsive Style -->
     <link href="{{asset('css/responsive.css')}}" rel="stylesheet" type="text/css">
 
     <!-- dispute  Style -->
     <link href="{{asset('css/dispute.css')}}" rel="stylesheet" type="text/css">
-
 
 </head>

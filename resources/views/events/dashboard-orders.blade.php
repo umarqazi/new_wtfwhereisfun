@@ -1,5 +1,5 @@
 @extends('layouts.event-dashboard')
-@section('title', "My Tickets :: StubGuys")
+@section('title', "My Tickets")
 @section('content')
     <div class="page_wrapper event-dashboard @if(strpos(url()->current(),'admin') == true) admin-view @endif">
         @if(strpos(url()->current(),'admin') == false)
