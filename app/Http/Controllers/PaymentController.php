@@ -83,6 +83,11 @@ class PaymentController extends Controller
         $qrImg          = $this->qrCodeService->generateOrderQR($order->id);
         $orderPdf       = $this->pdfService->generateTicketPdf($order->id);
         $this->mailService->ticketNotification($order->id);
+        return redirect('checkout/success/'.$order->encrypted_id);
+    }
+
+    public function successfulCheckout($orderId){
+        $order          = $this->eventOrderService->getOrderById(decrypt_id($orderId));
         return View('payments.success')->with('orderDetails', $order);
     }
 

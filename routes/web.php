@@ -46,8 +46,8 @@ Route::group(['middleware' => ['web']], function () {
     Route::post('checkout', 'PaymentController@checkout');
     Route::post('validate-checkout', 'PaymentController@validateCheckout');
     Route::post('checkout/proceed', 'PaymentController@stripeCheckout');
+    Route::post('checkout/success/{orderId}', 'PaymentController@successfulCheckout');
     Route::post('checkout/notify', 'PaymentController@notifyCheckout');
-    Route::get('checkout/success', 'PaymentController@successCheckout');
     Route::get('checkout/cancel', 'PaymentController@cancelCheckout');
     Route::post('checkout/stripe', 'PaymentController@stripeCheckout');
 
