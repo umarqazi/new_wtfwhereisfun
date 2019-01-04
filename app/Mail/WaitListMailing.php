@@ -12,15 +12,18 @@ class WaitListMailing extends Mailable
 {
     use Queueable, SerializesModels;
 
-    protected $waitListItem;
     /**
-     * Create a new message instance.
-     *
-     * @return void
+     * @var WaitList
+     */
+    protected $waitList;
+
+    /**
+     * WaitListMailing constructor.
+     * @param WaitList $waitList
      */
     public function __construct(WaitList $waitList)
     {
-        $this->waitListItem    =   $waitList;
+        $this->waitList    =   $waitList;
     }
 
     /**

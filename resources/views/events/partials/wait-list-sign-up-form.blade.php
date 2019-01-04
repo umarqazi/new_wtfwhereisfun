@@ -55,7 +55,7 @@
     @endif
     <div class="form-group">
         <div class="col-sm-offset-3 col-sm-9">
-            <button type="submit" class="btn btn-sm rounded-border">Submit</button>
+            <button type="submit" class="btn btn-sm rounded-border btn-clr-green">Submit</button>
         </div>
     </div>
 </form>

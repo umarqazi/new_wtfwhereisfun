@@ -6690,3 +6690,6 @@ p.dispute-user{
 .find-events .search_dropdown{
    z-index: 999999;
 }
+.mb-10{
+   margin-bottom: 10px !important;
+}

@@ -1,6 +1,9 @@
 <div class="col-md-4 @if(!is_null($event->layout) && $event->layout->sidebar_position == 'left') col-md-pull-8 @else listgo-single-listing-sidebar-wrapper @endif">
 
     <div class="@if(is_null($event->layout) || $event->layout->sidebar_color == 'white') sidebar-background--light  @else sidebar-background @endif">
+        <div id="wiloke_price_segment-3" class="widget widget wiloke_price_segment custom-ticket-btn">
+            <button class="btn rounded-border" type="button" data-toggle="modal" data-target="#get-tickets-Modal">Get Tickets</button>
+        </div>
         <div id="wiloke_about-3" class="widget widget_about widget_author widget_text">
 
             <div class="widget_author__header">
@@ -144,3 +147,29 @@
 
     </div>
 </div>
+<div class="modal fade" id="get-tickets-Modal" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Get Tickets</h4>
+            </div>
+            <div class="modal-body">
+                @include('events.partials.event-tickets')
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+@if(!$errors->isEmpty())
+<script type="text/javascript">
+    $(window).on('load',function(){
+        $('#get-tickets-Modal').modal('show');
+    });
+</script>
+@endif

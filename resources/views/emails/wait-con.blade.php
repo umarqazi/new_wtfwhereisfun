@@ -101,9 +101,7 @@
                                                         </tr>
                                                         <tr>
                                                             <td class="sectionDesc centerText" align="center" valign="middle" style="font-family:'Open Sans',Arial,Helvetica,sans-serif;color:#939393;font-size:14px;line-height:22px;font-weight:400;letter-spacing:0px;">
-                                                                {!! $waitlist->event_location->wait_list_setting->ticket_release_msgs !!}
-                                                                <br>
-                                                                <a href="{{$link}}" class="btn btn-sm rounded-border">View Ticket</a>
+                                                                {!! $waitingListSetting->auto_respond_msgs !!}
                                                             </td>
                                                         </tr>
                                                     </table>

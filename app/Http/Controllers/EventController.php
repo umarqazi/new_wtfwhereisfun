@@ -8,6 +8,7 @@ use App\Http\Requests\EventTopic;
 use App\Http\Requests\GuestList;
 use App\Http\Requests\WaitListSetting;
 use App\Http\Requests\WaitListSignUpForm;
+use App\Mail\WaitingConfirmation;
 use App\Services\Events\EventCalendarService;
 use App\Services\Events\EventOrderService;
 use App\Services\Events\EventRevenueService;
@@ -635,12 +636,10 @@ class EventController extends Controller
         $data1['event_id'] = $data['event_id'];
         unset($data['event_time_location_id']);
         unset($data['event_id']);
-
         $locationId = $request->event_time_location_id;
         $waitList   = $this->waitingListSettingsService->updateORCreateWaitingListSetting($data1, $data);
         $event      = $this->eventLocationService->getLocationEvent($locationId);
         $location   = $this->eventLocationService->getTimeLocation($locationId);
-
         return View('events.dashboard-wait-list-settings')->with(['event' => $event, 'location' => $location, 'waitList' => $waitList]);
     }
 
@@ -686,6 +685,12 @@ class EventController extends Controller
      */
     public function signUpForWaiting(WaitListSignUpForm $request){
         $waiting_record = $this->waitingListService->create($request->all());
+        $data = [
+          'event_id' => $request->event_id,
+          'event_time_location_id' => $request->event_time_location_id
+        ];
+        $wait_settings  = $this->waitingListSettingsService->fetch($data);
+        Mail::to($request->email)->queue(new WaitingConfirmation($waiting_record, $wait_settings));
         Alert('Request added to Waiting List!','success');
         return redirect()->back();
     }

@@ -46,6 +46,13 @@
 <script type="text/javascript" src="{{asset('listgo/js/lib/jquery.magnific-popup.min.js')}}"></script>
 <script type="text/javascript" src="{{asset('listgo/js/scripts.js')}}"></script>
 <script type="text/javascript" src="{{asset('listgo/js/listgo-custom.js')}}"></script>
+    <script type="text/javascript" src="{{asset('listgo/js/jquery.sticky-kit.min.js')}}"></script>
+    <script>
+        $(document).ready(function(){
+            $(".custom-ticket-btn").stick_in_parent();
+        });
+
+    </script>
 {{--<script type="text/javascript" src="{{asset('js/eventpage/events.js')}}"></script>--}}
 
 </body>
