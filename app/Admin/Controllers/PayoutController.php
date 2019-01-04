@@ -34,6 +34,7 @@ class PayoutController extends Controller
      * @throws \Exception
      */
     public function payout(PayoutRequest $request){
+        $success_url= url()->current();
         $data = [
             'receivers'  => [
                 [
@@ -42,23 +43,23 @@ class PayoutController extends Controller
                     'primary' => true,
                 ],
                 [
-                    'email' => 'jazib.javed@gems.techverx.com',
+                    'email' => 'jazib.javed-buyer@gems.techverx.com',
                     'amount' => $request->amount,
                     'primary' => false
                 ]
             ],
             'payer' => 'EACHRECEIVER',
-            'return_url' => url(''),
-            'cancel_url' => url(''),
+            'return_url' => url(),
+            'cancel_url' => url($success_url),
         ];
 
         $response = $this->stripe->createPayRequest($data);
         if(isset($response['error'])){
             return redirect()->back()->withErrors(['email' => [$response['error'][0]['message']]]);
         }
-        if(isset($response['success'])){
-            Alert('Payout Successfull!','success');
-            return redirect()->back();
+        else{
+            $redirect_url = $this->stripe->getRedirectUrl('approved', $response['payKey']);
+            return redirect($redirect_url);
         }
     }
 }
