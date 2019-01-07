@@ -21,7 +21,7 @@
                             {{--<li><a href="#"> Features</a></li>--}}
                             {{--<li><a href="#">Customers</a></li>--}}
                             {{--<li><a href="#">Pricing</a></li>--}}
-                            <li><a href="#">Find Events</a></li>
+                            <li><a href="">Find Events</a></li>
                             <li><a href="{{url('events/create')}}">Host Events</a></li>
                             @if (Auth::check())
                                 @php $user = Auth::user() @endphp

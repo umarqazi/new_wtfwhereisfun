@@ -14,6 +14,16 @@
                     <a href="javascript:void(0)" class="donation_btn ticketvalue" data-type="Donation" data-event-id="{{$eventId}}" onclick="addNewTicket(this, 'Donation','{{$eventId}}')"><i class="fa fa-plus"></i> Donation</a>
                     <input type="hidden" name="ticketvalue" id="ticketvalue">
                 </div>
+
+                <div class="ticket-popup">
+                    <div class="popup">
+                        <span class="popuptext pull-right" id="myPopup">
+                            Hit on <i class="fa fa-save"></i> <br> to Save the ticket <br>
+                            <br> Hit on <i class="fa fa-ticket"></i> <br> to Create Ticket Pass <br>
+                            <br> Hit on <i class="fa fa-cog"></i> <br> for Ticket Additional Settings <br>
+                        </span>
+                    </div>
+                </div>
             </div>
 
             <div class="ticket-listing">

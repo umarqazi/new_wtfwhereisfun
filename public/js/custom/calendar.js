@@ -23,3 +23,7 @@ function showEventDetails(event){
     $('#event-details').modal('show');
 
 }
+
+$(document).ready(function () {
+    window.onbeforeunload = null;
+});

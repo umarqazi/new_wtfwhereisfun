@@ -1038,3 +1038,12 @@ function updateUrl(type){
         });
     }
 }
+
+
+$('.ticket-listing .ticket-main-wrapper').hover(function(){
+    $('.ticket-popup .popuptext').css('visibility', 'visible');
+});
+
+$('.ticket-listing .ticket-main-wrapper').mouseleave(function(){
+    $('.ticket-popup .popuptext').css('visibility', 'hidden');
+});
