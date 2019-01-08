@@ -6775,3 +6775,8 @@ p.dispute-user{
 .top-buttons-wrapper{
    position:relative;
 }
+
+.popup #disabled-buttons{
+    width: 220px;
+    height:150px;
+}

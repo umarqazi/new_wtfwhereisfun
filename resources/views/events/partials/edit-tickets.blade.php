@@ -17,10 +17,17 @@
 
                 <div class="ticket-popup">
                     <div class="popup">
-                        <span class="popuptext pull-right" id="myPopup">
+                        <span class="popuptext pull-right" id="icons-info">
                             Hit on <i class="fa fa-save"></i> <br> to Save the ticket <br>
                             <br> Hit on <i class="fa fa-ticket"></i> <br> to Create Ticket Pass <br>
                             <br> Hit on <i class="fa fa-cog"></i> <br> for Ticket Additional Settings <br>
+                        </span>
+                    </div>
+
+                    <div class="popup">
+                        <span class="popuptext pull-right" id="disabled-buttons">
+                            Please save the newly added ticket first to add more.<br><br>
+                            Hit on <i class="fa fa-save"></i> <br> to Save the ticket <br>
                         </span>
                     </div>
                 </div>
