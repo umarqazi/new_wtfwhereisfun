@@ -8,6 +8,7 @@ use App\Services\Events\EventListingService;
 use App\Services\Events\EventOrderService;
 use App\Services\Events\EventService;
 use App\Services\Events\TicketDisputeService;
+use Encore\Admin\Widgets\Alert;
 use Illuminate\Http\Request;
 use App\Services\Events\EventTicketService;
 use Illuminate\Support\Facades\Auth;
@@ -47,10 +48,8 @@ class DisputeController extends Controller
         $user = Auth::user();
         $dispute = $this->ticketDisputeService->store($request->all(),$user->id);
         $vendor = $this->ticketDisputeService->getVendor($dispute);
-
         Mail::to($user->email)->send(new NewDispute($dispute));
         Mail::to($vendor)->send(new NewDispute($dispute));
-
         return redirect('/my-tickets');
     }
 

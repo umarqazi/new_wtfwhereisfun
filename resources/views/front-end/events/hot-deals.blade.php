@@ -48,7 +48,7 @@
                                                 <span>{{get_month($location->starting)}}</span>
                                             </div><!-- /.card-date -->
                                             <h3 class="card-title">
-                                                <a href="{{$link}}" target="_blank">{{$location->event->title}}</a>
+                                                <a href="{{$link}}" target="_blank">{{$location->event->title}} @if(!is_null($location->hot_deal)) <span class="badge badge-success pull-right hot-deal-badge">Deal</span>@endif</a>
                                             </h3>
 
                                             <h4 class="card-subtitle date-location">

@@ -4086,6 +4086,10 @@ a.account-active {
    color: #ff0000;
 }
 
+#card-errors{
+   color: #ff0000;
+}
+
 .manadatory{
    color:#ff0000;
 }
@@ -6706,4 +6710,73 @@ p.dispute-user{
 
 .btn--facebook span{
    padding-right: 5px;
+}
+
+.hot-deal-badge{
+   background-color : #86C543!important;
+}
+
+/* Popup container */
+.popup {
+   position: relative;
+   display: inline-block;
+   cursor: pointer;
+   z-index: 999;
+}
+
+/* The actual popup (appears on top) */
+.popup .popuptext {
+   visibility: hidden;
+   width: 220px;
+   height:220px;
+   color: #555;
+   text-align: center;
+   border-radius: 6px;
+   padding: 12px 0;
+}
+
+/* Toggle this class when clicking on the popup container (hide and show the popup) */
+.popup .show {
+   visibility: visible;
+   -webkit-animation: fadeIn 1s;
+   animation: fadeIn 1s
+}
+
+/* Add animation (fade in the popup) */
+@-webkit-keyframes fadeIn {
+   from {opacity: 0;}
+   to {opacity: 1;}
+}
+
+@keyframes fadeIn {
+   from {opacity: 0;}
+   to {opacity:1 ;}
+}
+
+.ticket-popup{
+   position:absolute;
+}
+
+.ticket-popup .popuptext{
+   background-color : #deeff0;
+}
+
+.ticket-popup .popup{
+   position: fixed;
+   overflow-y: visible;
+   top: 180px;
+   right: 14px;
+}
+
+.ticket-popup .fa-save{
+   font-size:16px;
+}
+
+.top-buttons-wrapper{
+   position:relative;
+}
+
+.popup #disabled-buttons{
+    width: 220px;
+    height:150px;
 }
