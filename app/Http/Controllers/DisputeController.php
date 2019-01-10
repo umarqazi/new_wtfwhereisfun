@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use App\Http\Requests\SaveDisputeRequest;
@@ -8,6 +7,7 @@ use App\Services\Events\EventListingService;
 use App\Services\Events\EventOrderService;
 use App\Services\Events\EventService;
 use App\Services\Events\TicketDisputeService;
+use App\Services\MailService;
 use Encore\Admin\Widgets\Alert;
 use Illuminate\Http\Request;
 use App\Services\Events\EventTicketService;
@@ -21,20 +21,22 @@ class DisputeController extends Controller
     protected $eventOrderService;
     protected $ticketDisputeService;
     protected $eventListingService;
+    protected $mailService;
 
     public function __construct()
     {
-        $this->eventTicketService = new EventTicketService;
-        $this->eventOrderService = new EventOrderService;
-        $this->eventService = new EventService;
+        $this->eventTicketService   = new EventTicketService();
+        $this->eventOrderService    = new EventOrderService();
+        $this->eventService         = new EventService();
         $this->ticketDisputeService = new TicketDisputeService();
-        $this->eventListingService = new EventListingService();
+        $this->eventListingService  = new EventListingService();
+        $this->mailService          = new MailService();
     }
 
     public function index(){
         $user = Auth::user();
         $user_disputes = $this->ticketDisputeService->getByUserId($user->id);
-        return view('tickets.disputeList')->with('user_disputes',$user_disputes);
+        return view('tickets.disputeList')->with('user_disputes', $user_disputes);
     }
 
     public function create($id){
@@ -67,7 +69,7 @@ class DisputeController extends Controller
         $vendorEvents = $this->eventListingService->getAllEvents($user->id);
         $eventIds = $vendorEvents->pluck('id')->toArray();
         $vendorDisputes = $this->ticketDisputeService->getVendorDisputes($eventIds);
-        return view('tickets.complaintList')->with('vendorDisputes',$vendorDisputes);
+        return view('tickets.complaintList')->with('vendorDisputes', $vendorDisputes);
     }
 
     public function closeComplaints(Request $request)

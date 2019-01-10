@@ -35,9 +35,8 @@ class FacebookEventController
             Session::put('url', URL::current());
             return View('events.add-to-facebook')->with(['event' => $event, 'location' => $location]);
         }else{
-
+            return View('events.facebook-event')->with(['event' => $event, 'location' => $location]);
         }
-
     }
 
     /**

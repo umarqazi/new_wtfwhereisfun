@@ -94,6 +94,9 @@ class CategoryController extends Controller
         $grid->created_at('Created at');
         $grid->updated_at('Updated at');
 
+        $grid->disableRowSelector();
+        $grid->disableExport();
+
         return $grid;
     }
 

@@ -41,7 +41,7 @@ class TicketDisputeRepo
 
     public function getByUserId($id)
     {
-       return  Dispute::where('user_id', $id)->get();
+       return  Dispute::where('user_id', $id)->recentCreatedAt()->get();
     }
 
     public function getById($id)
@@ -60,7 +60,7 @@ class TicketDisputeRepo
     }
 
     public function getVendorDisputes($eventIds){
-        return Dispute::whereIn('event_id', $eventIds)->get();
+        return Dispute::whereIn('event_id', $eventIds)->recentCreatedAt()->get();
     }
 
     public function closeDispute($dispute){

@@ -2,6 +2,7 @@
 
 namespace App\Mail;
 
+use App\Dispute;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
@@ -11,15 +12,15 @@ class NewDispute extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public $dispute;
+    protected $disputeDetails;
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct($dispute)
+    public function __construct(Dispute $dispute)
     {
-        $this->dispute = $dispute;
+        $this->disputeDetails = $dispute;
     }
 
     /**
@@ -29,6 +30,6 @@ class NewDispute extends Mailable
      */
     public function build()
     {
-        return $this->view('emails.newDispute');
+        return $this->view('emails.newDispute')->with('dispute', $this->disputeDetails);
     }
 }

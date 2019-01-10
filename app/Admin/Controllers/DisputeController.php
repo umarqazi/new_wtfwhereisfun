@@ -56,8 +56,7 @@ class DisputeController extends Controller
     public function show_detail($id){
         $dispute_details = $this->ticketDisputeService->getById($id);
         $event_details = $this->eventService->getByID($dispute_details->event_id);
-        return view('admin..dashboard.disputeDetail')->with(['event_details' => $event_details, 'dispute_details' => $dispute_details]);
-
+        return view('admin.dashboard.disputeDetail')->with(['event_details' => $event_details, 'dispute_details' => $dispute_details]);
     }
 
     /**
