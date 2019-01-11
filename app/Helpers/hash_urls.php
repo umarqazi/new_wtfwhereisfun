@@ -17,3 +17,8 @@ if (! function_exists('decrypt_id')) {
         return $id[0];
     }
 }
+
+function randomHash($num_bytes=8)
+{
+    return bin2hex(openssl_random_pseudo_bytes($num_bytes));
+}

@@ -4,6 +4,7 @@ namespace App\Admin\Controllers;
 
 use App\EventTimeLocation;
 use App\Http\Controllers\Controller;
+use App\Services\PayoutDetailService;
 use Encore\Admin\Controllers\HasResourceActions;
 use Encore\Admin\Form;
 use Encore\Admin\Grid;
@@ -17,11 +18,13 @@ class EventLocationController extends Controller
 
     protected $eventLocationService;
     protected $eventRevenueService;
+    protected $payoutDetailService;
 
     public function __construct()
     {
         $this->eventLocationService = new EventTimeLocationService;
         $this->eventRevenueService  = new EventRevenueService;
+        $this->payoutDetailService  = new PayoutDetailService();
     }
 
     /**
@@ -203,7 +206,9 @@ class EventLocationController extends Controller
         $location           = $this->eventLocationService->getTimeLocation($id);
         $completedOrders    = $this->eventRevenueService->getTotalRevenueByLocation($id);
         $allOrders          = $this->eventRevenueService->getAllOrdersByLocation($id);
+        $data               = ['status'=> 1, 'event_time_locations_id' => $id];
+        $payoutDetails      = $this->payoutDetailService->listing($data);
         return View('events.dashboard-orders')->with(['event' => $event, 'location' => $location,
-            'completedOrders' => $completedOrders, 'allOrders' => $allOrders ]);
+            'completedOrders' => $completedOrders, 'allOrders' => $allOrders, 'payoutDetails' => $payoutDetails ]);
     }
 }

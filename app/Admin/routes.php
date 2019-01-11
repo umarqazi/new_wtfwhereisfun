@@ -25,6 +25,7 @@ Route::group([
 
         $router->get('event/location/{id}/orders', 'EventLocationController@getLocationOrders');
         $router->post('event/location/{id}/orders/payout', 'PayoutController@payout');
+        $router->get('event/location/{id}/orders/payout-success/{hash}', 'PayoutController@getPaymentDetails');
 
         Route::prefix('events')->group(function (Router $router) {
             $router->get('approve/{id}', 'EventController@approveEvent');
