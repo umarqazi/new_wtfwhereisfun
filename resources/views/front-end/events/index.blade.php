@@ -1,8 +1,10 @@
 @extends('layouts.master')
 @if(Route::current()->getName() == 'today-events')
     @section('title', "Today's Events ")
+    @php $text = "Today's Events"; @endphp
 @else
     @section('title', "Future Events ")
+    @php $text = "Future Events"; @endphp
 @endif
 @section('content')
     <div class="container">
@@ -10,13 +12,9 @@
             <div class="public-event-listing">
                 <div class="row">
                     <div class="col-md-12">
-                        @if(Route::current()->getName() == 'today-events')
-                            <h3 class="event-listing-heading">Today's Events</h3>
-                        @else
-                            <h3 class="event-listing-heading">Future Events</h3>
-                        @endif
+                        <h3 class="event-listing-heading">{{$text}}</h3>
                     </div>
-                    @if(!empty($locationEvents))
+                    @if(count($locationEvents))
                         @foreach($locationEvents as $location)
                             <div class="col-md-3">
                                 <div class="card">

@@ -56,7 +56,7 @@ class Dispute extends Model
      */
     public function scopeRecentCreatedAt($query)
     {
-        return $query->orderBy('created_at', 'desc');
+        return $query->orderBy('updated_at', 'desc');
     }
 
 }

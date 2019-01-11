@@ -239,7 +239,7 @@ function addNewTicket(obj, type, eventId){
         data : formData,
         dataType : "JSON",
         beforeSend:function(){
-            $('#new-ticket-buttons a').removeAttr('onclick');
+            $('#new-ticket-buttons a').attr('onclick', 'showDisabledButtonPopup()');
         },
         success: function(response)
         {
@@ -247,6 +247,13 @@ function addNewTicket(obj, type, eventId){
         }
     });
 }
+
+function showDisabledButtonPopup(){
+    $('.ticket-popup #disabled-buttons').css('visibility', 'visible');
+}
+
+
+
 
 function editEventTicketForm(obj){
     var formElement = $(obj).closest("form");
@@ -1038,3 +1045,15 @@ function updateUrl(type){
         });
     }
 }
+
+
+$('.ticket-listing .ticket-main-wrapper, .ticket-listing .new-tickets').hover(function(){
+    $('.ticket-popup #icons-info').css('visibility', 'visible');
+    $('.ticket-popup #disabled-buttons').css('visibility', 'hidden');
+});
+
+$('.ticket-listing .ticket-main-wrapper, .ticket-listing .new-tickets').mouseleave(function(){
+    $('.ticket-popup #icons-info').css('visibility', 'hidden');
+});
+
+

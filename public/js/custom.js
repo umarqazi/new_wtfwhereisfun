@@ -2,20 +2,24 @@
 // Menu Toggle
 //========================================
 $('.blog-thumbnail-slider').owlCarousel({
-    loop:true,
+    loop:false,
     margin:10,
     dots:false,
     nav: true,
   	navText: ["<i class='fa fa-angle-left'></i>","<i class='fa fa-angle-right'></i>"],
     responsive:{
         0:{
-            items:1
+            items:1,
+            nav:true
         },
         600:{
-            items:2
+            items:2,
+            nav:false
         },
         1000:{
-            items:3
+            items:3,
+            nav:true,
+            loop:false
         }
     }
 });

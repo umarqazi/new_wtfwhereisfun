@@ -84,7 +84,7 @@ class ContentPageController extends Controller
         $grid->id('Id');
         $grid->type('Type');
         $grid->content()->display(function($text) {
-            return str_limit($text, 80, '...');
+            return str_limit($text, 160, '...');
         });
         $grid->created_at('Created at');
         $grid->updated_at('Updated at');

@@ -90,6 +90,7 @@ function completeCheckout(event, obj){
                         // Inform the user if there was an error.
                         var errorElement = document.getElementById('card-errors');
                         errorElement.textContent = result.error.message;
+                        $('.submit').attr('disabled', false).text('Checkout');
                     } else {
                         // Send the token to your server.
                         stripeTokenHandler(result.token);

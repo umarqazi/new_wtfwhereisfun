@@ -13,7 +13,7 @@
                         <h1>Guest List</h1>
                     </div>
                     <div class="col-md-12">
-                        <button class="btn btn-sm rounded-border @if($errors->isEmpty())collapsed @endif btn-collapse-form" data-toggle="collapse" data-target="#show_form"><span>Expand Add Guest Form <i class="fa fa-caret-down"></i></span><b>Collapse Add Guest Form <i class="fa fa-caret-up"></i></b></button>
+                        <button class="btn btn-sm rounded-border @if($errors->isEmpty())collapsed @endif btn-collapse-form" data-toggle="collapse" data-target="#show_form"><span>Add Guest<i class="fa fa-caret-down"></i></span><b>Close Add Guest Form <i class="fa fa-caret-up"></i></b></button>
                     </div>
                     <div id="show_form" @if($errors->isEmpty()) class="collapse" @else class="collapse in show" @endif>
                         <div class="col-md-12">

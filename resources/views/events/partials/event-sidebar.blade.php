@@ -1,9 +1,11 @@
 <div class="col-md-4 @if(!is_null($event->layout) && $event->layout->sidebar_position == 'left') col-md-pull-8 @else listgo-single-listing-sidebar-wrapper @endif">
 
     <div class="@if(is_null($event->layout) || $event->layout->sidebar_color == 'white') sidebar-background--light  @else sidebar-background @endif">
-        <div id="wiloke_price_segment-3" class="widget widget wiloke_price_segment custom-ticket-btn">
-            <button class="btn rounded-border" type="button" data-toggle="modal" data-target="#get-tickets-Modal">Get Tickets</button>
-        </div>
+        @if($eventLocation->ending >= Carbon\Carbon::now())
+            <div id="wiloke_price_segment-3" class="widget widget wiloke_price_segment custom-ticket-btn">
+                <button class="btn rounded-border" type="button" data-toggle="modal" data-target="#get-tickets-Modal">Get Tickets</button>
+            </div>
+        @endif
         <div id="wiloke_about-3" class="widget widget_about widget_author widget_text">
 
             <div class="widget_author__header">
