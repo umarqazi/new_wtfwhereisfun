@@ -9,6 +9,7 @@ use App\Http\Requests\GuestList;
 use App\Http\Requests\WaitListSetting;
 use App\Http\Requests\WaitListSignUpForm;
 use App\Mail\WaitingConfirmation;
+use App\Services\DomainService;
 use App\Services\Events\EventAnalyticService;
 use App\Services\Events\EventCalendarService;
 use App\Services\Events\EventOrderService;
@@ -83,6 +84,7 @@ class EventController extends Controller
     protected $guestListService;
     protected $guestService;
     protected $analyticService;
+    protected $domainService;
 
     public function __construct()
     {
@@ -112,6 +114,7 @@ class EventController extends Controller
         $this->guestService                 = new GuestService();
         $this->stripeService                = new StripeService();
         $this->analyticService              = new EventAnalyticService();
+        $this->domainService                = new DomainService();
     }
 
     /**
@@ -658,7 +661,15 @@ class EventController extends Controller
      * \Illuminate\Http\ Request $request
      */
     public function updateEventUrl(Request $request){
-        $response = $this->eventService->updateEventUrl(decrypt_id($request->id), $request->all());
+        $new_url = injectSubdomain($request->url, $request->domain);
+        $data       = [
+            'type'              => $request->type,
+            'domain'            => $request->domain,
+            'url'               => $new_url,
+            'event_location_id' => decrypt_id($request->event_id),
+            'organizer_id'      => $request->organizer_id,
+        ];
+        $response   = $this->domainService->create($data);
         return response()->json([
             'type'      =>  'success',
             'msg'       =>  'Your Event Link has been updated Successfully!',

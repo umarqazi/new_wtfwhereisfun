@@ -319,20 +319,38 @@
 
                                         <input type="hidden" name="event_id" id="event-id" value="{{$event->encrypted_id}}">
                                         <input type="hidden" name="base_url" value="{{url('/')}}">
+                                        <input type="hidden" id="event-old-url2" name="event_url" value="{{url('/').'/events/'.$event->encrypted_id.'/'.$location->encrypted_id}}">
                                         <input type="hidden" name="locaiton_id" id="location-id" value="{{$location->encrypted_id}}">
                                         <strong>  - [ <a href="javascript:void(0)" data-toggle="collapse" data-target="#event-url">Change</a> ]</strong>
                                     </p>
                                     <div id="event-url" class="collapse">
                                         <p>Create your own Personalized Event URL</p>
                                         @if(!empty($event->slug))
-                                            <strong class="pre_url">{{url('/').'/events/'}}</strong>
-                                            <input type="text" id="event-url-field" name="event_url"
-                                                   value="{{substr($event->slug, 0, strpos($event->slug, '-'))}}" placeholder="your-own-url" />
-                                            <strong>-{{$event->encrypted_id.'/'.$location->encrypted_id}}</strong>
+                                            @php
+                                                $url_array = explode('/', url('/').'/events/');
+                                            @endphp
+                                            <strong class="pre_url">
+                                                @foreach($url_array as $key => $url_key)
+                                                    @if($key == 2)
+                                                        <input type="text" id="event-domain-field" name="event_domain" placeholder="your-own-url" value="" />.
+                                                    @endif
+                                                    {{ trim($url_key.'/') }}
+                                                @endforeach
+                                            </strong>
+                                            <strong>{{$event->encrypted_id.'/'.$location->encrypted_id}}</strong>
                                         @else
-                                            <strong class="pre_url">{{url('/').'/events/'}}</strong>
-                                            <input type="text" id="event-url-field" name="event_url" placeholder="your-own-url" />
-                                            <strong>-{{$event->encrypted_id.'/'.$location->encrypted_id}}</strong>
+                                            @php
+                                                $url_array = explode('/', url('/').'/events/');
+                                            @endphp
+                                            <strong class="pre_url">
+                                                @foreach($url_array as $key => $url_key)
+                                                    @if($key == 2)
+                                                        <input type="text" id="event-domain-field" name="event_domain" placeholder="your-own-url" />.
+                                                    @endif
+                                                    {{ trim($url_key.'/') }}
+                                                @endforeach
+                                            </strong>
+                                            <strong>{{$event->encrypted_id.'/'.$location->encrypted_id}}</strong>
                                         @endif
                                         <button type="button" class="btn btn-sm rounded-border btn-save-event-url" onclick="updateUrl('event')">Save</button>
                                     </div>
@@ -397,6 +415,4 @@
     </script>
     <script src="{{asset('js/eventpage/dashboard-analytics.js')}}"></script>
     <script src="{{asset('js/eventpage/events.js')}}"></script>
-
-
 @endsection

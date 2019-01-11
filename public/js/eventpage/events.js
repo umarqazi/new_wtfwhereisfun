@@ -1003,28 +1003,30 @@ function locationError(){
 
 function updateUrl(type){
     if(type === 'organizer'){
-        var url         = $('#organizer_url').val();
-        var id          = $('#organizer-id').val();
-        var requestUrl  = base_url()+'/change-orgranizer-url';
-        var oldUrlID    = $('#organizer-old-url');
-        var locationId  = null;
+        var url             = $('#organizer_url').val();
+        var organizer_id    = $('#organizer-id').val();
+        var domain          = $('#organizer-id').val();
+        var event_id        = null;
+        var requestUrl      = base_url()+'/change-orgranizer-url';
     }else{
-        var url         = $('#event-url-field').val();
-        var id          = $('#event-id').val();
-        var requestUrl  = base_url()+'/events/update-event-url';
-        var oldUrlID    = $('#event-old-url');
-        var locationId  = $('#location-id').val();
+        var url             = $('#event-old-url2').val();
+        var event_id        = $('#location-id').val();
+        var domain          = $('#event-domain-field').val();
+        var organizer_id    = null;
+        var requestUrl      = base_url()+'/events/update-event-url';
     }
 
     console.log('url', url);
-    console.log('id', id);
+    console.log('id', event_id);
+    console.log('organizer_id', organizer_id);
+    console.log('domain', domain);
     console.log('requestUrl', requestUrl);
-    console.log('oldUrlID', oldUrlID);
 
 
-    if((url.indexOf(' ')>=0) || (url.match(/[^a-zA-Z0-9 ]/g)) || url == ""){
+    if((domain.indexOf(' ')>=0) || (domain.match(/[^a-zA-Z0-9 ]/g)) || domain == ""){
         sweetAlert('error', 'Your "Personalized URL" can only include alphanumeric letters.');
-    }else{
+    }
+    else{
         // Send ajax request to update organizer url
         $.ajax({
             headers: {
@@ -1032,11 +1034,16 @@ function updateUrl(type){
             },
             url: requestUrl,
             type: 'post',
-            data: {id : id, url: url, locationId : locationId},
+            data: {
+                'type'          : type,
+                'domain'        : domain,
+                'url'           : url,
+                'organizer_id'  : organizer_id,
+                'event_id'      : event_id,
+            },
             success:function(response) {
                 if(response.type == 'success'){
                     var base_path = $('input[name=base_url]').val();
-                    oldUrlID.attr("href", response.data).text(response.data);
                     sweetAlert('Success', response.msg);
                 }else{
                     sweetAlert('Error', 'Something went wrong, Please try again!');
