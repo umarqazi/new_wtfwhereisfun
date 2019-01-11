@@ -12,11 +12,6 @@
                 <div class="col-md-6">
                     <h1>Recent Orders</h1>
                 </div>
-                @if(strpos(url()->current(),'admin') == true)
-                <div class="col-md-6">
-                    <button id="payout_btn" class="btn btn-sm rounded-border pull-right" data-toggle="modal" data-target="#payout_modal">Payout</button>
-                </div>
-                @endif
             </div>
             <div class="row clearfix">
                 <div class="col-lg-12 col-md-12">
@@ -56,6 +51,58 @@
                             </div>
                         </div>
                     </div>
+                </div>
+            </div>
+
+            @if(strpos(url()->current(),'admin') == true)
+            <div class="row">
+                <div class="col-md-6">
+                    <h1>Payout Details</h1>
+                </div>
+                    <div class="col-md-6">
+                        <button id="payout_btn" class="btn btn-sm rounded-border pull-right" data-toggle="modal" data-target="#payout_modal">Payout</button>
+                    </div>
+            </div>
+            <div class="row clearfix">
+                <div class="col-lg-12 col-md-12">
+                    <div class="card product-report">
+                        <div class="body">
+                            <table class="table table-striped table-hover">
+                        <thead>
+                        <tr>
+                            <th class="text-center">S.No</th>
+                            <th class="text-center">Transaction ID</th>
+                            <th class="text-center">Amount</th>
+                            <th class="text-center">Payment Status</th>
+                            <th class="text-center">Created At</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        @if(count($payoutDetails) > 0)
+                            @foreach($payoutDetails as $key => $record)
+                            <tr>
+                                <td class="text-center">{{$key + 1}}</td>
+                                <td class="text-center">{{$record->transaction_id}}</td>
+                                <td class="text-center">${{$record->amount}}</td>
+                                <td class="text-center">{{$record->payment_status}}</td>
+                                <td class="text-center">{{$record->created_at}}</td>
+                            </tr>
+                            @endforeach
+                        @else
+                            <tr>
+                                <td class="text-center red bold" colspan="5">No Payout yet!</td>
+                            </tr>
+                        @endif
+                        </tbody>
+                    </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @endif
+            <div class="row">
+                <div class="col-md-6">
+                    <h1>Event Orders</h1>
                 </div>
             </div>
             <div class="recent_orders_listing">
