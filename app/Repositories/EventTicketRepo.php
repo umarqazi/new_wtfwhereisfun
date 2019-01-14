@@ -1,6 +1,7 @@
 <?php
 namespace App\Repositories;
 
+use App\TicketPass;
 use Carbon\Carbon;
 use App\EventTicket;
 class EventTicketRepo
@@ -49,7 +50,7 @@ class EventTicketRepo
 
     public function updateEventTicketPass($request){
         if($request->request_type == 'store'){
-            $eventTicketPass = new TicketPass;
+            $eventTicketPass = new TicketPass();
             $eventTicketPass->ticket_id      =       $request->ticket_id;
         }else{
             $eventTicketPass = TicketPass::find($request->pass_id);
