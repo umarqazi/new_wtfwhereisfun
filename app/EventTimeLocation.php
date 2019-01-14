@@ -71,6 +71,14 @@ class EventTimeLocation extends Model
     }
 
     /**
+     * Get Event Domain
+     */
+    public function domain()
+    {
+        return $this->HasOne('App\Domain', 'event_location_id');
+    }
+
+    /**
      * Get Time and location tickets
      */
     public function tickets()

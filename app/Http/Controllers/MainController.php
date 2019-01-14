@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Services\DomainService;
 use App\Services\Events\FacebookService;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\App;
@@ -42,18 +43,20 @@ class MainController extends Controller
     protected $eventLocationService;
     protected $eventFilterService;
     protected $facebookService;
+    protected $domainService;
 
     public function __construct()
     {
-        $this->userServices         = new UserServices;
-        $this->blogServices         = new BlogService;
-        $this->testimonialServices  = new TestimonialService;
-        $this->categoryServices     = new CategoryService;
-        $this->contentService       = new ContentService;
-        $this->eventListingService  = new EventListingService;
-        $this->eventLocationService = new EventTimeLocationService;
-        $this->eventFilterService   = new EventFilterService;
-        $this->facebookService      = new FacebookService;
+        $this->userServices         = new UserServices();
+        $this->blogServices         = new BlogService();
+        $this->testimonialServices  = new TestimonialService();
+        $this->categoryServices     = new CategoryService();
+        $this->contentService       = new ContentService();
+        $this->eventListingService  = new EventListingService();
+        $this->eventLocationService = new EventTimeLocationService();
+        $this->eventFilterService   = new EventFilterService();
+        $this->facebookService      = new FacebookService();
+        $this->domainService        = new DomainService();
     }
     /**
      * Show the application's landing Page.
@@ -326,5 +329,10 @@ class MainController extends Controller
 
     public function contactUs(){
         return view('front-end.public.contact-us');
+    }
+
+    public function routeSubDomain($subdomain){
+        $response = $this->domainService->checkDomainExist($subdomain);
+        return redirect($response);
     }
 }

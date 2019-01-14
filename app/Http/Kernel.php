@@ -59,5 +59,6 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'role' => \App\Http\Middleware\CheckRole::class,
         'emptyRole' => \App\Http\Middleware\CheckEmptyRole::class,
+        'subDomain' => \App\Http\Middleware\CheckSubDomain::class,
     ];
 }

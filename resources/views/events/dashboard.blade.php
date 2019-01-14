@@ -224,62 +224,6 @@
                         </div>
                     </div>
                 </div>
-                {{--<div class="row clearfix social-widget">--}}
-                    {{--<div class="col-xl-2 col-lg-4 col-md-4 col-6">--}}
-                        {{--<div class="card info-box-2 hover-zoom-effect facebook-widget">--}}
-                            {{--<div class="icon"><i class="zmdi zmdi-facebook"></i></div>--}}
-                            {{--<div class="content">--}}
-                                {{--<div class="text">Like</div>--}}
-                                {{--<div class="number">123</div>--}}
-                            {{--</div>--}}
-                        {{--</div>--}}
-                    {{--</div>--}}
-                    {{--<div class="col-xl-2 col-lg-4 col-md-4 col-6">--}}
-                        {{--<div class="card info-box-2 hover-zoom-effect instagram-widget">--}}
-                            {{--<div class="icon"><i class="zmdi zmdi-instagram"></i></div>--}}
-                            {{--<div class="content">--}}
-                                {{--<div class="text">Followers</div>--}}
-                                {{--<div class="number">231</div>--}}
-                            {{--</div>--}}
-                        {{--</div>--}}
-                    {{--</div>--}}
-                    {{--<div class="col-xl-2 col-lg-4 col-md-4 col-6">--}}
-                        {{--<div class="card info-box-2 hover-zoom-effect twitter-widget">--}}
-                            {{--<div class="icon"><i class="zmdi zmdi-twitter"></i></div>--}}
-                            {{--<div class="content">--}}
-                                {{--<div class="text">Followers</div>--}}
-                                {{--<div class="number">31</div>--}}
-                            {{--</div>--}}
-                        {{--</div>--}}
-                    {{--</div>--}}
-                    {{--<div class="col-xl-2 col-lg-4 col-md-4 col-6">--}}
-                        {{--<div class="card info-box-2 hover-zoom-effect google-widget">--}}
-                            {{--<div class="icon"><i class="zmdi zmdi-google"></i></div>--}}
-                            {{--<div class="content">--}}
-                                {{--<div class="text">Like</div>--}}
-                                {{--<div class="number">254</div>--}}
-                            {{--</div>--}}
-                        {{--</div>--}}
-                    {{--</div>--}}
-                    {{--<div class="col-xl-2 col-lg-4 col-md-4 col-6">--}}
-                        {{--<div class="card info-box-2 hover-zoom-effect linkedin-widget">--}}
-                            {{--<div class="icon"><i class="zmdi zmdi-linkedin"></i></div>--}}
-                            {{--<div class="content">--}}
-                                {{--<div class="text">Followers</div>--}}
-                                {{--<div class="number">2510</div>--}}
-                            {{--</div>--}}
-                        {{--</div>--}}
-                    {{--</div>--}}
-                    {{--<div class="col-xl-2 col-lg-4 col-md-4 col-6">--}}
-                        {{--<div class="card info-box-2 hover-zoom-effect behance-widget">--}}
-                            {{--<div class="icon"><i class="zmdi zmdi-behance"></i></div>--}}
-                            {{--<div class="content">--}}
-                                {{--<div class="text">Project</div>--}}
-                                {{--<div class="number">121</div>--}}
-                            {{--</div>--}}
-                        {{--</div>--}}
-                    {{--</div>--}}
-                {{--</div>--}}
 
                 <div class="row clearfix">
                     <div class="col-md-12">
@@ -287,32 +231,31 @@
                             <div class="body">
                                 <div class="event-oraganizer">
                                     <h1>Your Links</h1>
+
                                     <p><strong>Your Organizer URL: </strong>
-                                        @if(!empty($eventOrganizer->organizer_url))
-                                            <a href="{{ url('/') }}{{'/organizer/'.$eventOrganizer->organizer_url}}" id="organizer-old-url">{{ url('/') }}{{'/organizer/'.$eventOrganizer->organizer_url}}</a>
+                                        @if(!is_null($eventOrganizer->domain))
+                                            <input type="hidden" name="organizer_domain_id" id="organizer-domain-id" value="{{$eventOrganizer->domain->encrypted_id}}">
+                                            <a href="https://{{ $eventOrganizer->domain->domain.'.'.parseUrl(url('/')) }}" target="_blank" id="organizer-old-url">https://{{ $eventOrganizer->domain->domain.'.'.parseUrl(url('/')) }}</a>
                                         @else
-                                            <a href="{{url('/').'/organizer/'.$eventOrganizer->slug}}" id="organizer-old-url">{{url('/').'/organizer/'.$eventOrganizer->slug}}</a>
+                                            <a href="{{url('/').'/organizer/'.$eventOrganizer->slug}}" target="_blank" id="organizer-old-url">{{url('/').'/organizer/'.$eventOrganizer->slug}}</a>
                                         @endif
 
-                                        <input type="hidden" name="organizer_id" id="organizer-id" value="{{$eventOrganizer->id}}">
+                                        <input type="hidden" name="organizer_id" id="organizer-id" value="{{$eventOrganizer->encrypted_id}}">
                                         <input type="hidden" name="base_url" value="{{url('/')}}">
                                         <strong>  - [ <a href="javascript:void(0)" data-toggle="collapse" data-target="#changeOrganizer-url">Change</a> ]</strong>
                                     </p>
                                     <div id="changeOrganizer-url" class="collapse">
                                         <p>Create your own Personalized Organizer URL</p>
-                                        @if(!empty($eventOrganizer->organizer_url))
-                                            <strong class="pre_url">{{url('/').'/organizer/'}}</strong>
-                                            <input type="text" id="organizer_url" name="organizer_url" value="@php echo substr($eventOrganizer->organizer_url, 0, strpos($eventOrganizer->organizer_url, '-')); @endphp" placeholder="your-own-url" /><strong>-{{$eventOrganizer->encrypted_id}}</strong>
-                                        @else
-                                            <strong class="pre_url">{{url('/').'/organizer/'}}</strong>
-                                            <input type="text" id="organizer_url" name="organizer_url" placeholder="your-own-url" />
-                                        @endif
+                                        <strong class="pre_url">
+                                            https://<input type="text" id="organizer-domain-field" name="organizer_domain" placeholder="your-own-url" value="@if(!is_null($eventOrganizer->domain)){{$eventOrganizer->domain->domain}}@endif" />.{{ parseUrl(url('/')) }}
+                                        </strong>
                                         <button type="button" class="btn btn-sm rounded-border" onclick="updateUrl('organizer')">Save</button>
                                     </div>
 
                                     <p><strong>Your Event URL: </strong>
-                                        @if(!empty($event->slug))
-                                            <a href="{{ url('/').'events/'.$event->slug.'/'.$location->encrypted_id }}" id="event-old-url">{{ url('/').'/events/'.$event->slug.'/'.$location->encrypted_id }}</a>
+                                        @if(!is_null($location->domain))
+                                            <input type="hidden" name="event_domain_id" id="event-domain-id" value="{{$location->domain->encrypted_id}}">
+                                            <a href="https://{{ $location->domain->domain.'.'.parseUrl(url('/')) }}" target="_blank" id="event-old-url">https://{{ $location->domain->domain.'.'.parseUrl(url('/')) }}</a>
                                         @else
                                             <a href="{{url('/').'/events/'.$event->encrypted_id.'/'.$location->encrypted_id}}" id="event-old-url">{{url('/').'/events/'.$event->encrypted_id.'/'.$location->encrypted_id}}</a>
                                         @endif
@@ -325,33 +268,9 @@
                                     </p>
                                     <div id="event-url" class="collapse">
                                         <p>Create your own Personalized Event URL</p>
-                                        @if(!empty($event->slug))
-                                            @php
-                                                $url_array = explode('/', url('/').'/events/');
-                                            @endphp
                                             <strong class="pre_url">
-                                                @foreach($url_array as $key => $url_key)
-                                                    @if($key == 2)
-                                                        <input type="text" id="event-domain-field" name="event_domain" placeholder="your-own-url" value="" />.
-                                                    @endif
-                                                    {{ trim($url_key.'/') }}
-                                                @endforeach
+                                                https://<input type="text" id="event-domain-field" name="event_domain" placeholder="your-own-url" value="@if(!is_null($location->domain)){{$location->domain->domain}}@endif" />.{{ parseUrl(url('/')) }}
                                             </strong>
-                                            <strong>{{$event->encrypted_id.'/'.$location->encrypted_id}}</strong>
-                                        @else
-                                            @php
-                                                $url_array = explode('/', url('/').'/events/');
-                                            @endphp
-                                            <strong class="pre_url">
-                                                @foreach($url_array as $key => $url_key)
-                                                    @if($key == 2)
-                                                        <input type="text" id="event-domain-field" name="event_domain" placeholder="your-own-url" />.
-                                                    @endif
-                                                    {{ trim($url_key.'/') }}
-                                                @endforeach
-                                            </strong>
-                                            <strong>{{$event->encrypted_id.'/'.$location->encrypted_id}}</strong>
-                                        @endif
                                         <button type="button" class="btn btn-sm rounded-border btn-save-event-url" onclick="updateUrl('event')">Save</button>
                                     </div>
                                 </div>

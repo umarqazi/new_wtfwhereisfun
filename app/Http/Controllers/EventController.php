@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Guest;
+use App\Http\Requests\Domain;
 use App\Http\Requests\EventLayout;
 use App\Http\Requests\EventTopic;
 use App\Http\Requests\GuestList;
@@ -660,20 +661,12 @@ class EventController extends Controller
      * Update Event Url
      * \Illuminate\Http\ Request $request
      */
-    public function updateEventUrl(Request $request){
-        $new_url = injectSubdomain($request->url, $request->domain);
-        $data       = [
-            'type'              => $request->type,
-            'domain'            => $request->domain,
-            'url'               => $new_url,
-            'event_location_id' => decrypt_id($request->event_id),
-            'organizer_id'      => $request->organizer_id,
-        ];
-        $response   = $this->domainService->create($data);
+    public function updateEventUrl(Domain $request){
+        $response   = $this->domainService->create($request->all());
         return response()->json([
             'type'      =>  'success',
             'msg'       =>  'Your Event Link has been updated Successfully!',
-            'data'      =>  url('/').'/events/'.$request->url.'-'.$request->id.'/'.$request->locationId
+            'data'      =>  'https://'.$request->domain.'.'.parseUrl(url('/'))
         ]);
     }
 

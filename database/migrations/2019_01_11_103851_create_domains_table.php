@@ -17,7 +17,6 @@ class CreateDomainsTable extends Migration
             $table->increments('id');
             $table->string('type');
             $table->string('domain');
-            $table->string('url');
             $table->integer('organizer_id')->nullable()->unique();
             $table->integer('event_location_id')->nullable()->unique();
             $table->timestamps();

@@ -10,10 +10,13 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-Route::get('/home', 'HomeController@index')->name('home');
-
 Route::group(['middleware' => ['web']], function () {
+
+    Route::domain('{subdomain}.wtfwheresthefun.localhost')->group(function () {
+        // Homepage of a variable subdomain
+        Route::get('/', 'MainController@routeSubDomain');
+    });
+
     Route::get('login', 'MainController@index')->name('login');
     Route::get('/', 'MainController@index');
     Route::get('about-us', 'MainController@aboutUs');
@@ -142,7 +145,7 @@ Route::group(['middleware' => ['web']], function () {
                 Route::get('complaints', 'DisputeController@showComplaints');
                 Route::post('/close-dispute', 'DisputeController@closeComplaints');
 
-                /*Organzier Routes*/
+                /*Organizer Routes*/
                 Route::post('change-orgranizer-url', 'OrganizerController@changeOrganizerUrl');
                 Route::resource('organizers', 'OrganizerController');
                 Route::post('organizers/update-profile', 'OrganizerController@profileUpdate');

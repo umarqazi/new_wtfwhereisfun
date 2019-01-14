@@ -48,3 +48,15 @@ function injectSubdomain($url,$subdomain){
    }
    return $url_parts2[0].'//'.$subdomain.'.'.$url_parts2[1];
 }
+
+if (! function_exists('parseUrl')) {
+    /**
+     * @param $id
+     * @return mixed
+     */
+    function parseUrl($url)
+    {
+        $parsed = parse_url($url);
+        return $parsed['host'];
+    }
+}

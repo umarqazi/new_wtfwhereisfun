@@ -58,4 +58,12 @@ class Organizer extends Model
     {
         return $this->HasMany('App\Event');
     }
+
+    /**
+     * Get Organizer Domain
+     */
+    public function domain()
+    {
+        return $this->HasOne('App\Domain', 'organizer_id');
+    }
 }

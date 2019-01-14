@@ -27,7 +27,11 @@ class DomainRepo
      * @return mixed
      */
     public function create($data){
-        return $this->domain->create($data);
+        if($data['type'] == 'organizer'){
+            return $this->domain->updateOrCreate(['organizer_id' => $data['organizer_id']], $data);
+        }else{
+            return $this->domain->updateOrCreate(['event_location_id' => $data['event_location_id']], $data);
+        }
     }
 
     /**
@@ -37,4 +41,14 @@ class DomainRepo
     public function fetch($data){
         return $this->domain->where($data)->first();
     }
+
+    /**
+     * @param $data
+     * @return mixed
+     */
+    public function checkDomainExist($subdomain){
+        return $this->domain->where('domain', $subdomain)->first();
+    }
+
+
 }

@@ -626,7 +626,6 @@ function eventLocationForm(event, obj, type){
             }
             $(obj).find('.time-location-id').attr('value', response.data.timeLocation.id);
             $(obj).find('.request-type').attr('value', 'update');
-            console.log(response.data.count);
             if(response.data.count == 1){
                 $('#event-preview-button').attr('href', response.data.link).removeAttr('onclick');
             }
@@ -1005,22 +1004,20 @@ function updateUrl(type){
     if(type === 'organizer'){
         var url             = $('#organizer_url').val();
         var organizer_id    = $('#organizer-id').val();
-        var domain          = $('#organizer-id').val();
+        var domain          = $('#organizer-domain-field').val();
         var event_id        = null;
-        var requestUrl      = base_url()+'/change-orgranizer-url';
-    }else{
+        var requestUrl      = base_url() + '/events/update-event-url';
+        var domainId        = $('#organizer-domain-id').val();
+        var oldDiv          = $('#organizer-old-url');
+    }else {
         var url             = $('#event-old-url2').val();
         var event_id        = $('#location-id').val();
         var domain          = $('#event-domain-field').val();
         var organizer_id    = null;
-        var requestUrl      = base_url()+'/events/update-event-url';
+        var requestUrl      = base_url() + '/events/update-event-url';
+        var domainId        = $('#event-domain-id').val();
+        var oldDiv          = $('#event-old-url');
     }
-
-    console.log('url', url);
-    console.log('id', event_id);
-    console.log('organizer_id', organizer_id);
-    console.log('domain', domain);
-    console.log('requestUrl', requestUrl);
 
 
     if((domain.indexOf(' ')>=0) || (domain.match(/[^a-zA-Z0-9 ]/g)) || domain == ""){
@@ -1040,14 +1037,20 @@ function updateUrl(type){
                 'url'           : url,
                 'organizer_id'  : organizer_id,
                 'event_id'      : event_id,
+                'domain_id'     : domainId
             },
             success:function(response) {
                 if(response.type == 'success'){
-                    var base_path = $('input[name=base_url]').val();
+                    oldDiv.attr('href', response.data).text(response.data);
                     sweetAlert('Success', response.msg);
                 }else{
                     sweetAlert('Error', 'Something went wrong, Please try again!');
                 }
+            },
+            error:function(response)
+            {
+                var respObj = response.responseJSON;
+                showToaster('error', respObj.errors.domain[0]);
             }
         });
     }
