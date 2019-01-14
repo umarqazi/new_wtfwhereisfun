@@ -2,10 +2,13 @@
 
 namespace App\Services;
 
+use App\Mail\AdminContactUs;
+use App\Mail\ContactUs;
 use App\Mail\CustomerRefund;
 use App\Mail\NewDispute;
 use App\Mail\TicketPurchased;
 use App\Mail\TicketSold;
+use App\Mail\UserContactUs;
 use App\Mail\VendorRefund;
 use App\Mail\WaitListMailing;
 use App\Services\Events\TicketDisputeService;
@@ -45,4 +48,10 @@ class MailService
         Mail::to(Auth::user()->email)->queue(new NewDispute($dispute));
         Mail::to($dispute->event->vendor->email)->queue(new NewDispute($dispute));
     }
+
+    public function sendContactUsEmail($contactUs){
+        Mail::to(env("ADMIN_EMAIL", "stubguys1@gmail.com"))->queue(new AdminContactUs($contactUs));
+        Mail::to($contactUs->email)->queue(new UserContactUs($contactUs));
+    }
+
 }

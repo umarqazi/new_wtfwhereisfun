@@ -23,6 +23,7 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('terms-conditions', 'MainController@termsCondition');
     Route::get('privacy-policy', 'MainController@privacyPolicy');
     Route::get('contact-us', 'MainController@contactUs');
+    Route::post('contact-us/email', 'MainController@contactUsEmail');
 
     Route::post('do-login',  'MainController@authenticate');
     Route::get('logout',  'MainController@logout');

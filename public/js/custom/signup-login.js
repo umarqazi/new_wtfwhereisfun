@@ -153,60 +153,6 @@ $(document).ready(function($) {
      *************************Forgot Password Script End **************************
      ******************************************************************************/
 
-    /*****************************************************************************
-     ***************************Contact US Script Start****************************
-     ******************************************************************************/
-
-    $("#contact-form").submit(function(event) {
-        event.preventDefault();
-        var form_data = new FormData($('#contact-form')[0]);
-        $.ajax({
-            url  : base_url() + "welcome/do_contactus",
-            type : "POST",
-            data : form_data,
-            dataType : "JSON",
-            cache: false,
-            contentType: false,
-            processData: false,
-            beforeSend:function(){
-                $('.contact-btn').attr('disabled',true).text('Loading....');
-            },
-            success: function(resp){
-                if(resp.type == "validation_err"){
-                    var errObj = resp.msg;
-                    var keys   = Object.keys(errObj);
-                    var count  = keys.length;
-                    for (var i = 0; i < count; i++)
-                    {
-                        if(errObj[keys[i]] != "")
-                        {
-                            showToaster('error',errObj[keys[i]]);
-                            $('.contact-btn').attr('disabled',false).text('Send');
-                            return false;
-                        }
-                    }
-                }
-                else if(resp.type == "success"){
-                    $('#contact-form')[0].reset();
-                    showToaster('success',resp.msg);
-                }
-                else{
-                    showToaster('error',resp.msg);
-                }
-                $('.contact-btn').attr('disabled',false).text('Send');
-            },
-            error:function(error)
-            {
-                $('.contact-btn').attr('disabled',false).text('Send');
-            }
-        });
-    });
-
-
-    /*****************************************************************************
-     *************************Contact US Script End *******************************
-     ******************************************************************************/
-
 });
 
 /*****************************************************************************

@@ -1,8 +1,11 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Http\Requests\ContactUs;
+use App\Services\ContactUsService;
 use App\Services\DomainService;
 use App\Services\Events\FacebookService;
+use App\Services\MailService;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\App;
 use Illuminate\Http\Request;
@@ -44,6 +47,7 @@ class MainController extends Controller
     protected $eventFilterService;
     protected $facebookService;
     protected $domainService;
+    protected $contactUsService;
 
     public function __construct()
     {
@@ -57,6 +61,7 @@ class MainController extends Controller
         $this->eventFilterService   = new EventFilterService();
         $this->facebookService      = new FacebookService();
         $this->domainService        = new DomainService();
+        $this->contactUsService     = new ContactUsService();
     }
     /**
      * Show the application's landing Page.
@@ -329,6 +334,15 @@ class MainController extends Controller
 
     public function contactUs(){
         return view('front-end.public.contact-us');
+    }
+
+    public function contactUsEmail(ContactUs $request){
+        $response = $this->contactUsService->create($request->all());
+        return response()->json([
+            'type'  => 'success',
+            'msg'   => 'Your email has been forwarded. We will get back to you.',
+            'data'  => $response
+        ]);
     }
 
     public function routeSubDomain($subdomain){
