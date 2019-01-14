@@ -12,7 +12,7 @@
 */
 Route::group(['middleware' => ['web']], function () {
 
-    Route::domain('{subdomain}.wtfwheresthefun.localhost')->group(function () {
+    Route::domain('{subdomain}.'.parseUrl(Config::get('app.url')))->group(function () {
         // Homepage of a variable subdomain
         Route::get('/', 'MainController@routeSubDomain');
     });
