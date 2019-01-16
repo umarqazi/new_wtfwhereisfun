@@ -68,6 +68,10 @@
 		overflow-y: auto;
 		max-height: 32vh;
 	}
+
+	.organizer-profile-section{
+		padding: 0px 0px 40px 0px;
+	}
 	
 .upload-photo-box .img_container img.user-img {
     border-radius: 50%;

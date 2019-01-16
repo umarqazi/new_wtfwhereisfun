@@ -1,7 +1,6 @@
 @extends('layouts.master')
 @section('title', "My Tickets ")
 @section('content')
-    @include('sweet::alert')
     <div class="my-tickets main-top-padding">
         <div class="container-fluid">
             <div class="row">

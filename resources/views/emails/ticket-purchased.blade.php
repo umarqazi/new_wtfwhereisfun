@@ -25,7 +25,7 @@
                                                         <tbody><tr>
                                                             <td class="imgResponsive" align="center" valign="middle" style="padding:0;">
                                                                 <a href="" style="text-decoration:none;border:0">
-                                                                    <img src="{{$orderDetails->directory.$orderDetails->qr_image}}" alt="#" border="0" width="500" style="display:block;border:0;width:100%;max-width:500px">
+                                                                    <img src="{{$orderDetails->directory.$orderDetails->qr_image}}" alt="#" border="0" width="400" style="display:block;border:0;width:100%;max-width:500px">
                                                                 </a>
                                                             </td>
                                                         </tr>

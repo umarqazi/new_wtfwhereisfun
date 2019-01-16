@@ -8,11 +8,12 @@ use App\Services\Events\EventOrderService;
 use App\Services\Events\EventService;
 use App\Services\Events\TicketDisputeService;
 use App\Services\MailService;
-use Encore\Admin\Widgets\Alert;
+//use Encore\Admin\Widgets\Alert;
 use Illuminate\Http\Request;
 use App\Services\Events\EventTicketService;
 use Illuminate\Support\Facades\Auth;
 use Mail;
+use Alert;
 
 class DisputeController extends Controller
 {
@@ -52,6 +53,7 @@ class DisputeController extends Controller
         $vendor = $this->ticketDisputeService->getVendor($dispute);
         Mail::to($user->email)->send(new NewDispute($dispute));
         Mail::to($vendor)->send(new NewDispute($dispute));
+        Alert::success('Your dispute have been submitted Successfully', 'Success')->autoclose(3000);
         return redirect('/my-tickets');
     }
 
@@ -84,6 +86,7 @@ class DisputeController extends Controller
         $reply =  $this->ticketDisputeService->disputeReply($request->all());
         $this->ticketDisputeService->changeReplySeenStatus($reply->dispute_id);
         $this->ticketDisputeService->sendEmailNotification($reply);
+        Alert::success('Your reply have been submitted Successfully', 'Success')->autoclose(3000);
         return redirect('/disputes/'.encrypt_id($request->dispute_id));
     }
 

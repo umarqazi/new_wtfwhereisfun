@@ -80,7 +80,7 @@ class PaymentController extends Controller
         $hotDeal        = $this->hotDealService->getHotDealDetails($ticket->time_location->id);
         $stripeOrder    = $this->checkoutService->completeStripeProcess($request->all(), $hotDeal, $ticket, $user);
         if($stripeOrder['status']){
-            $order          = $this->checkoutService->storeOrder($request->all(), $user->id, $ticket, $stripeOrder);
+            $order          = $this->checkoutService->storeOrder($request->all(), $user->id, $ticket, $stripeOrder['order']);
             $qrImg          = $this->qrCodeService->generateOrderQR($order->id);
             $orderPdf       = $this->pdfService->generateTicketPdf($order->id);
             $this->mailService->ticketNotification($order->id);
