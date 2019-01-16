@@ -14,11 +14,11 @@
                             <div class="body">
                                 <div class="row">
                                     <div class="col-4">
-                                        <h4 class="m-b-0">${{$weekRevenue['totalRevenue']}}</h4>
+                                        <h4 class="m-b-0">{{$location->transacted_currency->code.' '.$location->transacted_currency->symbol.$weekRevenue['totalRevenue']}}</h4>
                                         <p class="text-muted">This Week <small class="m-l-10">(Total Orders : {{$weekRevenue['count']}})</small></p>
                                     </div>
                                     <div class="col-4">
-                                        <h4 class="m-b-0">${{$monthRevenue['totalRevenue']}}</h4>
+                                        <h4 class="m-b-0">{{$location->transacted_currency->code.' '.$location->transacted_currency->symbol.$monthRevenue['totalRevenue']}}</h4>
                                         <p class="text-muted">This Month <small class="m-l-10">(Total Orders : {{$monthRevenue['count']}})</small></p>
                                     </div>
                                 </div>

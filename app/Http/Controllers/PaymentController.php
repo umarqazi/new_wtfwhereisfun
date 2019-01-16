@@ -44,8 +44,8 @@ class PaymentController extends Controller
         $this->waitListSettingService   = new WaitingListSettingsService;
     }
 
-    public function checkout(Request $request){
-        $ticketDetails      = $this->eventTicketService->getTicketDetails($request->ticket_id);
+    public function checkout($ticketId){
+        $ticketDetails      = $this->eventTicketService->getTicketDetails(decrypt_id($ticketId));
         $ticketQuantityLeft = $this->eventTicketService->getRemainingQty($ticketDetails->id);
         $hotDealDetail      = $this->hotDealService->getHotDealDetails($ticketDetails->time_location->id);
         $directory = getDirectory('events', $ticketDetails->event->id);
@@ -79,11 +79,16 @@ class PaymentController extends Controller
         $ticket         = $this->eventTicketService->getTicketDetails(decrypt_id($request->ticket_id));
         $hotDeal        = $this->hotDealService->getHotDealDetails($ticket->time_location->id);
         $stripeOrder    = $this->checkoutService->completeStripeProcess($request->all(), $hotDeal, $ticket, $user);
-        $order          = $this->checkoutService->storeOrder($request->all(), $user->id, $ticket, $stripeOrder);
-        $qrImg          = $this->qrCodeService->generateOrderQR($order->id);
-        $orderPdf       = $this->pdfService->generateTicketPdf($order->id);
-        $this->mailService->ticketNotification($order->id);
-        return redirect('checkout/success/'.$order->encrypted_id);
+        if($stripeOrder['status']){
+            $order          = $this->checkoutService->storeOrder($request->all(), $user->id, $ticket, $stripeOrder);
+            $qrImg          = $this->qrCodeService->generateOrderQR($order->id);
+            $orderPdf       = $this->pdfService->generateTicketPdf($order->id);
+            $this->mailService->ticketNotification($order->id);
+            return redirect('checkout/success/'.$order->encrypted_id);
+        }else{
+            Alert::error($stripeOrder['msg'], 'Error')->autoclose(3000);
+            return redirect()->back();
+        }
     }
 
     public function successfulCheckout($orderId){

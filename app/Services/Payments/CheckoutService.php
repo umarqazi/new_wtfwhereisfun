@@ -56,23 +56,36 @@ class CheckoutService
         }else{
             $coupon = null;
         }
-        $order = $this->stripeProvider->orders()->create([
-            'currency' => 'usd',
-            'items' => [
-                [
-                    'type'      => 'sku',
-                    'parent'    => $ticket->stripe_sku_id,
-                    'quantity'  => $data['quantity']
-                ]
-            ],
-            'metadata'  =>  [
-                'name'        => $ticket->event->title.' -'.$ticket->event->vendor->first_name.' '.$ticket->event->vendor->last_name.'('.$ticket->event->vendor->email.')',
-                'description' => 'Event hosted by '.$ticket->event->vendor->first_name.' '.$ticket->event->vendor->last_name.'('.$ticket->event->vendor->email.')',
-            ],
-            'coupon'    => $coupon,
-        ]);
-
-        return $this->stripeProvider->orders()->pay($order['id'], ['source' => $data['stripeToken'], 'email' => $user->email]);
+        try{
+            $order = $this->stripeProvider->orders()->create([
+                'currency' => strtolower($ticket->time_location->transacted_currency->code),
+                'items' => [
+                    [
+                        'type'      => 'sku',
+                        'parent'    => $ticket->stripe_sku_id,
+                        'quantity'  => $data['quantity']
+                    ]
+                ],
+                'metadata'  =>  [
+                    'name'        => $ticket->event->title.' -'.$ticket->event->vendor->first_name.' '.$ticket->event->vendor->last_name.'('.$ticket->event->vendor->email.')',
+                    'description' => 'Event hosted by '.$ticket->event->vendor->first_name.' '.$ticket->event->vendor->last_name.'('.$ticket->event->vendor->email.')',
+                ],
+                'coupon'    => $coupon,
+            ]);
+            $stripeOrder = $this->stripeProvider->orders()->pay($order['id'], ['source' => $data['stripeToken'], 'email' => $user->email]);
+            return ['status' => true, 'order' => $stripeOrder];
+        }catch (\Cartalyst\Stripe\Exception\CardErrorException $e){
+            return ['status' => false, 'msg' => $e->getMessage()];
+        }
+        catch (\Cartalyst\Stripe\Exception\InvalidRequestException $e) {
+            return ['status' => false, 'msg' => $e->getMessage()];
+        }
+        catch (\Cartalyst\Stripe\Exception\BadRequestException $e) {
+            return ['status' => false, 'msg' => $e->getMessage()];
+        }
+        catch (\Cartalyst\Stripe\Exception\NotFoundException $e) {
+            return ['status' => false, 'msg' => $e->getMessage()];
+        }
     }
 
     public function success($request){

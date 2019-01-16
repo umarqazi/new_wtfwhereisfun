@@ -8,7 +8,7 @@
                         <ul class="ft-pages-list list-simple">
                             <li><a href="{{url('about-us')}}">About Us</a></li>
                             <li><a href="{{url('terms-conditions')}}">Terms & Conditions</a></li>
-                            <li><a href="{{url('contact-us')}}">Contact US</a></li>
+                            <li><a href="{{url('contact-us')}}">Contact Us</a></li>
                             <li><a href="#">Blog</a></li>
                             <li><a href="#">Services</a></li>
                         </ul>

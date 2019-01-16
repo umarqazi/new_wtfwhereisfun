@@ -547,7 +547,7 @@ $(document).ready(function(){
         useCurrent: false,
         format:'YYYY-MM-DD hh:mm A',
         allowInputToggle: true,
-        minDate: 0
+        minDate: moment()
 
     });
 

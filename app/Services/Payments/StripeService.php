@@ -53,7 +53,7 @@ class StripeService
         $data    = [
             'product'   => $ticket->event->stripe_product_id,
             'price'     => $ticket->price,
-            'currency'  => 'usd',
+            'currency'  => strtolower($ticket->time_location->transacted_currency->code),
             'inventory' => [
                 'type'     => 'finite',
                 'quantity' => $ticket->quantity
@@ -70,6 +70,20 @@ class StripeService
             $sku        = $this->stripeProvider->skus()->update($ticket->stripe_sku_id, $data);
         }
         return $sku;
+    }
+
+    /**
+     * @param $request
+     * @return mixed
+     */
+    public function createStripeCoupon($request){
+        $coupon = $this->stripeProvider->coupons()->create([
+            'duration'      => 'once',
+            'percent_off'   => $request->discount,
+            'redeem_by'     => strtotime(Carbon::now()->addHours($request->hours)),
+            'name'          => $request->discount.'% OFF For '.$request->hours.''
+        ]);
+        return $coupon;
     }
 
 

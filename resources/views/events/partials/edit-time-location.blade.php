@@ -52,7 +52,7 @@
                                     </div>
                                     <div class="display-currency-section">
                                         <div class="display-currency">
-                                            <label>Display Currency </label>
+                                            <label>Display Currency <span class="required-field">*</span></label>
                                             <select name="display_currency" >
                                                 <option disabled value="" @if(is_null($location->display_currency)){{"selected"}}@endif>Select Display Currency</option>
                                                 @foreach($currencies as $currency)
@@ -63,7 +63,7 @@
                                             </select>
                                         </div>
                                         <div class="display-currency">
-                                            <label>Transacted Currency</label>
+                                            <label>Transacted Currency <span class="required-field">*</span></label>
                                             <select name="transacted_currency" >
                                                 <option disabled value="" @if(is_null($location->transacted_currency)){{"selected"}}@endif>Select Transacted Currency</option>
                                                 @foreach($currencies as $currency)
@@ -150,7 +150,7 @@
                                 </div>
                                 <div class="display-currency-section">
                                     <div class="display-currency">
-                                        <label>Display Currency </label>
+                                        <label>Display Currency <span class="required-field">*</span></label>
                                         <select name="display_currency" id="currencynew">
                                             <option disabled value="" selected>Select Display Currency</option>
                                             @foreach($currencies as $currency)
@@ -159,7 +159,7 @@
                                         </select>
                                     </div>
                                     <div class="display-currency">
-                                        <label>Transacted Currency</label>
+                                        <label>Transacted Currency <span class="required-field">*</span></label>
                                         <select name="transacted_currency">
                                             <option disabled value="" selected>Select Transacted Currency</option>
                                             @foreach($currencies as $currency)

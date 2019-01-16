@@ -16,7 +16,7 @@ class EventTicket extends Model
     /**
      * The attributes that appended to the model
      */
-    protected $appends = ['qty_left'];
+    protected $appends = ['qty_left', 'encrypted_id'];
 
     /**
      * Get Quantity Left of the model instance
@@ -25,6 +25,16 @@ class EventTicket extends Model
     {
         $completedOrders = $this->orders()->getCompletedOrders()->get();
         return $this->quantity - $completedOrders->sum('quantity');
+    }
+
+    /**
+     * Get Encrypted Id of the model instance
+     *
+     * @var array
+     */
+    public function getEncryptedIdAttribute()
+    {
+        return encrypt_id($this->id);
     }
 
     /**

@@ -58,11 +58,11 @@
                                         @if($order->payment_status != 'refunded')
                                             <span class="ticket-date"><i class="fa fa-calendar green"></i> {{monthDateYearFromat($order->ticket->time_location->starting)}} - {{monthDateYearFromat($order->ticket->time_location->ending)}}</span><br>
                                             <span class="ticket-time"><i class="fa fa-clock green"></i> {{$order->ticket->time_location->starting->format('g:i A')}} - {{$order->ticket->time_location->ending->format('g:i A')}}</span><br>
-                                            <span>Amount Paid : <strong>${{$order->payment_gross}}</strong></span><br>
+                                            <span>Amount Paid : <strong>{{strtoupper($order->currency_code).' '.$order->payment_gross}}</strong></span><br>
                                             <span>Bought at : <strong>{{monthDateYearFromat($order->created_at)}}</strong></span><br>
                                         @else
                                             <span>Order Status : <strong>{{ucfirst($order->payment_status)}}</strong></span><br>
-                                            <span>Amount Refunded : <strong>${{($order->refunded_amount)}}</strong></span><br>
+                                            <span>Amount Refunded : <strong>{{strtoupper($order->currency_code).' '.$order->refunded_amount}}</strong></span><br>
                                             <span>Refunded at : <strong>{{monthDateYearFromat($order->updated_at)}}</strong></span><br>
                                         @endif
                                     </div>

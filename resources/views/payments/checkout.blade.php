@@ -63,7 +63,7 @@
                                                 </td>
                                                 <td>
                                                     <input type="hidden" value="{{$ticket->price}}" id="ticket-price">
-                                                    <strong>${{$ticket->price}}</strong>
+                                                    <strong>{{$ticket->time_location->transacted_currency->code.' '.$ticket->time_location->transacted_currency->symbol.$ticket->price}}</strong>
                                                 </td>
                                             </tr>
                                             @if($eventHotDeal['hotDeal'])
@@ -81,9 +81,9 @@
                                                             @php
                                                                 $discount = $ticket->price * $eventHotDeal['details']->discount/100;
                                                             @endphp
-                                                            <strong id="total-price">${{$ticket->price - $discount}}</strong>
+                                                            <strong id="total-price">{{$ticket->time_location->transacted_currency->code.' '.$ticket->time_location->transacted_currency->symbol}} <span class="ticket-price">{{$ticket->price - $discount}} </span></strong>
                                                         @else
-                                                            <strong id="total-price">${{$ticket->price}}</strong>
+                                                            <strong id="total-price">{{$ticket->time_location->transacted_currency->code.' '.$ticket->time_location->transacted_currency->symbol}} <span class="ticket-price">{{$ticket->price}} </span></strong>
                                                         @endif
                                                     </h4>
                                                 </td>

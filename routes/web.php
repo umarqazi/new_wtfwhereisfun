@@ -29,6 +29,7 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('logout',  'MainController@logout');
     Route::post('do-register', 'MainController@register');
     Route::get('user/verify/{token}', 'MainController@verifyUser');
+    Route::post('do-resend-verification', 'MainController@reSendVerification');
 
     // OAuth Routes
     Route::get('auth/{provider}', 'MainController@redirectToProvider');
@@ -41,13 +42,14 @@ Route::group(['middleware' => ['web']], function () {
 
     Route::get('organizer/{slug}', 'OrganizerController@organizerProfile');
 
+    Route::get('search', 'MainController@search');
     Route::post('search-events', 'MainController@searchEvents');
 
     Route::resource('blogs', 'BlogController');
 
     Route::get('email', 'PaymentController@email');
 
-    Route::post('checkout', 'PaymentController@checkout');
+    Route::get('checkout/{ticketId}', 'PaymentController@checkout');
     Route::post('validate-checkout', 'PaymentController@validateCheckout');
     Route::post('checkout/proceed', 'PaymentController@stripeCheckout');
     Route::get('checkout/success/{orderId}', 'PaymentController@successfulCheckout');
