@@ -31,6 +31,8 @@ class EventTimeLocation extends FormRequest
             'timezone'                  =>          'required',
             'event_start_date'          =>          'before:event_end_date|required',
             'event_end_date'            =>          'after:event_start_date|required',
+            'transacted_currency'       =>          'required',
+            'display_currency'          =>          'required',
         ];
     }
 

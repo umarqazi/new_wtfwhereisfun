@@ -250,7 +250,7 @@
                                                                         </tr>
                                                                         <tr>
                                                                             <td class="infoTitle centerText" align="left" valign="middle" style="font-family:'Montserrat',Arial,Helvetica,sans-serif;color:#191919;font-size:16px;line-height:24px;font-weight:700;letter-spacing:0px;padding:0;">
-                                                                                ${{$order->refunded_amount}}
+                                                                                {{strtoupper($order->currency_code).' '.$order->refunded_amount}}
                                                                             </td>
                                                                         </tr>
                                                                     </table>

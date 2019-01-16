@@ -107,10 +107,10 @@
         @endif
 
 
-        @if(count($event->tickets))
+        @if(count($eventLocation->tickets))
             <div id="wiloke_price_segment-3" class="widget widget wiloke_price_segment">
                 <h4 class="widget_title"><i class="icon_currency"></i><span class="active"></span>Price Range</h4>
-                <div class="wiloke_price-range"><span class="active"></span>${{$event->tickets->min('price')}} - ${{$event->tickets->max('price')}}</div>
+                <div class="wiloke_price-range"><span class="active"></span>{{$eventLocation->transacted_currency->code.' '.$eventLocation->transacted_currency->symbol.$eventLocation->tickets->min('price')}} - {{$eventLocation->tickets->max('price')}}</div>
             </div>
         @endif
 

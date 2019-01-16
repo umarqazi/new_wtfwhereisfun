@@ -1,29 +1,23 @@
 <?php
 namespace App\Services\Events;
 
-use App\EventHotDeal;
 use App\Repositories\EventHotDealRepo;
+use App\Services\Payments\StripeService;
 use Carbon\Carbon;
 use App\Jobs\RemoveHotDeal;
-use Cartalyst\Stripe\Stripe;
 class EventHotDealService
 {
     protected $eventHotDealRepo;
-    protected $stripeProvider;
+    protected $stripeService;
 
     public function __construct()
     {
         $this->eventHotDealRepo     = new EventHotDealRepo;
-        $this->stripeProvider       = new Stripe(env('STRIPE_API_KEY', 'sk_test_iTNTzvLIxH136Q6MjRZ3dmM0'));
+        $this->stripeService        = new StripeService();
     }
 
     public function makeHotDeal($request){
-        $coupon = $this->stripeProvider->coupons()->create([
-            'duration'      => 'once',
-            'percent_off'   => $request->discount,
-            'redeem_by'     => strtotime(Carbon::now()->addHours($request->hours)),
-            'name'          => $request->discount.'% OFF For '.$request->hours.''
-        ]);
+        $coupon = $this->stripeService->createStripeCoupon($request);
         $data   = ['start' => Carbon::now(), 'end' => Carbon::now()->addHours($request->hours),
             'hours' => $request->hours, 'discount' => $request->discount, 'time_location_id' => decrypt_id($request->location_id),
             'stripe_coupon_id' => $coupon['id']];

@@ -10,6 +10,7 @@ use App\Mail\TicketPurchased;
 use App\Mail\TicketSold;
 use App\Mail\UserContactUs;
 use App\Mail\VendorRefund;
+use App\Mail\VerifyMail;
 use App\Mail\WaitListMailing;
 use App\Services\Events\TicketDisputeService;
 use Illuminate\Support\Facades\Auth;
@@ -52,6 +53,10 @@ class MailService
     public function sendContactUsEmail($contactUs){
         Mail::to(env("ADMIN_EMAIL", "stubguys1@gmail.com"))->queue(new AdminContactUs($contactUs));
         Mail::to($contactUs->email)->queue(new UserContactUs($contactUs));
+    }
+
+    public function sendVerificationMail($user){
+        Mail::to($user->email)->queue(new VerifyMail($user));
     }
 
 }

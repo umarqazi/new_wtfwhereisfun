@@ -19,10 +19,12 @@ class UserServices
 {
     protected $userRepo;
     protected $addressServices;
+    protected $mailService;
 
     public function __construct(){
         $this->addressServices      = new AddressServices();
         $this->userRepo             = new UserRepo();
+        $this->mailService          = new MailService();
     }
 
     /**
@@ -88,13 +90,21 @@ class UserServices
         $user->password         =   bcrypt($request->password);
         $user->save();
 
-        $user_verification = UserVerification::create([
-            'user_id'   => $user->id,
-            'token'     => str_random(30)
-        ]);
+        $user_verification      = $this->createOrUpdateVerification($user);
+        $this->mailService->sendVerificationMail($user);
         $user->assignRole($role);
-        Mail::to($user->email)->send(new VerifyMail($user));
         return $user;
+    }
+
+    /**
+     * @param $user
+     * @return mixed
+     */
+    public function createOrUpdateVerification($user){
+        $user_verification = UserVerification::updateOrCreate(['user_id' => $user->id],
+            ['user_id' => $user->id, 'token' => str_random(30)]
+        );
+        return $user_verification;
     }
 
     /**

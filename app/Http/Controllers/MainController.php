@@ -47,6 +47,7 @@ class MainController extends Controller
     protected $eventFilterService;
     protected $facebookService;
     protected $domainService;
+    protected $mailService;
     protected $contactUsService;
 
     public function __construct()
@@ -62,6 +63,7 @@ class MainController extends Controller
         $this->facebookService      = new FacebookService();
         $this->domainService        = new DomainService();
         $this->contactUsService     = new ContactUsService();
+        $this->mailService          = new MailService();
     }
     /**
      * Show the application's landing Page.
@@ -82,6 +84,13 @@ class MainController extends Controller
             => $testimonials, 'user' => $user, 'todayEvents' => $todayEvents, 'futureEvents' => $futureEvents,
             'categoriesPath' => getDirectory('categories'), 'testimonialsPath' => getDirectory('testimonials'),
             'map' => $loadLocations, 'city' => $location['city']]);
+    }
+
+    /**
+    public function search()
+    {
+        $location       = $this->eventLocationService->getUserLocation();
+        return View('front-end.events.search')->with('city', $location['city']);
     }
 
     /**
@@ -125,6 +134,31 @@ class MainController extends Controller
             ]);
         }
     }
+
+    /**
+     * Application registration process.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function reSendVerification(Request $request)
+    {
+        $user               = $this->userServices->getUserByEmail($request->email);
+        $userVerification   = $this->userServices->createOrUpdateVerification($user);
+        $this->mailService->sendVerificationMail($user);
+        if (!is_null($userVerification)){
+            return response()->json([
+                'type'  => 'success',
+                'msg'   => Config::get('constants.RESEND_VERIFY_MAIL'),
+                'data'  => $userVerification
+            ]);
+        }else{
+            return response()->json([
+                'type' => 'error',
+                'msg' => Config::get('constants.GENERAL_ERROR'),
+            ]);
+        }
+    }
+
 
     /**
      * User verification process from email.

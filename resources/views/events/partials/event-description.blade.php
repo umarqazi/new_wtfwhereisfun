@@ -52,7 +52,7 @@
         <p>
             <i class="fa fa-calendar"></i> {{$eventLocation->starting->format('d, M Y')}} - {{$eventLocation->ending->format('d, M Y')}}</p>
         <p>
-            <i class="fa fa-clock-o"></i> {{$eventLocation->starting->format('g:i A')}}  - {{$eventLocation->ending->format('g:i A')}}
+            <i class="fa fa-clock-o"></i> {{$eventLocation->starting->format('g:i A')}}  - {{$eventLocation->ending->format('g:i A')}}  ({{$eventLocation->timezone->name}})
         </p>
     </div>
 

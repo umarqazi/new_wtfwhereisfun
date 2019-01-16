@@ -30,7 +30,8 @@
                                     </tr>
                                     <tr>
                                         <td>Amount Paid</td>
-                                        <td>${{$orderDetails->payment_gross}}</td>
+                                        <td>{{strtoupper($orderDetails->currency_code).' '.$orderDetails->payment_gross}}</td>
+
                                     </tr>
                                     <tr>
                                         <td>Payment Status</td>

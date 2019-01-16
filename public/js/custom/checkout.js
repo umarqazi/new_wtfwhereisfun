@@ -28,7 +28,7 @@ $(".quantity-button").on("click", function () {
 
     var total = price * newVal - discount;
     $button.closest('.sp-quantity').find("input.quntity-input").attr('value', newVal);
-    $('#total-price').text('$'+total);
+    $('#total-price span.ticket-price').text(total);
 
 });
 

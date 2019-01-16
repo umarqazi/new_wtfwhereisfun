@@ -21,12 +21,9 @@ $("#contact-form").submit(function(event) {
             $('#contact-form').find('.form-error').html('');
         },
         success: function(response){
-            if(response.type === "success"){
+            if(response.type == "success"){
                 $('#contact-form')[0].reset();
-                showToaster('success',resp.msg);
-                setTimeout(function(){
-                    location.reload();
-                },1000);
+                showToaster('success',response.msg);
             }
         },
         error:function(response)

@@ -19,7 +19,7 @@
                     @foreach($tickets as $ticket)
                         <tr class="ticket-details">
                             <td class="text-center"><span>{{$ticket->name}}</span></td>
-                            <td class="text-center"><span>${{$ticket->price}}</span></td>
+                            <td class="text-center"><span>{{$eventLocation->transacted_currency->code.' '.$eventLocation->transacted_currency->symbol.$ticket->price}}</span></td>
                             <td class="text-center"><span>{{$ticket->type}}</span></td>
                             @if($ticket->time_location->hot_deal()->exists())
                                 <td class="text-center">
@@ -29,13 +29,7 @@
                             {{--<td class="text-center"><button class="btn btn-info details" data-toggle="modal" data-target="#ticket-{{$ticket->id}}" type="button"><i class="fa fa-info-circle"></i></button></td>--}}
                             <td class="text-center">
                                 @if($ticket->qty_left > 0)
-                                    <form method="post" action="{{url('checkout')}}">
-                                        {{ csrf_field() }}
-                                        <input type="hidden" name="ticket_id" value="{{$ticket->id}}">
-                                        <button type="submit" class="btn btn-info">
-                                            <i class="fa fa-shopping-cart"></i>
-                                        </button>
-                                    </form>
+                                    <a class="btn btn-info" href="{{url('checkout/'.$ticket->encrypted_id)}}"><i class="fa fa-shopping-cart"></i></a>
                                 @else
                                     @if(($waitList == null) || ($ticket->waitings->count() >= $waitList->max_count))
                                         <strong class="ticket-sold-out">Sold Out</strong>

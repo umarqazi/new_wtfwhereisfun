@@ -18,7 +18,7 @@
                     <div class="main-menu-wrap clearfi">
                         <i class="fa fa-times closeMenu"></i>
                         <ul class="main-menu landing-page-menu">
-                            <li><a href="">Find Events</a></li>
+                            <li><a href="{{url('search')}}">Find Events</a></li>
                             @if (Auth::check())
                                 @if( $user->hasRole('vendor') || $user->hasRole('organizer'))
                                     <li><a href="{{url('events/create')}}">Host Events</a></li>
@@ -88,7 +88,7 @@
                     </div>
                     <div class="main-menu-wrap clearfi">
                         <ul class="main-menu">
-                            <li><a href="#">Find Events</a></li>
+                            <li><a href="{{url('search')}}">Find Events</a></li>
                             @if (Auth::check())
                                 @php $user = Auth::user() @endphp
                                 @if( $user->hasRole('vendor') || $user->hasRole('organizer'))

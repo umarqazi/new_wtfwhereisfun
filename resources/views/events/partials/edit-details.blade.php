@@ -31,19 +31,6 @@
                                        value="{{$event->contact}}" name="contact">
                             </div>
                         </div>
-                        <div class="enter_referal_code">
-                            @if(empty($event->referral_code))
-                                <a href="JavaScript:void(0);" class="refferal_toogle"> <i class="fa fa-plus"></i> Enter a referral code</a>
-                            @endif
-                            <div class="referral_append" @if(!empty($event->referral_code)) style="display: block;" @endif>
-                                <label>Referral code</label>
-                                <span class="label_cap">Do you have a referral code or did someone refer you to WTF Where’s The Fun?</span>
-                                <input type="text" class="form-control" placeholder="" name="referral_code" value="{{$event->referral_code}}">
-                                <label>Discount</label>
-                                <input type="number" class="form-control"  min="1" placeholder="Enter Discount in %" name="discount" value="{{$event->discount}}">
-                                <div class="form-error discount"></div>
-                            </div>
-                        </div>
                     </div>
                     <div class="add_category_main">
                         <div class="row">

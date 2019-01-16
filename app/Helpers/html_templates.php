@@ -58,14 +58,14 @@ if (! function_exists('addNewTimeLocationRow')) {
                             </div>
                             <div class=\"display-currency-section\">
                                 <div class=\"display-currency\">
-                                    <label>Display Currency </label>
+                                    <label>Display Currency <span class=\"required-field\">*</span></label>
                                     <select name=\"display_currency\" id=\"currencynew\">
                                         <option disabled value=\"\" selected>Select Display Currency</option>"
                                         .$displayCurrencyOptions.
                                     "</select>
                                 </div>
                                 <div class=\"display-currency\">
-                                    <label>Transacted Currency</label>
+                                    <label>Transacted Currency <span class=\"required-field\">*</span></label>
                                     <select name=\"transacted_currency\">
                                         <option disabled value=\"\" selected>Select Transacted Currency</option>"
                                             .$transactedCurrencyOptions.

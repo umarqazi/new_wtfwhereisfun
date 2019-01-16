@@ -67,9 +67,9 @@
                         <span style="color: #7caf3e; border: #c7c7c7 solid 1px; padding: 5px 20px; background: #fff; font-size: 13px; font-weight: 600;">{{$order->ticket->time_location->ending->format('g:i A')}}</span>
                     </p>
 
-                    <p><span style="width: 30%; display: inline-block">Amount Paid</span> <span style="color: #7caf3e; border: #c7c7c7 solid 1px; padding: 5px 20px; background: #fff; font-size: 13px; font-weight: 600;">${{$order->payment_gross}}</span></p>
+                    <p><span style="width: 30%; display: inline-block">Amount Paid</span> <span style="color: #7caf3e; border: #c7c7c7 solid 1px; padding: 5px 20px; background: #fff; font-size: 13px; font-weight: 600;">{{strtoupper($order->currency_code).' '.$order->payment_gross}}</span></p>
                     <p><span style="width: 30%; display: inline-block">Ticket Qty</span> <span style="color: #7caf3e; border: #c7c7c7 solid 1px; padding: 5px 20px; background: #fff; font-size: 13px; font-weight: 600;">{{$order->quantity}}</span></p>
-                    <p><span style="width: 30%; display: inline-block">Ticket Price</span> <span style="color: #7caf3e; border: #c7c7c7 solid 1px; padding: 5px 20px; background: #fff; font-size: 13px; font-weight: 600;">${{$order->ticket_price}}</span></p>
+                    <p><span style="width: 30%; display: inline-block">Ticket Price</span> <span style="color: #7caf3e; border: #c7c7c7 solid 1px; padding: 5px 20px; background: #fff; font-size: 13px; font-weight: 600;">{{$order->ticket->time_location->transacted_currency->code.' '.$order->ticket->time_location->transacted_currency->symbol.$order->ticket_price}}</span></p>
                 </td>
                 <td style="border: solid 1px #eee; background: #e4e4e4; padding: 30px; text-align: center;">
                     <img src="{{$path.$order->qr_image}}" height="200px" width="200px">

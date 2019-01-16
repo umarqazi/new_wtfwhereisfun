@@ -4,7 +4,6 @@
     <div id="" class="main_content vendor-events-listing">
         <div class="container">
             <div class="col-md-12">
-                <a href="javascript:void(0)" onclick="window.history.back()" class=" pull-right btn btn-raised btn-default waves-effect back-button1">Back</a>
                 <h2>Manage Events</h2>
                 <ul class="nav nav-tabs eventsTabs">
                     <li class="active"><a data-toggle="tab" href="#home">LIVE {{count($liveEventLocations)}}</a></li>
@@ -86,6 +85,8 @@
                                         </div>
                                     </div>
                                 @endforeach
+                            @else
+                                <p><strong>No Live Events Yet</strong></p>
                             @endif
                         </div>
                     </div>
@@ -137,6 +138,8 @@
                                         </div>
                                     </div>
                                 @endforeach
+                            @else
+                                <p><strong>No Draft Events Yet</strong></p>
                             @endif
                         </div>
 
@@ -185,6 +188,8 @@
                                         </div>
                                     </div>
                                 @endforeach
+                            @else
+                                <p><strong>No Past Events Yet</strong></p>
                             @endif
                         </div>
                     </div>
@@ -232,6 +237,8 @@
                                         </div>
                                     </div>
                                 @endforeach
+                            @else
+                                <p><strong>No Events Yet</strong></p>
                             @endif
                         </div>
                     </div>
