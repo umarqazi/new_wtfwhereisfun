@@ -35,16 +35,34 @@ class FacebookEventController
             Session::put('url', URL::current());
             return View('events.add-to-facebook')->with(['event' => $event, 'location' => $location]);
         }else{
-            return View('events.facebook-event')->with(['event' => $event, 'location' => $location]);
+            $fb = new \Facebook\Facebook([
+                'app_id' => env('FACEBOOK_APP_ID'),
+                'app_secret' => env('FACEBOOK_APP_SECRET')
+            ]);
+            try {
+                // Returns a `Facebook\FacebookResponse` object
+                $response = $fb->get(
+                    '/{user-id}/accounts',
+                    '{access-token}'
+                );
+            } catch(Facebook\Exceptions\FacebookResponseException $e) {
+                echo 'Graph returned an error: ' . $e->getMessage();
+                exit;
+            } catch(Facebook\Exceptions\FacebookSDKException $e) {
+                echo 'Facebook SDK returned an error: ' . $e->getMessage();
+                exit;
+            }
+            $graphNode = $response->getGraphNode();
+            dd($response->getGraphUser());
+
         }
     }
 
     /**
-     * @param $locationId
      * @return mixed
      */
     public function connectToFacebook(){
-        return Socialite::driver('facebook')->redirect();
+        return Socialite::driver('facebook')->scopes(['manage_pages', 'publish_pages'])->redirect();
     }
 
 }
