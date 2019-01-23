@@ -24,7 +24,7 @@ class User extends Authenticatable
         'age', 'gender', 'is_social_signup', 'social_type', 'social_id', 'profile_picture',
         'profile_thumbnail', 'user_token', 'is_verified', 'is_blocked', 'is_deactivated',
         'last_login', 'account_close_type', 'account_close_reason', 'stripe_user_id', 'provider',
-        'provider_id'
+        'provider_id', 'fb_access_token'
 
     ];
 
