@@ -2,6 +2,7 @@
 
 namespace App\Services\Events;
 
+use Illuminate\Support\Facades\Config;
 class FacebookService
 {
     /**
