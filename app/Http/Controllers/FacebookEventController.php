@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\URL;
 use Request;
 use Illuminate\Support\Facades\Session;
 use Laravel\Socialite\Facades\Socialite;
-
+use Alert;
 class FacebookEventController
 {
     protected $eventService;
@@ -18,7 +18,9 @@ class FacebookEventController
     protected $facebookService;
     protected $userServices;
 
-
+    /**
+     * FacebookEventController constructor.
+     */
     public function __construct()
     {
         $this->eventService                 = new EventService();
@@ -27,6 +29,10 @@ class FacebookEventController
         $this->userServices                 = new UserServices();
     }
 
+    /**
+     * @param $locationId
+     * @return $this
+     */
     public function addToFacebook($locationId){
         $locationId         = decrypt_id($locationId);
         $event              = $this->eventLocationService->getLocationEvent($locationId);
@@ -35,26 +41,13 @@ class FacebookEventController
             Session::put('url', URL::current());
             return View('events.add-to-facebook')->with(['event' => $event, 'location' => $location]);
         }else{
-            $fb = new \Facebook\Facebook([
-                'app_id' => env('FACEBOOK_APP_ID'),
-                'app_secret' => env('FACEBOOK_APP_SECRET')
-            ]);
-            try {
-                // Returns a `Facebook\FacebookResponse` object
-                $response = $fb->get(
-                    '/{user-id}/accounts',
-                    '{access-token}'
-                );
-            } catch(Facebook\Exceptions\FacebookResponseException $e) {
-                echo 'Graph returned an error: ' . $e->getMessage();
-                exit;
-            } catch(Facebook\Exceptions\FacebookSDKException $e) {
-                echo 'Facebook SDK returned an error: ' . $e->getMessage();
-                exit;
+            $userFbPages = $this->facebookService->getUserFacebookPages($event->vendor);
+            if(count($userFbPages)){
+                Alert::error(Config::get('constants.FACEBOOK_EMPTY_PAGES', 'Error'))->autoclose(3000);
+                return View('events.add-to-facebook')->with(['event' => $event, 'location' => $location]);
+            }else{
+                return View('events.facebook-event-form')->with(['event' => $event, 'location' => $location, 'fbPages' => $userFbPages ]);
             }
-            $graphNode = $response->getGraphNode();
-            dd($response->getGraphUser());
-
         }
     }
 

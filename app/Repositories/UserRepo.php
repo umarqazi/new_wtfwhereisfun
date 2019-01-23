@@ -142,12 +142,13 @@ class UserRepo
         }else{
             $names = getFirstLastName($user->name);
             $authUser = $this->userModel->create([
-                'first_name'    => $names['first'],
-                'last_name'     => $names['last'],
-                'email'         => $user->email,
-                'provider'      => $provider,
-                'provider_id'   => $user->id,
-                'is_verified'   => 1
+                'first_name'        => $names['first'],
+                'last_name'         => $names['last'],
+                'email'             => $user->email,
+                'provider'          => $provider,
+                'provider_id'       => $user->id,
+                'fb_access_token'   => $user->token,
+                'is_verified'       => 1
             ]);
 
             $reset_password = ResetPassword::create([

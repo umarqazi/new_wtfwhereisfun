@@ -47,5 +47,10 @@
 
         /* Event Constants */
         'EVENTCREATED_SUCCESS'         =>       'Event created Successfully. You are being redirected to event page to complete Event Details',
-        'COMPLETE_DETAILS'             =>       'Complete event details first to move forward'
+        'COMPLETE_DETAILS'             =>       'Complete event details first to move forward',
+
+        'FACEBOOK_APP_ID'              =>       env('FACEBOOK_APP_ID', '2321030821302722'),
+        'FACEBOOK_APP_SECRET'          =>       env('FACEBOOK_APP_SECRET', 'b8989ab478cce0255215e3f4166e2aaa'),
+        'FACEBOOK_EMPTY_PAGES'         =>       'You have no Facebook pages.<br>Please create one to post this event'
+
     ];
