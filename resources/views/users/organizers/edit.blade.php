@@ -173,8 +173,8 @@
                                         </div>
                                         <div class="col-xs-12 col-sm-12 col-md-6">
                                             <div class="form-group">
-                                                <label for="">Timbler</label>
-                                                <input class="form-control" placeholder="http://timbler.com" name="timbler" type="text" value="{{$organizer->timbler}}">
+                                                <label for="">Tumbler</label>
+                                                <input class="form-control" placeholder="http://tumbler.com" name="timbler" type="text" value="{{$organizer->timbler}}">
                                                 <span class="field-beffect"></span>
                                                 <div class="form-error timbler"></div>
                                             </div>

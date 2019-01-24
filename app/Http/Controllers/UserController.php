@@ -142,7 +142,7 @@ class UserController extends Controller
         $response = $this->userAddressService->updateAddress($request);
         return response()->json([
             'type'      =>      'success',
-            'msg'       =>      Config::get('constants.CONTACTINFO_SUCCESS'),
+            'msg'       =>      Config::get('constants.ADDRESSINFO_SUCCESS'),
             'data'      =>      $response
         ]);
     }
@@ -157,7 +157,7 @@ class UserController extends Controller
         $response = $this->userEmailPreferenceService->updateEmailPreference($request);
         return response()->json([
             'type'      =>      'success',
-            'msg'       =>      Config::get('constants.CONTACTINFO_SUCCESS'),
+            'msg'       =>      Config::get('constants.EMAILINFO_SUCCESS'),
             'data'      =>      $response
         ]);
     }

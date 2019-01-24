@@ -26,4 +26,8 @@ function showEventDetails(event){
 
 $(document).ready(function () {
     window.onbeforeunload = null;
+    var date = $('.fc-content-skeleton .fc-state-highlight').text();
+    $('.fc-content-skeleton .fc-state-highlight').html('<span class="today-date">'+date+'</span>');
+    $('.today-date').css('background-color', 'red').css('color', '#fff').css('border-radius', '50%').css('padding', '4px 6px').css('float', 'right');
+    $('.events-calendar .fc-content-skeleton thead td').removeClass('fc-state-highlight');
 });

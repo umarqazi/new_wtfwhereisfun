@@ -63,6 +63,11 @@ $(document).ready(function($) {
     showImage(image, target);
 });
 
+function scrollUp(field){
+    $('html, body').animate({
+        scrollTop: $("#organizer-form").offset().top - 200
+    }, 500);
+}
     /*****************************************************************************
      *************************Manage Organizer Script End *************************
      ******************************************************************************/
