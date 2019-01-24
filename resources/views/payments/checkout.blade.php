@@ -55,7 +55,7 @@
                                                         <div class="sp-minus"> <a class="quantity-button" type="button"><i class="fa fa-minus"></i></a>
                                                         </div>
                                                         <div class="sp-input">
-                                                            <input type="text" class="quntity-input" value="1" name="quantity" />
+                                                            <input type="text" class="quntity-input" value="1" name="quantity" readonly />
                                                         </div>
                                                         <div class="sp-plus"> <a class="quantity-button" type="button"><i class="fa fa-plus"></i></a>
                                                         </div>

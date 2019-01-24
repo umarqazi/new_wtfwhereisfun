@@ -35,6 +35,7 @@
         'CONTACTINFO_SUCCESS'        =>      'Your Contact Information has been updated Successfully',
         'CONTACTINFO_FAIL'           =>      'Some errors occurred while updating your Contact Information.Please try Again',
         'ADDRESSINFO_SUCCESS'        =>      'Your Address Information has been updated Successfully',
+        'EMAILINFO_SUCCESS'          =>      'Your Email Preferences Information has been updated Successfully',
         'ADDRESSINFO_FAIL'           =>      'Some errors occurred while updating your Address Information.Please try Again',
         'PASSWORD_FAIL'              =>      'Current Password does not match with our records',
 

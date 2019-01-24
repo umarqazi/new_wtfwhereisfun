@@ -3,7 +3,8 @@
 <!--Dashboard Content-->
 @section('content')
     <section class="content home dashboard-main main-top-padding">
-        <div class="block-header">
+        <div class="main-top-padding">
+            <div class="block-header">
             <div class="row">
                 <div class="col-lg-12 col-md-12 col-sm-12">
                     <h2>Dashboard
@@ -43,7 +44,7 @@
                 </div>
             </div>
         </div>
-        <div class="container-fluid">
+            <div class="container-fluid">
             <div class="row clearfix social-widget">
                 <div class="col-xl-2 col-lg-4 col-md-4 col-6 total-events">
                     <div class="tasks_report card info-box-2 hover-zoom-effect behance-widget shadow">
@@ -65,12 +66,13 @@
                 </div>
             </div>
         </div>
-        <input type="hidden" id="weekCount" value="{{$pastWeek['count']}}">
-        <input type="hidden" id="monthCount" value="{{$pastMonth['count']}}">
-        <input type="hidden" id="yearCount" value="{{$pastYear['count']}}">
-        <input type="hidden" id="weekEarning" value="{{$pastWeek['totalEarning']}}">
-        <input type="hidden" id="monthEarning" value="{{$pastMonth['totalEarning']}}">
-        <input type="hidden" id="yearEarning" value="{{$pastYear['totalEarning']}}">
+            <input type="hidden" id="weekCount" value="{{$pastWeek['count']}}">
+            <input type="hidden" id="monthCount" value="{{$pastMonth['count']}}">
+            <input type="hidden" id="yearCount" value="{{$pastYear['count']}}">
+            <input type="hidden" id="weekEarning" value="{{$pastWeek['totalEarning']}}">
+            <input type="hidden" id="monthEarning" value="{{$pastMonth['totalEarning']}}">
+            <input type="hidden" id="yearEarning" value="{{$pastYear['totalEarning']}}">
+        </div>
     </section>
 
     <script src="{{asset('js/custom/dashboard.js')}}"></script>

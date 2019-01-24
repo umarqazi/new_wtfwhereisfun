@@ -97,6 +97,7 @@ function completeCheckout(event, obj){
                     }
                 });
             } else {
+                $('.submit').attr('disabled', false).text('Checkout');
                 showToaster('error', resp.msg);
             }
         },

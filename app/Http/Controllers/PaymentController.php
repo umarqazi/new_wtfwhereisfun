@@ -53,11 +53,21 @@ class PaymentController extends Controller
     }
 
     public function validateCheckout(Checkout $request){
-        return response()->json([
-            'type'      =>  'success',
-            'msg'       =>  'Successfully Verified',
-            'data'      =>  true
-        ]);
+        $remainingTickets = $this->eventTicketService->getRemainingQty(decrypt_id($request->ticket_id));
+        if($remainingTickets < $request->quantity){
+            return response()->json([
+                'type'      =>  'error',
+                'msg'       =>  'Only '.$remainingTickets.' tickets are remaining <br> Please decrease the quantity to checkout',
+                'data'      =>  false
+            ]);
+        }else{
+            return response()->json([
+                'type'      =>  'success',
+                'msg'       =>  'Successfully Verified',
+                'data'      =>  true
+            ]);
+        }
+
     }
 
     public function completeCheckout(Request $request){

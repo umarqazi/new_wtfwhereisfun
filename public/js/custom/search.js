@@ -17,7 +17,11 @@ function searchEvents(event){
         processData: false,
         success: function(response){
             if(response.type == "success"){
-                console.log(response.data.searchResults);
+                if(response.data.count < 1 ){
+                    $('.header_search_container .search_dropdown').css('overflow-y', 'hidden')
+                }else{
+                    $('.header_search_container .search_dropdown').css('overflow-y', 'scroll');
+                }
                 $('.search_dropdown').empty().css('display', 'block').append(response.data.searchResults)
             }
             else{
