@@ -41,15 +41,15 @@
                                         <div class="row">
                                             <div class="col-xs-12 col-sm-12 col-md-6">
                                                 <div class="form-group">
-                                                    <label for="">Organizer name</label>
-                                                    <input type="text" class="form-control" placeholder="Organizer name" id="" name="name" required>
+                                                    <label for="">Organizer name <span class="required-field">*</span></label>
+                                                    <input type="text" class="form-control" oninvalid="scrollUp('name')" placeholder="Organizer name" id="" name="name" required>
                                                     <span class="field-beffect"></span>
                                                     <div class="form-error name"></div>
                                                 </div>
                                             </div>
                                             <div class="ccol-xs-12 col-sm-12 col-md-6">
                                                 <div class="form-group">
-                                                    <label for="">About the organizer</label>
+                                                    <label for="">About the organizer <span class="required-field">*</span></label>
                                                     <input class="form-control" type="text" placeholder="About the organizer" name="description" required />
                                                     <span class="field-beffect"></span>
                                                     <div class="form-error description"></div>
@@ -64,7 +64,7 @@
                                         <div class="row">
                                             <div class="col-xs-12 col-sm-12 col-md-6">
                                                 <div class="form-group">
-                                                    <label for="">Email</label>
+                                                    <label for="">Email <span class="required-field">*</span></label>
                                                     <input class="form-control" placeholder="Email Address" id="" name="email" required type="email">
                                                     <span class="field-beffect"></span>
                                                     <div class="form-error email"></div>
@@ -72,7 +72,7 @@
                                             </div>
                                             <div class="col-xs-12 col-sm-12 col-md-6">
                                                 <div class="form-group organizer-pages-url">
-                                                    <label for="">Contact</label>
+                                                    <label for="">Contact <span class="required-field">*</span></label>
                                                     <div id="organizer-edit-url-input">
                                                         <input class="form-control" placeholder="202-555-0191" name="contact" required type="text">
                                                         <span class="field-beffect"></span>
@@ -85,7 +85,7 @@
                                         <div class="row">
                                             <div class="col-xs-12 col-sm-12 col-md-6">
                                                 <div class="form-group">
-                                                    <label for="">Website</label>
+                                                    <label for="">Website <span class="required-field">*</span></label>
                                                     <input class="form-control" placeholder="http://" id="" name="website" required type="text">
                                                     <span class="field-beffect"></span>
                                                     <div class="form-error website"></div>
@@ -93,7 +93,7 @@
                                             </div>
                                             <div class="col-xs-12 col-sm-12 col-md-6">
                                                 <div class="form-group organizer-pages-url">
-                                                    <label for="">Location</label>
+                                                    <label for="">Location <span class="required-field">*</span></label>
                                                     <div id="organizer-edit-url-input">
                                                         <input class="form-control" placeholder="City, Country" name="location" required type="text">
                                                         <span class="field-beffect"></span>
@@ -136,8 +136,8 @@
                                             </div>
                                             <div class="col-xs-12 col-sm-12 col-md-6">
                                                 <div class="form-group">
-                                                    <label for="">Timbler</label>
-                                                    <input class="form-control" placeholder="Timbler.com" name="timbler"  type="text">
+                                                    <label for="">Tumbler</label>
+                                                    <input class="form-control" placeholder="Tumbler.com" name="timbler"  type="text">
                                                     <span class="field-beffect"></span>
                                                 </div>
                                             </div>
@@ -154,13 +154,13 @@
                                         </div>
                                         <div class="row">
                                             <div class="col-sm-3 form-group orgenizer-color-change">
-                                                <label for="">Background</label>
+                                                <label for="">Background <span class="required-field">*</span> </label>
                                                 <input class="form-control" name="backgroud_color" onchange="manageColors('BG',this.value);" required="" type="color">
                                                 <div class="form-error backgroud_color"></div>
                                             </div>
                                             <div class="col-sm-3 form-group orgenizer-color-change">
-                                                <label for="">Text</label>
-                                                <input class="form-control" name="text_color" onchange="manageColors('TC',this.value);" required="" type="color">
+                                                <label for="">Text <span class="required-field">*</span></label>
+                                                <input class="form-control" name="text_color" onchange="manageColors('TC',this.value);" required type="color">
                                                 <div class="form-error text_color"></div>
                                             </div>
                                             <div class="col-sm-6 form-group">

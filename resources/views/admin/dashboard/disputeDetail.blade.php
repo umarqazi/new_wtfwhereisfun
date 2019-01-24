@@ -34,8 +34,19 @@
                         @else
                             @foreach($dispute_details->dispute_replies as $reply)
                                 <hr/>
-                                <strong>{{$reply->user->first_name}} : <span class="pull-right">{{ \Carbon\Carbon::parse($reply->created_at)->formatLocalized('%d %b %Y')}}</span></strong>
-                                <p>{!! $reply->message !!}</p>
+                                <div class="dispute-replies">
+                                    <div class="img-holder">
+                                        @if(!empty($reply->user->profile_thumbnail))
+                                            <img src="{{$reply->user->directory.$reply->user->profile_thumbnail}}">
+                                        @else
+                                            <img src="{{asset('img/default-148.png')}}">
+                                        @endif
+                                    </div>
+                                    <div class="dispute-reply-info">
+                                        <strong>{{$reply->user->first_name}} : <span class="pull-right">{{ \Carbon\Carbon::parse($reply->created_at)->formatLocalized('%d %b %Y')}}</span></strong>
+                                        <p>{!! $reply->message !!}</p>
+                                    </div>
+                                </div>
                             @endforeach
                         @endif
                     </div>

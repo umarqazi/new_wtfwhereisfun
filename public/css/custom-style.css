@@ -2298,7 +2298,7 @@ ul.main-menu > li:hover .custom-dropdown-menu{
    font-weight: 400;
 }
 .checkbox-design-wrap input{
-   padding: 0!!important;
+   padding: 0!important;
 }
 
 .checkbox-design-wrap ul{
@@ -5131,7 +5131,7 @@ img.portimg {
 
 .public_unlisted_tickets a{
    float: left;
-   width: 100!important;%;
+   width: 100%!important;
    border: 1px solid #ddd;
    padding: 6px 10px;
    height: 34px;
@@ -6279,7 +6279,7 @@ i, cite, em, var, address, dfn {
 .header_search_container .clm .search_btn{
    width: 100%;
    text-align: center;
-   line-height: 44px;
+   line-height: 46px;
    border: none;
    background: #8dc63f;
    text-transform: uppercase;
@@ -6779,4 +6779,21 @@ p.dispute-user{
 .popup #disabled-buttons{
     width: 220px;
     height:150px;
+}
+
+.dispute-replies .img-holder{
+   width: 90px;
+   text-align: center;
+   overflow: hidden;
+   position: relative;
+   margin-bottom: 10px;
+   display: inline-block;
+   vertical-align: top;
+}
+
+.dispute-replies .dispute-reply-info{
+   display: inline-block;
+   vertical-align: top;
+   width: calc(100% - 104px);
+   padding-left: 12px;
 }

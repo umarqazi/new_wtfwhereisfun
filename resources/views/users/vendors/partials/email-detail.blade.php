@@ -15,11 +15,11 @@
                             <div class="acnt-adrs-innersubtitle"><p>Email me</p></div>
                             <div class="form-group">
                                 <input type="checkbox" id="basic_checkbox_2" class="form-control" @if(!is_null($emailPreference) && $emailPreference->update_new_feature){{"checked"}}@endif  name="update_new_feature" value="1">
-                                <label for="basic_checkbox_2">Updates about new WTF WHERE’S THE FUN features and announcements</label>
+                                <label for="basic_checkbox_2">Updates about new StubGuys features and announcements</label>
                             </div>
                             <div class="form-group">
                                 <input type="checkbox" id="basic_checkbox_3" class="form-control" @if(!is_null($emailPreference) && $emailPreference->weekly_event_guide){{"checked"}}@endif  name="weekly_event_guide" value="1">
-                                <label for="basic_checkbox_3">WTF WHERE’S THE FUN weekly event guide: A digest of personalized
+                                <label for="basic_checkbox_3">StubGuys weekly event guide: A digest of personalized
                                     event recommendations</label>
                             </div>
                             <div class="form-group">
@@ -29,7 +29,7 @@
                             </div>
                             <div class="form-group">
                                 <input type="checkbox" id="basic_checkbox_5" class="form-control" @if(!is_null($emailPreference) && $emailPreference->updates_for_attendees){{"checked"}}@endif  name="updates_for_attendees" value="1">
-                                <label for="basic_checkbox_5">Unsubscribe from all WTF WHERE’S THE FUN
+                                <label for="basic_checkbox_5">Unsubscribe from all StubGuys
                                     newsletters and updates for attendees</label>
                             </div>
                         </div>
@@ -46,12 +46,12 @@
                     <div class="acnt-adrs-innertitle">
                         <h3>Organizing Events</h3>
                     </div>
-                    <p class="organizing-events-subtitle">Helpful updates and tips for organizing events on WTF WHERE’S THE FUN </p>
+                    <p class="organizing-events-subtitle">Helpful updates and tips for organizing events on StubGuys </p>
                     <div class="org-evnt-eml-wrap">
                         <div class="acnt-adrs-innersubtitle"><p>Email me</p></div>
                         <div class="form-group">
                             <input type="checkbox" id="basic_checkbox_7" class="form-control" @if(!is_null($emailPreference) && $emailPreference->organizing_update_new_feature){{"checked"}}@endif  name="organizing_update_new_feature" value="1">
-                            <label for="basic_checkbox_7">Updates about new WTF WHERE’S THE FUN features and
+                            <label for="basic_checkbox_7">Updates about new StubGuys features and
                                 announcements</label>
                         </div>
                         <div class="form-group">
@@ -60,12 +60,12 @@
                         </div>
                         <div class="form-group">
                             <input type="checkbox" id="basic_checkbox_9" class="form-control" @if(!is_null($emailPreference) && $emailPreference->updates_for_event_organizers){{"checked"}}@endif  name="updates_for_event_organizers" value="1">
-                            <label for="basic_checkbox_9">Unsubscribe from all WTF WHERE’S THE FUN newsletters and updates
+                            <label for="basic_checkbox_9">Unsubscribe from all StubGuys newsletters and updates
                                 for event organizing-events-wrap</label>
                         </div>
                         <div class="form-group">
                             <input type="checkbox" id="basic_checkbox_10" class="form-control" @if(!is_null($emailPreference) && $emailPreference->updates_for_event_attendees){{"checked"}}@endif  name="updates_for_event_attendees" value="1">
-                            <label for="basic_checkbox_10">Unsubscribe from all WTF WHERE’S THE FUN newsletters and updates
+                            <label for="basic_checkbox_10">Unsubscribe from all StubGuys newsletters and updates
                                 for attendees</label>
                         </div>
                     </div>
