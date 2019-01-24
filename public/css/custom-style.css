@@ -6267,6 +6267,7 @@ i, cite, em, var, address, dfn {
 
 .header_search_container .clm.third_clm{
    width: 20%;
+   height:46px;
 }
 
 .header_search_container .fa{
@@ -6279,7 +6280,7 @@ i, cite, em, var, address, dfn {
 .header_search_container .clm .search_btn{
    width: 100%;
    text-align: center;
-   line-height: 46px;
+   height: 46px;
    border: none;
    background: #8dc63f;
    text-transform: uppercase;
