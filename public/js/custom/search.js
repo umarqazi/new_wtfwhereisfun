@@ -1,3 +1,11 @@
+$(document).ready(function () {
+    /*Event Search*/
+    $('#search-start-date,#search-end-date').datetimepicker({
+        useCurrent: true,
+        format:'YYYY-MM-DD',
+        minDate: moment()
+    });
+});
 function searchEvents(event){
     event.preventDefault();
     var form_data = new FormData($('#search-events-form')[0]);

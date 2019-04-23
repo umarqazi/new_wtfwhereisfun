@@ -3,7 +3,6 @@
 @section('content')
     {{-- ______________________ Start Main Content __________________ --}}
     <link rel="stylesheet" href="{{asset('css/eventpage/richtext.min.css')}}">
-    <link rel="stylesheet" href="{{asset('css/eventpage/bootstrap-datetimepicker.min.css')}}">
     <script src="{{asset('js/moment.min.js')}}"></script>
     <script src="{{asset('js/eventpage/jquery.bxslider.js')}}"></script>
     <link rel="stylesheet" href="{{asset('css/fancybox/jquery.fancybox.min.css')}}">

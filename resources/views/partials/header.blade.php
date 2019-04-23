@@ -6,7 +6,7 @@
             <div class="header-inner">
                 <div class="header-logo-wrap">
                     <a href="{{url('/')}}" class="header-logo">
-                        <img src="{{asset('img/logos/stub-logo.png')}}" alt="Logo">
+                        <img src="{{asset('img/logos/stub-guys.png')}}" alt="Logo">
                     </a>
                 </div><!-- /.header-logo-wrap -->
                 <div class="main-navbar">

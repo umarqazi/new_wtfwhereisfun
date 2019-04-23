@@ -61,8 +61,7 @@
         <div class="footer-copyright-wrap">
             <div class="row">
                 <div class="col-md-6 col-sm-6 col-xs-12">
-                    <div class="footer-copyright-dis">Copyright © {{--Current Year--}} <a href="#">Wiloke.com</a>
-                        •Tel: +98-76543210</div>
+                    <div class="footer-copyright-dis">Copyright © Stubguys</div>
                 </div>
             </div>
         </div>
