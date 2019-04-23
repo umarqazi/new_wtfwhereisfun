@@ -36,6 +36,9 @@
     <link rel="stylesheet" href="{{asset('nexa/css/color_skins.css')}}">
     <!-- End Theme Files -->
 
+    {{--Bootstrap Datetimepicker--}}
+    <link rel="stylesheet" href="{{asset('css/eventpage/bootstrap-datetimepicker.min.css')}}">
+
     <!-- Custom Style -->
     <link href="{{asset('css/custom-style.css')}}" rel="stylesheet" type="text/css">
 
