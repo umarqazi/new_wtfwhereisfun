@@ -284,7 +284,7 @@
                     <div class="col-lg-12">
                         <div class="card">
                             <div class="body">
-                                <p class="m-b-0"><a href="{{url('/')}}" target="black">Copyright © Wiloke.com •Tel: +98-76543210</a> </p>
+                                <p class="m-b-0"><a href="{{url('/')}}" target="black">Copyright © Stubguys</a> </p>
                             </div>
                         </div>
                     </div>
