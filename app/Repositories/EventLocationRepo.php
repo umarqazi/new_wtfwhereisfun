@@ -111,20 +111,40 @@ class EventLocationRepo
     }
 
     public function search($data){
+//        dump($data['event-start-date']);
+        $start_date = date('Y-m-d H:i:s', strtotime($data['event-start-date']));
+        $end_date = date('Y-m-d H:i:s', strtotime($data['event-end-date']));
+        /*dump($start_date);
+        dump($end_date);*/
+
+        /*$events = $this->eventLocationModel->eventsByDate($start_date, $end_date)->searchByLocation($data['location'])->whereHas('event', function($query) use ($data){
+            if(isset($data['search_events'])){
+                $query->publishedEvents()->searchByTitle($data['search_events'])->searchByDescription($data['search_events'])->publicAccess();
+            } else{
+
+            }
+            $query->publishedEvents()->publicAccess();
+        })->get();
+
+        dd($events);*/
+
+//        dd($events);
         if(isset($data['search_events'])){
-            $locationWise = $this->eventLocationModel->todayEvents()->searchByLocation($data['location'])->whereHas('event', function($query) use ($data){
+            $locationWise = $this->eventLocationModel->eventsByDate($start_date, $end_date)->searchByLocation($data['location'])->whereHas('event', function($query) use ($data){
                 $query->publishedEvents()->searchByTitle($data['search_events'])->searchByDescription($data['search_events'])->publicAccess();
             })->get();
         }else{
-            $locationWise = $this->eventLocationModel->todayEvents()->searchByLocation($data['location'])->whereHas('event', function($query){
+            $locationWise = $this->eventLocationModel->eventsByDate($start_date, $end_date)->searchByLocation($data['location'])->whereHas('event', function($query){
                 $query->publishedEvents()->publicAccess();
             })->get();
         }
+//                dd($locationWise);
 
+        /* IF No Events Found with Selected Location. Then Find Events in other Locations. */
         $collection = [];
         if(isset($data['search_events'])){
-            $eventWise = $this->eventModel->publishedEvents()->publicAccess()->searchByTitle($data['search_events'])->searchByDescription($data['search_events'])->whereHas('time_locations', function($query){
-                $query->todayEvents();
+            $eventWise = $this->eventModel->publishedEvents()->publicAccess()->searchByTitle($data['search_events'])->searchByDescription($data['search_events'])->whereHas('time_locations', function($query) use ($data){
+                $query->eventsByDate($data['event-start-date'], $data['event-end-date']);
             })->get();
             if(count($eventWise)) {
                 foreach ($eventWise as $event) {
@@ -134,6 +154,9 @@ class EventLocationRepo
                 }
             }
         }
+
+//        echo '==========';
+//        dd($collection);
         $searchResults = $locationWise->merge($collection);
         return $searchResults;
     }

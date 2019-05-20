@@ -12,13 +12,21 @@
                                 <div class="header_search_container">
                                     <div class="clm first_clm">
                                         <i class="fa fa-search"></i>
-                                        <input type="text" class="fld" placeholder="Search Events" id="search-events" onkeyup="searchEvents(event)" onblur="hideSearchResults()" name="search_events"/>
+                                        <input type="text" class="fld" placeholder="Search Events" id="search-events" onkeyup="searchEvents(event)" onblur="hideSearchResults()" name="search_events" value="{{$data['search_events'] ? $data['search_events'] : ''}}"/>
                                         <ul class="search_dropdown" style="display: none;">
                                         </ul>
                                     </div>
                                     <div class="clm">
                                         <i class="fa fa-send"></i>
                                         <input type="text" class="fld" id="search-location" name="location" value="{{$city}}" onchange="checkLocation(this)">
+                                    </div>
+                                    <div class="clm">
+                                        <i class="fa fa-calendar"></i>
+                                        <input type='text' class="fld event-start-date" id="search-start-date" name="event-start-date" value="{{$data['event-start-date'] ? $data['event-start-date'] : ''}}"/>
+                                    </div>
+                                    <div class="clm">
+                                        <i class="fa fa-calendar"></i>
+                                        <input type='text' class="fld event-end-date" id="search-end-date" name="event-end-date" value="{{$data['event-end-date'] ? $data['event-end-date'] : ''}}"/>
                                     </div>
                                     <div class="clm third_clm">
                                         <button class="search_btn" type="submit" id="search-button">Search</button>

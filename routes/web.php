@@ -45,6 +45,8 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('search', 'MainController@search');
     Route::post('search-events', 'MainController@searchEvents');
 
+    Route::get('all-categories', 'CategoryController@index')->name('all-categories');
+
     Route::resource('blogs', 'BlogController');
 
     Route::get('email', 'PaymentController@email');
