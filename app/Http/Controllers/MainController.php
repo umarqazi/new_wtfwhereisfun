@@ -111,7 +111,7 @@ class MainController extends Controller
             ]);
         }else{
             $location       = $this->eventLocationService->getUserLocation();
-            return View('front-end.events.events-search')->with(['locationEvents' => $response['results'], 'count' => $response['count'], 'city' => $location['city'] ]);
+            return View('front-end.events.events-search')->with(['locationEvents' => $response['results'], 'count' => $response['count'], 'city' => $location['city'],'data' => $request->all()]);
         }
     }
 

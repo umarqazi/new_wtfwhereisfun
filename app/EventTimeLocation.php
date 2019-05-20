@@ -108,6 +108,25 @@ class EventTimeLocation extends Model
     }
 
     /**
+     * @param $query
+     * @param null $start
+     * @param null $end
+     * @return mixed
+     */
+    public function scopeEventsByDate($query, $start = null, $end = null)
+    {
+        if (!empty($start) && !empty($end)){
+            return $query->where('starting', '<=', $start)->where('ending', '>=',$end);
+        } elseif (!empty($start)){
+            return $query->where('starting', '<=', $start);
+        } elseif (!empty($end)) {
+            return $query->where('ending', '>=', $end);
+        } else {
+            return $query->where('starting', '<=',  Carbon::today()->toDateString())->where('ending', '>=', Carbon::today()->toDateString());
+        }
+    }
+
+    /**
      * Scope a query to get Future Events.
      *
      * @param \Illuminate\Database\Eloquent\Builder $query

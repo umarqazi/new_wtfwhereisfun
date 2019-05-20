@@ -1,6 +1,30 @@
 
 // Menu Toggle
 //========================================
+$('.banner-slider').owlCarousel({
+    loop:false,
+    margin:0,
+    dots:false,
+    nav: false,
+    autoplay:true,
+    autoplayTimeout:6000,
+    autoplayHoverPause:false,
+    responsive:{
+        0:{
+            items:1,
+            loop:true
+        },
+        600:{
+            items:1,
+            loop:true
+        },
+        1000:{
+            items:1,
+            loop:true
+        }
+    }
+});
+
 $('.blog-thumbnail-slider').owlCarousel({
     loop:false,
     margin:10,
