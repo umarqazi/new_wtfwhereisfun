@@ -1,10 +1,12 @@
 $(document).ready(function () {
     /*Event Search*/
-    $('#search-start-date,#search-end-date').datetimepicker({
+    $('#search-start-date, #search-end-date').datetimepicker({
         useCurrent: true,
         format:'YYYY-MM-DD',
-        minDate: moment()
     });
+
+    $('#search-start-date').attr('placeholder','Event Start Date');
+    $('#search-end-date').attr('placeholder','Event End Date');
 });
 function searchEvents(event){
     event.preventDefault();

@@ -4,7 +4,23 @@
 @section('content')
     <div class="explore-search-section">
         <div class="banner-bg-video-wrap">
-            <img src="{{asset('images/main-banner.jpg')}}" alt="Main Banner">
+            <div class="banner-slider owl-carousel owl-theme">
+                <div class="items">
+                    <img src="{{asset('images/banner/banner-1.jpg')}}" alt="Main Banner">
+                </div>
+                <div class="items">
+                    <img src="{{asset('images/banner/banner-2.jpg')}}" alt="Main Banner">
+                </div>
+                <div class="items">
+                    <img src="{{asset('images/banner/banner-3.jpg')}}" alt="Main Banner">
+                </div>
+                <div class="items">
+                    <img src="{{asset('images/banner/banner-4.jpg')}}" alt="Main Banner">
+                </div>
+                <div class="items">
+                    <img src="{{asset('images/banner/banner-5.jpg')}}" alt="Main Banner">
+                </div>
+            </div>
         </div>
         <div class="explore-search-wrap white-text">
             <div class="container">
@@ -28,14 +44,14 @@
                                         <i class="fa fa-send"></i>
                                         <input type="text" class="fld" id="search-location" name="location" value="{{$city}}" onchange="checkLocation(this)">
                                     </div>
-                                    {{--<div class="clm">
+                                    <div class="clm">
                                         <i class="fa fa-calendar"></i>
                                         <input type='text' class="fld event-start-date" id="search-start-date" name="event-start-date"/>
                                     </div>
                                     <div class="clm">
                                         <i class="fa fa-calendar"></i>
                                         <input type='text' class="fld event-end-date" id="search-end-date" name="event-end-date"/>
-                                    </div>--}}
+                                    </div>
                                     <div class="clm third_clm">
                                         <button class="search_btn" type="submit" id="search-button">Search</button>
                                     </div>
@@ -54,20 +70,25 @@
             <div class="container">
                 <div class="circle-logo-wrap clearfix">
                     <div class="circle-logo-col cl-item-1">
-                        <div class="circle-logo">
-                            <div class="circle-logo-name">Sponsored</div>
-                        </div>
+                        <a href="#">
+                            <div class="circle-logo">
+                                <div class="circle-logo-name">Sponsored</div>
+                            </div>
+                        </a>
                     </div><!-- /.circle-logo-col -->
                     <div class="circle-logo-col cl-item-2">
-                        <div class="circle-logo">
-                            <div class="circle-logo-name">Trending Events</div>
-                        </div>
+                        <a href="#">
+                            <div class="circle-logo">
+                                <div class="circle-logo-name">Trending Events</div>
+                            </div>
+                        </a>
                     </div><!-- /.circle-logo-col -->
                     <div class="circle-logo-col cl-item-3">
-                        <div class="circle-logo">
-                            <div class="circle-logo-img"><img src="{{asset('img/logos/logo-icon.png')}}" alt="Circle
-                        Logo"></div>
-                        </div>
+                        <a href="#">
+                            <div class="circle-logo">
+                                <div class="circle-logo-img"><img src="{{asset('img/logos/logo-icon.png')}}" alt="Circle Logo"></div>
+                            </div>
+                        </a>
                     </div><!-- /.circle-logo-col -->
                     <div class="circle-logo-col cl-item-4">
                         <a href="{{url('event/hot-deals')}}">
@@ -77,9 +98,11 @@
                         </a>
                     </div><!-- /.circle-logo-col -->
                     <div class="circle-logo-col cl-item-5">
-                        <div class="circle-logo">
-                            <div class="circle-logo-name">Exclusive Events</div>
-                        </div>
+                        <a href="#">
+                            <div class="circle-logo">
+                                <div class="circle-logo-name">Exclusive Events</div>
+                            </div>
+                        </a>
                     </div><!-- /.circle-logo-col -->
                 </div>
             </div>
@@ -225,126 +248,129 @@
                     </div>
                 </div>
             </div>
-    </section><!-- /.landmarks-listings-section -->
-    <section class="explore-cities-section">
-        <div class="container">
-            <div class="heading-title-wrap clearfix">
-                <div class="heading-title-left">
-                    <h4 class="heading-subtitle">Fun In All Forms </h4>
-                    <h2 class="heading-title">Categories</h2>
-                </div>
-                <div class="heading-dis">
-                    <p>Discover all there is to offer with an abundance of exciting genres  to choose from.</p>
-                </div>
-            </div>
-            <div class="explore-cities-wrap">
-                <div class="row">
-                    @foreach($categories as $category)
-                        <div class="col-sm-4">
-                            <div class="ex-cities-item-wrap">
-                                <a href="javascript:void(0)">
-                                    <div class="ex-cities-img-box">
-                                        <img src="{{$categoriesPath['web_path'].$category->image}}" />
-                                    </div>
-                                    <div class="ex-cities-title-wrap">
-                                        <h3 class="ex-cities-title">{{$category->name}}</h3>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-                    @endforeach
-                </div>
-            </div>
-        </div>
-    </section>
-    <section class="section home-map-section">
-        <div class="home-map-wrap">
-            <div class="map" id="event-map" style="width: 100%; height: 500px;">
-                {!! Mapper::render() !!}
-            </div>
-        </div>
-        <!-- /.home-map-wrap -->
-    </section>
-
-    @if(count($testimonials))
-        <section class="testimonial-section">
-            <div class="container">
-                <div class="testimonial-wrap owl-carousel owl-theme">
-                    @foreach($testimonials as $testimonial)
-                        <div class="items">
-                            <div class="testimonial-content text-center">
-                                <div class="testimonial-profile-img">
-                                    <img src="{{ $testimonialsPath['web_path'].$testimonial->image}}">
-                                </div>
-                                <div class="testimonial-dis">
-                                    <p>{{str_limit($testimonial->description, 180)}}</p>
-                                </div>
-                                <div class="testimonial-meta">
-                                    <div class="tml-auther-name">{{$testimonial->name}}</div>
-                                </div>
-                            </div>
-                        </div>
-                    @endforeach
-                </div>
-            </div>
-        </section>
-    @endif
-
-    @if(count($blogs))
-        <section class="section blog-thumb-section">
+        </section><!-- /.landmarks-listings-section -->
+        <section class="explore-cities-section">
             <div class="container">
                 <div class="heading-title-wrap clearfix">
                     <div class="heading-title-left">
-                        <h4 class="heading-subtitle">You Heard It First!</h4>
-                        <h2 class="heading-title">Blogs</h2>
+                        <h4 class="heading-subtitle">Fun In All Forms </h4>
+                        <h2 class="heading-title">Categories</h2>
                     </div>
                     <div class="heading-dis">
-                        <p>Stay up to date with the latest news and trends </p>
+                        <p>Discover all there is to offer with an abundance of exciting genres  to choose from.</p>
                     </div>
                 </div>
-                <div class="blog-thumb-wrap">
-                    <div class="blog-thumbnail-slider owl-carousel owl-theme">
-                        @foreach($blogs as $blog)
-                            <div class="item">
-                                <div class="blog-thumb-inner">
-                                    <div class="blog-thumb-media">
-                                        <div class="blog-thumb-img">
-                                            <a href="{{url('blogs/'.$blog->encrypted_id)}}">
-                                                <img src="{{$blog->directory.$blog->image}}" alt="Blog image">
-                                            </a>
-                                        </div>
-                                        <div class="blog-thumb-date">
-                                            <div class="blog-thumb-day">{{$blog->created_at->day}}</div>
-                                            <div class="blog-thumb-month">{{get_month($blog->created_at)}}</div>
-                                        </div>
-                                    </div><!-- /.blog-thumb-media -->
-                                    <div class="blog-thumb-content">
-                                        <h3 class="blog-thumb-title">
-                                            <a href="{{url('blogs/'.$blog->encrypted_id)}}">{{$blog->title}}</a>
-                                        </h3>
-                                        <div class="blog-thumb-des">
-                                            {!!  str_limit($blog->description, 300) !!}
-                                        </div>
-                                        <div class="blog-thumb-btn">
-                                            <a class="btn" href="{{url('blogs/'.$blog->encrypted_id)}}">Read More <i class="fa fa-arrow-circle-o-right"></i></a>
-                                        </div>
-                                    </div><!-- /.blog-thumb-content -->
+                <div class="explore-cities-wrap">
+                    <div class="row">
+                        @foreach($categories as $key=>$category)
+                            @if($key<=5)
+                                <div class="col-sm-4">
+                                    <div class="ex-cities-item-wrap">
+                                        <a href="javascript:void(0)">
+                                            <div class="ex-cities-img-box">
+                                                <img src="{{$categoriesPath['web_path'].$category->image}}" />
+                                            </div>
+                                            <div class="ex-cities-title-wrap">
+                                                <h3 class="ex-cities-title">{{$category->name}}</h3>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                            @endif
+                        @endforeach
+                    </div>
+                    <div class="text-center"><a href="{{route('all-categories')}}"><strong>View All Categories</strong></a></div>
+                </div>
+            </div>
+        </section>
+        <section class="section home-map-section">
+            <div class="home-map-wrap">
+                <div class="map" id="event-map" style="width: 100%; height: 500px;">
+                    {!! Mapper::render() !!}
+                </div>
+            </div>
+            <!-- /.home-map-wrap -->
+        </section>
+
+        @if(count($testimonials))
+            <section class="testimonial-section">
+                <div class="container">
+                    <div class="testimonial-wrap owl-carousel owl-theme">
+                        @foreach($testimonials as $testimonial)
+                            <div class="items">
+                                <div class="testimonial-content text-center">
+                                    <div class="testimonial-profile-img">
+                                        <img src="{{ $testimonialsPath['web_path'].$testimonial->image}}">
+                                    </div>
+                                    <div class="testimonial-dis">
+                                        <p>{{str_limit($testimonial->description, 180)}}</p>
+                                    </div>
+                                    <div class="testimonial-meta">
+                                        <div class="tml-auther-name">{{$testimonial->name}}</div>
+                                    </div>
                                 </div>
                             </div>
                         @endforeach
                     </div>
                 </div>
-                <input type="hidden" name="cur_lat_name" id="cur_lat" value="">
-                <input type="hidden" name="cur_lng_name" id="cur_lng" value="">
-            </div>
-        </section><!-- /.blog-thumb-section -->
+            </section>
         @endif
-        </div><!-- /.main-content -->
-        <meta name="csrf-token" content="{{ csrf_token() }}">
-        <style type="text/css">
-            .checked {
-                color: orange;
-            }
-        </style>
-        <script type="text/javascript" src="{{asset('js/custom/search.js')}}"></script>
+
+        @if(count($blogs))
+            <section class="section blog-thumb-section">
+                <div class="container">
+                    <div class="heading-title-wrap clearfix">
+                        <div class="heading-title-left">
+                            <h4 class="heading-subtitle">You Heard It First!</h4>
+                            <h2 class="heading-title">Blogs</h2>
+                        </div>
+                        <div class="heading-dis">
+                            <p>Stay up to date with the latest news and trends </p>
+                        </div>
+                    </div>
+                    <div class="blog-thumb-wrap">
+                        <div class="blog-thumbnail-slider owl-carousel owl-theme">
+                            @foreach($blogs as $blog)
+                                <div class="item">
+                                    <div class="blog-thumb-inner">
+                                        <div class="blog-thumb-media">
+                                            <div class="blog-thumb-img">
+                                                <a href="{{url('blogs/'.$blog->encrypted_id)}}">
+                                                    <img src="{{$blog->directory.$blog->image}}" alt="Blog image">
+                                                </a>
+                                            </div>
+                                            <div class="blog-thumb-date">
+                                                <div class="blog-thumb-day">{{$blog->created_at->day}}</div>
+                                                <div class="blog-thumb-month">{{get_month($blog->created_at)}}</div>
+                                            </div>
+                                        </div><!-- /.blog-thumb-media -->
+                                        <div class="blog-thumb-content">
+                                            <h3 class="blog-thumb-title">
+                                                <a href="{{url('blogs/'.$blog->encrypted_id)}}">{{$blog->title}}</a>
+                                            </h3>
+                                            <div class="blog-thumb-des">
+                                                {!!  str_limit($blog->description, 300) !!}
+                                            </div>
+                                            <div class="blog-thumb-btn">
+                                                <a class="btn" href="{{url('blogs/'.$blog->encrypted_id)}}">Read More <i class="fa fa-arrow-circle-o-right"></i></a>
+                                            </div>
+                                        </div><!-- /.blog-thumb-content -->
+                                    </div>
+                                </div>
+                            @endforeach
+                        </div>
+                    </div>
+                    <input type="hidden" name="cur_lat_name" id="cur_lat" value="">
+                    <input type="hidden" name="cur_lng_name" id="cur_lng" value="">
+                </div>
+            </section><!-- /.blog-thumb-section -->
+        @endif
+    </div><!-- /.main-content -->
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <style type="text/css">
+        .checked {
+            color: orange;
+        }
+    </style>
+    <script type="text/javascript" src="{{asset('js/custom/search.js')}}"></script>
 @endsection

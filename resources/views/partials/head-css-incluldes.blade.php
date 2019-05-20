@@ -48,4 +48,7 @@
     <!-- dispute  Style -->
     <link href="{{asset('css/dispute.css')}}" rel="stylesheet" type="text/css">
 
+    {{--Bootstrap Datetimepicker--}}
+{{--    <link rel="stylesheet" href="{{asset('css/eventpage/bootstrap-datetimepicker.min.css')}}">--}}
+
 </head>
