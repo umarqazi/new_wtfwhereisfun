@@ -100,6 +100,7 @@ class MainController extends Controller
      */
     public function searchEvents(Request $request)
     {
+//        print_r($request->all());
         $response = $this->eventFilterService->searchEvents($request->all());
         if ($request->has('type')){
             return response()->json([

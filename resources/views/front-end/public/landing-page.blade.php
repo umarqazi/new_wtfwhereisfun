@@ -22,12 +22,12 @@
                 </div>
             </div>
         </div>
-        <div class="explore-search-wrap white-text">
+        <div class="explore-search-wrap">
             <div class="container">
                 <div class="explore-search-content">
                     <div class="explore-search-head">
-                        <span class="es-head-subtitle">Explore This City</span>
-                        <h1 class="es-head-title">What's Happening in Your City</h1>
+                        <span class="es-head-subtitle white-text">Explore This City</span>
+                        <h1 class="es-head-title white-text">What's Happening in Your City</h1>
                     </div>
                     <div class="explore-search-form-wrap">
                         <form class="explore-search-form" id="search-events-form" action="{{url('search-events')}}" method="post" autocomplete="off">
@@ -53,7 +53,7 @@
                                         <input type='text' class="fld event-end-date" id="search-end-date" name="event-end-date"/>
                                     </div>
                                     <div class="clm third_clm">
-                                        <button class="search_btn" type="submit" id="search-button">Search</button>
+                                        <button class="search_btn white-text" type="submit" id="search-button">Search</button>
                                     </div>
                                 </div>
                             </div><!-- /.es-field-wrap -->
