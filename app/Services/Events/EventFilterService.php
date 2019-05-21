@@ -4,17 +4,20 @@ namespace App\Services\Events;
 
 use App\EventOrder;
 use App\Repositories\EventLocationRepo;
+use App\Repositories\EventRepo;
 use App\Services\Events\EventTicketService;
 use App\Services\Events\EventOrderService;
 use Carbon\Carbon;
 class EventFilterService
 {
     protected $eventLocationRepo;
+    protected $eventRepo;
     protected $eventTicketService;
     protected $eventOrderService;
 
     public function __construct()
     {
+        $this->eventRepo            = new EventRepo;
         $this->eventLocationRepo    = new EventLocationRepo;
         $this->eventTicketService   = new EventTicketService;
         $this->eventOrderService    = new EventOrderService;
@@ -62,6 +65,12 @@ class EventFilterService
         }
         $response['results'] = $searchResults;
         return $response;
+    }
+
+    public function searchEventsByCategory($id)
+    {
+        $searchResults = $this->eventRepo->getEventsByCategory($id);
+        return $searchResults;
     }
 
 }

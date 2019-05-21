@@ -29,6 +29,9 @@
     <!-- Sweet Alert Style -->
     <link href="{{asset('css/sweetalert2.min.css')}}" rel="stylesheet" type="text/css">
 
+    <!-- Select2 Style -->
+    <link href="{{asset('css/select2.min.css')}}" rel="stylesheet" type="text/css">
+
     <!-- Nexas Theme Files-->
     <link rel="stylesheet" href="{{asset('nexa/plugins/jvectormap/jquery-jvectormap-2.0.3.css')}}"/>
     <link rel="stylesheet" href="{{asset('nexa/plugins/morrisjs/morris.css')}}" />

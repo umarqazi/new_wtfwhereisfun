@@ -162,4 +162,8 @@ class EventRepo
     public function updateStripeProductId($eventId, $product){
         return $this->eventModel->where('id', $eventId)->update(['stripe_product_id' => $product['id']]);
     }
+
+    public function getEventsByCategory($id){
+        return $this->eventModel->where('category_id', $id)->get();
+    }
 }

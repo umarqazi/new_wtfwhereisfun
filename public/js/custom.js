@@ -72,6 +72,14 @@ $('.event-slider').owlCarousel({
     }
 });
 
+// Event Category Filter
+//========================================
+jQuery(document).ready(function(){
+    $('#category-filter').select2({
+        placeholder: 'Select an Category'
+    });
+});
+
 // Email adress change
 //========================================
 jQuery(document).ready(function(){
