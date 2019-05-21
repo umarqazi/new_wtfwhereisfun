@@ -596,6 +596,24 @@ $(document).on('change','select#event_sub_topic',function() {
 });
 
 /*****************************************************************************
+ ************************* Category Filter Events **************************
+ ******************************************************************************/
+
+$(document).on('change','#category-filter',function() {
+    var value = $(this).val();
+    console.log(value);
+
+    $.ajax({
+        url  : "{!! route('category-filter') !!}",
+        type : "POST",
+        data : {'id': value },
+        success: function(response){
+            console.log(response);
+        }
+    });
+});
+
+/*****************************************************************************
  *************************Event Location Form **************************
  ******************************************************************************/
 function eventLocationForm(event, obj, type){

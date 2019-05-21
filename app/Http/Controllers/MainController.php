@@ -100,6 +100,7 @@ class MainController extends Controller
      */
     public function searchEvents(Request $request)
     {
+//        print_r($request->all());
         $response = $this->eventFilterService->searchEvents($request->all());
         if ($request->has('type')){
             return response()->json([
@@ -111,6 +112,12 @@ class MainController extends Controller
             $location       = $this->eventLocationService->getUserLocation();
             return View('front-end.events.events-search')->with(['locationEvents' => $response['results'], 'count' => $response['count'], 'city' => $location['city'],'data' => $request->all()]);
         }
+    }
+
+    public function searchEventsByCategory(){
+        $id = $_POST['id'];
+        $events = $this->eventFilterService->searchEventsByCategory($id);
+        return json_encode($events);
     }
 
     /**

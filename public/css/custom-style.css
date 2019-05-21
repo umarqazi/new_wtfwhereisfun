@@ -4795,6 +4795,23 @@ a > img{
    background: rgba(0,0,0,0.3);
 }
 
+.events-filter .select2-selection{
+   height: 40px;
+}
+.events-filter .select2-selection__rendered{
+   line-height: 40px !important;
+}
+.events-filter .select2-selection__arrow{
+   height: 40px !important;
+}
+
+.events-filter{
+   display: inline-block;
+   float: right;
+   margin-top: 20px;
+   width: 25%;
+}
+
 
 .contactUs_title{
    padding: 30px 0px 0px 18px;

@@ -116,13 +116,13 @@ class EventTimeLocation extends Model
     public function scopeEventsByDate($query, $start = null, $end = null)
     {
         if (!empty($start) && !empty($end)){
-            return $query->where('starting', '<=', $start)->where('ending', '>=',$end);
+            return $query->where('starting', '>=', $start)->where('ending', '<=',$end);
         } elseif (!empty($start)){
-            return $query->where('starting', '<=', $start);
+            return $query->where('starting', '>=', $start);
         } elseif (!empty($end)) {
-            return $query->where('ending', '>=', $end);
+            return $query->where('ending', '<=', $end);
         } else {
-            return $query->where('starting', '<=',  Carbon::today()->toDateString())->where('ending', '>=', Carbon::today()->toDateString());
+            return $query->where('starting', '>=',  Carbon::today()->toDateString())->where('ending', '<=', Carbon::today()->toDateString());
         }
     }
 
