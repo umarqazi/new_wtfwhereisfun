@@ -114,6 +114,12 @@ class MainController extends Controller
         }
     }
 
+    public function searchEventsByCategory(){
+        $id = $_POST['id'];
+        $events = $this->eventFilterService->searchEventsByCategory($id);
+        return json_encode($events);
+    }
+
     /**
      * Application registration process.
      *

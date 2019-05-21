@@ -22,7 +22,7 @@ class CategoryController extends Controller
     public function index()
     {
         $categories = $this->categoryService->getAll();
-        return view('front-end.category.index', $categories);
+        return view('front-end.category.index', compact('categories'));
     }
 
     /**
