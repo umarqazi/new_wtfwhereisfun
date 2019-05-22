@@ -142,4 +142,16 @@ class EventLocationRepo
         $searchResults = $locationWise->merge($collection);
         return $searchResults;
     }
+
+    public function getEventsByCategory($id){
+        return $locationWise = $this->eventLocationModel->futureEvents()->whereHas('event', function($query) use ($id){
+                                $query->publishedEvents()->publicAccess()->searchByCategory($id);
+                               })->get();
+    }
+
+    public function getAllUpComingEvents(){
+        return $locationWise = $this->eventLocationModel->futureEvents()->whereHas('event', function($query){
+            $query->publishedEvents()->publicAccess();
+        })->get();
+    }
 }

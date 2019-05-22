@@ -601,14 +601,12 @@ $(document).on('change','select#event_sub_topic',function() {
 
 $(document).on('change','#category-filter',function() {
     var value = $(this).val();
-    console.log(value);
-
     $.ajax({
-        url  : "{!! route('category-filter') !!}",
-        type : "POST",
+        url  : base_url() + "/category-filter",
+        type : "GET",
         data : {'id': value },
         success: function(response){
-            console.log(response);
+            $('.events_container').html(response['results']);
         }
     });
 });
