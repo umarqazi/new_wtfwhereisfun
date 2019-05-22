@@ -73,6 +73,12 @@
                             </div><!-- /.card -->
                         </div>
                     @endforeach
+                @else
+                    <div class="col-md-12">
+                        <div class="no-events">
+                            <h4>No Events Found</h4>
+                        </div>
+                    </div>
                 @endif
             </div>
         </div>
