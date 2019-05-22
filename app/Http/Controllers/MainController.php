@@ -102,7 +102,6 @@ class MainController extends Controller
      */
     public function searchEvents(Request $request)
     {
-//        print_r($request->all());
         $response = $this->eventFilterService->searchEvents($request->all());
         if ($request->has('type')){
             return response()->json([
@@ -116,10 +115,22 @@ class MainController extends Controller
         }
     }
 
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function getAllCategories(){
+        $result['categories'] = $this->categoryServices->getAll();
+        $result['events'] = $this->eventFilterService->getAllUpComingEvents();
+        return view('front-end.category.index', compact('result'));
+    }
+
+    /**
+     * @return array
+     */
     public function searchEventsByCategory(){
-        $id = $_POST['id'];
+        $id = $_GET['id'];
         $events = $this->eventFilterService->searchEventsByCategory($id);
-        return json_encode($events);
+        return $events;
     }
 
     /**

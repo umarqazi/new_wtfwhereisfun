@@ -27,6 +27,10 @@ class EventFilterService
         return $this->eventLocationRepo->getPastEvents($startDate, $endDate, $userId);
     }
 
+    public function getAllUpComingEvents(){
+        return $this->eventLocationRepo->getAllUpComingEvents();
+    }
+
     public function getEventsEarningByTime($timeLocations){
         $timeLocationIds = $timeLocations->pluck('id')->toArray();
         $tickets         = $this->eventTicketService->getTicketsByLocation($timeLocationIds);
@@ -69,8 +73,11 @@ class EventFilterService
 
     public function searchEventsByCategory($id)
     {
-        $searchResults = $this->eventRepo->getEventsByCategory($id);
-        return $searchResults;
+        $searchResults = $this->eventLocationRepo->getEventsByCategory($id);
+        $response = [];
+        $response['count'] = count($searchResults);
+        $response['results'] = searchEventsByCategory($searchResults, $response['count']);
+        return $response;
     }
 
 }
