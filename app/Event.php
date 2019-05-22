@@ -229,6 +229,11 @@ class Event extends Model
         return $query->orWhere('description', 'like', '%'.$description.'%');
     }
 
+    public function scopeSearchByCategory($query, $id)
+    {
+        return $query->where('category_id', $id);
+    }
+
     /**
      * Scope a query to get Description Keyword Search.
      *

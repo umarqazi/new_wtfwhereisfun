@@ -61,23 +61,23 @@ if (! function_exists('addNewTimeLocationRow')) {
                                     <label>Display Currency <span class=\"required-field\">*</span></label>
                                     <select name=\"display_currency\" id=\"currencynew\">
                                         <option disabled value=\"\" selected>Select Display Currency</option>"
-                                        .$displayCurrencyOptions.
-                                    "</select>
+            .$displayCurrencyOptions.
+            "</select>
                                 </div>
                                 <div class=\"display-currency\">
                                     <label>Transacted Currency <span class=\"required-field\">*</span></label>
                                     <select name=\"transacted_currency\">
                                         <option disabled value=\"\" selected>Select Transacted Currency</option>"
-                                            .$transactedCurrencyOptions.
-                                    "</select>
+            .$transactedCurrencyOptions.
+            "</select>
                                 </div>
                             </div>
                             <div class=\"form-group\">
                                 <label>Timezones <span class=\"required-field\">*</span></label>
                                 <select name=\"timezone\">
                                     <option disabled value=\"\" selected>Select Timezone</option>"
-                                    .$timeZonesOptions.
-                                "</select>
+            .$timeZonesOptions.
+            "</select>
                                  <div class=\"form-error timezone\"></div>   
                             </div>
                             <div class=\"form-group\">
@@ -94,8 +94,8 @@ if (! function_exists('addNewTimeLocationRow')) {
                         <div class=\"col-sm-6\">
                             <div class=\"location_map\" id=\"location_map\">
                                 <div style=\"width: 450px; height: 307px;\">".
-                                    $map
-                                ."</div>
+            $map
+            ."</div>
                             </div>
                         </div>
                     </form>
@@ -112,8 +112,8 @@ if (! function_exists('addNewTimeLocationRow')) {
             }
             $html = "<div class=\"ticket-main-wrapper passmain_content\">
                         <div class=\"ticket-type\"><h4>"
-                            .title_case($request->type).
-                        " Ticket</h4></div>
+                .title_case($request->type).
+                " Ticket</h4></div>
                         <form method=\"post\" onsubmit=\"eventTicketForm(event, this)\" class=\"form-editable\">
                             <div class=\"ticket-content\">
                                 <ul class=\"listTable_row table_row  clearfix\">
@@ -137,8 +137,8 @@ if (! function_exists('addNewTimeLocationRow')) {
                                         <label>Ticket Time & Location <span class=\"required-field\">*</span></label>
                                         <select class=\"form-control\" name=\"time_location_id\">
                                             <option value=\"\" selected disabled>Select Time & Location</option>".
-                                            $timeLocationHtml
-                                            ."</select>
+                $timeLocationHtml
+                ."</select>
                                         <div class=\"form-error time_location_id\"></div>
                                     </li>                             
                                     <li>                                      
@@ -328,6 +328,49 @@ if (! function_exists('addNewTimeLocationRow')) {
                 $result .= "<li><span>{$count} Results Found </span><input class='search-submit' type='submit' value='See All'></li>";
             }else{
                 $result .= "<li>No Events Found</li>";
+            }
+            return $result;
+        }
+    }
+
+    if (! function_exists('searchEventsByCategory')) {
+        function searchEventsByCategory($searchResults, $count)
+        {
+            $result = '';
+            $result .= '<div class="col-md-12"><h3 class="event-listing-heading">Search Results</h3>';
+            if($count > 0){
+                $result .= '<p>'.$count." ".str_plural('Event', (int)$count) .' Found</p>';
+            }
+            $result .= '</div>';
+            if(count($searchResults)) {
+                foreach ($searchResults as $location) {
+                    $result .= '<div class="col-md-3"><div class="card"><div class="card-inner"><div class="card-image">';
+
+                    $link = route('showById', ['id' => $location->event->encrypted_id, 'locationId' => $location->encrypted_id]);
+
+                    if (empty($location->event->header_image)) {
+                        $img = asset('img/dummy.png');
+                    } else {
+                        $img = $location->event->directory . $location->event->header_image;
+                    }
+
+                    $result .= '<a href="' . $link . '" style="background-image: url(' . $img . ');" target="_blank"><span><i class="fa fa-search"></i></span></a>';
+                    $result .= '<div class="card-actions"><a href="#"><i class="fa fa-bookmark"></i> <span>Save</span></a><a href="#"><i class="fa fa-heart"></i> <span>Like</span></a></div></div>';
+                    $result .= '<div class="card-content"><div class="event-organizer-thumbnail">';
+
+                    if (empty($location->event->organizer->thumbnail)) {
+                        $img = asset('img/default-148.png');
+                    } else {
+                        $img = $location->event->organizer->directory . $location->event->organizer->thumbnail;
+                    }
+
+                    $result .= '<img src="' . $img . '" alt="Organizer Image"></div><div class="card-date"><strong>' . $location->starting->day . '</strong><span>' . get_month($location->starting) . '</span></div>';
+                    $result .= '<h3 class="card-title"><a href="' . $link . '" target="_blank">' . $location->event->title . '</a></h3>';
+                    $result .= '<h4 class="card-subtitle date-location"><p><a href="' . $link . '" target="_blank"><i class="fa fa-calendar green"></i>' . $location->starting->format("D, M d").'-'. $location->ending->format("D, M d") . '</a></p><p><a href="' . $link . '" target="_blank"><i class="fa fa-map-marker green"></i>' . $location->location . '</a></p></h4>';
+                    $result .= '</div></div></div></div>';
+                }
+            } else {
+                $result .= '<div class="col-md-12"><div class="no-events"><h4>No Events Found</h4></div></div>';
             }
             return $result;
         }
