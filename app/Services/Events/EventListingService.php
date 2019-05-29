@@ -13,8 +13,9 @@ class EventListingService extends BaseService implements IService
 
     public function __construct()
     {
-        $this->eventRepo            = new EventRepo();
-        $this->eventLocationRepo    = new EventLocationRepo();
+        $this->eventRepo                    = new EventRepo();
+        $this->eventLocationRepo            = new EventLocationRepo();
+        $this->eventRevenueService          = new EventRevenueService();
     }
 
     public function getLiveEvents($vendorId = null){
@@ -68,6 +69,20 @@ class EventListingService extends BaseService implements IService
 
     public function getAllEventsByTimeAndLocation($vendorId = null){
         return $this->eventLocationRepo->getAllEventsByTime($vendorId);
+    }
+
+    public function getTrendingEvents()
+    {
+        $trending_events = array();
+        $events = $this->eventLocationRepo->trendingEvents();
+
+        foreach ($events as $event){
+            $ticketsSold = $this->eventRevenueService->getPercentageTicketsSoldByLocation($event['id']);
+            if ($ticketsSold >= 40){
+                array_push($trending_events, $event);
+            }
+        }
+        return $trending_events;
     }
 
 }

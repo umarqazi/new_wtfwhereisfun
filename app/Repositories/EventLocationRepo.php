@@ -110,6 +110,13 @@ class EventLocationRepo
         return $hotDeals;
     }
 
+    public function trendingEvents(){
+        $trendingEvents = $this->eventLocationModel->futureEvents()->whereHas('event', function($query){
+            $query->publishedEvents()->publicAccess();
+        })->get();
+        return $trendingEvents;
+    }
+
     public function search($data){
         $start_date = empty($data['event-start-date']) ? null : date('Y-m-d', strtotime($data['event-start-date']));
         $end_date = empty($data['event-end-date']) ? null : date('Y-m-d', strtotime($data['event-end-date']));
@@ -145,8 +152,8 @@ class EventLocationRepo
 
     public function getEventsByCategory($id){
         return $locationWise = $this->eventLocationModel->futureEvents()->whereHas('event', function($query) use ($id){
-                                $query->publishedEvents()->publicAccess()->searchByCategory($id);
-                               })->get();
+            $query->publishedEvents()->publicAccess()->searchByCategory($id);
+        })->get();
     }
 
     public function getAllUpComingEvents(){

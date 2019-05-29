@@ -365,8 +365,8 @@ if (! function_exists('addNewTimeLocationRow')) {
                     }
 
                     $result .= '<img src="' . $img . '" alt="Organizer Image"></div><div class="card-date"><strong>' . $location->starting->day . '</strong><span>' . get_month($location->starting) . '</span></div>';
-                    $result .= '<h3 class="card-title"><a href="' . $link . '" target="_blank">' . $location->event->title . '</a></h3>';
-                    $result .= '<h4 class="card-subtitle date-location"><p><a href="' . $link . '" target="_blank"><i class="fa fa-calendar green"></i>' . $location->starting->format("D, M d").'-'. $location->ending->format("D, M d") . '</a></p><p><a href="' . $link . '" target="_blank"><i class="fa fa-map-marker green"></i>' . $location->location . '</a></p></h4>';
+                    $result .= '<h3 class="card-title"><a href="' . $link . '">' . $location->event->title . '</a></h3>';
+                    $result .= '<h4 class="card-subtitle date-location"><p><a href="' . $link . '"><i class="fa fa-calendar green"></i>' . $location->starting->format("D, M d").'-'. $location->ending->format("D, M d") . '</a></p><p><a href="' . $link . '"><i class="fa fa-map-marker green"></i>' . $location->location . '</a></p></h4>';
                     $result .= '</div></div></div></div>';
                 }
             } else {

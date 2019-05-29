@@ -9,11 +9,6 @@
                         <div class="listing-single__header">
                             <div class="listing-single__title">
                                 <h1>{{$event->title}}</h1>
-                                @if($event->is_approved)
-                                    <span class="listing__icon-notif claimed" data-tooltip="Claimed">
-                                        <i class="fa fa-check-circle"></i>
-                                    </span>
-                                @endif
                             </div>
                             <div class="listing-single__meta">
                                 <div class="listing-single__date">
@@ -25,18 +20,6 @@
                                     <a href="" class="">
                                         @if(!empty($event->category_id)){{$event->category->name}} @else Other @endif
                                     </a>
-                                </div>
-
-                                <div class="listing-single__status">
-                                    <span class="listing-single__label">Status</span>
-                                    <span class="ongroup">
-                                        @if($event->is_approved)
-                                            <span class="onclose green">Live</span>
-                                        @else
-                                            <span class="onclose red">Not Approved</span>
-                                        @endif
-                                        <span class="onopensin yellow">Opens at 06:30:AM today</span>
-                                    </span>
                                 </div>
                             </div>
                         </div>

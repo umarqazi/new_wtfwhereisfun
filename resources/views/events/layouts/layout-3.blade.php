@@ -26,19 +26,6 @@
                                             <a href="" class="">@if(!empty($event->category_id)){{$event->category->name}} @else Other @endif
                                             </a>
                                         </div>
-                                        <div class="listing-single__status">
-                                            <span class="listing-single__label">Status</span>
-                                            <span class="ongroup">
-                                            @if($event->is_approved)
-                                                    <span class="onclose green">Approved</span>
-                                                @else
-                                                    <span class="onclose red">Not Approved</span>
-                                                @endif
-                                                <span class="onopensin yellow">
-                                                Opens at 08:30:AM today
-                                            </span>
-                                        </span>
-                                        </div>
                                     </div>
 
                                 </div>

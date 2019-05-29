@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class EventTicket extends Model
 {
@@ -25,6 +26,15 @@ class EventTicket extends Model
     {
         $completedOrders = $this->orders()->getCompletedOrders()->get();
         return $this->quantity - $completedOrders->sum('quantity');
+    }
+
+    /**
+     * @param $query
+     * @return mixed
+     */
+    public function scopeMaxiumumTicketSold($query){
+        $max = $query->groupBy('time_location_id')->orderBy(\DB::raw('count(time_location_id)'), 'DESC');
+        return $max;
     }
 
     /**

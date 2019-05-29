@@ -563,6 +563,14 @@ class EventController extends Controller
     }
 
     /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function getTrendingEvents(){
+        $trendingEvents = $this->eventListingService->getTrendingEvents();
+        return view('front-end.events.trending-events')->with('trending', $trendingEvents);
+    }
+
+    /**
      * Get Event Time's Location
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response

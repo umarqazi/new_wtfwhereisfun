@@ -61,6 +61,7 @@ Route::group(['middleware' => ['web']], function () {
     Route::post('checkout/stripe', 'PaymentController@stripeCheckout');
 
     Route::get('event/hot-deals', 'EventController@getHotDealEvents');
+    Route::get('event/trending-events', 'EventController@getTrendingEvents');
 
     Route::group(['middleware' => ['auth']], function () {
 
