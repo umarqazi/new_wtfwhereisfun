@@ -77,7 +77,7 @@
                         </a>
                     </div><!-- /.circle-logo-col -->
                     <div class="circle-logo-col cl-item-2">
-                        <a href="#">
+                        <a href="{{url('event/trending-events')}}">
                             <div class="circle-logo">
                                 <div class="circle-logo-name">Trending Events</div>
                             </div>
@@ -141,7 +141,7 @@
                                                             @endphp
                                                         @endif
 
-                                                        <a href="{{$link}}" style="background-image: url({{$img}});" target="_blank">
+                                                        <a href="{{$link}}" style="background-image: url({{$img}});">
                                                             <span><i class="fa fa-search"></i></span>
                                                         </a>
 
@@ -163,12 +163,12 @@
                                                             <span>{{get_month($location->starting)}}</span>
                                                         </div><!-- /.card-date -->
                                                         <h3 class="card-title">
-                                                            <a href="{{$link}}" target="_blank">{{$location->event->title}} @if(!is_null($location->hot_deal)) <span class="badge badge-success pull-right hot-deal-badge">Deal</span>@endif</a>
+                                                            <a href="{{$link}}">{{$location->event->title}} @if(!is_null($location->hot_deal)) <span class="badge badge-success pull-right hot-deal-badge">Deal</span>@endif</a>
                                                         </h3>
 
                                                         <h4 class="card-subtitle date-location">
-                                                            <p><a href="{{$link}}" target="_blank"><i class="fa fa-calendar green"></i> {{$location->starting->format('D, M d')}} - {{$location->ending->format('D, M d')}}</a></p>
-                                                            <p><a href="{{$link}}" target="_blank"><i class="fa fa-map-marker green"></i> {{$location->location}}</a></p>
+                                                            <p><a href="{{$link}}"><i class="fa fa-calendar green"></i> {{$location->starting->format('D, M d')}} - {{$location->ending->format('D, M d')}}</a></p>
+                                                            <p><a href="{{$link}}"><i class="fa fa-map-marker green"></i> {{$location->location}}</a></p>
                                                         </h4>
                                                     </div><!-- /.card-content -->
                                                 </div><!-- /.card-inner -->
@@ -205,7 +205,7 @@
                                                             @endphp
                                                         @endif
 
-                                                        <a href="{{$link}}" style="background-image: url({{$img}});" target="_blank">
+                                                        <a href="{{$link}}" style="background-image: url({{$img}});">
                                                             <span><i class="fa fa-search"></i></span>
                                                         </a>
                                                     </div><!-- /.card-image -->
@@ -226,12 +226,12 @@
                                                             <span>{{get_month($location->starting)}}</span>
                                                         </div><!-- /.card-date -->
                                                         <h3 class="card-title">
-                                                            <a href="{{$link}}" target="_blank">{{$location->event->title}} @if(!is_null($location->hot_deal)) <span class="badge badge-success pull-right hot-deal-badge">Deal</span>@endif</a>
+                                                            <a href="{{$link}}">{{$location->event->title}} @if(!is_null($location->hot_deal)) <span class="badge badge-success pull-right hot-deal-badge">Deal</span>@endif</a>
                                                         </h3>
 
                                                         <h4 class="card-subtitle date-location">
-                                                            <p><a href="{{$link}}" target="_blank"><i class="fa fa-calendar green"></i> {{$location->starting->format('D, M d')}} - {{$location->ending->format('D, M d')}}</a></p>
-                                                            <p><a href="{{$link}}" target="_blank"><i class="fa fa-map-marker green"></i> {{$location->location}}</a></p>
+                                                            <p><a href="{{$link}}"><i class="fa fa-calendar green"></i> {{$location->starting->format('D, M d')}} - {{$location->ending->format('D, M d')}}</a></p>
+                                                            <p><a href="{{$link}}"><i class="fa fa-map-marker green"></i> {{$location->location}}</a></p>
                                                         </h4>
                                                     </div><!-- /.card-content -->
                                                 </div><!-- /.card-inner -->

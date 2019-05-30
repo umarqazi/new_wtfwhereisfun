@@ -61,12 +61,12 @@
                                             <span>{{get_month($event->starting)}}</span>
                                         </div><!-- /.card-date -->
                                         <h3 class="card-title">
-                                            <a href="{{$link}}" target="_blank">{{$event->event->title}}</a>
+                                            <a href="{{$link}}">{{$event->event->title}}</a>
                                         </h3>
 
                                         <h4 class="card-subtitle date-location">
-                                            <p><a href="{{$link}}" target="_blank"><i class="fa fa-calendar green"></i> {{$event->starting->format('D, M d')}} - {{$event->ending->format('D, M d')}}</a></p>
-                                            <p><a href="{{$link}}" target="_blank"><i class="fa fa-map-marker green"></i> {{$event->location}}</a></p>
+                                            <p><a href="{{$link}}"><i class="fa fa-calendar green"></i> {{$event->starting->format('D, M d')}} - {{$event->ending->format('D, M d')}}</a></p>
+                                            <p><a href="{{$link}}"><i class="fa fa-map-marker green"></i> {{$event->location}}</a></p>
                                         </h4>
                                     </div><!-- /.card-content -->
                                 </div><!-- /.card-inner -->

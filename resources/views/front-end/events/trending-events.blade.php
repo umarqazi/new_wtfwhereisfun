@@ -1,15 +1,15 @@
 @extends('layouts.master')
-@section('title', "Hot Deal Events ")
+@section('title', "Trending Events ")
 @section('content')
     <div class="container">
         <div class="main-top-padding">
             <div class="public-event-listing">
                 <div class="row">
                     <div class="col-md-12">
-                        <h3 class="event-listing-heading">Hot Deal Events</h3>
+                        <h3 class="event-listing-heading">Trending Events</h3>
                     </div>
-                    @if(count($hotDeals))
-                        @foreach($hotDeals as $location)
+                    @if(count($trending))
+                        @foreach($trending as $location)
                             <div class="col-md-3">
                                 <div class="card">
                                     <div class="card-inner">
@@ -62,7 +62,7 @@
                         @endforeach
                     @else
                         <div class="col-md-12">
-                            <p><strong>No Hot Deals Found!</strong></p>
+                            <p><strong>No Trending Events Found!</strong></p>
                         </div>
                     @endif
                 </div>

@@ -149,25 +149,6 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="acnt-adrs-innertitle">
-                                            <h3>Customize your colors</h3>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-sm-3 form-group orgenizer-color-change">
-                                                <label for="">Background <span class="required-field">*</span> </label>
-                                                <input class="form-control" name="backgroud_color" onchange="manageColors('BG',this.value);" required="" type="color">
-                                                <div class="form-error backgroud_color"></div>
-                                            </div>
-                                            <div class="col-sm-3 form-group orgenizer-color-change">
-                                                <label for="">Text <span class="required-field">*</span></label>
-                                                <input class="form-control" name="text_color" onchange="manageColors('TC',this.value);" required type="color">
-                                                <div class="form-error text_color"></div>
-                                            </div>
-                                            <div class="col-sm-6 form-group">
-                                                <label for="">Color preview</label>
-                                                <div class="color-preview">This is your text color </div>
-                                            </div>
-                                        </div>
                                     </div>
                                 </div>
                                 <div class="col-xs-12 col-sm-5 col-md-4">
