@@ -29,9 +29,7 @@ class StoreOrganizer extends FormRequest
             'email'             =>  'sometimes|required|email',
             'location'          =>  'sometimes|required|string',
             'contact'           =>  'sometimes|required',
-            'website'           =>  'sometimes|required|url',
-            'background_color'  =>  'sometimes|required|string',
-            'text_color'        =>  'sometimes|required|string'
+            'website'           =>  'sometimes|required|url'
         ];
     }
 

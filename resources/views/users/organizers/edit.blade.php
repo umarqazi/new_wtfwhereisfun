@@ -231,36 +231,6 @@
                             </div>
                         </div>
                     </div>
-
-                    <div id="color-customizations" class="tab-pane fade in">
-                        <div class="contc-detail-wrap">
-                            <div class="acnt-adrs-innertitle">
-                                <h4>Customize your colors</h4>
-                            </div>
-                            <div class="contc-detail-inner">
-                                <form method="post" id="organizer-color-customization">
-                                    <div class="row">
-                                        <div class="col-sm-3 form-group orgenizer-color-change">
-                                            <label for="">Background</label>
-                                            <input class="form-control" name="background_color" value="{{$organizer->background_color}}" onchange="manageColors('BG',this.value)" required="" type="color">
-                                            <div class="form-error background_color"></div>
-                                        </div>
-                                        <div class="col-sm-3 form-group orgenizer-color-change">
-                                            <label for="">Text</label>
-                                            <input class="form-control" name="text_color" value="{{$organizer->text_color}}" onchange="manageColors('TC',this.value)" required="" type="color">
-                                            <div class="form-error text_color"></div>
-                                        </div>
-                                        <div class="col-sm-6 form-group">
-                                            <label for="">Color preview</label>
-                                            <div class="color-preview">This is your text color </div>
-                                        </div>
-                                    </div>
-                                    <input type="hidden" value="{{$organizerId}}" name="organizer_id">
-                                    <button type="submit" class="btn btn-default organizer-btn rounded-border">Save</button>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>

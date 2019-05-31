@@ -21,17 +21,6 @@
                                             @if(!empty($event->category_id)){{$event->category->name}} @else Other @endif
                                         </a>
                                     </div>
-
-                                    <div class="listing-single__status">
-                                        <span class="listing-single__label">Status</span>
-                                        <span class="ongroup">
-                                        @if($event->is_approved)
-                                                <span class="onopen green">Approved</span>
-                                            @else
-                                                <span class="onopen red">Not Approved</span>
-                                            @endif
-                                    </span>
-                                    </div>
                                 </div>
 
                             </div>
