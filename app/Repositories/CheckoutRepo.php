@@ -15,17 +15,19 @@ class CheckoutRepo
     public function storeOrderDetails($userId, $ticket, $orderDetails, $stripeOrder){
         $qty = (int) $orderDetails['quantity'];
         $order = [
-            'event_id'      =>      $ticket->event->id,
-            'user_id'       =>      $userId,
-            'ticket_id'     =>      $ticket->id,
-            'quantity'      =>      $qty,
-            'ticket_price'  =>      $ticket->price,
-            'payment_method'=>      'stripe',
-            'transaction_id'=>      $stripeOrder['charge'],
-            'payment_gross' =>      $stripeOrder['amount']/100,
-            'currency_code' =>      $stripeOrder['currency'],
-            'payment_status'=>      $stripeOrder['status'],
-            'stripe_order_id'=>     $stripeOrder['id']
+            'event_id'              =>      $ticket->event->id,
+            'user_id'               =>      $userId,
+            'ticket_id'             =>      $ticket->id,
+            'quantity'              =>      $qty,
+            'ticket_price'          =>      $ticket->price,
+            'payment_method'        =>      'stripe',
+            'transaction_id'        =>      $stripeOrder['charge'],
+            'payment_gross'         =>      $stripeOrder['amount']/100,
+            'currency_code'         =>      $stripeOrder['currency'],
+            'payment_status'        =>      $stripeOrder['status'],
+            'stripe_order_id'       =>      $stripeOrder['id'],
+            'stripe_processing_fee' =>      substr($orderDetails['processing_fee'], 1),
+            'stubguys_fee'          =>      substr($orderDetails['service_fee'],1)
         ];
 
         if($ticket->time_location->hot_deal()->exists()){
