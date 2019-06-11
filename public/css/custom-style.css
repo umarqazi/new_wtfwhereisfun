@@ -115,6 +115,15 @@ input.form-control, select.form-control{
    outline: none;
    -moz-outline: none;
 }
+
+.service_fee, .processing_fee{
+   display: inline;
+   border: none;
+   min-width: 30px;
+   max-width: 50px;
+   text-align: right;
+}
+
 .form-control:focus{
     border-color:#86C543; 
     -webkit-box-shadow:none;

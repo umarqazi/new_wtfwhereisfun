@@ -30,6 +30,8 @@ class EventTicketRepo
         $eventTicket->name                    =       $request->name;
         $eventTicket->quantity                =       $request->quantity;
         $eventTicket->price                   =       $request->price;
+        $eventTicket->stubguys_fee            =       $this->calculate_stubguys_fee($request->price);
+        $eventTicket->total_price             =       $this->calculate_total_ticket_price($request->price);
         $eventTicket->description             =       $request->description;
         $eventTicket->selling_start           =       $startDate->format('Y-m-d H:i:s');
         $eventTicket->selling_end             =       $endDate->format('Y-m-d H:i:s');
@@ -75,6 +77,19 @@ class EventTicketRepo
 
     public function updateTicketSkuId($ticketId, $sku){
         return $this->ticketModel->where('id', $ticketId)->update(['stripe_sku_id' => $sku['id']]);
+    }
+
+    private function calculate_stubguys_fee($price)
+    {
+        $stubguys_fee = ((($price * 1.25) / 100) + 0.99);
+         return $stubguys_fee;
+    }
+
+    private function calculate_total_ticket_price($price)
+    {
+        $stubguys_fee = $this->calculate_stubguys_fee($price);
+        $total_price = $price + $stubguys_fee;
+        return $total_price;
     }
 
 }
