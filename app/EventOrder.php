@@ -21,7 +21,8 @@ class EventOrder extends Model
     protected $fillable = [
         'user_id', 'event_id', 'transaction_id', 'payment_gross', 'currency_code', 'payer_email', 'payment_status',
         'ticket_id', 'quantity', 'ticket_price', 'paypal_token', 'payment_method', 'is_deal_availed', 'discount',
-        'hot_deal_id', 'qr_image', 'ticket_pdf', 'stripe_order_id', 'stripe_refund_id', 'refunded_amount'
+        'hot_deal_id', 'qr_image', 'ticket_pdf', 'stripe_order_id', 'stripe_refund_id', 'refunded_amount', 'stripe_processing_fee',
+        'stubguys_fee'
     ];
 
     /**
