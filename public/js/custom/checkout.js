@@ -20,7 +20,8 @@ $(".quantity-button").on("click", function () {
     }
 
     var price = $('#ticket-price').val();
-    var service = calculate_service_fee(price, newVal);
+    var currency = $('.service_fee').val().charAt(0);
+    var service = calculate_service_fee(price, newVal, currency);
 
     var discount = 0;
     var total_price = (parseFloat(price) * newVal ) + parseFloat(service);
@@ -31,7 +32,7 @@ $(".quantity-button").on("click", function () {
 
     var total = total_price - discount;
 
-    var processing = calculate_processing_fee(parseFloat(total), newVal);
+    var processing = calculate_processing_fee(parseFloat(total), newVal, currency);
 
     var grand_total = total + processing;
     $button.closest('.sp-quantity').find("input.quntity-input").attr('value', newVal);
@@ -177,16 +178,16 @@ function stripeTokenHandler(token) {
     form.submit();
 }
 
-function calculate_service_fee(price, qty) {
+function calculate_service_fee(price, qty, currency) {
     var service_fee = ((((price * 1.25) / 100) + .99) * qty);
-    $('.service_fee').val(service_fee.toFixed(2));
+    $('.service_fee').val(currency + service_fee.toFixed(2));
     return service_fee;
 }
 
-function calculate_processing_fee(price, qty) {
+function calculate_processing_fee(price, qty, currency) {
 
     var service_fee = parseFloat($('.service_fee').val());
     var processing_fee = (((price * 2.9) / 100) + .30);
-    $('.processing_fee').val(processing_fee.toFixed(2));
+    $('.processing_fee').val(currency + processing_fee.toFixed(2));
     return processing_fee;
 }
