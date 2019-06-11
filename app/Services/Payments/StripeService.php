@@ -53,7 +53,7 @@ class StripeService
         $ticket  = $this->eventTicketService->getTicketDetails($ticketId);
         $data    = [
             'product'   => $ticket->event->stripe_product_id,
-            'price'     => $ticket->price,
+            'price'     => $ticket->total_price,
             'currency'  => strtolower($ticket->time_location->transacted_currency->code),
             'inventory' => [
                 'type'     => 'finite',

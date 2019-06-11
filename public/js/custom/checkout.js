@@ -20,15 +20,23 @@ $(".quantity-button").on("click", function () {
     }
 
     var price = $('#ticket-price').val();
+    var service = calculate_service_fee(price, newVal);
+
     var discount = 0;
+    var total_price = (parseFloat(price) * newVal ) + parseFloat(service);
+
     if($('tr').hasClass('hot-deal')){
-        discount = $('#discount').val() * price / 100;
-        discount = discount * newVal;
+        discount = ($('#discount').val() * total_price) / 100;
     }
 
-    var total = price * newVal - discount;
+    var total = total_price - discount;
+
+    var processing = calculate_processing_fee(parseFloat(total), newVal);
+
+    var grand_total = total + processing;
     $button.closest('.sp-quantity').find("input.quntity-input").attr('value', newVal);
-    $('#total-price span.ticket-price').text(total);
+    $('#total-price span.ticket-price').text(total.toFixed(2));
+    $('#total-price span.grand-ticket-price').text(grand_total.toFixed(2));
 
 });
 
@@ -167,4 +175,18 @@ function stripeTokenHandler(token) {
     form.appendChild(hiddenInput);
     // Submit the form
     form.submit();
+}
+
+function calculate_service_fee(price, qty) {
+    var service_fee = ((((price * 1.25) / 100) + .99) * qty);
+    $('.service_fee').val(service_fee.toFixed(2));
+    return service_fee;
+}
+
+function calculate_processing_fee(price, qty) {
+
+    var service_fee = parseFloat($('.service_fee').val());
+    var processing_fee = (((price * 2.9) / 100) + .30);
+    $('.processing_fee').val(processing_fee.toFixed(2));
+    return processing_fee;
 }

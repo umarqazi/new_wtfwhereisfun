@@ -66,24 +66,61 @@
                                                     <strong>{{$ticket->time_location->transacted_currency->code.' '.$ticket->time_location->transacted_currency->symbol.$ticket->price}}</strong>
                                                 </td>
                                             </tr>
+                                            <?php $service_fee = number_format((($ticket->price * 1.25 / 100) + 0.99), 2);?>
+                                            <?php $processing_fee = number_format(((($ticket->price + $service_fee) * 2.9 / 100) + .30), 2);?>
+
                                             @if($eventHotDeal['hotDeal'])
                                                 <tr class="hot-deal">
-                                                    <td colspan="8">
-                                                        <span class="text-right hot-deal-text" >Discount <strong id="hot-deal-value">{{$eventHotDeal['details']->discount}}%</strong></span>
+                                                    <td colspan="6">Discount</td>
+                                                    <td colspan="2">
+                                                        <span class="text-right hot-deal-text" ><strong id="hot-deal-value">{{$eventHotDeal['details']->discount}}%</strong></span>
                                                         <input type="hidden" value="{{$eventHotDeal['details']->discount}}" id="discount">
                                                     </td>
                                                 </tr>
                                             @endif
+
                                             <tr>
-                                                <td colspan="8">
-                                                    <h4 class="text-right sub-total">Total
+                                                <td colspan="6">Stubguys fee</td>
+                                                <td colspan="2">
+                                                    <h4 class="text-right sub-total"><input class="service_fee" name="service_fee" value="<?php echo $ticket->time_location->transacted_currency->symbol.$service_fee;?>"></h4>
+                                                </td>
+                                            </tr>
+
+                                            <tr>
+                                                <td colspan="6">Total</td>
+                                                <td colspan="2">
+                                                    <h4 class="text-right sub-total">
                                                         @if($eventHotDeal['hotDeal'])
                                                             @php
-                                                                $discount = $ticket->price * $eventHotDeal['details']->discount/100;
+                                                                $discount = ((($ticket->price + $service_fee) * $eventHotDeal['details']->discount) / 100);
+                                                                $total = number_format(($ticket->price + $service_fee ) - $discount, 2)
                                                             @endphp
-                                                            <strong id="total-price">{{$ticket->time_location->transacted_currency->code.' '.$ticket->time_location->transacted_currency->symbol}} <span class="ticket-price">{{$ticket->price - $discount}} </span></strong>
+                                                            <strong id="total-price">{{$ticket->time_location->transacted_currency->code.' '.$ticket->time_location->transacted_currency->symbol}} <span class="ticket-price">{{$total}} </span></strong>
                                                         @else
-                                                            <strong id="total-price">{{$ticket->time_location->transacted_currency->code.' '.$ticket->time_location->transacted_currency->symbol}} <span class="ticket-price">{{$ticket->price}} </span></strong>
+                                                            <?php $total = number_format(($ticket->price + $service_fee ), 2)?>
+                                                            <strong id="total-price">{{$ticket->time_location->transacted_currency->code.' '.$ticket->time_location->transacted_currency->symbol}} <span class="ticket-price">{{$total}} </span></strong>
+                                                        @endif
+                                                    </h4>
+                                                </td>
+                                            </tr>
+
+                                            <tr>
+                                                <td colspan="6">Processing Fee</td>
+                                                <td colspan="2">
+                                                    <h4 class="text-right sub-total"><input class="processing_fee" name="processing_fee" value="<?php echo $ticket->time_location->transacted_currency->symbol.$processing_fee;?>"></h4>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="6">Grand Total</td>
+                                                <td colspan="2">
+                                                    <h4 class="text-right sub-total">
+                                                        @if($eventHotDeal['hotDeal'])
+                                                            @php
+                                                                $discount = ((($ticket->price) * $eventHotDeal['details']->discount) / 100);
+                                                            @endphp
+                                                            <strong id="total-price">{{$ticket->time_location->transacted_currency->code.' '.$ticket->time_location->transacted_currency->symbol}} <span class="grand-ticket-price">{{number_format($total + $processing_fee, 2)}} </span></strong>
+                                                        @else
+                                                            <strong id="total-price">{{$ticket->time_location->transacted_currency->code.' '.$ticket->time_location->transacted_currency->symbol}} <span class="grand-ticket-price">{{number_format($total + $processing_fee, 2)}} </span></strong>
                                                         @endif
                                                     </h4>
                                                 </td>
