@@ -122,6 +122,7 @@ input.form-control, select.form-control{
    min-width: 30px;
    max-width: 50px;
    text-align: right;
+   background-color: #fff;
 }
 
 .form-control:focus{
