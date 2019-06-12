@@ -82,7 +82,7 @@
                                             <tr>
                                                 <td colspan="6">Stubguys fee</td>
                                                 <td colspan="2">
-                                                    <h4 class="text-right sub-total"><input class="service_fee" name="service_fee" value="<?php echo $ticket->time_location->transacted_currency->symbol.$service_fee;?>"></h4>
+                                                    <h4 class="text-right sub-total"><input class="service_fee" name="service_fee" readonly value="<?php echo $ticket->time_location->transacted_currency->symbol.$service_fee;?>"></h4>
                                                 </td>
                                             </tr>
 
@@ -107,7 +107,7 @@
                                             <tr>
                                                 <td colspan="6">Processing Fee</td>
                                                 <td colspan="2">
-                                                    <h4 class="text-right sub-total"><input class="processing_fee" name="processing_fee" value="<?php echo $ticket->time_location->transacted_currency->symbol.$processing_fee;?>"></h4>
+                                                    <h4 class="text-right sub-total"><input class="processing_fee" name="processing_fee" readonly value="<?php echo $ticket->time_location->transacted_currency->symbol.$processing_fee;?>"></h4>
                                                 </td>
                                             </tr>
                                             <tr>
