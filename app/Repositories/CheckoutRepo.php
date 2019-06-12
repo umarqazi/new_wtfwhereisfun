@@ -15,13 +15,10 @@ class CheckoutRepo
     public function storeOrderDetails($userId, $ticket, $orderDetails, $stripeOrder){
         $qty = (int) $orderDetails['quantity'];
 
-        if (mb_substr($orderDetails['processing_fee'], 0, 1, 'UTF-8') == '₡'){
-            $processing_fee = str_replace('₡', '', $orderDetails['processing_fee']);
-            $stubguys_fee = str_replace('₡', '', $orderDetails['service_fee']);
-        } else{
-            $processing_fee = substr($orderDetails['processing_fee'],1);
-            $stubguys_fee = substr($orderDetails['service_fee'],1);
-        }
+        $symbol = mb_substr($orderDetails['processing_fee'], 0, 1, 'UTF-8');
+
+        $processing_fee = str_replace($symbol, '', $orderDetails['processing_fee']);
+        $stubguys_fee = str_replace($symbol, '', $orderDetails['service_fee']);
 
         $order = [
             'event_id'              =>      $ticket->event->id,
