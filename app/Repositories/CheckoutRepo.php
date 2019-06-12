@@ -14,6 +14,15 @@ class CheckoutRepo
 
     public function storeOrderDetails($userId, $ticket, $orderDetails, $stripeOrder){
         $qty = (int) $orderDetails['quantity'];
+
+        if (mb_substr($orderDetails['processing_fee'], 0, 1) == '₡'){
+            $processing_fee = str_replace('₡', '', $orderDetails['processing_fee']);
+            $stubguys_fee = str_replace('₡', '', $orderDetails['service_fee']);
+        } else{
+            $processing_fee = substr($orderDetails['processing_fee'],1);
+            $stubguys_fee = substr($orderDetails['service_fee'],1);
+        }
+
         $order = [
             'event_id'              =>      $ticket->event->id,
             'user_id'               =>      $userId,
@@ -26,8 +35,8 @@ class CheckoutRepo
             'currency_code'         =>      $stripeOrder['currency'],
             'payment_status'        =>      $stripeOrder['status'],
             'stripe_order_id'       =>      $stripeOrder['id'],
-            'stripe_processing_fee' =>      substr($orderDetails['processing_fee'], 1),
-            'stubguys_fee'          =>      substr($orderDetails['service_fee'],1)
+            'stripe_processing_fee' =>      $processing_fee,
+            'stubguys_fee'          =>      $stubguys_fee
         ];
 
         if($ticket->time_location->hot_deal()->exists()){
