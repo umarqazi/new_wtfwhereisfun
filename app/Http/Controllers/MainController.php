@@ -86,7 +86,7 @@ class MainController extends Controller
             'map' => $loadLocations, 'city' => $location['city']]);
     }
 
-    /**
+
     public function search()
     {
         $location       = $this->eventLocationService->getUserLocation();
