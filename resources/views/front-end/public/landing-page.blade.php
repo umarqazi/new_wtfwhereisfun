@@ -86,7 +86,7 @@
                     <div class="circle-logo-col cl-item-3">
                         <a href="#">
                             <div class="circle-logo">
-                                <div class="circle-logo-img"><img src="{{asset('img/logos/logo-icon.png')}}" alt="Circle Logo"></div>
+                                <div class="circle-logo-img"><img src="{{asset('img/logos/logo-icon2.png')}}" alt="Circle Logo"></div>
                             </div>
                         </a>
                     </div><!-- /.circle-logo-col -->

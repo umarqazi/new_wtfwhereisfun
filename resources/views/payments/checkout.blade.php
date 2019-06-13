@@ -86,23 +86,16 @@
                                                 </td>
                                             </tr>
 
-                                            <tr>
-                                                <td colspan="6">Total</td>
-                                                <td colspan="2">
-                                                    <h4 class="text-right sub-total">
-                                                        @if($eventHotDeal['hotDeal'])
-                                                            @php
-                                                                $discount = ((($ticket->price + $service_fee) * $eventHotDeal['details']->discount) / 100);
-                                                                $total = number_format(($ticket->price + $service_fee ) - $discount, 2)
-                                                            @endphp
-                                                            <strong id="total-price">{{$ticket->time_location->transacted_currency->code.' '.$ticket->time_location->transacted_currency->symbol}} <span class="ticket-price">{{$total}} </span></strong>
-                                                        @else
-                                                            <?php $total = number_format(($ticket->price + $service_fee ), 2)?>
-                                                            <strong id="total-price">{{$ticket->time_location->transacted_currency->code.' '.$ticket->time_location->transacted_currency->symbol}} <span class="ticket-price">{{$total}} </span></strong>
-                                                        @endif
-                                                    </h4>
-                                                </td>
-                                            </tr>
+                                            @if($eventHotDeal['hotDeal'])
+                                                @php
+                                                    $discount = ((($ticket->price + $service_fee) * $eventHotDeal['details']->discount) / 100);
+                                                    $total = number_format(($ticket->price + $service_fee ) - $discount, 2)
+                                                @endphp
+                                                <strong id="total-price">{{$ticket->time_location->transacted_currency->code.' '.$ticket->time_location->transacted_currency->symbol}} <span class="ticket-price">{{$total}} </span></strong>
+                                            @else
+                                                <?php $total = number_format(($ticket->price + $service_fee ), 2)?>
+                                                <strong id="total-price">{{$ticket->time_location->transacted_currency->code.' '.$ticket->time_location->transacted_currency->symbol}} <span class="ticket-price">{{$total}} </span></strong>
+                                            @endif
 
                                             <tr>
                                                 <td colspan="6">Processing Fee</td>
@@ -111,7 +104,7 @@
                                                 </td>
                                             </tr>
                                             <tr>
-                                                <td colspan="6">Grand Total</td>
+                                                <td colspan="6">Total</td>
                                                 <td colspan="2">
                                                     <h4 class="text-right sub-total">
                                                         @if($eventHotDeal['hotDeal'])
