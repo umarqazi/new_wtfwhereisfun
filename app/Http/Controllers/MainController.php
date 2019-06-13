@@ -89,6 +89,7 @@ class MainController extends Controller
     /**
      * @return $this
      */
+
     public function search()
     {
         $location       = $this->eventLocationService->getUserLocation();
