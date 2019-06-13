@@ -20,6 +20,14 @@
                                         <i class="fa fa-send"></i>
                                         <input type="text" class="fld" id="search-location" name="location" value="{{$city}}" onchange="checkLocation(this)">
                                     </div>
+                                    <div class="clm">
+                                        <i class="fa fa-calendar"></i>
+                                        <input type='text' class="fld event-start-date" id="search-start-date" name="event-start-date"/>
+                                    </div>
+                                    <div class="clm">
+                                        <i class="fa fa-calendar"></i>
+                                        <input type='text' class="fld event-end-date" id="search-end-date" name="event-end-date"/>
+                                    </div>
                                     <div class="clm third_clm">
                                         <button class="search_btn" type="submit" id="search-button">Search</button>
                                     </div>
