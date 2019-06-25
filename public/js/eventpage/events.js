@@ -238,9 +238,6 @@ function addNewTicket(obj, type, eventId){
         type : "POST",
         data : formData,
         dataType : "JSON",
-        beforeSend:function(){
-            $('#new-ticket-buttons a').attr('onclick', 'showDisabledButtonPopup()');
-        },
         success: function(response)
         {
             $('.new-tickets').prepend(response.data);
@@ -251,9 +248,6 @@ function addNewTicket(obj, type, eventId){
 function showDisabledButtonPopup(){
     $('.ticket-popup #disabled-buttons').css('visibility', 'visible');
 }
-
-
-
 
 function editEventTicketForm(obj){
     var formElement = $(obj).closest("form");
@@ -636,6 +630,58 @@ function eventLocationForm(event, obj, type){
         success: function(response){
             if(response.type == "success"){
                 showToaster('success',response.msg);
+            }
+            else{
+                showToaster('error',response.msg);
+            }
+            $(obj).find('.time-location-id').attr('value', response.data.timeLocation.id);
+            $(obj).find('.request-type').attr('value', 'update');
+            if(response.data.count == 1){
+                $('#event-preview-button').attr('href', response.data.link).removeAttr('onclick');
+            }
+        },
+        error:function(response)
+        {
+            var respObj = response.responseJSON;
+            showToaster('error', respObj.message);
+            errors = respObj.errors;
+            var keys   = Object.keys(errors);
+            var count  = keys.length;
+            for (var i = 0; i < count; i++)
+            {
+                $(obj).find('.'+keys[i]).html(errors[keys[i]]).focus();
+            }
+            $(obj).find('.btn-save').attr('disabled',false).text('Save');
+        }
+    });
+}
+
+function saveEventLocation(event, obj, type){
+    event.preventDefault();
+    var form = $(obj).closest('form');
+    var form_data = new FormData($(form)[0]);
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+    $.ajax({
+        url  : base_url() + "/events/update-time-location",
+        type : "POST",
+        data : form_data,
+        dataType : "JSON",
+        async: false,
+        cache: false,
+        contentType: false,
+        processData: false,
+        beforeSend:function(){
+            $(obj).find('.form-error').html('');
+        },
+        success: function(response){
+            if(response.type == "success"){
+                console.log('success');
+                showToaster('success',response.msg);
+                nextTab();
             }
             else{
                 showToaster('error',response.msg);

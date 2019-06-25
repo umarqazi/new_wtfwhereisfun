@@ -86,7 +86,7 @@
                                             <div class="col-xs-12 col-sm-12 col-md-6">
                                                 <div class="form-group">
                                                     <label for="">Website <span class="required-field">*</span></label>
-                                                    <input class="form-control" placeholder="http://" id="" name="website" required type="text">
+                                                    <input class="form-control" placeholder="http://" id="" name="website" type="text">
                                                     <span class="field-beffect"></span>
                                                     <div class="form-error website"></div>
                                                 </div>

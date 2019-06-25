@@ -9,7 +9,7 @@
                 @if($countLocations > 0)
                     @foreach($locations as $key => $location)
                         <div class="row" id="{{$countLocations - $key}}">
-                            <form method="get" onsubmit="eventLocationForm(event, this)" id="event-form-{{$location->id}}">
+                            <form method="get" onsubmit="eventLocationForm(event, this)" class="event-location-form" id="event-form-{{$location->id}}">
                                 <div class="col-sm-6 datepicker_row" id="datetime_area">
                                     <div class="form-group">
                                         <label>Event Start Date <span class="required-field">*</span></label>
@@ -89,7 +89,7 @@
                                     <div class="form-group">
                                         <button type="submit" class="btn btn-default btn-save rounded-border">Save</button>
                                         @if($countLocations - $key == 1)
-                                            <button type="button" class="btn rounded-border" onclick="nextTab()">Continue</button>
+                                            <button type="button" class="btn btn-default btn-save-continue rounded-border" onclick="saveEventLocation(event, this)">Save & Continue</button>
                                         @endif
                                     </div>
                                 </div>
@@ -181,7 +181,8 @@
                                 <div class="form-group">
                                     <div class="form-button">
                                         <button type="submit" class="btn btn-default btn-save rounded-border">Save</button>
-                                        <button type="button" class="btn rounded-border" onclick="nextTab()">Continue</button>
+                                        <button type="button" class="btn btn-default btn-save-continue rounded-border" onclick="saveEventLocation(event, this)">Save & Continue</button>
+{{--                                        <button type="button" class="btn rounded-border" onclick="nextTab()">Continue</button>--}}
                                     </div>
                                 </div>
                                 <input type="hidden" value="{{$eventId}}" name="event_id">

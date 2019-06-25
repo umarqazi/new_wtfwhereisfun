@@ -83,6 +83,8 @@ if (! function_exists('addNewTimeLocationRow')) {
                             <div class=\"form-group\">
                                 <div class=\"form-button\">
                                     <button type=\"submit\" class=\"btn btn-default rounded-border btn-save\">Save</button>
+                                    <button type=\"button\" class=\"btn btn-default btn-save-continue rounded-border\" onclick=\"saveEventLocation(event, this)\">Save & Continue</button>
+
                                     <button type=\"button\" style=\"display:none;\" class=\"btn btn-default
                                     btn-edit\">Edit</button>
                                 </div>
@@ -144,20 +146,20 @@ if (! function_exists('addNewTimeLocationRow')) {
                                     <li>                                      
                                         <ol class=\"action_list\">
                                             <li>
-                                                <a href=\"javascript:void(0);\" class=\"setting-click\" onclick=\"eventTicketSettings(event, this)\" title=\"Ticket Settings\"><i class=\"fa fa-cog\"></i></a>
+                                                <a href=\"javascript:void(0);\" class=\"setting-click\" onclick=\"eventTicketSettings(event, this)\" title=\"Click here for Ticket Additional Settings\"><i class=\"fa fa-cog\"></i></a>
                                             </li>
                                             <li>
-                                                <a href=\"javascript:void(0);\" class=\"copy-click\" onclick=\"copyEventTicket(event, this)\" title=\"Copy Ticket Details\"><i class=\"fa fa-folder-open\"></i></a>
+                                                <a href=\"javascript:void(0);\" class=\"copy-click\" onclick=\"copyEventTicket(event, this)\" title=\"Click here to Copy Ticket Details\"><i class=\"fa fa-folder-open\"></i></a>
                                             </li>
                                             <li>
-                                                <a href=\"javascript:void(0);\" class=\"\" onclick=\"eventTicketPasses(event,this)\" title=\"Ticket Passes\"><i class=\"fa fa-ticket\"></i></a>
+                                                <a href=\"javascript:void(0);\" class=\"\" onclick=\"eventTicketPasses(event,this)\" title=\"Click here to Create Ticket Passes\"><i class=\"fa fa-ticket\"></i></a>
                                             </li>
 
                                             <li>
-                                                <button type=\"submit\" class=\"no-background-border\" title=\"Save Ticket\"><i class=\"fa fa-save\"></i></button>
+                                                <button type=\"submit\" class=\"no-background-border\" title=\"Click here to Save the ticket\"><i class=\"fa fa-save\"></i></button>
                                             </li>
                                             <li>
-                                                <a href=\"javascript:void(0);\" class=\"ticket_removerow\" title=\"Delete Ticket\" onclick=\"deleteTicket(event,this)\"><i class=\"fa fa-trash\"></i></a>
+                                                <a href=\"javascript:void(0);\" class=\"ticket_removerow\" title=\"Click here to Delete Ticket\" onclick=\"deleteTicket(event,this)\"><i class=\"fa fa-trash\"></i></a>
                                             </li>
                                         </ol>
                                     </li>

@@ -14,23 +14,6 @@
                     <a href="javascript:void(0)" class="donation_btn ticketvalue" data-type="Donation" data-event-id="{{$eventId}}" onclick="addNewTicket(this, 'Donation','{{$eventId}}')"><i class="fa fa-plus"></i> Donation</a>
                     <input type="hidden" name="ticketvalue" id="ticketvalue">
                 </div>
-
-                <div class="ticket-popup">
-                    <div class="popup">
-                        <span class="popuptext pull-right" id="icons-info">
-                            Hit on <i class="fa fa-save"></i> <br> to Save the ticket <br>
-                            <br> Hit on <i class="fa fa-ticket"></i> <br> to Create Ticket Pass <br>
-                            <br> Hit on <i class="fa fa-cog"></i> <br> for Ticket Additional Settings <br>
-                        </span>
-                    </div>
-
-                    <div class="popup">
-                        <span class="popuptext pull-right" id="disabled-buttons">
-                            Please save the newly added ticket first to add more.<br><br>
-                            Hit on <i class="fa fa-save"></i> <br> to Save the ticket <br>
-                        </span>
-                    </div>
-                </div>
             </div>
 
             <div class="ticket-listing">
@@ -77,20 +60,25 @@
                                         <li>
                                             <ol class="action_list">
                                                 <li>
-                                                    <a href="javascript:void(0);" class="setting-click" onclick="eventTicketSettings(event, this)" title="Ticket Settings"><i class="fa fa-cog"></i></a>
+                                                    <a href="javascript:void(0);" class="setting-click" onclick="eventTicketSettings(event, this)" title="Click here for Ticket Additional Settings"><i class="fa fa-cog"></i></a>
+                                                </li>
+
+                                                {{--<button type="button" class="btn btn-secondary" data-toggle="tooltip" data-placement="top" title="Tooltip on top">
+                                                    Tooltip on top
+                                                </button>--}}
+
+                                                <li>
+                                                    <a href="javascript:void(0);" class="copy-click" onclick="copyEventTicket(event, this)" title="Click here to Copy Ticket Details"><i class="fa fa-folder-open"></i></a>
                                                 </li>
                                                 <li>
-                                                    <a href="javascript:void(0);" class="copy-click" onclick="copyEventTicket(event, this)" title="Copy Ticket Details"><i class="fa fa-folder-open"></i></a>
-                                                </li>
-                                                <li>
-                                                    <a href="javascript:void(0);" class="" onclick="eventTicketPasses(event,this)" title="Ticket Passes"><i class="fa fa-ticket"></i></a>
+                                                    <a href="javascript:void(0);" class="" onclick="eventTicketPasses(event,this)" title="Click here to Create Ticket Passes"><i class="fa fa-ticket"></i></a>
                                                 </li>
 
                                                 <li>
-                                                    <button type="submit" class="no-background-border" title="Save Ticket"><i class="fa fa-save"></i></button>
+                                                    <button type="submit" class="no-background-border" title="Click here to Save the ticket"><i class="fa fa-save"></i></button>
                                                 </li>
                                                 <li>
-                                                    <a href="javascript:void(0);" class="ticket_removerow" title="Delete Ticket" onclick="deleteTicket(event,this)"><i class="fa fa-trash"></i></a>
+                                                    <a href="javascript:void(0);" class="ticket_removerow" title="Click here to Delete Ticket" onclick="deleteTicket(event,this)"><i class="fa fa-trash"></i></a>
                                                 </li>
                                             </ol>
                                         </li>
