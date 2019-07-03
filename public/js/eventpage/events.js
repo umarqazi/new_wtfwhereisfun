@@ -485,6 +485,7 @@ function updateEventLayout(event, obj){
             if(response.type == "success"){
                 $('#event-layout #header_image_exist').attr('value', response.data.header_image);
                 showToaster('success',response.msg);
+                $('.event-layout-listing #go-live').attr('disabled', false);
             }
             else{
                 showToaster('error',response.msg);

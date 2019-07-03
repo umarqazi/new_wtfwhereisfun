@@ -132,8 +132,6 @@
                                                 </div>
                                             </div>
                                         @endif
-
-
                                     </div>
                                     <div class="form-group">
                                         <div class="applybutton_right">
@@ -144,14 +142,12 @@
                                             @else
                                                 <a href="javascript:void(0)" id="event-preview-button" target="_blank" onclick="locationError()" class="btn btn-default btn-save rounded-border">Preview</a>
                                             @endif
-
-
                                         </div>
                                     </div>
                                 </form>
-                                <form method="post" onclick="eventGolive(event, this)">
+                                <form method="post" onsubmit="eventGolive(event, this)">
                                     <input type="hidden" name="event_id" value="{{$eventId}}">
-                                    <button type="submit" class="btn btn-default btn-save rounded-border">Go Live</button>
+                                    <button type="submit" class="btn btn-default btn-save rounded-border" id="go-live" disabled>Go Live</button>
                                 </form>
                             </div>
                         </div>
