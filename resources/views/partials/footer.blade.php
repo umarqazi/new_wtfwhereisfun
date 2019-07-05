@@ -20,11 +20,11 @@
                     <h4 class="footer-colum-title">The Highlights</h4>
                     <div class="ft-pages-list-wrap">
                         <ul class="ft-highlights-list list-simple">
-                            <li><a href="#">Dinner</a></li>
-                            <li><a href="#">Restaurants</a></li>
-                            <li><a href="#">Hotel</a></li>
-                            <li><a href="#">Coffee</a></li>
-                            <li><a href="#">Club & bar</a></li>
+                            <li><a href="{{url('all-categories')}}">Dinner</a></li>
+                            <li><a href="{{url('all-categories')}}">Restaurants</a></li>
+                            <li><a href="{{url('all-categories')}}">Hotel</a></li>
+                            <li><a href="{{url('all-categories')}}">Coffee</a></li>
+                            <li><a href="{{url('all-categories')}}">Club & bar</a></li>
                         </ul>
                     </div>
                 </div>
@@ -34,9 +34,9 @@
                     <h4 class="footer-colum-title">Events</h4>
                     <div class="ft-pages-list-wrap">
                         <ul class="ft-Events-list list-simple">
-                            <li><a href="#">HEAT – End Of Season Pool Party</a></li>
-                            <li><a href="#">We Love Bass 2017</a></li>
-                            <li><a href="#">Andrew Kasab</a></li>
+                            <li><a href="{{url('all-categories')}}">HEAT – End Of Season Pool Party</a></li>
+                            <li><a href="{{url('all-categories')}}">We Love Bass 2017</a></li>
+                            <li><a href="{{url('all-categories')}}">Andrew Kasab</a></li>
                         </ul>
                     </div>
                 </div>
@@ -46,11 +46,12 @@
                     <h4 class="footer-colum-title">My Account</h4>
                     <div class="ft-pages-list-wrap">
                         <ul class="ft-Account-list list-simple">
-                            <li><a href="#">Dashboad</a></li>
-                            <li><a href="#">Listings</a></li>
-                            <li><a href="#">Events</a></li>
-                            <li><a href="#">Favorites</a></li>
-                            <li><a href="#">chat</a></li>
+                            @if(auth()->user())
+                                <li><a href="{{url('dashboard')}}">Dashboad</a></li>
+                                <li><a href="{{url('my-events')}}">Events</a></li>
+                            @else
+                                <li><a href="{{url('search')}}">Listings</a></li>
+                            @endif
                         </ul>
                     </div>
                 </div>

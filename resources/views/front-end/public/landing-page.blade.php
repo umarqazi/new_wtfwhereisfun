@@ -26,7 +26,6 @@
             <div class="container">
                 <div class="explore-search-content">
                     <div class="explore-search-head">
-                        <span class="es-head-subtitle white-text">Explore This City</span>
                         <h1 class="es-head-title white-text">What's Happening in Your City</h1>
                     </div>
                     <div class="explore-search-form-wrap">

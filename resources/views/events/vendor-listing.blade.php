@@ -5,11 +5,12 @@
         <div class="container">
             <div class="col-md-12">
                 <h2>Manage Events</h2>
-                <ul class="nav nav-tabs eventsTabs">
+
+                <ul class="nav nav-pills eventsTabs">
                     <li class="active"><a data-toggle="tab" href="#home">LIVE {{count($liveEventLocations)}}</a></li>
-                    <li><a data-toggle="tab" href="#menu1">DRAFT {{count($draftEventLocations)}}</a></li>
-                    <li><a data-toggle="tab" href="#menu2">PAST {{count($pastEventLocations)}}</a></li>
-                    <li><a data-toggle="tab" href="#menu3">All {{count($allEventLocations)}}</a></li>
+                    <li><a data-toggle="pill" href="#menu1">DRAFT {{count($draftEventLocations)}}</a></li>
+                    <li><a data-toggle="pill" href="#menu2">PAST {{count($pastEventLocations)}}</a></li>
+                    <li><a data-toggle="pill" href="#menu3">All {{count($allEventLocations)}}</a></li>
                 </ul>
 
                 <div class="eventsSearch">
