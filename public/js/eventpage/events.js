@@ -806,7 +806,7 @@ function eventImageUpdate(fieldObj, type)
     let file_name = fieldObj.value;
     let split_extension = file_name.split(".");
     let calculatedSize = fieldObj.files[0].size / (1024 * 1024);
-    let ext = ["png","jpg","gif"];
+    let ext = ["png","jpg","gif", "jpeg"];
     if ($.inArray(split_extension[1].toLowerCase(), ext) == -1) {
         $(this).val(fieldObj.value = null);
         showToaster('error','You Can Upload Only .jpg, png, jpeg, gif Images !');

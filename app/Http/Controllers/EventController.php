@@ -479,7 +479,7 @@ class EventController extends Controller
      */
     public function getMyEvents(){
         $vendorId       = Auth::user()->id;
-        $liveEvents     = $this->eventListingService->getTodayEventsByTimeAndLocation($vendorId);
+        $liveEvents     = $this->eventListingService->getLiveEventsByTimeAndLocation($vendorId);
         $pastEvents     = $this->eventListingService->getPastEventsByTimeAndLocation($vendorId);
         $draftEvents    = $this->eventListingService->getDraftEventsByTimeAndLocation($vendorId);
         $allEvents      = $this->eventListingService->getAllEventsByTimeAndLocation($vendorId);

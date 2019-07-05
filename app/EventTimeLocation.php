@@ -139,6 +139,16 @@ class EventTimeLocation extends Model
     }
 
     /**
+     * Scope a query to get Live Events.
+     * @param $query
+     * @return mixed
+     */
+    public function scopeLiveEvents($query)
+    {
+        return $query->whereDate('starting', '>=',  Carbon::today()->toDateString())->where('ending', '>=', Carbon::today()->addDay());
+    }
+
+    /**
      * Scope a query to get Past Events.
      *
      * @param \Illuminate\Database\Eloquent\Builder $query

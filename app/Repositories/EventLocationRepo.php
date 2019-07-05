@@ -72,6 +72,13 @@ class EventLocationRepo
         return $liveEvents->recentCreatedAt()->get();
     }
 
+    public function getLiveEventsByTime($vendorId){
+        $liveEvents = $this->eventLocationModel->liveEvents()->whereHas('event', function($query) use ($vendorId){
+            $query->publishedEvents($vendorId);
+        });
+        return $liveEvents->recentCreatedAt()->get();
+    }
+
     public function getFutureEventsByTime($vendorId){
         $futureEvents = $this->eventLocationModel->futureEvents()->whereHas('event', function($query) use($vendorId){
             $query->publishedEvents($vendorId);
