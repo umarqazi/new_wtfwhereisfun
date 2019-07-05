@@ -47,7 +47,7 @@
                     <div class="ft-pages-list-wrap">
                         <ul class="ft-Account-list list-simple">
                             @if(auth()->user())
-                                <li><a href="{{url('dashboard')}}">Dashboad</a></li>
+                                <li><a href="{{url('dashboard')}}">Dashboard</a></li>
                                 <li><a href="{{url('my-events')}}">Events</a></li>
                             @else
                                 <li><a href="{{url('search')}}">Listings</a></li>
