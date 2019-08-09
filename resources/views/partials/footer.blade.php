@@ -9,8 +9,8 @@
                             <li><a href="{{url('about-us')}}">About Us</a></li>
                             <li><a href="{{url('terms-conditions')}}">Terms & Conditions</a></li>
                             <li><a href="{{url('contact-us')}}">Contact Us</a></li>
-                            <li><a href="#">Blog</a></li>
-                            <li><a href="#">Services</a></li>
+                            <li><a href="{{ url('blogs') }}">Blog</a></li>
+                            <li><a href="javascript:void(0)">Services</a></li>
                         </ul>
                     </div>
                 </div>

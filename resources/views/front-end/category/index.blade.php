@@ -9,7 +9,12 @@
                     <option disabled="disabled" selected>Select A Category</option>
                     @foreach($result['categories'] as $category)
                         @if($category->slug !== 'more')
-                            <option value="{{$category->id}}">{{$category->name}}</option>
+                            <option value="{{$category->id}}"
+                                    {{
+                                    !empty($result['selected_cat_id'])
+                                        && $category->id === $result['selected_cat_id'] ? 'selected' : null
+                                    }}
+                            > {{ $category->name }}</option>
                         @endif
                     @endforeach
                 </select>

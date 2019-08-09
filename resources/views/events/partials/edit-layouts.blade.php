@@ -59,7 +59,7 @@
                                                     <h1>Photos</h1>
                                                     <p>Files must be in JPEG, JPG, PNG.
                                                         <br>
-                                                        Image size must be 1600 X 700
+                                                        Image size must be 500 X 300
                                                     </p>
                                                 </div>
                                                 <label class="header-img">
@@ -114,7 +114,7 @@
                                                         <h1>Photos</h1>
                                                         <p>Files must be in JPEG, JPG, PNG.
                                                             <br>
-                                                            Image size must be 600 X 600
+                                                            Image size must be 300 X 300
                                                         </p>
                                                     </div>
                                                     <button type="button" class="remove-button {{$removeBtn}}" onclick="removeEventImage(this, '{{'imgid'}}')">

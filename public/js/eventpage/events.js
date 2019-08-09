@@ -812,22 +812,22 @@ function eventImageUpdate(fieldObj, type)
         showToaster('error','You Can Upload Only .jpg, png, jpeg, gif Images !');
         return false;
     }
-    if (calculatedSize > 1) {
+    if (calculatedSize > 5) {
         $(this).val(fieldObj.value = null);
-        showToaster('error','File size should be less then 1 MB !');
+        showToaster('error','File size should be less then 5 MB !');
         return false;
     }
-    if ($.inArray(split_extension[1].toLowerCase(), ext) != -1 && calculatedSize < 1) {
+    if ($.inArray(split_extension[1].toLowerCase(), ext) != -1 && calculatedSize < 5) {
         var file = fieldObj.files[0];
         img = new Image();
         img.src = URL.createObjectURL(file);
         img.onload = function() {
-            if(type == 'header' && this.width <= 1600 && this.height <= 700){
-                showToaster('error', 'Image Width must be 1600px & Height must be 700px');
+            if(type == 'header' && this.width <= 500 && this.height <= 300){
+                showToaster('error', 'Image Width must be 500px & Height must be 300px atleast');
                 $(this).val(fieldObj.value = null);
                 return false;
-            }else if(type == 'gallery' && this.width <= 600 && this.height <= 600){
-                showToaster('error', 'Image Width must be 600px & Height must be 600px atleast');
+            }else if(type == 'gallery' && this.width <= 300 && this.height <= 300){
+                showToaster('error', 'Image Width must be 300px & Height must be 300px atleast');
                 $(this).val(fieldObj.value = null);
                 return false;
             }

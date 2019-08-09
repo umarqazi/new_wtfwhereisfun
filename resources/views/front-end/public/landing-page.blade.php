@@ -265,7 +265,7 @@
                             @if($key<=5)
                                 <div class="col-sm-4">
                                     <div class="ex-cities-item-wrap">
-                                        <a href="javascript:void(0)">
+                                        <a href="{{url('all-categories/'.encrypt_id($category->id))}}">
                                             <div class="ex-cities-img-box">
                                                 <img src="{{$categoriesPath['web_path'].$category->image}}" />
                                             </div>
