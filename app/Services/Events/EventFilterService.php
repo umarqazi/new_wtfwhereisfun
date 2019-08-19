@@ -31,6 +31,10 @@ class EventFilterService
         return $this->eventLocationRepo->getAllUpComingEvents();
     }
 
+    public function getCategoryUpcomingEvents($id){
+        return $this->eventLocationRepo->getCategoryUpcomingEvents($id);
+    }
+
     public function getEventsEarningByTime($timeLocations){
         $timeLocationIds = $timeLocations->pluck('id')->toArray();
         $tickets         = $this->eventTicketService->getTicketsByLocation($timeLocationIds);

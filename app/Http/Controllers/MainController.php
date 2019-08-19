@@ -119,9 +119,18 @@ class MainController extends Controller
     /**
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function getAllCategories(){
-        $result['categories'] = $this->categoryServices->getAll();
-        $result['events'] = $this->eventFilterService->getAllUpComingEvents();
+    public function getAllCategories($id=null){
+
+        if(!empty($id)){
+            $id = decrypt_id($id);
+            $result['selected_cat_id'] = $id;
+            $result['categories'] = $this->categoryServices->getAll();
+            $result['events'] = $this->eventFilterService->getCategoryUpcomingEvents($id);
+        } else {
+
+            $result['categories'] = $this->categoryServices->getAll();
+            $result['events'] = $this->eventFilterService->getAllUpComingEvents();
+        }
         return view('front-end.category.index', compact('result'));
     }
 

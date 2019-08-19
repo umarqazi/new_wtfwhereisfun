@@ -126,12 +126,19 @@ class EventLocationRepo
 
     public function search($data){
         $start_date = empty($data['event-start-date']) ? null : date('Y-m-d', strtotime($data['event-start-date']));
-        $end_date = empty($data['event-end-date']) ? null : date('Y-m-d', strtotime($data['event-end-date']));
+        $end_date = empty($data['event-end-date']) ? null : date('Y-m-d', strtotime($data['event-end-date'] . ' +1 day'));
 
         if(isset($data['search_events'])){
-            $locationWise = $this->eventLocationModel->eventsByDate($start_date, $end_date)->searchByLocation($data['location'])->whereHas('event', function($query) use ($data){
-                $query->publishedEvents()->searchByTitle($data['search_events'])->searchByDescription($data['search_events'])->publicAccess();
-            })->get();
+
+            if(empty($start_date) && empty($end_date)){
+                $locationWise = $this->eventLocationModel->searchByLocation($data['location'])->whereHas('event', function($query) use ($data){
+                    $query->publishedEvents()->searchByTitle($data['search_events'])->searchByDescription($data['search_events'])->publicAccess();
+                })->get();
+            } else{
+                $locationWise = $this->eventLocationModel->eventsByDate($start_date, $end_date)->searchByLocation($data['location'])->whereHas('event', function($query) use ($data){
+                    $query->publishedEvents()->searchByTitle($data['search_events'])->searchByDescription($data['search_events'])->publicAccess();
+                })->get();
+            }
         }else{
             $locationWise = $this->eventLocationModel->eventsByDate($start_date, $end_date)->searchByLocation($data['location'])->whereHas('event', function($query){
                 $query->publishedEvents()->publicAccess();
@@ -166,6 +173,12 @@ class EventLocationRepo
     public function getAllUpComingEvents(){
         return $locationWise = $this->eventLocationModel->futureEvents()->whereHas('event', function($query){
             $query->publishedEvents()->publicAccess();
+        })->get();
+    }
+
+    public function getCategoryUpcomingEvents($id){
+        return $locationWise = $this->eventLocationModel->futureEvents()->whereHas('event', function($query) use ($id){
+            $query->searchByCategory($id)->publishedEvents()->publicAccess();
         })->get();
     }
 }

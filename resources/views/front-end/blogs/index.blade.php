@@ -31,7 +31,7 @@
                     <div class="col-lg-6 left-box column">
                         <div class="card single-blog-post">
                             <div class="img-holder">
-                                <div class="img-post"><img class="img-blog-img" src="{{$blog->image}}" alt="BLOG IMAGE"></div>
+                                <div class="img-post"><img class="img-blog-img" src="{{$blog->directory.$blog->image}}" alt="BLOG IMAGE"></div>
                                 <div class="date-box"><span>{{$blog->created_at->day}}</span><br>{{get_month($blog->created_at)}}</div>
                             </div>
                             <div class="body">
