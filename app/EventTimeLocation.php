@@ -148,6 +148,11 @@ class EventTimeLocation extends Model
         return $query->whereDate('starting', '>=',  Carbon::today()->toDateString())->where('ending', '>=', Carbon::today()->addDay());
     }
 
+    public function scopeAllTypeEvents($query)
+    {
+        return $query->whereDate('ending', '>=', Carbon::today()->addDay());
+    }
+
     /**
      * Scope a query to get Past Events.
      *

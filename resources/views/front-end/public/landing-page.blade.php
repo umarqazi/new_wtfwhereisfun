@@ -41,7 +41,7 @@
                                     </div>
                                     <div class="clm">
                                         <i class="fa fa-send"></i>
-                                        <input type="text" class="fld" id="search-location" name="location" value="{{$city}}" onchange="checkLocation(this)">
+                                        <input type="text" class="fld" id="search-location" name="location" value="{{$city}}">
                                     </div>
                                     <div class="clm">
                                         <i class="fa fa-calendar"></i>

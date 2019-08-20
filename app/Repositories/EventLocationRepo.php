@@ -139,8 +139,15 @@ class EventLocationRepo
                     $query->publishedEvents()->searchByTitle($data['search_events'])->searchByDescription($data['search_events'])->publicAccess();
                 })->get();
             }
-        }else{
+        }elseif(isset($start_date) && isset($start_date)){
+
             $locationWise = $this->eventLocationModel->eventsByDate($start_date, $end_date)->searchByLocation($data['location'])->whereHas('event', function($query){
+                $query->publishedEvents()->publicAccess();
+            })->get();
+        }
+        else{
+
+            $locationWise = $this->eventLocationModel->searchByLocation($data['location'])->whereHas('event', function($query){
                 $query->publishedEvents()->publicAccess();
             })->get();
         }
@@ -165,7 +172,7 @@ class EventLocationRepo
     }
 
     public function getEventsByCategory($id){
-        return $locationWise = $this->eventLocationModel->futureEvents()->whereHas('event', function($query) use ($id){
+        return $locationWise = $this->eventLocationModel->allTypeEvents()->whereHas('event', function($query) use ($id){
             $query->publishedEvents()->publicAccess()->searchByCategory($id);
         })->get();
     }
@@ -176,8 +183,14 @@ class EventLocationRepo
         })->get();
     }
 
+    public function getAllTypeEvents(){
+        return $locationWise = $this->eventLocationModel->allTypeEvents()->whereHas('event', function($query){
+            $query->publishedEvents()->publicAccess();
+        })->get();
+    }
+
     public function getCategoryUpcomingEvents($id){
-        return $locationWise = $this->eventLocationModel->futureEvents()->whereHas('event', function($query) use ($id){
+        return $locationWise = $this->eventLocationModel->allTypeEvents()->whereHas('event', function($query) use ($id){
             $query->searchByCategory($id)->publishedEvents()->publicAccess();
         })->get();
     }
