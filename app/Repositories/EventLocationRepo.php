@@ -183,9 +183,9 @@ class EventLocationRepo
         })->get();
     }
 
-    public function getAllTypeEvents(){
-        return $locationWise = $this->eventLocationModel->allTypeEvents()->whereHas('event', function($query){
-            $query->publishedEvents()->publicAccess();
+    public function getAllTypeEvents($id){
+        return $locationWise = $this->eventLocationModel->allTypeEvents()->whereHas('event', function($query) use ($id){
+            $query->publishedEvents()->publicAccess()->searchByCategory($id);
         })->get();
     }
 
