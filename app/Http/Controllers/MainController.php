@@ -129,7 +129,7 @@ class MainController extends Controller
         } else {
 
             $result['categories'] = $this->categoryServices->getAll();
-            $result['events'] = $this->eventFilterService->getAllTypeEvents();
+            $result['events'] = $this->eventFilterService->getAllTypeEvents($id);
         }
         return view('front-end.category.index', compact('result'));
     }
