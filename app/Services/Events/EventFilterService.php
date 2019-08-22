@@ -31,6 +31,10 @@ class EventFilterService
         return $this->eventLocationRepo->getAllUpComingEvents();
     }
 
+    public function getAllTypeEvents(){
+        return $this->eventLocationRepo->getAllTypeEvents();
+    }
+
     public function getCategoryUpcomingEvents($id){
         return $this->eventLocationRepo->getCategoryUpcomingEvents($id);
     }
