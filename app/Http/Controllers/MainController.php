@@ -125,7 +125,7 @@ class MainController extends Controller
             $id = decrypt_id($id);
             $result['selected_cat_id'] = $id;
             $result['categories'] = $this->categoryServices->getAll();
-            $result['events'] = $this->eventFilterService->getCategoryUpcomingEvents($id);
+            $result['events'] = $this->eventFilterService->getAllTypeEvents($id);
         } else {
 
             $result['categories'] = $this->categoryServices->getAll();

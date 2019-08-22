@@ -190,7 +190,7 @@ class EventLocationRepo
     }
 
     public function getCategoryUpcomingEvents($id){
-        return $locationWise = $this->eventLocationModel->allTypeEvents()->whereHas('event', function($query) use ($id){
+        return $locationWise = $this->eventLocationModel->futureEvents()->whereHas('event', function($query) use ($id){
             $query->searchByCategory($id)->publishedEvents()->publicAccess();
         })->get();
     }
