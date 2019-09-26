@@ -189,4 +189,21 @@ class EventTimeLocation extends Model
         return $query->orderBy('created_at', 'desc');
     }
 
+    /**
+     * @param $query
+     * @param $location
+     * @param int $radius
+     * @return mixed
+     */
+    public function scopeNearByEvents($query, $location, $radius = 25)
+    {
+        $getNearByEvents = "(6371 * acos(cos(radians(".$location['lat'].")) * cos(radians(latitude)) * cos(radians(longitude) - radians(".$location['lng'].")) + sin(radians(".$location['lat'].")) * sin(radians(latitude))))";
+        return $query
+            ->whereRaw("{$getNearByEvents} < ?", [$radius]);
+    }
+
+    public function eventTicket()
+    {
+        return $this->hasOne(EventTicket::class, 'event_id', 'event_id');
+    }
 }

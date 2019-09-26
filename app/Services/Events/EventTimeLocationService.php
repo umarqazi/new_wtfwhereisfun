@@ -81,8 +81,8 @@ class EventTimeLocationService extends BaseService
                 $date = $location->starting->format('D, M d').' - '.$location->ending->format('D, M d');
                 $time = $location->starting->format('g:i A').' - '.$location->ending->format('g:i A');
                 $informationWindow = "<div class=\"map-event-details\">
-                                <div class=\"event-image\">
-                                    <img src=\"{$headerImg}\" width=\"200\" height=\"200\">
+                                <div class=\"event-image\" style='background-image: url($headerImg)'>
+                                    <h5 class=\"custom-price\">$ ".$location->eventTicket->price." </h5>
                                 </div>
                                 <div class=\"event-info\">
                                     <h4><a href=\"{$link}\">{$location->event->title}</a></h4>

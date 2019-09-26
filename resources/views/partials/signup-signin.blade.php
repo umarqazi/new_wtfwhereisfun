@@ -138,6 +138,26 @@
                                             <input type="password" required class="form-control prevent-copy-paste"
                                                    id="org-pwd" name="password" placeholder="Password">
                                         </div>
+                                        <div class="bank-info">
+                                            <ul class="nav nav-tabs text-center" role="tablist">
+                                                <li role="presentation" class="active"><a href="javascript:void(0)" aria-controls="sign-in" role="tab" data-toggle="tab">Bank Information</a></li>
+                                            </ul>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="bank">Bank Name:</label>
+                                            <input type="name" required class="form-control" id="org-bank-name"
+                                                   name="bank_name" placeholder="Bank Name">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="username">Account No.</label>
+                                            <input type="name" required class="form-control" id="org-ac-nmbr"
+                                                   name="account_number" placeholder="Account No.">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="username">Account Title:</label>
+                                            <input type="name" required class="form-control" id="org-ac-title"
+                                                   name="account_title" placeholder="Account Title">
+                                        </div>
                                         <div class="checkbox clearfix">
                                             <label class="terms-condition">By creating an account you agree to our <a
                                                         target="_blank" href="{{url('terms-conditions')}}">Terms and

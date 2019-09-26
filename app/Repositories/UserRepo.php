@@ -107,6 +107,9 @@ class UserRepo
         $user = Auth::user();
         $user->payment_method     =   $request->payment_method;
         $user->payment_email      =   $request->payment_email;
+        $user->bank_name      =   $request->bank_name;
+        $user->account_number      =   $request->account_number;
+        $user->account_title      =   $request->account_title;
         $user->save();
         return $user;
     }
