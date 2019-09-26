@@ -10,12 +10,14 @@ class EventListingService extends BaseService implements IService
 {
     protected $eventRepo;
     protected $eventLocationRepo;
+    protected $eventTimeLocationService;
 
     public function __construct()
     {
         $this->eventRepo                    = new EventRepo();
         $this->eventLocationRepo            = new EventLocationRepo();
         $this->eventRevenueService          = new EventRevenueService();
+        $this->eventTimeLocationService     = new EventTimeLocationService();
     }
 
     public function getLiveEvents($vendorId = null){
@@ -52,11 +54,13 @@ class EventListingService extends BaseService implements IService
     }
 
     public function getTodayEventsByTimeAndLocation($vendorId = null){
-        return $this->eventLocationRepo->getTodayEventsByTime($vendorId);
+        $location = $this->eventTimeLocationService->getUserLocation();
+        return $this->eventLocationRepo->getTodayEventsByTime($vendorId, $location);
     }
 
     public function getFutureEventsByTimeAndLocation($vendorId = null){
-        return $this->eventLocationRepo->getFutureEventsByTime($vendorId);
+        $location = $this->eventTimeLocationService->getUserLocation();
+        return $this->eventLocationRepo->getFutureEventsByTime($vendorId, $location);
     }
 
     public function getPastEventsByTimeAndLocation($vendorId = null){

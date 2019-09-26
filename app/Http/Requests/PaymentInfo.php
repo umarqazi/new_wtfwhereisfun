@@ -26,7 +26,10 @@ class PaymentInfo extends FormRequest
         return [
             'payment_email'              => 'email|required',
             'confirm_payment_email'      => 'email|required|required_with:payment_email|same:payment_email',
-            'payment_method'             => 'required'
+            'payment_method'             => 'required',
+            'bank_name'                   => 'required',
+            'account_number'             => 'required',
+            'account_title'              => 'required',
         ];
     }
 

@@ -16,6 +16,21 @@
                     <div class="form-error confirm_payment_email"></div>
                 </div>
                 <div class="form-group">
+                    <label for="usr">Bank Name</label>
+                    <input type="name" placeholder="Bank Name" required name="bank_name" class="form-control prevent-copy-paste" @if(!empty($user->bank_name)) value="{{$user->bank_name}}" @endif>
+                    <div class="form-error bank_name"></div>
+                </div>
+                <div class="form-group">
+                    <label for="usr">Account No</label>
+                    <input type="name" placeholder="Account No." required name="account_number" class="form-control prevent-copy-paste" @if(!empty($user->account_number)) value="{{$user->account_number}}" @endif>
+                    <div class="form-error account_number"></div>
+                </div>
+                <div class="form-group">
+                    <label for="usr">Account Title</label>
+                    <input type="name" placeholder="Account Title" required name="account_title" class="form-control prevent-copy-paste" @if(!empty($user->account_title)) value="{{$user->account_title}}" @endif>
+                    <div class="form-error account_title"></div>
+                </div>
+                <div class="form-group">
                     <label for="usr">Select Payment Method</label>
                     <br>
                     <input name="payment_method" type="radio" id="radio_4" class="with-gap" value="paypal" required @if(!empty($user->payment_method == 'paypal')) checked @endif>

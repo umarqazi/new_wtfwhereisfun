@@ -65,8 +65,8 @@ class EventLocationRepo
         return $allEvents->get();
     }
 
-    public function getTodayEventsByTime($vendorId){
-        $liveEvents = $this->eventLocationModel->todayEvents()->whereHas('event', function($query) use ($vendorId){
+    public function getTodayEventsByTime($vendorId, $location = null){
+        $liveEvents = $this->eventLocationModel->todayEvents()->nearByEvents($location)->whereHas('event', function($query) use ($vendorId){
             $query->publishedEvents($vendorId);
         });
         return $liveEvents->recentCreatedAt()->get();
@@ -79,8 +79,8 @@ class EventLocationRepo
         return $liveEvents->recentCreatedAt()->get();
     }
 
-    public function getFutureEventsByTime($vendorId){
-        $futureEvents = $this->eventLocationModel->futureEvents()->whereHas('event', function($query) use($vendorId){
+    public function getFutureEventsByTime($vendorId, $location = null){
+        $futureEvents = $this->eventLocationModel->futureEvents()->nearByEvents($location)->whereHas('event', function($query) use($vendorId){
             $query->publishedEvents($vendorId);
         });
         return $futureEvents->recentCreatedAt()->get();
