@@ -20,11 +20,13 @@ class UserServices
     protected $userRepo;
     protected $addressServices;
     protected $mailService;
+    protected $currencyService;
 
     public function __construct(){
         $this->addressServices      = new AddressServices();
         $this->userRepo             = new UserRepo();
         $this->mailService          = new MailService();
+        $this->currencyService      = new CurrencyService();
     }
 
     /**
@@ -90,7 +92,7 @@ class UserServices
         $user->password         =   bcrypt($request->password);
         $user->bank_name            =   $request->bank_name;
         $user->account_number            =   $request->account_number;
-        $user->account_title            =   $request->account_title;
+        $user->routing_number            =   $request->routing_number;
         $user->save();
 
         $user_verification      = $this->createOrUpdateVerification($user);
@@ -187,6 +189,17 @@ class UserServices
         $shippingAddress = $user->shipping_address;
         $billingAddress  = $user->billing_address;
         $countries       = $this->addressServices->getAllCountries();
+
+        if (!empty($user->b_city)) {
+
+            $states = $this->addressServices->getStatesByCountry($user->b_city->state->country->id);
+            $cities = $this->addressServices->getCitiesByState($user->b_city->state->id);
+        } else {
+
+            $states = [];
+            $cities = [];
+        }
+        $currencies     = $this->currencyService->getAll();
         if(!is_null($shippingAddress) && !empty($shippingAddress->city)){
             $shippingStates = $this->addressServices->getStatesByCountry($shippingAddress->city->state->country->id);
             $shippingCities = $this->addressServices->getCitiesByState($shippingAddress->city->state->id);
@@ -210,10 +223,21 @@ class UserServices
             $billingCities = [];
         }
 
-        return ['user' => $user, 'shippingAddress' => $shippingAddress, 'billingAddress' => $billingAddress,
-            'countries' => $countries, 'shippingStates' => $shippingStates, 'shippingCities' => $shippingCities,
-            'billingStates' => $billingStates, 'billingCities' => $billingCities, 'shippingAsBilling' =>
-                $shippingAsBilling, 'emailPreference' => $user->email_preference, 'directory' => getDirectory('vendors', $user->id)];
+        return [
+            'user' => $user, 'shippingAddress' => $shippingAddress,
+            'billingAddress' => $billingAddress,
+            'countries' => $countries,
+            'states' => $states,
+            'cities' => $cities,
+            'currencies' => $currencies,
+            'shippingStates' => $shippingStates,
+            'shippingCities' => $shippingCities,
+            'billingStates' => $billingStates,
+            'billingCities' => $billingCities,
+            'shippingAsBilling' => $shippingAsBilling,
+            'emailPreference' => $user->email_preference,
+            'directory' => getDirectory('vendors', $user->id),
+        ];
     }
 
     /**

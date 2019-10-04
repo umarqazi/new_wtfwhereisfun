@@ -9,6 +9,12 @@ use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * Class User
+ * @package App
+ *
+ * @property City $b_city
+ */
 class User extends Authenticatable
 {
     use Notifiable, HasRoles;
@@ -24,7 +30,8 @@ class User extends Authenticatable
         'age', 'gender', 'is_social_signup', 'social_type', 'social_id', 'profile_picture',
         'profile_thumbnail', 'user_token', 'is_verified', 'is_blocked', 'is_deactivated',
         'last_login', 'account_close_type', 'account_close_reason', 'stripe_user_id', 'provider',
-        'provider_id', 'fb_access_token'
+        'provider_id', 'fb_access_token','bank_name', 'account_number', 'account_title', 'routing_number',
+        'bank_currency', 'account_holder', 'account_type', 'bank_address', 'bank_city', 'bank_zip_code'
 
     ];
 
@@ -148,5 +155,10 @@ class User extends Authenticatable
     public function orders()
     {
         return $this->hasMany('App\EventOrder');
+    }
+
+    public function b_city()
+    {
+        return $this->belongsTo(City::class, 'bank_city', 'id');
     }
 }

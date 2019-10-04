@@ -27,9 +27,18 @@ class PaymentInfo extends FormRequest
             'payment_email'              => 'email|required',
             'confirm_payment_email'      => 'email|required|required_with:payment_email|same:payment_email',
             'payment_method'             => 'required',
-            'bank_name'                   => 'required',
+            'bank_name'                  => 'required',
             'account_number'             => 'required',
             'account_title'              => 'required',
+            'routing_number'             => 'required',
+            'account_holder'             => 'required',
+            'account_type'               => 'required',
+            'bank_currency'              => 'required',
+            'bank_address'               => 'required',
+            'bank_country'               => 'required',
+            'bank_state'                 => 'required',
+            'bank_city'                  => 'required',
+            'bank_zipcode'               => 'required',
         ];
     }
 
