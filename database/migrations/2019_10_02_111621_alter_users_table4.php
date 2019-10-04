@@ -36,7 +36,7 @@ class AlterUsersTable4 extends Migration
             $table->dropColumn('bank_currency');
             $table->dropColumn('account_holder');
             $table->dropColumn('account_type');
-            $table->dropColumn('bank_state');
+            $table->dropColumn('bank_address');
             $table->dropColumn('bank_city');
             $table->dropColumn('bank_zip_code');
         });
