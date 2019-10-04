@@ -13,7 +13,7 @@
                 <div class="form-group">
                     <label for="">Country</label>
                     <select class="form-control change-country" main="shipping" id="shipping-country" onchange="getStates(this)" name="shipping_country" required>
-                        <option value="" @if(empty($shippingAddress->city_id)){{"selected"}}@endif disabled>Select a Counrty</option>
+                        <option value="" @if(empty($shippingAddress->city_id)){{"selected"}}@endif disabled>Select a Country</option>
                         @foreach($countries as $country)
                             <option value="{{ $country->id}}" @if(!empty ($shippingAddress->city) && ($country->id == $shippingAddress->city->state->country->id)){{"selected"}}@endif>{{ $country->name}}</option>
                         @endforeach
@@ -79,7 +79,7 @@
                 <div class="form-group">
                     <label for="">Country</label>
                     <select class="form-control change-country" onchange="getStates(this)" main="billing" id="billing-country" name="billing_country">
-                        <option value="" @if(empty($billingAddress->city_id)){{"selected"}}@endif disabled>Select a Counrty</option>
+                        <option value="" @if(empty($billingAddress->city_id)){{"selected"}}@endif disabled>Select a Country</option>
                         @foreach($countries as $country)
                             <option value="{{ $country->id}}" @if(!empty ($billingAddress->city) && ($country->id == $billingAddress->city->state->country->id)){{"selected"}}@endif>{{ $country->name}}</option>
                         @endforeach

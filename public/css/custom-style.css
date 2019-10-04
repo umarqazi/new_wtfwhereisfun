@@ -6935,6 +6935,10 @@ h5.custom-price {
 .bank-info ul li a{
    font-weight: bold !important;
 }
+.payment-field{
+   float: none;
+   width: 100%;
+}
 
 @media(max-width: 1023px){
    .header_search_container {

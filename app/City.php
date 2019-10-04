@@ -4,6 +4,12 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * Class City
+ * @package App
+ *
+ * @property State state
+ */
 class City extends Model
 {
     /**

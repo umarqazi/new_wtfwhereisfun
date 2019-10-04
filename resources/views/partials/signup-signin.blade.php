@@ -149,14 +149,14 @@
                                                    name="bank_name" placeholder="Bank Name">
                                         </div>
                                         <div class="form-group">
-                                            <label for="username">Account No.</label>
+                                            <label for="username">Account Number:</label>
                                             <input type="name" required class="form-control" id="org-ac-nmbr"
-                                                   name="account_number" placeholder="Account No.">
+                                                   name="account_number" placeholder="Account Number">
                                         </div>
                                         <div class="form-group">
-                                            <label for="username">Account Title:</label>
+                                            <label for="username">Routing Number:</label>
                                             <input type="name" required class="form-control" id="org-ac-title"
-                                                   name="account_title" placeholder="Account Title">
+                                                   name="routing_number" placeholder="Routing Number">
                                         </div>
                                         <div class="checkbox clearfix">
                                             <label class="terms-condition">By creating an account you agree to our <a

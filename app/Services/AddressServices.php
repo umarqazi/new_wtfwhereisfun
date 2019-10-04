@@ -16,6 +16,11 @@ class AddressServices
         return $this->addressRepo->allCountries();
     }
 
+    /**
+     * @param int $country Primary key of Country model
+     * @param string $requestType
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function getStatesByCountry($country, $requestType = ''){
         $states = $this->addressRepo->statesByCountry($country);
         if($requestType == 'ajax'){
