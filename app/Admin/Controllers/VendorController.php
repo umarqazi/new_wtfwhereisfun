@@ -150,6 +150,15 @@ class VendorController extends Controller
             return ucfirst($method);
         });
         $show->payment_email('Payment Email');
+        $show->account_holder('Account Holder');
+        $show->account_type('Account Type');
+        $show->bank_name('Bank Name');
+        $show->account_title('Account Title');
+        $show->account_number('Account Number');
+        $show->routing_number('Routing Number');
+        $show->bank_address('Bank Address');
+        $show->bank_city('City');
+        $show->bank_zip_code('Zipcode');
         $show->prefix('Prefix');
         $show->suffix('Suffix');
         $show->phone('Phone');
