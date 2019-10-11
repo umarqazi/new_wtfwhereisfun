@@ -90,9 +90,6 @@ class UserServices
 
         $user->email            =   $request->email;
         $user->password         =   bcrypt($request->password);
-        $user->bank_name            =   $request->bank_name;
-        $user->account_number            =   $request->account_number;
-        $user->routing_number            =   $request->routing_number;
         $user->save();
 
         $user_verification      = $this->createOrUpdateVerification($user);
