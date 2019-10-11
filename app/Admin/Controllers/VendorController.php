@@ -146,19 +146,19 @@ class VendorController extends Controller
         $show->last_name('Last name');
         $show->username('Username');
         $show->email('Email');
-        $show->payment_method('Payment Method')->display(function ($method){
+        $show->payment_method('Payout Method')->display(function ($method){
             return ucfirst($method);
         });
         $show->payment_email('Payment Email');
-        $show->account_holder('Account Holder');
-        $show->account_type('Account Type');
-        $show->bank_name('Bank Name');
-        $show->account_title('Account Title');
-        $show->account_number('Account Number');
-        $show->routing_number('Routing Number');
-        $show->bank_address('Bank Address');
+        $show->account_holder('Account Holder Information');
+        $show->account_title('Name on Account');
+        $show->bank_address('Address');
         $show->bank_city('City');
         $show->bank_zip_code('Zipcode');
+        $show->account_type('Bank Account Information');
+        $show->bank_name('Bank Name');
+        $show->routing_number('Routing Number');
+        $show->account_number('Account Number');
         $show->prefix('Prefix');
         $show->suffix('Suffix');
         $show->phone('Phone');

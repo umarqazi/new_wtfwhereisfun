@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class PaymentInfo extends FormRequest
 {
@@ -24,21 +25,22 @@ class PaymentInfo extends FormRequest
     public function rules()
     {
         return [
-            'payment_email'              => 'email|required',
-            'confirm_payment_email'      => 'email|required|required_with:payment_email|same:payment_email',
             'payment_method'             => 'required',
-            'bank_name'                  => 'required',
-            'account_number'             => 'required',
-            'account_title'              => 'required',
-            'routing_number'             => 'required',
-            'account_holder'             => 'required',
-            'account_type'               => 'required',
-            'bank_currency'              => 'required',
-            'bank_address'               => 'required',
-            'bank_country'               => 'required',
-            'bank_state'                 => 'required',
-            'bank_city'                  => 'required',
-            'bank_zipcode'               => 'required',
+            'payment_email'              => 'required_if:payment_method,paypal',
+            'confirm_payment_email'      => 'required_if:payment_method,paypal|required_with:payment_email|same:payment_email',
+            'bank_name'                  => 'required_if:payment_method,stripe',
+            'account_number'             => 'required_if:payment_method,stripe',
+            're_enter_account_number'    => 'required_if:payment_method,stripe|required_with:account_number|same:account_number',
+            'account_title'              => 'required_if:payment_method,stripe',
+            'routing_number'             => 'required_if:payment_method,stripe',
+            'account_holder'             => 'required_if:payment_method,stripe',
+            'account_type'               => 'required_if:payment_method,stripe',
+            'bank_currency'              => 'required_if:payment_method,stripe',
+            'bank_address'               => 'required_if:payment_method,stripe',
+            'bank_country'               => 'required_if:payment_method,stripe',
+            'bank_state'                 => 'required_if:payment_method,stripe',
+            'bank_city'                  => 'required_if:payment_method,stripe',
+            'bank_zipcode'               => 'required_if:payment_method,stripe',
         ];
     }
 

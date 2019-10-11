@@ -106,17 +106,17 @@ class UserRepo
     public function updatePaymentInfo($request){
         $user = Auth::user();
         $user->payment_method     =   $request->payment_method;
-        $user->payment_email      =   $request->payment_email;
-        $user->account_holder      =   $request->account_holder;
-        $user->account_type      =   $request->account_type;
-        $user->bank_currency      =   $request->bank_currency;
-        $user->bank_address      =   $request->bank_address;
-        $user->bank_city      =   $request->bank_city;
-        $user->bank_zip_code      =   $request->bank_zipcode;
-        $user->routing_number      =   $request->routing_number;
-        $user->bank_name      =   $request->bank_name;
-        $user->account_number      =   $request->account_number;
-        $user->account_title      =   $request->account_title;
+        $user->payment_email      =   $request->payment_email ?? null;
+        $user->account_holder      =   $request->account_holder ?? null;
+        $user->account_type      =   $request->account_type ?? null;
+        $user->bank_currency      =   $request->bank_currency ?? null;
+        $user->bank_address      =   $request->bank_address ?? null;
+        $user->bank_city      =   $request->bank_city ?? null;
+        $user->bank_zip_code      =   $request->bank_zipcode ?? null;
+        $user->routing_number      =   $request->routing_number ?? null;
+        $user->bank_name      =   $request->bank_name ?? null;
+        $user->account_number      =   $request->account_number ?? null;
+        $user->account_title      =   $request->account_title." ".$request->account_last_name ?? null;
         $user->save();
         return $user;
     }

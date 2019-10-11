@@ -59,9 +59,6 @@
                     <div class="col-md-6">
                         <h1>Payout Details</h1>
                     </div>
-                    <div class="col-md-6">
-                        <button id="payout_btn" class="btn btn-sm rounded-border pull-right" data-toggle="modal" data-target="#payout_modal">Payout</button>
-                    </div>
                 </div>
                 <div class="row clearfix">
                     <div class="col-lg-12 col-md-12">
@@ -211,15 +208,5 @@
 
             </div>
         </div>
-        @php
-            //dd($errors);
-        @endphp
-        @if(!$errors->isEmpty())
-            <script type="text/javascript">
-                $(window).on('load',function(){
-                    $("#payout_btn").click();
-                });
-            </script>
-        @endif
     @endif
 @endsection
