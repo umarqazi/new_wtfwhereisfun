@@ -101,7 +101,7 @@
                                 @foreach($countries as $country)
 
                                     <option value="{{ $country->id}}"
-                                    @if(!empty ($user->bank_city) && ($country->id == $user->b_city->state->country->id))
+                                    @if(!empty ($user->b_city) && ($country->id == $user->b_city->state->country->id))
 
                                         {{"selected"}}
                                             @endif>
