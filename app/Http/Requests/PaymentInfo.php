@@ -39,7 +39,6 @@ class PaymentInfo extends FormRequest
             'bank_address'               => 'required_if:payment_method,stripe',
             'bank_country'               => 'required_if:payment_method,stripe',
             'bank_state'                 => 'required_if:payment_method,stripe',
-            'bank_city'                  => 'required_if:payment_method,stripe',
             'bank_zipcode'               => 'required_if:payment_method,stripe',
         ];
     }

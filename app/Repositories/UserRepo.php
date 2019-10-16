@@ -112,6 +112,7 @@ class UserRepo
         $user->bank_currency      =   $request->bank_currency ?? null;
         $user->bank_address      =   $request->bank_address ?? null;
         $user->bank_city      =   $request->bank_city ?? null;
+        $user->bank_state      =   $request->bank_state ?? null;
         $user->bank_zip_code      =   $request->bank_zipcode ?? null;
         $user->routing_number      =   $request->routing_number ?? null;
         $user->bank_name      =   $request->bank_name ?? null;

@@ -153,7 +153,6 @@ class VendorController extends Controller
         $show->account_holder('Account Holder Information');
         $show->account_title('Name on Account');
         $show->bank_address('Address');
-        $show->bank_city('City');
         $show->bank_zip_code('Zipcode');
         $show->account_type('Bank Account Information');
         $show->bank_name('Bank Name');
