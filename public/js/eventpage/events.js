@@ -954,6 +954,9 @@ function eventGolive(event, obj){
         success: function(response){
             if(response.type == "success"){
                 showToaster('success',response.msg);
+                $('<queue/>').delay(1000).queue(function () {
+                    location.href = 'dashboard';
+                });
             }
             else{
                 showToaster('error',response.msg);
