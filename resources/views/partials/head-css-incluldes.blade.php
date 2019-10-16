@@ -6,7 +6,7 @@
     <!-- font include -->
     <script src="{{asset('js/jquery.min.js')}}"></script>
 
-    <link rel="shortcut icon" href="{{ asset('images/favicon.png') }}">
+    <link rel="shortcut icon" href="{{ asset('images/favicon.jpg') }}">
     <!-- Bootstrap Script -->
     <script src="{{asset('js/bootstrap.min.js')}}"></script>
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800" rel="stylesheet">
