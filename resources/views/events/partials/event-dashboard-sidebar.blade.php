@@ -15,25 +15,25 @@
         <ul class="list">
             <li class="active open"> <a href="{{url('events/'.$location->encrypted_id.'/dashboard')}}"><span>Event Dashboard</span></a>
             </li>
-            {{--<li> <a href="javascript:void(0);" class="menu-toggle"><i class="zmdi zmdi-shopping-cart"></i><span>Payment</span> </a>
+            <li> <a href="javascript:void(0);" class="menu-toggle"><i class="zmdi zmdi-shopping-cart"></i><span>Payment</span> </a>
                 <ul class="ml-menu">
                     <li> <a href="javascript:void(0)">Payment Options</a></li>
                     <li> <a href="javascript:void(0)">Taxes &amp; Invoices</a></li>
                     <li> <a href="javascript:void(0)">Fees</a></li>
                 </ul>
-            </li>--}}
+            </li>
 
             <li> <a href="javascript:void(0);" class="menu-toggle"><i class="zmdi zmdi-shopping-cart"></i><span>Order Options</span> </a>
                 <ul class="ml-menu">
                     <li> <a href="{{url('events/'.$location->encrypted_id.'/dashboard/orders')}}">All Orders</a></li>
-{{--                    <li> <a href="javascript:void(0)">Order Confirmation</a></li>--}}
+                    <li> <a href="javascript:void(0)">Order Confirmation</a></li>
                     <li> <a href="{{url('events/'.$location->encrypted_id.'/dashboard/wait-list-settings')}}">Wait List Settings</a></li>
                     <li> <a href="{{url('events/'.$location->encrypted_id.'/dashboard/wait-list')}}">Wait List</a></li>
                     <li> <a href="{{url('events/'.$location->encrypted_id.'/dashboard/guest-list')}}">Guest List</a></li>
                 </ul>
             </li>
 
-            {{--<li> <a href="javascript:void(0);" class="menu-toggle"><i class="zmdi zmdi-shopping-cart"></i><span>Marketing Automation</span> </a>
+            <li> <a href="javascript:void(0);" class="menu-toggle"><i class="zmdi zmdi-shopping-cart"></i><span>Marketing Automation</span> </a>
                 <ul class="ml-menu">
                     <li> <a href="javascript:void(0)">Social Post</a></li>
                     <li>
@@ -65,7 +65,7 @@
                 </ul>
             </li>
             <li> <a href="javascript:void(0);"><span>Duplicate Event</span></a>
-            <li> <a href="javascript:void(0);"><span>Delete Event</span></a>--}}
+            <li> <a href="javascript:void(0);"><span>Delete Event</span></a>
 
         </ul>
     </div>
